@@ -209,13 +209,17 @@ async def collect_signals(hours: int = 24) -> list[dict]:
 
 # ── Point d'entrée principal ──────────────────────────────────────────────────
 
-async def collect(hours: int = 24) -> dict:
+async def collect(hours: int = 24) -> dict:  # noqa: E302
     """
     Lance la collecte complète SCOUT-MARKET.
-    Retourne : {dashboard: dict, signals: list[dict]}
+    Retourne : {dashboard: dict, signals: list[dict], hot_stocks: list[dict]}
     """
-    dashboard, signals = await asyncio.gather(
+    from agents.sources.stock_screener import collect as collect_stocks
+
+    dashboard, signals, hot_stocks = await asyncio.gather(
         collect_dashboard(),
         collect_signals(hours),
+        collect_stocks(hours),
     )
-    return {"dashboard": dashboard, "signals": signals}
+    logger.info(f"SCOUT-MARKET: {len(hot_stocks)} actions chaudes détectées")
+    return {"dashboard": dashboard, "signals": signals, "hot_stocks": hot_stocks}

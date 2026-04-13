@@ -17,9 +17,12 @@ from utils.logger import get_logger
 
 logger = get_logger("scout_ai.crypto")
 
-COINGECKO_BASE  = "https://api.coingecko.com/api/v3"
-FEAR_GREED_URL  = "https://api.alternative.me/fng/?limit=1"
+COINGECKO_BASE   = "https://api.coingecko.com/api/v3"
+FEAR_GREED_URL   = "https://api.alternative.me/fng/?limit=1"
 BINANCE_FUND_URL = "https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT"
+BINANCE_OI_URL   = "https://fapi.binance.com/fapi/v1/openInterest?symbol=BTCUSDT"
+BINANCE_LS_URL   = "https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=1"
+MEMPOOL_FEES_URL = "https://mempool.space/api/v1/fees/recommended"
 
 CRYPTO_NEWS_FEEDS = [
     {"name": "CoinDesk",    "url": "https://www.coindesk.com/arc/outboundfeeds/rss/"},
@@ -113,24 +116,74 @@ async def _fetch_funding_rate(client: httpx.AsyncClient) -> str:
         return "N/A"
 
 
+async def _fetch_open_interest(client: httpx.AsyncClient) -> dict:
+    """Open Interest BTC sur Binance Futures (gratuit, sans clé)."""
+    try:
+        r    = await client.get(BINANCE_OI_URL, timeout=8)
+        data = r.json()
+        oi   = float(data.get("openInterest", 0))
+        btc_price_approx = 80000  # approximation fallback
+        return {"open_interest_btc": oi * btc_price_approx}
+    except Exception as e:
+        logger.debug(f"Open Interest: {e}")
+        return {}
+
+
+async def _fetch_long_short(client: httpx.AsyncClient) -> dict:
+    """Ratio Long/Short global BTC sur Binance (gratuit, sans clé)."""
+    try:
+        r    = await client.get(BINANCE_LS_URL, timeout=8)
+        data = r.json()
+        row  = data[0] if isinstance(data, list) and data else {}
+        ls   = float(row.get("longShortRatio", 1.0))
+        long_pct = ls / (1 + ls)
+        return {"long_short_ratio": long_pct}
+    except Exception as e:
+        logger.debug(f"Long/Short ratio: {e}")
+        return {}
+
+
+async def _fetch_mempool_fees(client: httpx.AsyncClient) -> dict:
+    """Frais Bitcoin recommandés (activité on-chain) via mempool.space."""
+    try:
+        r    = await client.get(MEMPOOL_FEES_URL, timeout=8)
+        data = r.json()
+        fee  = data.get("halfHourFee", 0)
+        return {"mempool_fee": fee}
+    except Exception as e:
+        logger.debug(f"Mempool fees: {e}")
+        return {}
+
+
 async def collect_dashboard() -> dict:
     """Récupère toutes les données dashboard crypto en parallèle."""
     headers = {"User-Agent": "CORTEX/1.0"}
     async with httpx.AsyncClient(headers=headers) as client:
-        global_data, btc_data, fg_data, funding = await asyncio.gather(
+        global_data, btc_data, fg_data, funding, oi_data, ls_data, mempool_data = await asyncio.gather(
             _fetch_coingecko_global(client),
             _fetch_btc_price(client),
             _fetch_fear_greed(client),
             _fetch_funding_rate(client),
+            _fetch_open_interest(client),
+            _fetch_long_short(client),
+            _fetch_mempool_fees(client),
         )
 
     dashboard = {
         **global_data,
         **btc_data,
         **fg_data,
+        **oi_data,
+        **ls_data,
+        **mempool_data,
         "funding_description": funding,
     }
     logger.info(
+        f"Dashboard crypto: BTC ${dashboard.get('btc_price', 'N/A'):,} "
+        f"({dashboard.get('btc_change_24h', '?')}%), "
+        f"F&G {dashboard.get('fear_greed_score', '?')}, "
+        f"L/S {dashboard.get('long_short_ratio', '?'):.0%}"
+        if dashboard.get('long_short_ratio') else
         f"Dashboard crypto: BTC ${dashboard.get('btc_price', 'N/A'):,} "
         f"({dashboard.get('btc_change_24h', '?')}%), "
         f"F&G {dashboard.get('fear_greed_score', '?')}"

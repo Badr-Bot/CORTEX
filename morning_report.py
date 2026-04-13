@@ -1,13 +1,14 @@
 """
-CORTEX — Orchestrateur Rapport du Matin v2
-5 messages Telegram séquentiels :
+CORTEX — Orchestrateur Rapport du Matin v3
+5 messages Telegram séquentiels en HTML :
   MSG 1 : 🧠 Intelligence Artificielle
   MSG 2 : 💰 Crypto & Web3
-  MSG 3 : 📈 Marchés & Macro
+  MSG 3 : 📈 Marchés & Macro + Actions chaudes
   MSG 4 : ⚡ DeepTech & Ruptures
   MSG 5 : 🔗 Nexus + Scorecard + Question
 
-Format strict selon CORTEX Design System (mobile-first, emojis comme palette).
+Format : HTML (Telegram), gras sur headers, emoji comme palette couleur.
+Glossaire technique à la fin de chaque message.
 """
 
 import asyncio
@@ -17,9 +18,9 @@ from utils.logger import get_logger
 logger = get_logger("morning_report")
 
 # ── Constantes de design ───────────────────────────────────────────────────────
-SEP_HEAVY  = "━━━━━━━━━━━━━━━━━━━━━━━━"
-SEP_MED    = "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
-SEP_LIGHT  = "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄"
+SEP_HEAVY = "━━━━━━━━━━━━━━━━━━━━━━━━"
+SEP_MED   = "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
+SEP_LIGHT = "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄"
 
 NUMS = ["❶", "❷", "❸"]
 
@@ -29,8 +30,52 @@ _MONTHS_FR = [
     "Juillet","Août","Septembre","Octobre","Novembre","Décembre",
 ]
 
+# ── Glossaire global ───────────────────────────────────────────────────────────
+GLOSSARY = {
+    "conviction":      "Niveau de confiance dans l'analyse : ★☆☆☆☆ faible → ★★★★★ exceptionnel",
+    "sizing":          "Taille de position conseillée : Fort = jusqu'à 5% du portefeuille, Moyen = 1-2%, Faible = observation",
+    "invalide_si":     "Seuil précis qui annule l'analyse — surveille ce point avant d'agir",
+    "thèse opposée":   "Le meilleur argument contre la lecture proposée — protège contre le biais de confirmation",
+    "watchlist":       "Signaux émergents à surveiller mais pas encore assez solides pour agir",
+    "fear & greed":    "Indice 0-100 : 0-25 = peur extrême (souvent bon pour acheter), 75-100 = euphorie (attention au retournement)",
+    "funding rate":    "Taux payé entre traders long/short sur les marchés à terme — positif = le marché est majoritairement long",
+    "open interest":   "Volume total de contrats à terme ouverts — hausse = conviction, baisse = dégagement de positions",
+    "long/short ratio":"Proportion de traders pariant à la hausse vs à la baisse sur les marchés dérivés",
+    "on-chain":        "Données directement lisibles sur la blockchain, sans intermédiaire (mouvements de baleines, adresses actives...)",
+    "dominance btc":   "Part du Bitcoin dans la capitalisation totale des cryptos — hausse = fuite vers la sécurité, baisse = altseason",
+    "phase du cycle":  "Accumulation → Markup (hausse) → Distribution → Markdown (baisse) — indique où on est dans le cycle",
+    "vix":             "Indice de volatilité du S&P500 — <15 calme, >25 nerveux, >40 crise",
+    "dxy":             "Indice du dollar américain contre un panier de devises — hausse = dollar fort = pression sur actifs risqués",
+    "courbe des taux": "Différence entre taux courts et longs — inversée = signal historique de récession dans 12-18 mois",
+    "ism manuf.":      "Indicateur de santé du secteur manufacturier — >50 = expansion, <50 = contraction",
+    "peer-reviewed":   "Article validé par des experts indépendants avant publication — niveau de preuve scientifique élevé",
+    "early-stage":     "Entreprise ou technologie en phase très précoce (avant produit de masse) — risque élevé, potentiel maximal",
+    "bear case":       "Scénario pessimiste — raisons pour lesquelles l'analyse pourrait être fausse",
+    "momentum":        "Force et direction d'une tendance de prix sur une période récente",
+    "récession":       "Contraction économique sur 2 trimestres consécutifs — impact fort sur actions et crypto",
+}
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+
+# ── Helpers HTML ───────────────────────────────────────────────────────────────
+
+def _h(text) -> str:
+    """Échappe les caractères HTML spéciaux dans le contenu."""
+    return str(text).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def _link(name: str, url: str) -> str:
+    if url and url.startswith("http"):
+        return f'<a href="{url}">{_h(name)}</a>'
+    return _h(name)
+
+
+def _b(text) -> str:
+    return f"<b>{_h(text)}</b>"
+
+
+def _i(text) -> str:
+    return f"<i>{_h(text)}</i>"
+
 
 def _fr_date() -> str:
     now = datetime.now()
@@ -42,29 +87,30 @@ def _stars(n: int) -> str:
     return "★" * n + "☆" * (5 - n)
 
 
-def _sizing_emoji(sizing: str) -> str:
-    m = {"Fort": "🟢", "Moyen": "🟡", "Faible": "🔴"}
-    color = m.get(sizing, "🟡")
-    return f"{color} {sizing}"
+def _sizing_tag(sizing: str) -> str:
+    icons = {"Fort": "🟢", "Moyen": "🟡", "Faible": "🔴"}
+    icon = icons.get(sizing, "🟡")
+    return f"{icon} <b>{_h(sizing)}</b>"
 
 
-def _direction_color(direction: str) -> str:
+def _direction_tag(direction: str) -> str:
     d = direction.upper()
-    if "BEARISH" in d and "NEUTRE" not in d:  return "🔴"
-    if "BULLISH" in d and "NEUTRE" not in d:  return "🟢"
-    return "🟡"
+    if "BEARISH" in d and "NEUTRE" not in d:  icon = "🔴"
+    elif "BULLISH" in d and "NEUTRE" not in d: icon = "🟢"
+    else: icon = "🟡"
+    return f"{icon} <b>{_h(direction)}</b>"
 
 
-def _indicator_emoji(status: str) -> str:
+def _indicator_tag(status: str) -> str:
     return {"green": "🟢", "yellow": "🟡", "red": "🔴"}.get(status, "🟡")
 
 
-def _horizon_emoji(horizon: str) -> str:
+def _horizon_tag(horizon: str) -> str:
     return {
-        "1-2":  "🔴 1-2 ans",
-        "3-5":  "🟡 3-5 ans",
-        "5-10": "🟢 5-10 ans",
-        "10+":  "⚪ 10+ ans",
+        "1-2":  "🔴 Court terme (1-2 ans)",
+        "3-5":  "🟡 Moyen terme (3-5 ans)",
+        "5-10": "🟢 Long terme (5-10 ans)",
+        "10+":  "⚪ Très long terme (10+ ans)",
     }.get(horizon, "🟡 ?")
 
 
@@ -77,116 +123,123 @@ def _fmt_pct(val: float) -> str:
     return f"{sign}{val:.1f}%"
 
 
-def _signal_block_ai(sig: dict, num: str) -> str:
-    """Construit le bloc d'un signal IA (format exact)."""
+def _build_glossary(terms: list[str]) -> str:
+    """Construit la section glossaire avec les termes demandés."""
+    lines = [SEP_LIGHT, "", "<b>📖 Lexique du jour</b>", ""]
+    for term in terms:
+        definition = GLOSSARY.get(term, "")
+        if definition:
+            lines.append(f"• <b>{_h(term.capitalize())}</b> — {_h(definition)}")
+    return "\n".join(lines)
+
+
+# ── Blocs signal ───────────────────────────────────────────────────────────────
+
+def _signal_block(sig: dict, num: str, show_these: bool = True) -> str:
+    """Bloc signal universel (IA / Crypto / Marchés) en HTML."""
     stars   = _stars(sig.get("conviction", 3))
-    title   = sig.get("title", "SIGNAL").upper()
-    fait    = sig.get("fait", "")
-    impl2   = sig.get("implication_2", "")
-    impl3   = sig.get("implication_3", "")
-    these   = sig.get("these_opposee", "")
-    action  = sig.get("action", "")
-    sizing  = _sizing_emoji(sig.get("sizing", "Moyen"))
-    inv     = sig.get("invalide_si", "")
+    title   = _h(sig.get("title", "SIGNAL").upper())
+    fait    = _h(sig.get("fait", ""))
+    impl2   = _h(sig.get("implication_2", ""))
+    impl3   = _h(sig.get("implication_3", ""))
+    these   = _h(sig.get("these_opposee", ""))
+    action  = _h(sig.get("action", ""))
+    sizing  = _sizing_tag(sig.get("sizing", "Moyen"))
+    inv     = _h(sig.get("invalide_si", ""))
     src_n   = sig.get("source_name", "Source")
     src_u   = sig.get("source_url", "")
 
-    src_line = f"[{src_n}]({src_u})" if src_u else src_n
-
     lines = [
-        f"{stars} {num} {title}",
+        f"<b>{stars} {num} {title}</b>",
         "",
-        "📌 Ce qui se passe :",
+        "<b>📌 Ce qui se passe</b>",
         fait,
         "",
-        "🧩 Implications :",
-        f"→ Ordre 2 : {impl2}",
-        f"→ Ordre 3 : {impl3}",
+        "<b>🧩 Ce que ça implique pour toi</b>",
+        f"→ <b>Direct :</b> {impl2}",
+        f"→ <b>Systémique :</b> {impl3}",
     ]
 
-    if these and these != "N/A":
-        lines += ["", "🔄 Thèse opposée :", these]
+    if show_these and these and these not in ("N/A", ""):
+        lines += [
+            "",
+            "<b>🔄 Contre-argument à garder en tête</b>",
+            f"<i>{these}</i>",
+        ]
 
     lines += [
         "",
-        "🎯 Action :",
+        "<b>🎯 Action concrète</b>",
         f"▸ Faire : {action}",
-        f"▸ Sizing : {sizing}",
+        f"▸ Position : {sizing}",
         f"▸ Invalide si : {inv}",
         "",
-        f"🔗 {src_line}",
+        f"🔗 Source : {_link(src_n, src_u)}",
     ]
 
     return "\n".join(lines)
 
 
-def _signal_block_generic(sig: dict, num: str, include_these: bool = True) -> str:
-    """Bloc signal générique (Crypto / Market) — même structure que IA."""
-    return _signal_block_ai(sig, num)
-
-
 def _signal_block_deeptech(sig: dict, num: str) -> str:
-    """Bloc signal DeepTech avec crédibilité + angle investissement."""
+    """Bloc signal DeepTech enrichi : crédibilité + angle investissement."""
     stars   = _stars(sig.get("conviction", 3))
-    title   = sig.get("title", "SIGNAL").upper()
-    horizon = _horizon_emoji(sig.get("horizon", "3-5"))
-    fait    = sig.get("fait", "")
-    impl2   = sig.get("implication_2", "")
-    impl3   = sig.get("implication_3", "")
-    action  = sig.get("action", "")
-    sizing  = _sizing_emoji(sig.get("sizing", "Faible"))
-    inv     = sig.get("invalide_si", "")
+    title   = _h(sig.get("title", "SIGNAL").upper())
+    horizon = _horizon_tag(sig.get("horizon", "3-5"))
+    fait    = _h(sig.get("fait", ""))
+    impl2   = _h(sig.get("implication_2", ""))
+    impl3   = _h(sig.get("implication_3", ""))
+    action  = _h(sig.get("action", ""))
+    sizing  = _sizing_tag(sig.get("sizing", "Faible"))
+    inv     = _h(sig.get("invalide_si", ""))
     src_n   = sig.get("source_name", "Source")
     src_u   = sig.get("source_url", "")
-    src_line = f"[{src_n}]({src_u})" if src_u else src_n
+    cred    = sig.get("credibilite_score", 0)
 
-    # Crédibilité
-    cred_score = sig.get("credibilite_score", 0)
-    cred_lines = [
-        f"▸ Peer-reviewed {'✓' if sig.get('peer_reviewed') else '✗'}"
-        + (f" — {sig['peer_reviewed_detail']}" if sig.get('peer_reviewed_detail') else ""),
-        f"▸ Financement {'✓' if sig.get('financement') else '✗'}"
-        + (f" — {sig['financement_detail']}" if sig.get('financement_detail') else ""),
-        f"▸ Prototype {'✓' if sig.get('prototype') else '✗'}"
-        + (f" — {sig['prototype_detail']}" if sig.get('prototype_detail') else ""),
-        f"▸ Adoption industrielle {'✓' if sig.get('adoption') else '✗'}"
-        + (f" — {sig['adoption_detail']}" if sig.get('adoption_detail') else ""),
-    ]
+    def _crit(key: str, label: str) -> str:
+        ok     = sig.get(key, False)
+        detail = _h(sig.get(f"{key}_detail", "") or "")
+        icon   = "✅" if ok else "❌"
+        line   = f"  {icon} {label}"
+        if ok and detail:
+            line += f" — <i>{detail}</i>"
+        return line
 
-    # Angle investissement
-    cotes  = sig.get("investissement_cotes", [])
-    etfs   = sig.get("investissement_etf", [])
-    early  = sig.get("investissement_early", [])
+    cots  = sig.get("investissement_cotes", [])
+    etfs  = sig.get("investissement_etf", [])
+    early = sig.get("investissement_early", [])
     inv_lines = []
-    if cotes:  inv_lines.append(f"▸ Cotés : {', '.join(cotes)}")
-    if etfs:   inv_lines.append(f"▸ ETF : {', '.join(etfs)}")
-    if early:  inv_lines.append(f"▸ Early-stage : {', '.join(early)}")
+    if cots:  inv_lines.append(f"  ▸ <b>Actions cotées :</b> {_h(', '.join(cots))}")
+    if etfs:  inv_lines.append(f"  ▸ <b>ETF :</b> {_h(', '.join(etfs))}")
+    if early: inv_lines.append(f"  ▸ <b>Early-stage :</b> {_h(', '.join(early))}")
     if not inv_lines:
-        inv_lines.append("▸ Pas d'exposition directe identifiée")
+        inv_lines.append("  ▸ Aucune exposition directe identifiée")
 
     lines = [
-        f"{stars} {num} {title}",
-        f"🕐 Horizon : {horizon}",
+        f"<b>{stars} {num} {title}</b>",
+        f"🕐 <b>Horizon :</b> {horizon}",
         "",
-        "📌 Ce qui se passe :",
+        "<b>📌 Ce qui se passe</b>",
         fait,
         "",
-        "🧩 Implications :",
-        f"→ Ordre 2 : {impl2}",
-        f"→ Ordre 3 : {impl3}",
+        "<b>🧩 Ce que ça implique</b>",
+        f"→ <b>Direct :</b> {impl2}",
+        f"→ <b>Systémique :</b> {impl3}",
         "",
-        f"✅ Crédibilité : {cred_score}/4",
-    ] + cred_lines + [
+        f"<b>✅ Crédibilité : {cred}/4</b>",
+        _crit("peer_reviewed",  "Peer-reviewed (publication scientifique)"),
+        _crit("financement",    "Financement confirmé"),
+        _crit("prototype",      "Prototype / démonstration"),
+        _crit("adoption",       "Adoption industrielle"),
         "",
-        "💰 Angle investissement :",
+        "<b>💰 Comment investir dessus</b>",
     ] + inv_lines + [
         "",
-        "🎯 Action :",
+        "<b>🎯 Action concrète</b>",
         f"▸ Faire : {action}",
-        f"▸ Sizing : {sizing}",
+        f"▸ Position : {sizing}",
         f"▸ Invalide si : {inv}",
         "",
-        f"🔗 {src_line}",
+        f"🔗 Source : {_link(src_n, src_u)}",
     ]
 
     return "\n".join(lines)
@@ -202,24 +255,29 @@ def build_msg1(ai_data: dict) -> str:
 
     lines = [
         SEP_HEAVY,
-        "🧠  C O R T E X  —  I A",
-        f"📅 {_fr_date()}",
+        "<b>🧠 CORTEX — INTELLIGENCE ARTIFICIELLE</b>",
+        f"<i>📅 {_fr_date()}</i>",
         SEP_HEAVY,
     ]
 
     if not signals:
-        lines += ["", "_Aucun signal IA majeur aujourd'hui._"]
+        lines += ["", "<i>Aucun signal IA majeur aujourd'hui.</i>"]
     else:
         for i, sig in enumerate(signals):
             if i > 0:
                 lines += ["", SEP_MED, ""]
-            lines += ["", _signal_block_ai(sig, NUMS[i])]
+            lines += ["", _signal_block(sig, NUMS[i])]
 
-    # Watchlist
     if watchlist:
-        lines += ["", SEP_LIGHT, "", "📡 WATCHLIST"]
+        lines += ["", SEP_LIGHT, "", "<b>📡 Signaux à surveiller</b>", ""]
         for item in watchlist[:3]:
-            lines.append(f"◦ {item}")
+            lines.append(f"◦ {_h(item)}")
+
+    # Glossaire IA
+    lines.append(_build_glossary([
+        "conviction", "thèse opposée", "sizing", "invalide_si", "watchlist"
+    ]))
+    lines.append(SEP_HEAVY)
 
     return "\n".join(lines)
 
@@ -238,52 +296,80 @@ def build_msg2(crypto_data: dict) -> str:
     bear_case = crypto_data.get("bear_case", "N/A")
     signals   = crypto_data.get("signals", [])[:3]
 
-    # BTC price line
-    btc_p  = dashboard.get("btc_price")
-    btc_c  = dashboard.get("btc_change_24h", 0)
+    # BTC
+    btc_p = dashboard.get("btc_price")
+    btc_c = dashboard.get("btc_change_24h", 0)
     btc_line = f"${btc_p:,.0f} {_arrow(btc_c)} {_fmt_pct(btc_c)}" if btc_p else "N/A"
 
-    dir_color = _direction_color(direction)
-
     def _score_line(key: str, label: str, weight: str) -> str:
-        s = score.get(key, {})
+        s   = score.get(key, {})
         val = s.get("value", 0)
+        note = _h(s.get("note", ""))
         sign = "+" if val > 0 else ""
-        return f"{label} ({weight}) ▸ {sign}{val}"
+        bar  = "🟢" if val > 0 else ("🔴" if val < 0 else "🟡")
+        return f"  {bar} <b>{label}</b> ({weight}) → {sign}{val}  <i>{note}</i>"
 
     lines = [
         SEP_HEAVY,
-        "💰 C O R T E X  —  C R Y P T O",
-        f"📅 {_fr_date()}",
+        "<b>💰 CORTEX — CRYPTO &amp; WEB3</b>",
+        f"<i>📅 {_fr_date()}</i>",
         SEP_HEAVY,
         "",
-        "📊 DASHBOARD",
+        "<b>📊 Tableau de bord Bitcoin</b>",
         "",
-        f"BTC      ▸ {btc_line}",
-        f"Phase    ▸ {phase}",
-        f"F&G      ▸ {dashboard.get('fear_greed_score', 'N/A')} — {dashboard.get('fear_greed_label', 'N/A')}",
-        f"BTC dom. ▸ {dashboard.get('btc_dominance', 'N/A')}%",
-        f"Funding  ▸ {dashboard.get('funding_description', 'N/A')}",
-        f"Vol. 24h ▸ {vol_30d}",
+        f"  <b>Prix :</b> {_h(btc_line)}",
+        f"  <b>Phase du cycle :</b> {_h(phase)}",
+        f"  <b>Fear &amp; Greed :</b> {_h(dashboard.get('fear_greed_score', 'N/A'))} — {_h(dashboard.get('fear_greed_label', 'N/A'))}",
+        f"  <b>Dominance BTC :</b> {_h(dashboard.get('btc_dominance', 'N/A'))}%",
+        f"  <b>Funding rate :</b> {_h(dashboard.get('funding_description', 'N/A'))}",
+        f"  <b>Volume vs moy. 30j :</b> {_h(vol_30d)}",
+    ]
+
+    # On-chain data (si disponible)
+    oi      = dashboard.get("open_interest_btc")
+    oi_chg  = dashboard.get("open_interest_change_pct")
+    ls      = dashboard.get("long_short_ratio")
+    mempool = dashboard.get("mempool_fee")
+    if oi or ls or mempool:
+        lines += ["", "<b>🔗 Données on-chain &amp; dérivés</b>", ""]
+        if oi:
+            oi_str = f"${oi/1e9:.1f}B" if oi > 1e9 else f"${oi/1e6:.0f}M"
+            chg_str = f" ({_fmt_pct(oi_chg)})" if oi_chg is not None else ""
+            lines.append(f"  <b>Open Interest :</b> {oi_str}{_h(chg_str)}")
+        if ls:
+            lines.append(f"  <b>Long/Short ratio :</b> {_h(f'{ls:.0%}')} longs")
+        if mempool:
+            lines.append(f"  <b>Mémoire BTC :</b> {_h(str(mempool))} sat/vB")
+
+    lines += [
         "",
         SEP_LIGHT,
         "",
-        "📐 SCORE DE DIRECTION",
+        "<b>📐 Score de direction</b>",
         "",
-        _score_line("onchain",   "On-chain  ", "25%"),
-        _score_line("cycle",     "Cycle     ", "25%"),
-        _score_line("macro",     "Macro     ", "20%"),
-        _score_line("sentiment", "Sentiment ", "15%"),
-        _score_line("momentum",  "Momentum  ", "15%"),
+        _score_line("onchain",   "On-chain ",  "25%"),
+        _score_line("cycle",     "Cycle    ",  "25%"),
+        _score_line("macro",     "Macro    ",  "20%"),
+        _score_line("sentiment", "Sentiment",  "15%"),
+        _score_line("momentum",  "Momentum ",  "15%"),
         "",
-        f"→ {dir_color} {direction} ({magnitude})",
+        f"→ Direction : {_direction_tag(direction)} ({_h(magnitude)})",
         "",
-        f"🔄 Invalide si : {bear_case}",
+        f"<b>🔄 Ce qui invaliderait cette lecture</b>",
+        f"<i>{_h(bear_case)}</i>",
     ]
 
     if signals:
         for i, sig in enumerate(signals):
-            lines += ["", SEP_MED, "", _signal_block_generic(sig, NUMS[i])]
+            lines += ["", SEP_MED, "", _signal_block(sig, NUMS[i])]
+
+    # Glossaire crypto
+    lines.append(_build_glossary([
+        "fear & greed", "phase du cycle", "funding rate",
+        "open interest", "long/short ratio", "on-chain", "dominance btc",
+        "bear case",
+    ]))
+    lines.append(SEP_HEAVY)
 
     return "\n".join(lines)
 
@@ -299,65 +385,99 @@ def build_msg3(market_data: dict) -> str:
     regime    = market_data.get("regime", "N/A")
     regime_j  = market_data.get("regime_justification", "")
     signals   = market_data.get("signals", [])[:3]
+    hot_stocks = market_data.get("hot_stocks", [])
 
     def _dash_line(key: str, label: str) -> str:
-        d = dashboard.get(key, {})
+        d     = dashboard.get(key, {})
         price = d.get("price", "N/A")
         chg   = d.get("change_pct", 0)
         if key == "vix":
-            interp = d.get("interpretation", "")
-            return f"{label} ▸ {price} — {interp}"
+            interp = _h(d.get("interpretation", ""))
+            return f"  <b>{label} :</b> {_h(price)} — <i>{interp}</i>"
         if key == "us_10y":
-            bps = d.get("change_bps", "")
-            return f"{label} ▸ {price} {bps}"
-        arr  = _arrow(chg)
-        pct  = _fmt_pct(chg)
-        return f"{label} ▸ {price} {arr} {pct}"
+            bps = _h(d.get("change_bps", ""))
+            return f"  <b>{label} :</b> {_h(price)} {bps}"
+        arr = _arrow(chg)
+        pct = _fmt_pct(chg)
+        col = "🟢" if chg >= 0 else "🔴"
+        return f"  {col} <b>{label} :</b> {_h(str(price))} {arr} {_h(pct)}"
 
     def _rec_line(key: str, label: str) -> str:
-        ind = rec_ind.get(key, {})
-        emoji = _indicator_emoji(ind.get("status", "yellow"))
-        note  = ind.get("note", "")
-        return f"{emoji} {label} — {note}"
+        ind   = rec_ind.get(key, {})
+        emoji = _indicator_tag(ind.get("status", "yellow"))
+        note  = _h(ind.get("note", ""))
+        return f"  {emoji} <b>{label} :</b> <i>{note}</i>"
+
+    # Score récession couleur
+    if rec_score <= 2:   rec_color = "🟢"
+    elif rec_score <= 4: rec_color = "🟡"
+    else:                rec_color = "🔴"
 
     lines = [
         SEP_HEAVY,
-        "📈 C O R T E X  —  M A R C H É S",
-        f"📅 {_fr_date()}",
+        "<b>📈 CORTEX — MARCHÉS &amp; MACRO</b>",
+        f"<i>📅 {_fr_date()}</i>",
         SEP_HEAVY,
         "",
-        "📊 DASHBOARD",
+        "<b>📊 Tableau de bord marchés</b>",
         "",
-        _dash_line("sp500",  "S&P 500"),
-        _dash_line("nasdaq", "Nasdaq "),
-        _dash_line("gold",   "Or     "),
-        _dash_line("oil",    "Pétrole"),
-        _dash_line("dxy",    "DXY    "),
-        _dash_line("vix",    "VIX    "),
-        _dash_line("us_10y", "US 10Y "),
+        _dash_line("sp500",  "S&amp;P 500"),
+        _dash_line("nasdaq", "Nasdaq   "),
+        _dash_line("gold",   "Or       "),
+        _dash_line("oil",    "Pétrole  "),
+        _dash_line("dxy",    "DXY      "),
+        _dash_line("vix",    "VIX      "),
+        _dash_line("us_10y", "US 10Y   "),
         "",
         SEP_LIGHT,
         "",
-        f"⚠️ RISQUE RÉCESSION : {rec_score}/10",
+        f"{rec_color} <b>Risque de récession : {rec_score}/10</b>",
+        "<i>0-3 = faible, 4-6 = modéré, 7-10 = élevé</i>",
         "",
         _rec_line("courbe_taux",   "Courbe des taux"),
         _rec_line("emploi",        "Emploi         "),
         _rec_line("ism_manuf",     "ISM Manuf.     "),
         _rec_line("ism_services",  "ISM Services   "),
-        _rec_line("conso_conf",    "Conso. conf.   "),
-        _rec_line("credit_spread", "Credit spreads "),
-        _rec_line("earnings_rev",  "Earnings rev.  "),
+        _rec_line("conso_conf",    "Confiance conso."),
+        _rec_line("credit_spread", "Crédit spreads "),
+        _rec_line("earnings_rev",  "Révisions bénéf."),
         "",
         SEP_LIGHT,
         "",
-        f"🏛️ RÉGIME : {regime}",
+        f"<b>🏛️ Régime de marché : {_h(regime)}</b>",
         "",
-        regime_j,
+        f"<i>{_h(regime_j)}</i>",
     ]
+
+    # Actions chaudes (stock screener)
+    if hot_stocks:
+        lines += ["", SEP_LIGHT, "", "<b>🔥 Actions en mouvement aujourd'hui</b>", ""]
+        for i, stock in enumerate(hot_stocks[:5], 1):
+            ticker  = _h(stock.get("ticker", ""))
+            name    = _h(stock.get("name", ticker))
+            chg1d   = stock.get("change_1d", 0)
+            chg5d   = stock.get("change_5d", 0)
+            reason  = _h(stock.get("reason", ""))
+            arrow1d = "▴" if chg1d >= 0 else "▾"
+            arrow5d = "▴" if chg5d >= 0 else "▾"
+            col1d   = "🟢" if chg1d >= 0 else "🔴"
+            lines.append(
+                f"  {col1d} <b>{ticker}</b> — {name}\n"
+                f"       Aujourd'hui : {arrow1d} {_fmt_pct(chg1d)}  |  Semaine : {arrow5d} {_fmt_pct(chg5d)}"
+                + (f"\n       <i>{reason}</i>" if reason else "")
+            )
+            if i < len(hot_stocks[:5]):
+                lines.append("")
 
     if signals:
         for i, sig in enumerate(signals):
-            lines += ["", SEP_MED, "", _signal_block_generic(sig, NUMS[i])]
+            lines += ["", SEP_MED, "", _signal_block(sig, NUMS[i])]
+
+    # Glossaire marchés
+    lines.append(_build_glossary([
+        "vix", "dxy", "courbe des taux", "ism manuf.", "récession", "momentum", "bear case",
+    ]))
+    lines.append(SEP_HEAVY)
 
     return "\n".join(lines)
 
@@ -371,18 +491,25 @@ def build_msg4(deeptech_data: dict) -> str:
 
     lines = [
         SEP_HEAVY,
-        "⚡ C O R T E X  —  D E E P T E C H",
-        f"📅 {_fr_date()}",
+        "<b>⚡ CORTEX — DEEPTECH &amp; RUPTURES</b>",
+        f"<i>📅 {_fr_date()}</i>",
+        "<i>Ces signaux peuvent être le prochain Bitcoin — il s'agit de repérer très tôt.</i>",
         SEP_HEAVY,
     ]
 
     if not signals:
-        lines += ["", "_Aucun signal deeptech majeur aujourd'hui._"]
+        lines += ["", "<i>Aucun signal deeptech majeur aujourd'hui.</i>"]
     else:
         for i, sig in enumerate(signals):
             if i > 0:
                 lines += ["", SEP_MED]
             lines += ["", _signal_block_deeptech(sig, NUMS[i])]
+
+    # Glossaire deeptech
+    lines.append(_build_glossary([
+        "conviction", "peer-reviewed", "early-stage", "sizing", "invalide_si",
+    ]))
+    lines.append(SEP_HEAVY)
 
     return "\n".join(lines)
 
@@ -399,32 +526,25 @@ def build_msg5(nexus_data: dict, scorecard_data: dict | None = None) -> str:
 
     lines = [
         SEP_HEAVY,
-        "🔗 C O R T E X  —  N E X U S",
-        f"📅 {_fr_date()}",
+        "<b>🔗 CORTEX — NEXUS</b>",
+        f"<i>📅 {_fr_date()}</i>",
+        "<i>La connexion cachée entre les 4 secteurs du jour.</i>",
         SEP_HEAVY,
         "",
-        "🔗 CONNEXION DU JOUR",
+        "<b>🔗 Connexion du jour</b>",
         "",
     ]
 
     if has_conn and connexion:
         if secteurs:
-            lines.append(f"_{' × '.join(secteurs)}_")
+            lines.append(f"<i>{_h(' × '.join(secteurs))}</i>")
             lines.append("")
-        lines.append(connexion)
+        lines.append(_h(connexion))
     else:
-        lines.append("_Pas de connexion significative aujourd'hui._")
+        lines.append("<i>Pas de connexion significative aujourd'hui — les secteurs évoluent indépendamment.</i>")
 
     # Scorecard (lundi uniquement)
     if scorecard_data:
-        lines += [
-            "",
-            SEP_LIGHT,
-            "",
-            "📊 SCORECARD",
-            "",
-        ]
-        week  = scorecard_data.get("week_label", "")
         total = scorecard_data.get("total", 0)
         conf  = scorecard_data.get("confirmed", 0)
         inv   = scorecard_data.get("invalidated", 0)
@@ -432,34 +552,33 @@ def build_msg5(nexus_data: dict, scorecard_data: dict | None = None) -> str:
         hit   = scorecard_data.get("best_hit", "—")
         miss  = scorecard_data.get("worst_miss", "—")
         biais = scorecard_data.get("biais", "")
-
         conf_pct = round(conf / total * 100) if total else 0
-        inv_pct  = round(inv  / total * 100) if total else 0
-        pend_pct = round(pend / total * 100) if total else 0
 
         lines += [
-            f"Semaine {week}" if week else "",
             "",
-            f"Signaux remontés  ▸ {total}",
-            f"Confirmés         ▸ {conf} ({conf_pct}%)",
-            f"Invalidés         ▸ {inv} ({inv_pct}%)",
-            f"En attente        ▸ {pend} ({pend_pct}%)",
+            SEP_LIGHT,
             "",
-            f"🏆 Meilleur hit : {hit}",
-            f"❌ Plus gros miss : {miss}",
+            "<b>📊 Scorecard de la semaine</b>",
+            "<i>Combien d'analyses CORTEX se sont révélées justes ?</i>",
+            "",
+            f"  📈 Signaux remontés : <b>{total}</b>",
+            f"  ✅ Confirmés : <b>{conf}</b> ({conf_pct}%)",
+            f"  ❌ Invalidés : <b>{inv}</b>",
+            f"  ⏳ En attente : <b>{pend}</b>",
+            "",
+            f"  🏆 Meilleur signal : <i>{_h(hit)}</i>",
+            f"  📉 Plus gros miss : <i>{_h(miss)}</i>",
         ]
         if biais:
-            lines += ["", f"🔍 Biais détecté : {biais}"]
+            lines += ["", f"  🔍 <b>Biais détecté :</b> <i>{_h(biais)}</i>"]
 
     elif _is_monday():
         lines += [
             "",
             SEP_LIGHT,
             "",
-            "📊 SCORECARD",
-            "",
-            "Système en démarrage — données disponibles",
-            "après 7 jours de signaux trackés.",
+            "<b>📊 Scorecard</b>",
+            "<i>Disponible après 7 jours de signaux trackés.</i>",
         ]
 
     # Question du matin
@@ -467,9 +586,12 @@ def build_msg5(nexus_data: dict, scorecard_data: dict | None = None) -> str:
         "",
         SEP_LIGHT,
         "",
-        "☀️ QUESTION DU MATIN",
+        "<b>☀️ Question du matin</b>",
+        "<i>Force-toi à décider — pas juste observer.</i>",
         "",
-        question,
+        f"<b>{_h(question)}</b>",
+        "",
+        "<i>→ Réponds ici. Ta réponse est sauvegardée dans ton journal.</i>",
         "",
         SEP_HEAVY,
     ]
@@ -482,17 +604,11 @@ def _is_monday() -> bool:
 
 
 def _split_at_boundary(text: str, max_chars: int = 3800) -> list[str]:
-    """
-    Découpe un message trop long en parties ≤ max_chars.
-    Coupe toujours à un séparateur ▬▬▬ ou ┄┄┄ (jamais au milieu d'un signal).
-    """
+    """Découpe proprement aux séparateurs ▬▬▬ (jamais au milieu d'un signal)."""
     if len(text) <= max_chars:
         return [text]
 
-    parts = []
-    current = ""
-
-    # Découper sur les séparateurs de signaux (▬▬▬)
+    parts, current = [], ""
     sections = text.split(SEP_MED)
 
     for i, section in enumerate(sections):
@@ -517,21 +633,21 @@ def _split_at_boundary(text: str, max_chars: int = 3800) -> list[str]:
 
 async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dict:
     """
-    Lance le cycle complet CORTEX v2 :
-      1. Collecte parallèle des 4 agents
-      2. Analyse Claude Sonnet en parallèle
-      3. Génération NEXUS
-      4. Construction des 5 messages
+    Lance le cycle complet CORTEX v3 :
+      1. Collecte parallèle des 4 agents + stock screener
+      2. Analyse Claude (Sonnet + Haiku) en parallèle
+      3. Génération NEXUS (Haiku)
+      4. Construction des 5 messages HTML
       5. Envoi Telegram séquentiel
 
     Retourne : {messages, ai, crypto, market, deeptech, nexus}
     """
     logger.info("=" * 55)
-    logger.info("CORTEX v2 — Démarrage rapport du matin")
+    logger.info("CORTEX v3 — Démarrage rapport du matin")
     logger.info("=" * 55)
 
     # ── Étape 1 : Collecte parallèle ──────────────────────────────────────────
-    logger.info("Étape 1/3 — Collecte parallèle (4 agents)...")
+    logger.info("Étape 1/3 — Collecte parallèle (4 agents + stock screener)...")
 
     from agents.sources import titans, media, weak_signals, viral
     from agents import scout_crypto, scout_market, scout_deeptech
@@ -548,7 +664,6 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         for r in results:
             if isinstance(r, list):
                 all_raw.extend(r)
-        # Déduplication rapide
         seen, unique = set(), []
         for s in all_raw:
             url = s.get("source_url", "")
@@ -566,14 +681,13 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         return_exceptions=True,
     )
 
-    # Fallbacks si exception
     if isinstance(ai_raw,       Exception): ai_raw       = []
     if isinstance(crypto_raw,   Exception): crypto_raw   = {"dashboard": {}, "signals": []}
-    if isinstance(market_raw,   Exception): market_raw   = {"dashboard": {}, "signals": []}
+    if isinstance(market_raw,   Exception): market_raw   = {"dashboard": {}, "signals": [], "hot_stocks": []}
     if isinstance(deeptech_raw, Exception): deeptech_raw = []
 
-    # ── Étape 2 : Analyse Claude Sonnet en parallèle ──────────────────────────
-    logger.info("Étape 2/3 — Analyse Claude Sonnet (4 agents en parallèle)...")
+    # ── Étape 2 : Analyse Claude en parallèle ─────────────────────────────────
+    logger.info("Étape 2/3 — Analyse Claude (Sonnet×4 + Haiku×1) en parallèle...")
 
     from agents import summarizer
 
@@ -590,6 +704,10 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     if isinstance(market_analyzed,   Exception): market_analyzed   = summarizer._fallback_market({})
     if isinstance(deeptech_analyzed, Exception): deeptech_analyzed = {"signals": []}
 
+    # Propagation hot_stocks depuis market_raw → market_analyzed
+    if isinstance(market_raw, dict) and market_raw.get("hot_stocks"):
+        market_analyzed["hot_stocks"] = market_raw["hot_stocks"]
+
     logger.info(
         f"  IA: {len(ai_analyzed.get('signals', []))} signaux | "
         f"Crypto: {len(crypto_analyzed.get('signals', []))} | "
@@ -597,14 +715,14 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         f"DeepTech: {len(deeptech_analyzed.get('signals', []))}"
     )
 
-    # ── Étape 3 : NEXUS ───────────────────────────────────────────────────────
-    logger.info("Étape 3/3 — Génération NEXUS + Question du matin...")
+    # ── Étape 3 : NEXUS (Haiku) ───────────────────────────────────────────────
+    logger.info("Étape 3/3 — Génération NEXUS (Haiku) + Question du matin...")
 
     nexus_data = await summarizer.generate_nexus(
         ai_analyzed, crypto_analyzed, market_analyzed, deeptech_analyzed
     )
 
-    # ── Construction des 5 messages ───────────────────────────────────────────
+    # ── Construction des 5 messages HTML ─────────────────────────────────────
     msg1 = build_msg1(ai_analyzed)
     msg2 = build_msg2(crypto_analyzed)
     msg3 = build_msg3(market_analyzed)
@@ -617,24 +735,16 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     for i, m in enumerate(messages, 1):
         logger.info(f"  MSG {i}: {len(m)} chars")
 
-    # ── Envoi Telegram ────────────────────────────────────────────────────────
+    # ── Envoi Telegram (HTML mode) ────────────────────────────────────────────
     if send_telegram:
         try:
             from tgbot.bot import broadcast_message, ask_morning_question
-
-            # Séparateurs visuels entre chaque catégorie (MSG 1→2, 2→3, 3→4, 4→5)
-            CATEGORY_SEPARATORS = {
-                1: f"{SEP_MED}\n💰 _Crypto & Web3_",
-                2: f"{SEP_MED}\n📈 _Marchés & Macro_",
-                3: f"{SEP_MED}\n⚡ _DeepTech & Ruptures_",
-                4: f"{SEP_MED}\n🔗 _Nexus_",
-            }
 
             total_sent = 0
             for i, msg in enumerate(messages, 1):
                 parts = _split_at_boundary(msg, max_chars=3800)
                 for j, part in enumerate(parts):
-                    await broadcast_message(part, parse_mode="Markdown")
+                    await broadcast_message(part, parse_mode="HTML")
                     total_sent += 1
                     logger.info(
                         f"  MSG {i}/5"
@@ -643,16 +753,11 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
                     )
                     if len(parts) > 1:
                         await asyncio.sleep(1)
-
-                # Envoyer le séparateur entre catégories (pas après le dernier message)
-                if i in CATEGORY_SEPARATORS:
-                    await asyncio.sleep(1)
-                    await broadcast_message(CATEGORY_SEPARATORS[i], parse_mode="Markdown")
-                    await asyncio.sleep(1)
+                if i < len(messages):
+                    await asyncio.sleep(2)
 
             logger.info(f"Total: {total_sent} broadcasts envoyés")
 
-            # Entrée journal (admin uniquement — question personnelle pour Badr)
             question = nexus_data.get("question", "")
             if question:
                 await ask_morning_question(question, send=False)
@@ -661,7 +766,7 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
             logger.error(f"Erreur envoi Telegram: {e}")
 
     logger.info("=" * 55)
-    logger.info("CORTEX v2 — Rapport terminé")
+    logger.info("CORTEX v3 — Rapport terminé")
     logger.info("=" * 55)
 
     return {
