@@ -55,15 +55,14 @@ async def run_agents() -> None:
 async def run_weekly_summary() -> None:
     """
     Tâche hebdomadaire — Dimanche à 20:00.
-    Phase 1 : Simulation.
-    Phase 2 (future) : Synthèse hebdomadaire compressée.
+    Bilan de la semaine : évaluation des réponses de Badr, patterns détectés,
+    learnings sauvegardés dans agent_learnings (Supabase).
     """
     try:
+        from agents.weekly_bilan import run_weekly_bilan
         week = datetime.now().strftime("Semaine %W/%Y")
-        logger.info(f"Résumé hebdo simulé — {week}")
-        # TODO Phase 2 : Générer et envoyer le résumé hebdomadaire
-        # await nexus.generate_weekly_summary()
-
+        logger.info(f"Bilan hebdomadaire CORTEX — {week}")
+        await run_weekly_bilan()
     except Exception as e:
         logger.error(f"Erreur run_weekly_summary : {e}")
 

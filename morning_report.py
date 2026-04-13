@@ -379,13 +379,14 @@ def build_msg2(crypto_data: dict) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def build_msg3(market_data: dict) -> str:
-    dashboard = market_data.get("dashboard", {})
-    rec_ind   = market_data.get("recession_indicators", {})
-    rec_score = market_data.get("recession_score", 0)
-    regime    = market_data.get("regime", "N/A")
-    regime_j  = market_data.get("regime_justification", "")
-    signals   = market_data.get("signals", [])[:3]
+    dashboard  = market_data.get("dashboard", {})
+    rec_ind    = market_data.get("recession_indicators", {})
+    rec_score  = market_data.get("recession_score", 0)
+    regime     = market_data.get("regime", "N/A")
+    regime_j   = market_data.get("regime_justification", "")
+    signals    = market_data.get("signals", [])[:3]
     hot_stocks = market_data.get("hot_stocks", [])
+    crash      = market_data.get("crash", {})
 
     def _dash_line(key: str, label: str) -> str:
         d     = dashboard.get(key, {})
@@ -469,6 +470,24 @@ def build_msg3(market_data: dict) -> str:
             if i < len(hot_stocks[:5]):
                 lines.append("")
 
+    # Crash / Risque systémique
+    if crash:
+        crash_score  = crash.get("crash_score", 0)
+        crash_color  = crash.get("color", "🟢")
+        crash_interp = _h(crash.get("interpretation", ""))
+        factors      = crash.get("factors", [])
+        lines += [
+            "", SEP_LIGHT, "",
+            f"{crash_color} <b>Risque crash systémique : {crash_score}/10</b>",
+            f"<i>{crash_interp}</i>",
+            "",
+        ]
+        for f in factors:
+            ind  = _h(f.get("indicator", ""))
+            val  = _h(f.get("value", ""))
+            lbl  = _h(f.get("label", ""))
+            lines.append(f"  • <b>{ind}</b> {val} — <i>{lbl}</i>")
+
     if signals:
         for i, sig in enumerate(signals):
             lines += ["", SEP_MED, "", _signal_block(sig, NUMS[i])]
@@ -476,6 +495,7 @@ def build_msg3(market_data: dict) -> str:
     # Glossaire marchés
     lines.append(_build_glossary([
         "vix", "dxy", "courbe des taux", "ism manuf.", "récession", "momentum", "bear case",
+        "spread hy", "courbe des taux",
     ]))
     lines.append(SEP_HEAVY)
 
@@ -704,9 +724,12 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     if isinstance(market_analyzed,   Exception): market_analyzed   = summarizer._fallback_market({})
     if isinstance(deeptech_analyzed, Exception): deeptech_analyzed = {"signals": []}
 
-    # Propagation hot_stocks depuis market_raw → market_analyzed
-    if isinstance(market_raw, dict) and market_raw.get("hot_stocks"):
-        market_analyzed["hot_stocks"] = market_raw["hot_stocks"]
+    # Propagation hot_stocks + crash depuis market_raw → market_analyzed
+    if isinstance(market_raw, dict):
+        if market_raw.get("hot_stocks"):
+            market_analyzed["hot_stocks"] = market_raw["hot_stocks"]
+        if market_raw.get("crash"):
+            market_analyzed["crash"] = market_raw["crash"]
 
     logger.info(
         f"  IA: {len(ai_analyzed.get('signals', []))} signaux | "

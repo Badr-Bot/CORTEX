@@ -212,14 +212,23 @@ async def collect_signals(hours: int = 24) -> list[dict]:
 async def collect(hours: int = 24) -> dict:  # noqa: E302
     """
     Lance la collecte complète SCOUT-MARKET.
-    Retourne : {dashboard: dict, signals: list[dict], hot_stocks: list[dict]}
+    Retourne : {dashboard: dict, signals: list[dict], hot_stocks: list[dict], crash: dict}
     """
     from agents.sources.stock_screener import collect as collect_stocks
+    from agents.sources.crash_monitor import collect as collect_crash
 
     dashboard, signals, hot_stocks = await asyncio.gather(
         collect_dashboard(),
         collect_signals(hours),
         collect_stocks(hours),
     )
-    logger.info(f"SCOUT-MARKET: {len(hot_stocks)} actions chaudes détectées")
-    return {"dashboard": dashboard, "signals": signals, "hot_stocks": hot_stocks}
+
+    # Passe le VIX déjà collecté pour éviter une double requête
+    vix_raw = dashboard.get("vix", {}).get("raw_price") if isinstance(dashboard, dict) else None
+    crash = await collect_crash(vix=vix_raw)
+
+    logger.info(
+        f"SCOUT-MARKET: {len(hot_stocks)} actions chaudes | "
+        f"crash score={crash.get('crash_score', '?')}/10 {crash.get('color', '')}"
+    )
+    return {"dashboard": dashboard, "signals": signals, "hot_stocks": hot_stocks, "crash": crash}

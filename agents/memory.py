@@ -198,3 +198,68 @@ def format_deeptech_history(history: list[dict]) -> str:
             horizon = s.get("horizon", "?")
             lines.append(f"  {date}: {title} (horizon: {horizon})")
     return "\n".join(lines) if len(lines) > 1 else ""
+
+
+# ── Learnings hebdomadaires ───────────────────────────────────────────────────
+
+_LEARNINGS_TABLE = "agent_learnings"
+
+
+async def get_agent_learnings(sector: str, limit: int = 5) -> list[dict]:
+    """
+    Récupère les N derniers apprentissages pour un secteur depuis Supabase.
+
+    Args:
+        sector : 'ai' | 'crypto' | 'market' | 'deeptech' | 'global'
+        limit  : nombre max de learnings à récupérer
+    Returns:
+        Liste de {'week_of': str, 'learning': str, 'pattern': str}
+    """
+    client = _get_client()
+    if not client:
+        return []
+
+    def _do_fetch():
+        return (
+            client.table(_LEARNINGS_TABLE)
+            .select("week_of, learning, pattern, signal_title")
+            .eq("sector", sector)
+            .order("created_at", desc=True)
+            .limit(limit)
+            .execute()
+        )
+
+    try:
+        result = await asyncio.to_thread(_do_fetch)
+        return result.data or []
+    except Exception as e:
+        logger.warning(f"Erreur get_agent_learnings [{sector}]: {e}")
+        return []
+
+
+def format_learnings_context(learnings: list[dict], sector: str) -> str:
+    """
+    Formate les learnings en bloc de contexte injectables dans les prompts Claude.
+    Aide l'agent à éviter les erreurs passées et intégrer les patterns détectés.
+
+    Args:
+        learnings : liste retournée par get_agent_learnings()
+        sector    : label lisible pour l'en-tête
+    Returns:
+        Bloc texte à injecter en fin de system prompt, ou '' si vide
+    """
+    if not learnings:
+        return ""
+
+    lines = [f"── Apprentissages passés [{sector}] (intègre-les dans ton analyse) ──"]
+    for item in learnings:
+        week    = item.get("week_of", "?")
+        learn   = item.get("learning", "").strip()
+        pattern = item.get("pattern", "")
+        if not learn:
+            continue
+        line = f"  [{week}] {learn}"
+        if pattern:
+            line += f"  (pattern: {pattern})"
+        lines.append(line)
+    return "\n".join(lines) if len(lines) > 1 else ""

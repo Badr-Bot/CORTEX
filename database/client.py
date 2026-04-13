@@ -559,3 +559,117 @@ async def insert_daily_report(
     except Exception as e:
         logger.error(f"Erreur insert_daily_report : {e}")
         return None
+
+
+# ============================================================
+# CRUD — TABLE agent_learnings (système d'apprentissage)
+# ============================================================
+
+async def save_learning(
+    week_of: str,
+    sector: str,
+    learning: str,
+    pattern: str = None,
+    signal_title: str = None,
+    materialized: bool = None,
+) -> Optional[dict]:
+    """
+    Sauvegarde un apprentissage hebdomadaire dans agent_learnings.
+
+    Args:
+        week_of       : Date de début de semaine (YYYY-MM-DD)
+        sector        : 'ai' | 'crypto' | 'market' | 'deeptech' | 'global'
+        learning      : Ce que CORTEX a appris cette semaine
+        pattern       : Biais/pattern de pensée détecté chez Badr
+        signal_title  : Titre du signal source
+        materialized  : True si la prédiction s'est réalisée
+    """
+    try:
+        client = get_supabase_client()
+        result = client.table("agent_learnings").insert({
+            "week_of":      week_of,
+            "sector":       sector,
+            "learning":     learning,
+            "pattern":      pattern,
+            "signal_title": signal_title,
+            "materialized": materialized,
+        }).execute()
+        return result.data[0] if result.data else None
+    except Exception as e:
+        logger.error(f"Erreur save_learning: {e}")
+        return None
+
+
+async def get_recent_learnings(sector: str = None, limit: int = 10) -> list:
+    """
+    Récupère les derniers apprentissages (toutes semaines confondues).
+    Si sector fourni, filtre par secteur.
+
+    Returns:
+        Liste de dicts {week_of, sector, learning, pattern, signal_title, materialized}
+    """
+    try:
+        client = get_supabase_client()
+        query = (
+            client.table("agent_learnings")
+            .select("week_of, sector, learning, pattern, signal_title, materialized")
+            .order("created_at", desc=True)
+            .limit(limit)
+        )
+        if sector:
+            query = query.eq("sector", sector)
+        result = query.execute()
+        return result.data or []
+    except Exception as e:
+        logger.warning(f"Erreur get_recent_learnings: {e}")
+        return []
+
+
+async def get_week_journal(days_back: int = 7) -> list:
+    """
+    Récupère les entrées journal des N derniers jours.
+    Utilisé par le bilan du dimanche.
+
+    Returns:
+        Liste d'entrées avec question, réponse, date
+    """
+    try:
+        from datetime import timedelta
+        client  = get_supabase_client()
+        cutoff  = (datetime.now(timezone.utc) - timedelta(days=days_back)).isoformat()
+        result  = (
+            client.table("journal")
+            .select("id, question_asked, your_response, created_at")
+            .gte("created_at", cutoff)
+            .order("created_at", desc=False)
+            .execute()
+        )
+        return result.data or []
+    except Exception as e:
+        logger.warning(f"Erreur get_week_journal: {e}")
+        return []
+
+
+async def get_week_analyses(days_back: int = 7) -> list:
+    """
+    Récupère les analyses quotidiennes de la semaine.
+    Utilisé par le bilan du dimanche pour évaluer les prédictions.
+
+    Returns:
+        Liste de {report_date, sector, analysis_json}
+    """
+    try:
+        from datetime import timedelta
+        client = get_supabase_client()
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=days_back)).strftime("%Y-%m-%d")
+        result = (
+            client.table("daily_analyses")
+            .select("report_date, sector, analysis_json")
+            .gte("report_date", cutoff)
+            .order("report_date", desc=False)
+            .execute()
+        )
+        return result.data or []
+    except Exception as e:
+        logger.warning(f"Erreur get_week_analyses: {e}")
+        return []
