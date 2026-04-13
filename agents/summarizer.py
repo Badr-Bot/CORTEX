@@ -122,11 +122,13 @@ def _get_client():
 
 def _call_claude(
     prompt: str,
-    max_tokens: int = 3000,
+    max_tokens: int = 1800,
     system_prompt: str = None,
+    model: str = "claude-sonnet-4-6",
 ) -> str | None:
     """
-    Appel Claude Sonnet avec prompt caching optionnel.
+    Appel Claude avec prompt caching optionnel.
+    model : "claude-sonnet-4-6" (défaut) ou "claude-haiku-4-5-20251001" (20x moins cher)
 
     Si system_prompt fourni, il est envoyé avec cache_control ephemeral
     → Anthropic le met en cache côté serveur (TTL 5 min).
@@ -137,7 +139,7 @@ def _call_claude(
         return None
     try:
         kwargs = dict(
-            model="claude-sonnet-4-6",
+            model=model,
             max_tokens=max_tokens,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -324,7 +326,7 @@ async def analyze_ai(signals: list[dict]) -> dict:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux IA collectés :\n\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=3500, system_prompt=_SYSTEM_AI)
+    raw = _call_claude(user_prompt, max_tokens=1800, system_prompt=_SYSTEM_AI)
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -439,7 +441,7 @@ async def analyze_crypto(data: dict) -> dict:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=3500, system_prompt=_SYSTEM_CRYPTO)
+    raw = _call_claude(user_prompt, max_tokens=1800, system_prompt=_SYSTEM_CRYPTO)
     result = _parse_json(raw)
 
     if not result or "score" not in result:
@@ -569,7 +571,7 @@ async def analyze_market(data: dict) -> dict:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=3500, system_prompt=_SYSTEM_MARKET)
+    raw = _call_claude(user_prompt, max_tokens=1800, system_prompt=_SYSTEM_MARKET)
     result = _parse_json(raw)
 
     if not result or "recession_indicators" not in result:
@@ -678,7 +680,7 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux deeptech collectés :\n\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=3000, system_prompt=_SYSTEM_DEEPTECH)
+    raw = _call_claude(user_prompt, max_tokens=1800, system_prompt=_SYSTEM_DEEPTECH)
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -790,7 +792,7 @@ async def generate_nexus(
         f"Détail : {top_fait[:300]}"
     )
 
-    raw = _call_claude(user_prompt, max_tokens=800, system_prompt=_SYSTEM_NEXUS)
+    raw = _call_claude(user_prompt, max_tokens=800, system_prompt=_SYSTEM_NEXUS, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "question" not in result:
