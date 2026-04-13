@@ -1,10 +1,12 @@
 """
-CORTEX — Summarizer v2 (Multi-agents + Prompt Caching)
-Claude Sonnet analyse les signaux de chaque secteur et génère
-les données structurées pour les 5 messages Telegram.
+CORTEX — Summarizer v3 (Groq pre-filter + Claude Sonnet deep analysis)
 
-Prompt caching activé : les schémas JSON et règles (parties stables)
-sont mis en cache côté Anthropic → ~80% d'économies sur les tokens input.
+Architecture 80/20 :
+  1. Groq (Llama 3.3 70B, gratuit) pré-filtre les signaux bruts → top 15 par secteur
+  2. Claude Sonnet analyse uniquement ces 15 signaux → JSON structuré complet
+
+Économies : ~70% de tokens Sonnet en moins sur les inputs.
+Prompt caching toujours actif sur les system prompts.
 
 Fonctions :
   analyze_ai(signals)          → 3 signaux IA + watchlist
@@ -20,6 +22,83 @@ import re
 from utils.logger import get_logger
 
 logger = get_logger("scout_ai.summarizer")
+
+# ── Groq pre-filter ───────────────────────────────────────────────────────────
+
+_groq_client = None
+
+
+def _get_groq_client():
+    global _groq_client
+    if _groq_client is not None:
+        return _groq_client
+    api_key = os.getenv("GROQ_API_KEY", "")
+    if not api_key:
+        return None
+    try:
+        from groq import Groq
+        _groq_client = Groq(api_key=api_key)
+        return _groq_client
+    except Exception as e:
+        logger.warning(f"Groq client init échoué: {e}")
+        return None
+
+
+def _prefilter_with_groq(signals: list[dict], sector: str, max_count: int = 15) -> list[dict]:
+    """
+    Pré-filtre les signaux bruts avec Groq (Llama 3.3 70B, gratuit).
+    Réduit 50-120 signaux → top 15 avant envoi à Claude Sonnet.
+    Fallback : retourne les max_count premiers si Groq indisponible.
+    """
+    if len(signals) <= max_count:
+        return signals
+
+    client = _get_groq_client()
+    if not client:
+        logger.debug("Groq indisponible — fallback sur les premiers signaux")
+        return signals[:max_count]
+
+    # Format compact : juste l'index, la source et le titre
+    lines = [
+        f"{i}: [{s.get('source_name', '?')}] {s.get('title', '')[:100]}"
+        for i, s in enumerate(signals[:150])
+    ]
+
+    prompt = (
+        f"You are a signal relevance filter for a {sector} intelligence briefing.\n\n"
+        f"From the {len(lines)} signals below, select the {max_count} most important "
+        f"based on: novelty, real impact, credibility, topic diversity.\n\n"
+        f"Signals:\n" + "\n".join(lines) +
+        f"\n\nReturn ONLY a JSON array of {max_count} selected indices. "
+        f"Example: [0, 3, 7, 12, 25]. No explanation, no markdown."
+    )
+
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=200,
+            temperature=0.1,
+        )
+        raw = response.choices[0].message.content.strip()
+
+        # Extraire le tableau JSON
+        match = re.search(r"\[[\d,\s]+\]", raw)
+        if not match:
+            raise ValueError(f"Pas de tableau JSON dans la réponse: {raw[:100]}")
+
+        indices = json.loads(match.group())
+        selected = [signals[i] for i in indices if isinstance(i, int) and i < len(signals)]
+
+        if len(selected) < 3:
+            raise ValueError(f"Trop peu de signaux sélectionnés: {len(selected)}")
+
+        logger.info(f"Groq pré-filtre [{sector}]: {len(signals)} → {len(selected)} signaux")
+        return selected
+
+    except Exception as e:
+        logger.warning(f"Groq pré-filtre échoué [{sector}]: {e} — fallback")
+        return signals[:max_count]
 
 _client = None
 
@@ -225,16 +304,19 @@ Règles absolues :
 async def analyze_ai(signals: list[dict]) -> dict:
     """
     Sélectionne les 3 meilleurs signaux IA et génère l'analyse complète.
-    Retourne le JSON structuré pour le message builder.
+    Groq pré-filtre les signaux bruts → top 15 avant envoi à Claude Sonnet.
     """
     if not signals:
         return _fallback_ai([])
+
+    # Pré-filtrage Groq : 120 signaux → 15
+    signals = _prefilter_with_groq(signals, sector="AI/tech", max_count=15)
 
     from agents.memory import get_sector_history, format_ai_history, save_analysis
     history     = await get_sector_history("ai", days=7)
     history_ctx = format_ai_history(history)
 
-    context = _prep_signals(signals, 120)
+    context = _prep_signals(signals, 15)
 
     # Partie dynamique (signaux + historique — non mise en cache)
     user_prompt = ""
@@ -329,11 +411,13 @@ Règles absolues :
 async def analyze_crypto(data: dict) -> dict:
     """
     Analyse le marché crypto : phase du cycle, score de direction, signaux.
+    Groq pré-filtre les signaux bruts → top 12 avant envoi à Claude Sonnet.
     data = {dashboard: dict, signals: list}
     """
     dashboard = data.get("dashboard", {})
     signals   = data.get("signals", [])
-    context   = _prep_signals(signals, 60)
+    signals   = _prefilter_with_groq(signals, sector="crypto/blockchain", max_count=12)
+    context   = _prep_signals(signals, 12)
 
     from agents.memory import get_sector_history, format_crypto_history, save_analysis as _save
     history     = await get_sector_history("crypto", days=7)
@@ -446,11 +530,13 @@ Règles absolues :
 async def analyze_market(data: dict) -> dict:
     """
     Analyse les marchés : score récession, régime, signaux macro.
+    Groq pré-filtre les signaux bruts → top 12 avant envoi à Claude Sonnet.
     data = {dashboard: dict, signals: list}
     """
     dashboard = data.get("dashboard", {})
     signals   = data.get("signals", [])
-    context   = _prep_signals(signals, 60)
+    signals   = _prefilter_with_groq(signals, sector="macro/markets/finance", max_count=12)
+    context   = _prep_signals(signals, 12)
 
     from agents.memory import get_sector_history, format_market_history, save_analysis as _save_mkt
     history     = await get_sector_history("market", days=7)
@@ -573,15 +659,19 @@ Règles absolues :
 async def analyze_deeptech(signals: list[dict]) -> dict:
     """
     Sélectionne les 2 meilleurs signaux deeptech et génère l'analyse complète.
+    Groq pré-filtre les signaux bruts → top 10 avant envoi à Claude Sonnet.
     """
     if not signals:
         return {"signals": []}
+
+    # Pré-filtrage Groq : 50 signaux → 10
+    signals = _prefilter_with_groq(signals, sector="deeptech/science/research", max_count=10)
 
     from agents.memory import get_sector_history, format_deeptech_history, save_analysis as _save_dt
     history     = await get_sector_history("deeptech", days=7)
     history_ctx = format_deeptech_history(history)
 
-    context = _prep_signals(signals, 50)
+    context = _prep_signals(signals, 10)
 
     user_prompt = ""
     if history_ctx:
