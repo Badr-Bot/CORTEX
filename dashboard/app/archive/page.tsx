@@ -2,7 +2,7 @@ import { getReportHistory } from "@/lib/supabase"
 import NavBar from "@/components/NavBar"
 import Link from "next/link"
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic' // Données temps réel depuis Supabase
 
 const DAYS_FR = ["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"]
 const MONTHS_FR = ["Jan","Fév","Mar","Avr","Mai","Jun","Jul","Aoû","Sep","Oct","Nov","Déc"]

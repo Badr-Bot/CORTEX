@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-)
-
 export async function POST(request: NextRequest) {
+  // Instanciation dans le handler (pas au niveau module) pour éviter
+  // l'erreur "supabaseUrl is required" lors du build Next.js
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_KEY!
+  )
   try {
     const { question, response: userResponse, reportDate } = await request.json()
 

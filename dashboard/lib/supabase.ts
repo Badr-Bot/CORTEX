@@ -1,15 +1,30 @@
-import { createClient } from "@supabase/supabase-js"
+import { createClient, SupabaseClient } from "@supabase/supabase-js"
 import type { DailyReport, JournalEntry, WeeklyDebrief } from "./types"
 
-const url  = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Lazy singleton — instancié seulement à la première requête (pas au build)
+// Ceci évite l'erreur "supabaseUrl is required" lors de la collecte de données
+// statiques de Next.js, qui s'exécute sans les variables d'environnement.
+let _client: SupabaseClient | null = null
 
-export const supabase = createClient(url, anon)
+function getClient(): SupabaseClient {
+  if (!_client) {
+    const url  = process.env.NEXT_PUBLIC_SUPABASE_URL!
+    const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    if (!url || !anon) {
+      throw new Error("Variables d'environnement Supabase manquantes : NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY requis.")
+    }
+    _client = createClient(url, anon)
+  }
+  return _client
+}
+
+// Export du client pour usage direct si nécessaire
+export { getClient as getSupabaseClient }
 
 // ── Reports ──────────────────────────────────────────────────────────────────
 
 export async function getLatestReport(): Promise<DailyReport | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getClient()
     .from("daily_reports")
     .select("*")
     .not("report_json", "is", null)
@@ -22,7 +37,7 @@ export async function getLatestReport(): Promise<DailyReport | null> {
 }
 
 export async function getReportByDate(date: string): Promise<DailyReport | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getClient()
     .from("daily_reports")
     .select("*")
     .eq("report_date", date)
@@ -34,7 +49,7 @@ export async function getReportByDate(date: string): Promise<DailyReport | null>
 }
 
 export async function getReportHistory(limit = 30): Promise<DailyReport[]> {
-  const { data } = await supabase
+  const { data } = await getClient()
     .from("daily_reports")
     .select("id, report_date, signals_count, question, sent_at")
     .not("report_json", "is", null)
@@ -48,7 +63,7 @@ export async function getReportHistory(limit = 30): Promise<DailyReport[]> {
 
 export async function getTodayJournal(): Promise<JournalEntry | null> {
   const today = new Date().toISOString().split("T")[0]
-  const { data } = await supabase
+  const { data } = await getClient()
     .from("journal")
     .select("*")
     .eq("date", today)
@@ -62,7 +77,7 @@ export async function getTodayJournal(): Promise<JournalEntry | null> {
 export async function getWeekJournal(): Promise<JournalEntry[]> {
   const cutoff = new Date()
   cutoff.setDate(cutoff.getDate() - 7)
-  const { data } = await supabase
+  const { data } = await getClient()
     .from("journal")
     .select("*")
     .gte("created_at", cutoff.toISOString())
@@ -74,7 +89,7 @@ export async function getWeekJournal(): Promise<JournalEntry[]> {
 // ── Weekly Debrief ────────────────────────────────────────────────────────────
 
 export async function getLatestDebrief(): Promise<WeeklyDebrief | null> {
-  const { data } = await supabase
+  const { data } = await getClient()
     .from("weekly_debrief")
     .select("*")
     .order("week_of", { ascending: false })

@@ -6,7 +6,7 @@ import MarketSection from "@/components/MarketSection"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-export const revalidate = 86400
+export const dynamic = 'force-dynamic' // Données temps réel depuis Supabase
 
 const DAYS_FR = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]
 const MONTHS_FR = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]

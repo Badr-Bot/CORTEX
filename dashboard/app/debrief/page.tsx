@@ -1,7 +1,7 @@
 import { getLatestDebrief, getWeekJournal } from "@/lib/supabase"
 import NavBar from "@/components/NavBar"
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic' // Données temps réel depuis Supabase
 
 const MONTHS_FR = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
 
