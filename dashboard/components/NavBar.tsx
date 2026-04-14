@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 const DAYS_FR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
 const MONTHS_FR = ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc"]
@@ -12,12 +12,6 @@ function formatDate() {
 
 export default function NavBar() {
   const pathname = usePathname()
-  const router = useRouter()
-
-  async function logout() {
-    await fetch("/api/logout", { method: "POST" })
-    router.push("/login")
-  }
 
   const links = [
     { href: "/", label: "Dashboard" },
@@ -30,7 +24,7 @@ export default function NavBar() {
       <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <span className="font-bold tracking-widest text-white text-sm">CORTEX</span>
-          <nav className="hidden sm:flex items-center gap-1">
+          <nav className="flex items-center gap-1">
             {links.map((l) => (
               <Link
                 key={l.href}
@@ -46,16 +40,7 @@ export default function NavBar() {
             ))}
           </nav>
         </div>
-
-        <div className="flex items-center gap-3">
-          <span className="hidden md:block text-xs text-slate-500">{formatDate()}</span>
-          <button
-            onClick={logout}
-            className="text-xs text-slate-500 hover:text-slate-300 transition-colors"
-          >
-            Quitter
-          </button>
-        </div>
+        <span className="hidden md:block text-xs text-slate-500">{formatDate()}</span>
       </div>
     </header>
   )
