@@ -99,12 +99,30 @@ def _sizing_tag(sizing: str) -> str:
     return f"{icon} <b>{_h(sizing)}</b> <i>({_h(hint)})</i>"
 
 
+_DIRECTION_FR = {
+    "BULLISH":        "HAUSSIER",
+    "NEUTRE-BULLISH": "LÉGÈREMENT HAUSSIER",
+    "NEUTRE":         "NEUTRE",
+    "NEUTRE-BEARISH": "LÉGÈREMENT BAISSIER",
+    "BEARISH":        "BAISSIER",
+}
+
+_REGIME_FR = {
+    "Risk-on":        "Appétit pour le risque",
+    "Risk-off":       "Fuite vers la sécurité",
+    "Inflation trade":"Commerce inflationniste",
+    "Stagflation":    "Stagflation",
+    "Transition":     "Transition",
+    "Non déterminé":  "Non déterminé",
+}
+
 def _direction_tag(direction: str) -> str:
-    d = direction.upper()
+    d   = direction.upper().strip()
+    fr  = _DIRECTION_FR.get(d, d)
     if "BEARISH" in d and "NEUTRE" not in d:  icon = "🔴"
     elif "BULLISH" in d and "NEUTRE" not in d: icon = "🟢"
     else: icon = "🟡"
-    return f"{icon} <b>{_h(direction)}</b>"
+    return f"{icon} <b>{_h(fr)}</b>"
 
 
 def _indicator_tag(status: str) -> str:
@@ -472,7 +490,7 @@ def build_msg3(market_data: dict) -> str:
         "",
         SEP_LIGHT,
         "",
-        f"<b>🏛️ Régime de marché : {_h(regime)}</b>",
+        f"<b>🏛️ Régime de marché : {_h(_REGIME_FR.get(regime, regime))}</b>",
         "",
         f"<i>{_h(regime_j)}</i>",
     ]
