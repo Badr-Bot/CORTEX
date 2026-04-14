@@ -89,8 +89,14 @@ def _stars(n: int) -> str:
 
 def _sizing_tag(sizing: str) -> str:
     icons = {"Fort": "🟢", "Moyen": "🟡", "Faible": "🔴"}
+    hints = {
+        "Fort":   "jusqu'à 5% du portefeuille",
+        "Moyen":  "1-2% du portefeuille",
+        "Faible": "observation seulement, pas d'achat",
+    }
     icon = icons.get(sizing, "🟡")
-    return f"{icon} <b>{_h(sizing)}</b>"
+    hint = hints.get(sizing, "")
+    return f"{icon} <b>{_h(sizing)}</b> <i>({_h(hint)})</i>"
 
 
 def _direction_tag(direction: str) -> str:
@@ -125,11 +131,20 @@ def _fmt_pct(val: float) -> str:
 
 def _build_glossary(terms: list[str]) -> str:
     """Construit la section glossaire avec les termes demandés."""
-    lines = [SEP_LIGHT, "", "<b>📖 Lexique du jour</b>", ""]
-    for term in terms:
-        definition = GLOSSARY.get(term, "")
-        if definition:
-            lines.append(f"• <b>{_h(term.capitalize())}</b> — {_h(definition)}")
+    lines = ["", SEP_LIGHT, "", "<b>📖 Lexique du jour</b>", ""]
+    items = [t for t in terms if GLOSSARY.get(t)]
+    # Déduplique en gardant l'ordre
+    seen, deduped = set(), []
+    for t in items:
+        if t not in seen:
+            seen.add(t)
+            deduped.append(t)
+    for i, term in enumerate(deduped):
+        definition = GLOSSARY[term]
+        lines.append(f"<b>{_h(term.capitalize())}</b>")
+        lines.append(f"<i>{_h(definition)}</i>")
+        if i < len(deduped) - 1:
+            lines.append("")
     return "\n".join(lines)
 
 
@@ -137,7 +152,8 @@ def _build_glossary(terms: list[str]) -> str:
 
 def _signal_block(sig: dict, num: str, show_these: bool = True) -> str:
     """Bloc signal universel (IA / Crypto / Marchés) en HTML."""
-    stars   = _stars(sig.get("conviction", 3))
+    conv    = sig.get("conviction", 3)
+    stars   = _stars(conv)
     title   = _h(sig.get("title", "SIGNAL").upper())
     fait    = _h(sig.get("fait", ""))
     impl2   = _h(sig.get("implication_2", ""))
@@ -149,30 +165,36 @@ def _signal_block(sig: dict, num: str, show_these: bool = True) -> str:
     src_n   = sig.get("source_name", "Source")
     src_u   = sig.get("source_url", "")
 
+    # Label de conviction lisible
+    conv_labels = {1: "très faible", 2: "faible", 3: "modérée", 4: "forte", 5: "exceptionnelle"}
+    conv_label  = conv_labels.get(conv, "modérée")
+
     lines = [
         f"<b>{stars} {num} {title}</b>",
+        f"<i>Conviction {stars} = {_h(conv_label)}</i>",
         "",
         "<b>📌 Ce qui se passe</b>",
         fait,
         "",
-        "<b>🧩 Ce que ça implique pour toi</b>",
-        f"→ <b>Direct :</b> {impl2}",
-        f"→ <b>Systémique :</b> {impl3}",
+        "<b>🧩 Ce que ça change pour toi</b>",
+        f"→ <b>Impact direct :</b> {impl2}",
+        f"→ <b>Impact indirect :</b> {impl3}",
     ]
 
     if show_these and these and these not in ("N/A", ""):
         lines += [
             "",
-            "<b>🔄 Contre-argument à garder en tête</b>",
+            "<b>🔄 Contre-argument</b>",
             f"<i>{these}</i>",
         ]
 
+    inv_display = inv if inv and inv not in ("N/A", "") else "Non défini"
     lines += [
         "",
-        "<b>🎯 Action concrète</b>",
-        f"▸ Faire : {action}",
-        f"▸ Position : {sizing}",
-        f"▸ Invalide si : {inv}",
+        "<b>🎯 Que faire ?</b>",
+        f"▸ Action : {action}",
+        f"▸ Taille de position : {sizing}",
+        f"▸ Abandonner l'analyse si : {inv_display}",
         "",
         f"🔗 Source : {_link(src_n, src_u)}",
     ]
@@ -182,7 +204,8 @@ def _signal_block(sig: dict, num: str, show_these: bool = True) -> str:
 
 def _signal_block_deeptech(sig: dict, num: str) -> str:
     """Bloc signal DeepTech enrichi : crédibilité + angle investissement."""
-    stars   = _stars(sig.get("conviction", 3))
+    conv    = sig.get("conviction", 3)
+    stars   = _stars(conv)
     title   = _h(sig.get("title", "SIGNAL").upper())
     horizon = _horizon_tag(sig.get("horizon", "3-5"))
     fait    = _h(sig.get("fait", ""))
@@ -193,6 +216,8 @@ def _signal_block_deeptech(sig: dict, num: str) -> str:
     inv     = _h(sig.get("invalide_si", ""))
     src_n   = sig.get("source_name", "Source")
     src_u   = sig.get("source_url", "")
+    conv_labels = {1: "très faible", 2: "faible", 3: "modérée", 4: "forte", 5: "exceptionnelle"}
+    conv_label  = conv_labels.get(conv, "modérée")
     cred    = sig.get("credibilite_score", 0)
 
     def _crit(key: str, label: str) -> str:
@@ -214,30 +239,32 @@ def _signal_block_deeptech(sig: dict, num: str) -> str:
     if not inv_lines:
         inv_lines.append("  ▸ Aucune exposition directe identifiée")
 
+    inv_display = inv if inv and inv not in ("N/A", "") else "Non défini"
+
     lines = [
         f"<b>{stars} {num} {title}</b>",
-        f"🕐 <b>Horizon :</b> {horizon}",
+        f"<i>Conviction {stars} = {_h(conv_label)} | Horizon : {horizon}</i>",
         "",
         "<b>📌 Ce qui se passe</b>",
         fait,
         "",
-        "<b>🧩 Ce que ça implique</b>",
-        f"→ <b>Direct :</b> {impl2}",
-        f"→ <b>Systémique :</b> {impl3}",
+        "<b>🧩 Ce que ça change pour toi</b>",
+        f"→ <b>Impact direct :</b> {impl2}",
+        f"→ <b>Impact indirect :</b> {impl3}",
         "",
-        f"<b>✅ Crédibilité : {cred}/4</b>",
-        _crit("peer_reviewed",  "Peer-reviewed (publication scientifique)"),
+        f"<b>✅ Crédibilité scientifique : {cred}/4</b>",
+        _crit("peer_reviewed",  "Publication validée par des experts (peer-reviewed)"),
         _crit("financement",    "Financement confirmé"),
-        _crit("prototype",      "Prototype / démonstration"),
-        _crit("adoption",       "Adoption industrielle"),
+        _crit("prototype",      "Prototype / démonstration existante"),
+        _crit("adoption",       "Adoption industrielle en cours"),
         "",
-        "<b>💰 Comment investir dessus</b>",
+        "<b>💰 Comment en profiter</b>",
     ] + inv_lines + [
         "",
-        "<b>🎯 Action concrète</b>",
-        f"▸ Faire : {action}",
-        f"▸ Position : {sizing}",
-        f"▸ Invalide si : {inv}",
+        "<b>🎯 Que faire ?</b>",
+        f"▸ Action : {action}",
+        f"▸ Taille de position : {sizing}",
+        f"▸ Abandonner l'analyse si : {inv_display}",
         "",
         f"🔗 Source : {_link(src_n, src_u)}",
     ]

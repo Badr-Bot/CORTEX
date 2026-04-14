@@ -15,6 +15,35 @@ import httpx
 from datetime import datetime, timezone, timedelta
 from utils.logger import get_logger
 
+
+# ── Retry helper (rate-limit CoinGecko free = 30 req/min) ────────────────────
+
+async def _get_with_retry(
+    client: httpx.AsyncClient,
+    url: str,
+    *,
+    params: dict = None,
+    timeout: float = 10,
+    retries: int = 3,
+) -> httpx.Response:
+    """GET avec retry exponentiel — gère les 429 de CoinGecko/Binance."""
+    for attempt in range(retries):
+        try:
+            r = await client.get(url, params=params, timeout=timeout)
+            if r.status_code == 429:
+                wait = 2 ** (attempt + 1)  # 2s, 4s, 8s
+                logger.warning(f"Rate-limit 429 sur {url} — attente {wait}s")
+                await asyncio.sleep(wait)
+                continue
+            r.raise_for_status()
+            return r
+        except httpx.TimeoutException:
+            if attempt < retries - 1:
+                await asyncio.sleep(2 ** attempt)
+                continue
+            raise
+    raise RuntimeError(f"Échec après {retries} tentatives : {url}")
+
 logger = get_logger("scout_ai.crypto")
 
 COINGECKO_BASE   = "https://api.coingecko.com/api/v3"
@@ -58,7 +87,7 @@ def _fear_greed_label(score: int) -> str:
 
 async def _fetch_coingecko_global(client: httpx.AsyncClient) -> dict:
     try:
-        r = await client.get(f"{COINGECKO_BASE}/global", timeout=10)
+        r = await _get_with_retry(client, f"{COINGECKO_BASE}/global")
         data = r.json().get("data", {})
         return {
             "btc_dominance":      round(data.get("market_cap_percentage", {}).get("btc", 0), 1),
@@ -72,14 +101,14 @@ async def _fetch_coingecko_global(client: httpx.AsyncClient) -> dict:
 
 async def _fetch_btc_price(client: httpx.AsyncClient) -> dict:
     try:
-        r = await client.get(
+        r = await _get_with_retry(
+            client,
             f"{COINGECKO_BASE}/simple/price",
             params={"ids": "bitcoin", "vs_currencies": "usd", "include_24hr_change": "true"},
-            timeout=10,
         )
         btc = r.json().get("bitcoin", {})
         return {
-            "btc_price":     btc.get("usd", 0),
+            "btc_price":      btc.get("usd", 0),
             "btc_change_24h": round(btc.get("usd_24h_change", 0), 1),
         }
     except Exception as e:
@@ -89,7 +118,7 @@ async def _fetch_btc_price(client: httpx.AsyncClient) -> dict:
 
 async def _fetch_fear_greed(client: httpx.AsyncClient) -> dict:
     try:
-        r = await client.get(FEAR_GREED_URL, timeout=8)
+        r = await _get_with_retry(client, FEAR_GREED_URL, timeout=8)
         data = r.json().get("data", [{}])[0]
         score = int(data.get("value", 50))
         return {"fear_greed_score": score, "fear_greed_label": _fear_greed_label(score)}
@@ -100,7 +129,7 @@ async def _fetch_fear_greed(client: httpx.AsyncClient) -> dict:
 
 async def _fetch_funding_rate(client: httpx.AsyncClient) -> str:
     try:
-        r = await client.get(BINANCE_FUND_URL, timeout=8)
+        r = await _get_with_retry(client, BINANCE_FUND_URL, timeout=8)
         data = r.json()
         if isinstance(data, list):
             data = data[0] if data else {}
@@ -119,7 +148,7 @@ async def _fetch_funding_rate(client: httpx.AsyncClient) -> str:
 async def _fetch_open_interest(client: httpx.AsyncClient) -> dict:
     """Open Interest BTC sur Binance Futures (gratuit, sans clé)."""
     try:
-        r    = await client.get(BINANCE_OI_URL, timeout=8)
+        r    = await _get_with_retry(client, BINANCE_OI_URL, timeout=8)
         data = r.json()
         oi   = float(data.get("openInterest", 0))
         btc_price_approx = 80000  # approximation fallback
@@ -132,7 +161,7 @@ async def _fetch_open_interest(client: httpx.AsyncClient) -> dict:
 async def _fetch_long_short(client: httpx.AsyncClient) -> dict:
     """Ratio Long/Short global BTC sur Binance (gratuit, sans clé)."""
     try:
-        r    = await client.get(BINANCE_LS_URL, timeout=8)
+        r    = await _get_with_retry(client, BINANCE_LS_URL, timeout=8)
         data = r.json()
         row  = data[0] if isinstance(data, list) and data else {}
         ls   = float(row.get("longShortRatio", 1.0))
@@ -146,7 +175,7 @@ async def _fetch_long_short(client: httpx.AsyncClient) -> dict:
 async def _fetch_mempool_fees(client: httpx.AsyncClient) -> dict:
     """Frais Bitcoin recommandés (activité on-chain) via mempool.space."""
     try:
-        r    = await client.get(MEMPOOL_FEES_URL, timeout=8)
+        r    = await _get_with_retry(client, MEMPOOL_FEES_URL, timeout=8)
         data = r.json()
         fee  = data.get("halfHourFee", 0)
         return {"mempool_fee": fee}

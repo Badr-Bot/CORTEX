@@ -1,9 +1,9 @@
 """
-CORTEX — Agent SCOUT-MARKET v1
+CORTEX — Agent SCOUT-MARKET v2
 Collecte : dashboard marchés temps réel + signaux news macro
 
 Sources :
-  - Yahoo Finance API (gratuit, sans clé) — S&P500, Nasdaq, Or, Pétrole, DXY, VIX, US 10Y
+  - yfinance (Yahoo Finance via librairie Python) — S&P500, Nasdaq, Or, Pétrole, DXY, VIX, US 10Y
   - RSS : Reuters Markets, FT Markets, MarketWatch, Seeking Alpha, Yahoo Finance
 """
 
@@ -14,8 +14,6 @@ from datetime import datetime, timezone, timedelta
 from utils.logger import get_logger
 
 logger = get_logger("scout_ai.market")
-
-YAHOO_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 
 TICKERS = {
     "sp500":   "^GSPC",
@@ -70,78 +68,92 @@ def _format_pct(val: float) -> str:
     return f"{sign}{val:.1f}%"
 
 
-# ── Collecte dashboard (Yahoo Finance) ───────────────────────────────────────
+# ── Collecte dashboard (yfinance — robuste aux changements Yahoo) ─────────────
 
-async def _fetch_ticker(client: httpx.AsyncClient, key: str, symbol: str) -> tuple[str, dict]:
-    """Récupère prix actuel + variation 1j pour un ticker Yahoo Finance."""
+def _price_str(key: str, price: float) -> str:
+    """Formate le prix selon le ticker."""
+    if key == "gold":
+        return f"${price:,.0f}"
+    if key == "oil":
+        return f"${price:.1f}"
+    if key in ("dxy",):
+        return f"{price:.2f}"
+    if key == "vix":
+        return f"{price:.2f}"
+    if key == "us_10y":
+        return f"{price:.3f}%"
+    return f"{price:,.2f}"
+
+
+def _fetch_ticker_sync(key: str, symbol: str) -> tuple[str, dict]:
+    """
+    Récupère prix + variation 1j via yfinance.
+    yfinance gère automatiquement les cookies Yahoo Finance.
+    Exécuté dans un thread séparé (bloquant).
+    """
     try:
-        r = await client.get(
-            YAHOO_CHART_URL.format(symbol=symbol),
-            params={"interval": "1d", "range": "5d"},
-            timeout=10,
-        )
-        data = r.json()
-        result = data.get("chart", {}).get("result", [{}])[0]
-        meta = result.get("meta", {})
+        import yfinance as yf
+        ticker = yf.Ticker(symbol)
+        hist   = ticker.history(period="5d", interval="1d", auto_adjust=True)
 
-        price = meta.get("regularMarketPrice", 0)
-        prev  = meta.get("previousClose", price) or price
-        change_pct = ((price - prev) / prev * 100) if prev else 0
+        if hist.empty:
+            raise ValueError(f"Aucune donnée pour {symbol}")
 
-        # Formatting selon le ticker
-        if key == "gold":
-            price_str = f"${price:,.0f}"
-        elif key == "oil":
-            price_str = f"${price:.1f}"
-        elif key in ("dxy",):
-            price_str = f"{price:.1f}"
-        elif key == "vix":
-            price_str = f"{price:.1f}"
-        elif key == "us_10y":
-            price_str = f"{price:.2f}%"
-        else:
-            price_str = f"{price:,.0f}"
+        price = float(hist["Close"].iloc[-1])
+        prev  = float(hist["Close"].iloc[-2]) if len(hist) >= 2 else price
+        change_pct = ((price - prev) / prev * 100) if prev else 0.0
 
         return key, {
-            "price":      price_str,
-            "change_pct": change_pct,
+            "price":      _price_str(key, price),
+            "change_pct": round(change_pct, 2),
             "raw_price":  price,
         }
     except Exception as e:
-        logger.warning(f"Yahoo Finance {symbol}: {e}")
-        return key, {"price": "N/A", "change_pct": 0.0, "raw_price": 0}
+        logger.warning(f"yfinance [{key}/{symbol}]: {e}")
+        return key, {"price": "N/A", "change_pct": 0.0, "raw_price": 0.0}
+
+
+async def _fetch_ticker(key: str, symbol: str) -> tuple[str, dict]:
+    """Wrapper async pour _fetch_ticker_sync."""
+    return await asyncio.to_thread(_fetch_ticker_sync, key, symbol)
 
 
 async def collect_dashboard() -> dict:
-    """Récupère tous les indicateurs marché en parallèle via Yahoo Finance."""
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-    }
-    async with httpx.AsyncClient(headers=headers) as client:
-        tasks = [_fetch_ticker(client, k, v) for k, v in TICKERS.items()]
-        results = await asyncio.gather(*tasks, return_exceptions=True)
+    """
+    Récupère tous les indicateurs marché en parallèle via yfinance.
+    yfinance est plus robuste que l'API brute Yahoo Finance car il gère
+    automatiquement les cookies, crumbs et changements d'API.
+    """
+    tasks = [_fetch_ticker(k, v) for k, v in TICKERS.items()]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
 
     dashboard = {}
     for r in results:
         if isinstance(r, tuple):
             key, data = r
             dashboard[key] = data
+        elif isinstance(r, Exception):
+            logger.warning(f"Erreur inattendue collecte ticker: {r}")
 
-    # Calculer variation 10Y en bps
+    # Calculer variation 10Y en bps (points de base)
     if "us_10y" in dashboard:
         chg = dashboard["us_10y"].get("change_pct", 0)
-        raw = dashboard["us_10y"].get("raw_price", 4.0)
-        bps = round(raw * chg / 100 * 100, 1)  # approximate bps
-        dashboard["us_10y"]["change_bps"] = f"{'+' if bps >= 0 else ''}{bps:.0f}bps"
+        raw = dashboard["us_10y"].get("raw_price", 4.5)
+        # Approximation : si variation est en %, convertir en bps du taux
+        bps = round(chg * raw / 100 * 100, 1)
+        sign = "+" if bps >= 0 else ""
+        dashboard["us_10y"]["change_bps"] = f"{sign}{bps:.0f}bps"
 
     # VIX interprétation
     if "vix" in dashboard:
-        vix_val = dashboard["vix"].get("raw_price", 20)
-        dashboard["vix"]["interpretation"] = _vix_interpretation(vix_val)
+        vix_val = dashboard["vix"].get("raw_price", 20.0)
+        dashboard["vix"]["interpretation"] = _vix_interpretation(float(vix_val))
 
+    sp_price = dashboard.get("sp500", {}).get("price", "N/A")
+    sp_chg   = dashboard.get("sp500", {}).get("change_pct", 0)
+    vix_p    = dashboard.get("vix",   {}).get("price", "N/A")
     logger.info(
-        f"Dashboard marché: S&P {dashboard.get('sp500', {}).get('price', 'N/A')}, "
-        f"VIX {dashboard.get('vix', {}).get('price', 'N/A')}"
+        f"Dashboard marché: S&P {sp_price} ({_format_pct(sp_chg)}), VIX {vix_p}"
     )
     return dashboard
 

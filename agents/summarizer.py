@@ -290,9 +290,12 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 Règles absolues :
 - conviction : entier de 1 (faible) à 5 (exceptionnel)
 - sizing : exactement "Fort", "Moyen" ou "Faible"
-- Tout le texte en FRANÇAIS
+- Tout le texte en FRANÇAIS — traduis systématiquement les titres anglais en français
+- title : toujours en FRANÇAIS et en MAJUSCULES
 - Texte brut uniquement — zéro markdown dans les valeurs de texte
 - watchlist : 2-3 items max, 1 ligne chacun
+- action : JAMAIS "lire la source" ou "vérifier l'article" — propose une action d'investissement, de positionnement ou de veille stratégique concrète (ex: surveiller le ticker X, allouer Y% à Z, éviter W pendant N semaines)
+- invalide_si : un seuil ou événement précis — jamais "N/A" ni vide
 - LIMITES DE LONGUEUR STRICTES (en caractères) :
   fait          : max 350 chars
   implication_2 : max 140 chars
@@ -341,16 +344,18 @@ async def analyze_ai(signals: list[dict]) -> dict:
 def _fallback_ai(signals: list[dict]) -> dict:
     fallback_signals = []
     for s in signals[:3]:
+        title = s.get("title", "SIGNAL IA")[:70].upper()
+        content = s.get("raw_content", s.get("title", ""))[:300]
         fallback_signals.append({
-            "conviction":    3,
-            "title":         s.get("title", "SIGNAL IA")[:70].upper(),
-            "fait":          s.get("raw_content", s.get("title", ""))[:300],
-            "implication_2": "Analyse indisponible — Claude non connecté.",
-            "implication_3": "Vérification manuelle recommandée.",
-            "these_opposee": "N/A",
-            "action":        "Lire la source directement.",
+            "conviction":    2,
+            "title":         title,
+            "fait":          content if content else "Contenu non disponible.",
+            "implication_2": "Analyse automatique temporairement indisponible — signal brut détecté.",
+            "implication_3": "Consulter la source pour évaluation manuelle.",
+            "these_opposee": "Signal non vérifié — pertinence incertaine.",
+            "action":        "Mettre en watchlist et réévaluer demain.",
             "sizing":        "Faible",
-            "invalide_si":   "N/A",
+            "invalide_si":   "Signal non repris dans les prochains rapports.",
             "source_name":   s.get("source_name", ""),
             "source_url":    s.get("source_url", ""),
         })
@@ -405,7 +410,11 @@ Règles absolues :
 - direction : parmi BULLISH / NEUTRE-BULLISH / NEUTRE / NEUTRE-BEARISH / BEARISH
 - magnitude : parmi "forte" / "modérée" / "faible"
 - sizing : "Fort", "Moyen" ou "Faible"
+- Tout le texte en FRANÇAIS — traduis les titres anglais en français
+- title : toujours en FRANÇAIS et en MAJUSCULES
 - Texte brut uniquement dans toutes les valeurs string
+- action : JAMAIS "lire la source" — propose une action concrète (ex: surveiller BTC/ETH si X, réduire exposition si Y)
+- invalide_si : condition précise — jamais "N/A"
 - Si moins de 3 signaux solides, mettre moins (qualité > quantité)
 - LIMITES strictes : fait≤350, implication_2≤140, implication_3≤140, these_opposee≤120, action≤120, invalide_si≤80"""
 
@@ -460,18 +469,18 @@ async def analyze_crypto(data: dict) -> dict:
 def _fallback_crypto(dashboard: dict) -> dict:
     return {
         "dashboard":     dashboard,
-        "phase":         "N/A",
-        "volume_vs_30d": "données indisponibles",
+        "phase":         "Indéterminée",
+        "volume_vs_30d": "non calculé",
         "score": {
-            "onchain":   {"value": 0, "note": "N/A"},
-            "cycle":     {"value": 0, "note": "N/A"},
-            "macro":     {"value": 0, "note": "N/A"},
-            "sentiment": {"value": 0, "note": "N/A"},
-            "momentum":  {"value": 0, "note": "N/A"},
+            "onchain":   {"value": 0, "note": "analyse indisponible ce matin"},
+            "cycle":     {"value": 0, "note": "analyse indisponible ce matin"},
+            "macro":     {"value": 0, "note": "analyse indisponible ce matin"},
+            "sentiment": {"value": 0, "note": "analyse indisponible ce matin"},
+            "momentum":  {"value": 0, "note": "analyse indisponible ce matin"},
         },
         "direction":  "NEUTRE",
         "magnitude":  "faible",
-        "bear_case":  "Analyse indisponible.",
+        "bear_case":  "Score de direction non calculé ce matin — données brutes disponibles ci-dessus.",
         "signals":    [],
     }
 
@@ -524,7 +533,11 @@ Règles absolues :
 - recession_score : calculé ainsi : score = (nb red) + 0.5 × (nb yellow), arrondi
 - regime : parmi "Risk-on", "Risk-off", "Inflation trade", "Stagflation", "Transition"
 - sizing : "Fort", "Moyen" ou "Faible"
+- Tout le texte en FRANÇAIS — traduis les titres anglais en français
+- title : toujours en FRANÇAIS et en MAJUSCULES
 - Texte brut uniquement dans toutes les valeurs string
+- action : JAMAIS "lire la source" — propose une action concrète (ex: réduire exposition si tel indicateur, surveiller tel secteur)
+- invalide_si : condition précise — jamais "N/A"
 - Si moins de 3 signaux solides disponibles, mettre moins
 - LIMITES strictes : fait≤350, implication_2≤140, implication_3≤140, these_opposee≤120, action≤120, invalide_si≤80, note récession≤60"""
 
@@ -588,7 +601,7 @@ async def analyze_market(data: dict) -> dict:
 
 
 def _fallback_market(dashboard: dict) -> dict:
-    neutral = {"status": "yellow", "note": "données indisponibles"}
+    neutral = {"status": "yellow", "note": "analyse indisponible ce matin"}
     return {
         "dashboard": dashboard,
         "recession_indicators": {k: neutral for k in [
@@ -596,8 +609,8 @@ def _fallback_market(dashboard: dict) -> dict:
             "conso_conf", "credit_spread", "earnings_rev",
         ]},
         "recession_score": 3,
-        "regime":               "Transition",
-        "regime_justification": "Analyse indisponible — Claude non connecté.",
+        "regime":               "Non déterminé",
+        "regime_justification": "L'analyse macro n'a pas pu être générée ce matin — les données brutes du tableau de bord restent disponibles ci-dessus.",
         "signals":              [],
     }
 
@@ -653,7 +666,11 @@ Règles absolues :
 - sizing : "Fort", "Moyen" ou "Faible"
 - Si un critère n'est pas rempli, mettre false et detail vide
 - investissement_cotes/etf/early : listes vides [] si rien de pertinent
+- Tout le texte en FRANÇAIS — traduis les titres anglais en français
+- title : toujours en FRANÇAIS et en MAJUSCULES
 - Texte brut uniquement
+- action : JAMAIS "lire la source" — propose une action concrète (ex: surveiller la startup X, regarder l'ETF Y pour exposition, attendre confirmation du prototype)
+- invalide_si : condition précise — jamais "N/A"
 - Maximum 2 signaux même si plus de bons candidats
 - LIMITES strictes : fait≤350, implication_2≤140, implication_3≤140, action≤120, invalide_si≤80, detail crédibilité≤60"""
 
@@ -695,15 +712,15 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
 def _fallback_deeptech(signals: list[dict]) -> dict:
     return {
         "signals": [{
-            "conviction":           3,
+            "conviction":           2,
             "horizon":              "5-10",
             "title":                s.get("title", "SIGNAL DEEPTECH")[:70].upper(),
-            "fait":                 s.get("raw_content", "")[:300],
-            "implication_2":        "Analyse indisponible.",
-            "implication_3":        "Vérification manuelle recommandée.",
-            "credibilite_score":    1,
-            "peer_reviewed":        True,
-            "peer_reviewed_detail": "arXiv pré-print",
+            "fait":                 s.get("raw_content", "")[:300] if s.get("raw_content") else "Contenu non disponible.",
+            "implication_2":        "Analyse automatique indisponible ce matin — signal brut détecté.",
+            "implication_3":        "Évaluation manuelle nécessaire pour confirmer la pertinence.",
+            "credibilite_score":    0,
+            "peer_reviewed":        False,
+            "peer_reviewed_detail": "",
             "financement":          False,
             "financement_detail":   "",
             "prototype":            False,
@@ -713,9 +730,9 @@ def _fallback_deeptech(signals: list[dict]) -> dict:
             "investissement_cotes": [],
             "investissement_etf":   [],
             "investissement_early": [],
-            "action":               "Lire la source directement.",
+            "action":               "Mettre en watchlist — réévaluation demain avec analyse complète.",
             "sizing":               "Faible",
-            "invalide_si":          "N/A",
+            "invalide_si":          "Signal non repris dans les prochains rapports.",
             "source_name":          s.get("source_name", ""),
             "source_url":           s.get("source_url", ""),
         } for s in signals]
