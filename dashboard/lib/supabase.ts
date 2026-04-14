@@ -1,0 +1,85 @@
+import { createClient } from "@supabase/supabase-js"
+import type { DailyReport, JournalEntry, WeeklyDebrief } from "./types"
+
+const url  = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
+export const supabase = createClient(url, anon)
+
+// ── Reports ──────────────────────────────────────────────────────────────────
+
+export async function getLatestReport(): Promise<DailyReport | null> {
+  const { data, error } = await supabase
+    .from("daily_reports")
+    .select("*")
+    .not("report_json", "is", null)
+    .order("report_date", { ascending: false })
+    .limit(1)
+    .single()
+
+  if (error || !data) return null
+  return data as DailyReport
+}
+
+export async function getReportByDate(date: string): Promise<DailyReport | null> {
+  const { data, error } = await supabase
+    .from("daily_reports")
+    .select("*")
+    .eq("report_date", date)
+    .not("report_json", "is", null)
+    .single()
+
+  if (error || !data) return null
+  return data as DailyReport
+}
+
+export async function getReportHistory(limit = 30): Promise<DailyReport[]> {
+  const { data } = await supabase
+    .from("daily_reports")
+    .select("id, report_date, signals_count, question, sent_at")
+    .not("report_json", "is", null)
+    .order("report_date", { ascending: false })
+    .limit(limit)
+
+  return (data || []) as DailyReport[]
+}
+
+// ── Journal ───────────────────────────────────────────────────────────────────
+
+export async function getTodayJournal(): Promise<JournalEntry | null> {
+  const today = new Date().toISOString().split("T")[0]
+  const { data } = await supabase
+    .from("journal")
+    .select("*")
+    .eq("date", today)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .single()
+
+  return data as JournalEntry | null
+}
+
+export async function getWeekJournal(): Promise<JournalEntry[]> {
+  const cutoff = new Date()
+  cutoff.setDate(cutoff.getDate() - 7)
+  const { data } = await supabase
+    .from("journal")
+    .select("*")
+    .gte("created_at", cutoff.toISOString())
+    .order("created_at", { ascending: false })
+
+  return (data || []) as JournalEntry[]
+}
+
+// ── Weekly Debrief ────────────────────────────────────────────────────────────
+
+export async function getLatestDebrief(): Promise<WeeklyDebrief | null> {
+  const { data } = await supabase
+    .from("weekly_debrief")
+    .select("*")
+    .order("week_of", { ascending: false })
+    .limit(1)
+    .single()
+
+  return data as WeeklyDebrief | null
+}

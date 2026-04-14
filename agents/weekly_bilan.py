@@ -442,7 +442,22 @@ async def run_weekly_bilan() -> None:
     await _save_learnings(evaluation)
     logger.info("Learnings sauvegardés dans agent_learnings")
 
-    # 4. Construire et envoyer le message
+    # 4. Sauvegarder le débrief dans Supabase (dashboard Vercel)
+    try:
+        from database.client import save_weekly_debrief
+        week_of = (datetime.now() - timedelta(days=6)).strftime("%Y-%m-%d")
+        score   = evaluation.get("score", {})
+        await save_weekly_debrief(
+            week_of=week_of,
+            evaluation_json=evaluation,
+            taux_reussite=score.get("taux_reussite", 0),
+            focus_semaine=evaluation.get("focus_semaine", ""),
+        )
+        logger.info("Débrief hebdo sauvegardé dans Supabase ✅")
+    except Exception as e:
+        logger.warning(f"Sauvegarde débrief échouée: {e}")
+
+    # 5. Construire et envoyer le message
     msg = _build_bilan_message(evaluation, btc_weekly)
 
     try:

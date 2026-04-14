@@ -673,3 +673,113 @@ async def get_week_analyses(days_back: int = 7) -> list:
     except Exception as e:
         logger.warning(f"Erreur get_week_analyses: {e}")
         return []
+
+
+# ============================================================
+# DASHBOARD VERCEL — Rapport structuré JSON
+# ============================================================
+
+async def save_dashboard_report(
+    report_date: str,
+    ai_data: dict,
+    crypto_data: dict,
+    market_data: dict,
+    deeptech_data: dict,
+    nexus_data: dict,
+    signals_count: int = 0,
+    question: str = "",
+) -> Optional[dict]:
+    """
+    Sauvegarde le rapport du matin en JSON structuré pour le dashboard Vercel.
+    Met à jour si un rapport existe déjà pour cette date.
+    """
+    try:
+        client = get_supabase_client()
+
+        report_json = {
+            "ai":       ai_data,
+            "crypto":   crypto_data,
+            "market":   market_data,
+            "deeptech": deeptech_data,
+            "nexus":    nexus_data,
+        }
+
+        # Vérifier si un rapport existe déjà pour cette date
+        existing = (
+            client.table("daily_reports")
+            .select("id")
+            .eq("report_date", report_date)
+            .execute()
+        )
+
+        if existing.data:
+            result = (
+                client.table("daily_reports")
+                .update({
+                    "report_json":    report_json,
+                    "signals_count":  signals_count,
+                    "question":       question,
+                    "report_date":    report_date,
+                })
+                .eq("id", existing.data[0]["id"])
+                .execute()
+            )
+        else:
+            result = (
+                client.table("daily_reports")
+                .insert({
+                    "report_date":    report_date,
+                    "report_json":    report_json,
+                    "signals_count":  signals_count,
+                    "question":       question,
+                    "report_content": "",
+                    "sectors_covered": ["ai", "crypto", "market", "deeptech", "nexus"],
+                })
+                .execute()
+            )
+
+        logger.info(f"Dashboard report sauvegardé — {report_date}")
+        return result.data[0] if result.data else None
+
+    except Exception as e:
+        logger.error(f"Erreur save_dashboard_report: {e}")
+        return None
+
+
+# ============================================================
+# DASHBOARD VERCEL — Weekly Debrief
+# ============================================================
+
+async def save_weekly_debrief(
+    week_of: str,
+    evaluation_json: dict,
+    taux_reussite: int = 0,
+    focus_semaine: str = "",
+) -> Optional[dict]:
+    """
+    Sauvegarde le débrief hebdomadaire du dimanche dans Supabase.
+    Utilisé par le dashboard pour afficher la page /debrief.
+    """
+    try:
+        client = get_supabase_client()
+
+        data = {
+            "week_of":          week_of,
+            "evaluation_json":  evaluation_json,
+            "taux_reussite":    taux_reussite,
+            "focus_semaine":    focus_semaine,
+        }
+
+        # Upsert : remplace si la semaine existe déjà
+        result = (
+            client.table("weekly_debrief")
+            .upsert(data, on_conflict="week_of")
+            .execute()
+        )
+
+        logger.info(f"Débrief hebdomadaire sauvegardé — semaine du {week_of}")
+        return result.data[0] if result.data else None
+
+    except Exception as e:
+        logger.error(f"Erreur save_weekly_debrief: {e}")
+        return None

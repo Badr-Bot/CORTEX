@@ -788,6 +788,32 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         except Exception as e:
             logger.error(f"Erreur envoi Telegram: {e}")
 
+    # ── Sauvegarde Supabase pour le dashboard Vercel ─────────────────────────
+    try:
+        from database.client import save_dashboard_report, insert_journal_entry
+        question = nexus_data.get("question", "")
+        signals_total = (
+            len(ai_analyzed.get("signals", []))
+            + len(crypto_analyzed.get("signals", []))
+            + len(market_analyzed.get("signals", []))
+            + len(deeptech_analyzed.get("signals", []))
+        )
+        await save_dashboard_report(
+            report_date=datetime.now().strftime("%Y-%m-%d"),
+            ai_data=ai_analyzed,
+            crypto_data=crypto_analyzed,
+            market_data=market_analyzed,
+            deeptech_data=deeptech_analyzed,
+            nexus_data=nexus_data,
+            signals_count=signals_total,
+            question=question,
+        )
+        if question:
+            await insert_journal_entry(question_asked=question)
+        logger.info("Dashboard report sauvegardé dans Supabase ✅")
+    except Exception as e:
+        logger.warning(f"Sauvegarde dashboard échouée (non bloquant): {e}")
+
     logger.info("=" * 55)
     logger.info("CORTEX v3 — Rapport terminé")
     logger.info("=" * 55)
