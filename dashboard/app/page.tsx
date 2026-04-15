@@ -151,10 +151,16 @@ interface PageProps {
 }
 
 export default async function DashboardPage({ searchParams }: PageProps) {
-  const [report, journalEntry] = await Promise.all([
-    getLatestReport(),
-    getTodayJournal(),
-  ])
+  let report = null
+  let journalEntry = null
+  try {
+    ;[report, journalEntry] = await Promise.all([
+      getLatestReport(),
+      getTodayJournal(),
+    ])
+  } catch {
+    return <EmptyState />
+  }
 
   if (!report || !report.report_json || !Object.keys(report.report_json).length) {
     return <EmptyState />
