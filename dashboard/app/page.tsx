@@ -6,9 +6,9 @@ import MarketSection from "@/components/MarketSection"
 import QuestionPanel from "@/components/QuestionPanel"
 import type { ReportJSON } from "@/lib/types"
 
-export const dynamic = 'force-dynamic' // Données temps réel depuis Supabase
+export const dynamic = 'force-dynamic'
 
-const DAYS_FR = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]
+const DAYS_FR   = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]
 const MONTHS_FR = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
 
 function formatDate(dateStr: string) {
@@ -17,24 +17,44 @@ function formatDate(dateStr: string) {
 }
 
 const TABS = [
-  { id: "ai",       label: "🧠 IA",       color: "text-blue-400 border-blue-500"     },
-  { id: "crypto",   label: "💰 Crypto",   color: "text-yellow-400 border-yellow-500" },
-  { id: "market",   label: "📈 Marchés",  color: "text-green-400 border-green-500"   },
-  { id: "deeptech", label: "⚡ DeepTech", color: "text-purple-400 border-purple-500" },
-  { id: "nexus",    label: "🔗 Nexus",    color: "text-orange-400 border-orange-500" },
+  { id: "ai",       label: "IA",        icon: "🧠", color: "blue"    },
+  { id: "crypto",   label: "Crypto",    icon: "₿",  color: "amber"   },
+  { id: "market",   label: "Marchés",   icon: "📈", color: "emerald" },
+  { id: "deeptech", label: "DeepTech",  icon: "⚡", color: "violet"  },
+  { id: "nexus",    label: "Nexus",     icon: "◈",  color: "orange"  },
 ] as const
 
 type TabId = typeof TABS[number]["id"]
+
+const TAB_COLORS: Record<string, { active: string; dot: string; shadow: string }> = {
+  blue:    { active: "bg-blue-500/15 text-blue-300 border-blue-500/40",    dot: "bg-blue-400",    shadow: "shadow-[0_0_12px_rgba(99,102,241,0.3)]"  },
+  amber:   { active: "bg-amber-500/15 text-amber-300 border-amber-500/40", dot: "bg-amber-400",   shadow: "shadow-[0_0_12px_rgba(245,158,11,0.3)]"  },
+  emerald: { active: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40", dot: "bg-emerald-400", shadow: "shadow-[0_0_12px_rgba(16,185,129,0.3)]" },
+  violet:  { active: "bg-violet-500/15 text-violet-300 border-violet-500/40", dot: "bg-violet-400",  shadow: "shadow-[0_0_12px_rgba(168,85,247,0.3)]"  },
+  orange:  { active: "bg-orange-500/15 text-orange-300 border-orange-500/40", dot: "bg-orange-400",  shadow: "shadow-[0_0_12px_rgba(249,115,22,0.3)]"   },
+}
 
 function EmptyState() {
   return (
     <div className="min-h-screen flex flex-col">
       <NavBar />
       <main className="flex-1 flex items-center justify-center">
-        <div className="text-center space-y-3">
-          <div className="text-4xl">⚡</div>
-          <div className="text-white font-semibold">Pas encore de rapport aujourd'hui</div>
-          <div className="text-slate-500 text-sm">CORTEX génère le rapport à 06h00 chaque matin</div>
+        <div className="text-center space-y-6 animate-fade-in">
+          <div className="relative inline-block">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500/20 to-violet-500/20 border border-indigo-500/20 flex items-center justify-center mx-auto animate-float">
+              <span className="text-3xl">⚡</span>
+            </div>
+            <div className="absolute -inset-4 rounded-full border border-indigo-500/10 animate-ping opacity-30" />
+          </div>
+          <div>
+            <h1 className="text-white font-bold text-xl mb-2 gradient-text">Pas encore de rapport aujourd'hui</h1>
+            <p className="text-slate-500 text-sm font-mono">CORTEX génère le rapport à 06h00 chaque matin</p>
+          </div>
+          <div className="flex items-center justify-center gap-2 text-xs text-slate-600 font-mono">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/50 animate-pulse-glow" />
+            Système en veille
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/50 animate-pulse-glow" />
+          </div>
         </div>
       </main>
     </div>
@@ -49,14 +69,18 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
           <SignalCard key={i} signal={sig} index={i} sector="ai" />
         ))}
         {report.ai.watchlist && report.ai.watchlist.length > 0 && (
-          <div className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-5">
-            <div className="text-xs text-blue-400 uppercase tracking-wider font-medium mb-3">
-              Signaux à surveiller
+          <div className="glass border-l-2 accent-ai rounded-xl p-5 card-hover animate-slide-up">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_6px_#6366f1] animate-pulse-glow" />
+              <div className="text-[10px] text-blue-400 uppercase tracking-widest font-semibold">
+                Signaux à surveiller
+              </div>
             </div>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {report.ai.watchlist.map((item, i) => (
-                <li key={i} className="text-sm text-slate-300 flex gap-2">
-                  <span className="text-slate-600">◦</span>{item}
+                <li key={i} className="text-sm text-slate-300 flex gap-3 items-start">
+                  <span className="text-blue-500/60 mt-0.5 shrink-0">→</span>
+                  {item}
                 </li>
               ))}
             </ul>
@@ -76,7 +100,9 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
           <SignalCard key={i} signal={sig} index={i} sector="deeptech" />
         ))}
         {!report.deeptech.signals?.length && (
-          <div className="text-slate-500 text-sm text-center py-8">Aucun signal deeptech aujourd'hui</div>
+          <div className="text-slate-500 text-sm text-center py-12 glass rounded-xl border border-white/5">
+            Aucun signal deeptech aujourd'hui
+          </div>
         )}
       </div>
     )
@@ -86,15 +112,23 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
     const n = report.nexus
     return (
       <div className="space-y-4">
-        <div className="bg-[#12121a] border border-[#1e1e2e] border-l-2 border-l-orange-500 rounded-xl p-5">
-          <div className="text-xs text-orange-400 uppercase tracking-wider font-medium mb-3">
-            Connexion du jour
+        <div className="glass border-l-2 accent-nexus rounded-xl p-5 card-hover animate-slide-up">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-1.5 h-1.5 rounded-full bg-orange-400 shadow-[0_0_6px_#f97316] animate-pulse-glow" />
+            <div className="text-[10px] text-orange-400 uppercase tracking-widest font-semibold">
+              Connexion du jour
+            </div>
           </div>
           {n.has_connexion && n.connexion ? (
             <>
               {n.secteurs_lies?.length > 0 && (
-                <div className="text-xs text-slate-500 mb-2 italic">
-                  {n.secteurs_lies.join(" × ")}
+                <div className="flex items-center gap-2 mb-3 flex-wrap">
+                  {n.secteurs_lies.map((s, i) => (
+                    <span key={i} className="text-xs text-slate-500 bg-white/5 border border-white/10 rounded-full px-2 py-0.5">
+                      {s}
+                    </span>
+                  ))}
+                  <span className="text-slate-600">×</span>
                 </div>
               )}
               <p className="text-slate-200 leading-relaxed">{n.connexion}</p>
@@ -133,37 +167,62 @@ export default async function DashboardPage({ searchParams }: PageProps) {
     <div className="min-h-screen flex flex-col">
       <NavBar />
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-6 space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-white font-bold text-lg">Rapport du matin</h1>
-            <p className="text-slate-500 text-sm">{formatDate(report.report_date)}</p>
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8 space-y-6">
+
+        {/* Hero header */}
+        <div className="animate-slide-up space-y-4">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-mono text-indigo-400/60 uppercase tracking-widest">Rapport quotidien</span>
+                <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-indigo-500/30 to-transparent" />
+              </div>
+              <h1 className="text-2xl font-bold text-white leading-tight">
+                Rapport du <span className="gradient-text">matin</span>
+              </h1>
+              <p className="text-slate-500 text-sm mt-1 font-mono">{formatDate(report.report_date)}</p>
+            </div>
+            <div className="text-right shrink-0">
+              <div className="glass rounded-xl px-4 py-2.5 border border-indigo-500/20">
+                <div className="text-2xl font-bold font-mono gradient-text">{report.signals_count}</div>
+                <div className="text-[10px] text-slate-500 uppercase tracking-wider">signaux</div>
+              </div>
+            </div>
           </div>
-          <div className="text-xs text-slate-600">
-            {report.signals_count} signaux analysés
-          </div>
+
+          {/* Decorative line */}
+          <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide">
-          {TABS.map((tab) => (
-            <a
-              key={tab.id}
-              href={`/?tab=${tab.id}`}
-              className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-colors border-b-2 ${
-                activeTab === tab.id
-                  ? `bg-white/5 ${tab.color}`
-                  : "text-slate-500 border-transparent hover:text-slate-300 hover:bg-white/5"
-              }`}
-            >
-              {tab.label}
-            </a>
-          ))}
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide animate-slide-up stagger-1">
+          {TABS.map((tab) => {
+            const isActive = activeTab === tab.id
+            const colors = TAB_COLORS[tab.color]
+            return (
+              <a
+                key={tab.id}
+                href={`/?tab=${tab.id}`}
+                className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 border ${
+                  isActive
+                    ? `${colors.active} ${colors.shadow}`
+                    : "text-slate-500 border-transparent hover:text-slate-300 hover:bg-white/5"
+                }`}
+              >
+                <span className="text-base leading-none">{tab.icon}</span>
+                {tab.label}
+                {isActive && (
+                  <span className={`w-1.5 h-1.5 rounded-full ${colors.dot} shadow-lg`} />
+                )}
+              </a>
+            )
+          })}
         </div>
 
-        {/* Contenu du tab actif */}
-        <SectorContent tab={activeTab} report={json} />
+        {/* Tab content */}
+        <div className="animate-fade-in">
+          <SectorContent tab={activeTab} report={json} />
+        </div>
 
         {/* Question du matin */}
         {json.nexus?.question && (
@@ -173,6 +232,13 @@ export default async function DashboardPage({ searchParams }: PageProps) {
             existingResponse={journalEntry?.your_response}
           />
         )}
+
+        {/* Footer */}
+        <div className="pt-4 pb-8 flex items-center justify-center gap-3 text-[10px] text-slate-700 font-mono">
+          <span className="w-8 h-px bg-slate-800" />
+          CORTEX INTELLIGENCE SYSTEM
+          <span className="w-8 h-px bg-slate-800" />
+        </div>
       </main>
     </div>
   )
