@@ -65,7 +65,7 @@ export default function SignalCard({ signal, index, sector = "ai" }: Props) {
       <div className="space-y-1">
         <div className="text-[10px] text-slate-500 uppercase tracking-widest font-medium flex items-center gap-2">
           <span className="w-3 h-px bg-slate-600" />
-          Ce qui se passe
+          🔍 Ce qui se passe
           <span className="w-3 h-px bg-slate-600" />
         </div>
         <p className="text-slate-300 text-sm leading-relaxed">{signal.fait}</p>
@@ -76,14 +76,14 @@ export default function SignalCard({ signal, index, sector = "ai" }: Props) {
         <div className="bg-black/30 rounded-lg p-3 border border-white/5 space-y-1">
           <div className="flex items-center gap-1.5">
             <div className="w-1.5 h-1.5 rounded-full bg-cyan-400/60" />
-            <div className="text-[10px] text-cyan-400/60 uppercase tracking-wider">Impact direct</div>
+            <div className="text-[10px] text-cyan-400/60 uppercase tracking-wider">⚡ Impact direct</div>
           </div>
           <p className="text-slate-300 text-xs leading-relaxed">{signal.implication_2}</p>
         </div>
         <div className="bg-black/30 rounded-lg p-3 border border-white/5 space-y-1">
           <div className="flex items-center gap-1.5">
             <div className="w-1.5 h-1.5 rounded-full bg-violet-400/60" />
-            <div className="text-[10px] text-violet-400/60 uppercase tracking-wider">Impact systémique</div>
+            <div className="text-[10px] text-violet-400/60 uppercase tracking-wider">🌊 Impact systémique</div>
           </div>
           <p className="text-slate-300 text-xs leading-relaxed">{signal.implication_3}</p>
         </div>
@@ -92,17 +92,17 @@ export default function SignalCard({ signal, index, sector = "ai" }: Props) {
       {/* Action bar */}
       <div className="bg-black/40 rounded-lg px-4 py-3 border border-white/5 flex flex-wrap items-center gap-x-5 gap-y-2">
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-slate-500 uppercase tracking-wider">Action</span>
+          <span className="text-[10px] text-slate-500 uppercase tracking-wider">🎯 Action</span>
           <span className="text-xs text-white font-medium">{signal.action}</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-slate-500 uppercase tracking-wider">Position</span>
+          <span className="text-[10px] text-slate-500 uppercase tracking-wider">💼 Position</span>
           <span className={`text-xs font-semibold font-mono px-2 py-0.5 rounded border ${sizing.bg} ${sizing.color}`}>
             {signal.sizing}
           </span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-slate-500 uppercase tracking-wider">Stop si</span>
+          <span className="text-[10px] text-slate-500 uppercase tracking-wider">🛑 Stop si</span>
           <span className="text-xs text-orange-400">{signal.invalide_si}</span>
         </div>
       </div>

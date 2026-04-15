@@ -68,7 +68,7 @@ export default function MarketSection({ market }: Props) {
         <div className="flex items-center gap-2 mb-5">
           <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981] animate-pulse-glow" />
           <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold">
-            Marchés mondiaux
+            🌍 Marchés mondiaux
           </div>
         </div>
 
@@ -113,7 +113,7 @@ export default function MarketSection({ market }: Props) {
         {/* Recession Score */}
         <div className="glass rounded-xl p-5 card-hover border border-emerald-500/10">
           <div className="flex items-center justify-between mb-4">
-            <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold">Risque récession</div>
+            <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold">⚠️ Risque récession</div>
             <div className={`text-sm font-mono px-2 py-0.5 rounded-lg border ${rec.color} bg-white/5 border-current/30`}>
               {rec.label}
             </div>
@@ -147,13 +147,13 @@ export default function MarketSection({ market }: Props) {
 
         {/* Régime */}
         <div className="glass rounded-xl p-5 card-hover border border-emerald-500/10">
-          <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold mb-3">Régime de marché</div>
+          <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold mb-3">🏛️ Régime de marché</div>
           <div className="text-white font-bold text-base mb-2">{market.regime}</div>
           <p className="text-slate-400 text-sm leading-relaxed">{market.regime_justification}</p>
           {market.crash && (
             <div className="mt-4 pt-3 border-t border-white/5 space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider">Risque crash</span>
+                <span className="text-[10px] text-slate-500 uppercase tracking-wider">💥 Risque crash</span>
                 <span className="font-mono font-bold text-orange-400">{market.crash.crash_score}/10</span>
               </div>
               <div className="text-xs text-slate-500 italic">{market.crash.interpretation}</div>
@@ -168,7 +168,7 @@ export default function MarketSection({ market }: Props) {
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-emerald-400/60" />
             <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold">
-              Actions en mouvement
+              🔥 Actions en mouvement
             </div>
           </div>
           {market.hot_stocks.map((s, i) => <StockRow key={i} stock={s} index={i} />)}
