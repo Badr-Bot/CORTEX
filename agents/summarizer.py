@@ -122,13 +122,13 @@ def _get_client():
 
 def _call_claude(
     prompt: str,
-    max_tokens: int = 1800,
+    max_tokens: int = 4000,
     system_prompt: str = None,
-    model: str = "claude-sonnet-4-6",
+    model: str = "claude-3-5-sonnet-20241022",
 ) -> str | None:
     """
     Appel Claude avec prompt caching optionnel.
-    model : "claude-sonnet-4-6" (défaut) ou "claude-haiku-4-5-20251001" (20x moins cher)
+    model : "claude-3-5-sonnet-20241022" (défaut) ou "claude-3-5-haiku-20241022" (4x moins cher)
 
     Si system_prompt fourni, il est envoyé avec cache_control ephemeral
     → Anthropic le met en cache côté serveur (TTL 5 min).
@@ -256,51 +256,52 @@ def _prep_signals(signals: list[dict], max_count: int = 80) -> str:
 # Partie stable mise en cache (schéma JSON + règles = ~600 tokens)
 _SYSTEM_AI = """Tu es CORTEX, système de veille IA pour Badr — investisseur et entrepreneur tech.
 
-MISSION : À partir des signaux fournis, sélectionne les 3 plus importants selon :
+MISSION : À partir des signaux fournis, sélectionne EXACTEMENT 3 signaux IA importants selon :
 1. Impact réel sur l'industrie IA (pas du clickbait)
 2. Nouveauté absolue (pas déjà vu cette semaine, cf. historique)
 3. Utilité directe pour un investisseur/entrepreneur IA
 4. Diversité : évite 3 signaux sur le même sous-thème
 
-Pour chaque signal sélectionné, fournis une analyse approfondie en 3 ordres.
+Pour chaque signal sélectionné, fournis une analyse APPROFONDIE et DÉTAILLÉE — c'est pour un dashboard web, pas Telegram. Développe chaque champ au maximum de sa limite.
 
 Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 {
   "signals": [
     {
       "conviction": 5,
-      "title": "TITRE EN MAJUSCULES — CONCIS, PERCUTANT, FACTUEL (max 70 chars)",
-      "fait": "Explication factuelle complète. Qui, quoi, d'où ça vient, chiffres précis. 4-5 lignes. Texte brut uniquement.",
-      "implication_2": "Si c'est vrai, alors... — conséquences directes. 1-2 phrases.",
-      "implication_3": "Qui gagne : [X]. Qui perd : [Y]. Où est l'asymétrie. 1-2 phrases.",
-      "these_opposee": "Le meilleur argument contre cette lecture. 1-2 lignes max.",
-      "action": "Action concrète que Badr peut prendre maintenant. Spécifique, pas vague.",
+      "title": "TITRE EN MAJUSCULES — CONCIS, PERCUTANT, FACTUEL (max 80 chars)",
+      "fait": "Explication factuelle COMPLÈTE et APPROFONDIE. Qui, quoi, pourquoi maintenant, d'où ça vient, chiffres précis, contexte historique si pertinent, implications techniques. Minimum 6-8 lignes denses. Texte brut uniquement.",
+      "implication_2": "Si c'est vrai, alors... — conséquences directes sur l'industrie, les marchés, les entreprises. Développe. 3-4 phrases.",
+      "implication_3": "Qui gagne concrètement : [entreprise/secteur X avec raison]. Qui perd : [Y avec raison]. Où est l'asymétrie exacte. 3-4 phrases.",
+      "these_opposee": "Le meilleur argument contre cette lecture, avec des faits. Pourquoi l'analyse pourrait être fausse. 2-3 lignes.",
+      "action": "Action concrète et SPÉCIFIQUE que Badr peut prendre maintenant. Pas vague — quel ticker, quelle étape, quel timing.",
       "sizing": "Fort",
-      "invalide_si": "Seuil ou événement précis qui invaliderait cette analyse.",
+      "invalide_si": "Seuil ou événement précis et mesurable qui invaliderait cette analyse.",
       "source_name": "Nom exact de la source",
       "source_url": "URL exacte"
     }
   ],
   "watchlist": [
-    "Signal early pas encore mûr — [source] — pourquoi surveiller",
-    "Autre signal — [source] — signal à confirmer"
+    "Signal early pas encore mûr — [source] — pourquoi surveiller et quand agir",
+    "Autre signal — [source] — signal à confirmer d'ici [délai]"
   ]
 }
 
 Règles absolues :
+- TOUJOURS 3 signaux dans le tableau signals — ni plus, ni moins
 - conviction : entier de 1 (faible) à 5 (exceptionnel)
 - sizing : exactement "Fort", "Moyen" ou "Faible"
 - Tout le texte en FRANÇAIS
 - Texte brut uniquement — zéro markdown dans les valeurs de texte
-- watchlist : 2-3 items max, 1 ligne chacun
-- LIMITES DE LONGUEUR STRICTES (en caractères) :
-  fait          : max 350 chars
-  implication_2 : max 140 chars
-  implication_3 : max 140 chars
-  these_opposee : max 120 chars
-  action        : max 120 chars
-  invalide_si   : max 80 chars
-  watchlist item: max 90 chars"""
+- watchlist : 2-3 items max
+- LIMITES DE LONGUEUR (en caractères) :
+  fait          : 500-800 chars (minimum 500 — analyse complète)
+  implication_2 : 200-300 chars
+  implication_3 : 200-300 chars
+  these_opposee : 150-250 chars
+  action        : 150-200 chars
+  invalide_si   : 100-150 chars
+  watchlist item: max 120 chars"""
 
 
 async def analyze_ai(signals: list[dict]) -> dict:
@@ -326,7 +327,7 @@ async def analyze_ai(signals: list[dict]) -> dict:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux IA collectés :\n\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=1800, system_prompt=_SYSTEM_AI)
+    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_AI)
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -365,35 +366,35 @@ _SYSTEM_CRYPTO = """Tu es CORTEX, analyste crypto senior pour Badr — investiss
 
 MISSION :
 1. Détermine la phase du cycle (Accumulation / Markup / Distribution / Markdown)
-2. Score chaque facteur de direction de -2 à +2 avec justification courte
-3. Sélectionne max 3 signaux news pertinents (si aucun signal solide, 1 seul suffit)
-4. Rédige le bear case qui invaliderait ta lecture
+2. Score chaque facteur de direction de -2 à +2 avec justification détaillée
+3. Sélectionne EXACTEMENT 3 signaux news crypto pertinents et importants
+4. Rédige le bear case complet qui invaliderait ta lecture
 
 Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 {
   "phase": "Accumulation",
-  "volume_vs_30d": "description humaine du volume vs moyenne (ex: -18% vs moy. 30j)",
+  "volume_vs_30d": "description humaine complète du volume vs moyenne 30j avec contexte",
   "score": {
-    "onchain":   {"value": 1,  "note": "justification courte 1 ligne"},
-    "cycle":     {"value": 1,  "note": "justification courte 1 ligne"},
-    "macro":     {"value": 0,  "note": "justification courte 1 ligne"},
-    "sentiment": {"value": -1, "note": "justification courte 1 ligne"},
-    "momentum":  {"value": 0,  "note": "justification courte 1 ligne"}
+    "onchain":   {"value": 1,  "note": "justification précise avec données concrètes"},
+    "cycle":     {"value": 1,  "note": "justification précise avec données concrètes"},
+    "macro":     {"value": 0,  "note": "justification précise avec données concrètes"},
+    "sentiment": {"value": -1, "note": "justification précise avec données concrètes"},
+    "momentum":  {"value": 0,  "note": "justification précise avec données concrètes"}
   },
   "direction": "NEUTRE-BULLISH",
   "magnitude": "faible",
-  "bear_case": "Ce qui invaliderait cette lecture — 2 lignes max.",
+  "bear_case": "Ce qui invaliderait cette lecture — développé, avec seuils précis et probabilité estimée. 3-4 lignes.",
   "signals": [
     {
       "conviction": 4,
-      "title": "TITRE SIGNAL EN MAJUSCULES (max 70 chars)",
-      "fait": "Factuel. Complet. 3-4 lignes. Texte brut.",
-      "implication_2": "Si vrai, alors... 1-2 phrases.",
-      "implication_3": "Qui gagne / perd. 1 phrase.",
-      "these_opposee": "Argument contre. 1-2 lignes.",
-      "action": "Action concrète pour Badr.",
+      "title": "TITRE SIGNAL EN MAJUSCULES (max 80 chars)",
+      "fait": "Factuel, complet et APPROFONDI. Qui, quoi, chiffres, contexte de marché. Minimum 6 lignes. Texte brut.",
+      "implication_2": "Si vrai, alors... impact direct sur le prix BTC/alts, les flux, les investisseurs. 3-4 phrases.",
+      "implication_3": "Qui gagne concrètement / qui perd. Impact sur DeFi, CEX, réglementation. 3-4 phrases.",
+      "these_opposee": "Meilleur argument contre cette lecture, avec faits. 2-3 lignes.",
+      "action": "Action concrète et spécifique pour Badr — ticker, timing, condition d'entrée.",
       "sizing": "Moyen",
-      "invalide_si": "Condition d'invalidation précise.",
+      "invalide_si": "Condition d'invalidation précise et mesurable.",
       "source_name": "Source",
       "source_url": "URL"
     }
@@ -401,13 +402,13 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 }
 
 Règles absolues :
+- TOUJOURS exactement 3 signaux dans signals — sélectionne les 3 meilleurs news disponibles
 - score values : entiers de -2 à +2 uniquement
 - direction : parmi BULLISH / NEUTRE-BULLISH / NEUTRE / NEUTRE-BEARISH / BEARISH
 - magnitude : parmi "forte" / "modérée" / "faible"
 - sizing : "Fort", "Moyen" ou "Faible"
-- Texte brut uniquement dans toutes les valeurs string
-- Si moins de 3 signaux solides, mettre moins (qualité > quantité)
-- LIMITES strictes : fait≤350, implication_2≤140, implication_3≤140, these_opposee≤120, action≤120, invalide_si≤80"""
+- Tout en FRANÇAIS — texte brut, zéro markdown
+- LIMITES : fait=500-800 chars, implication_2=200-300, implication_3=200-300, these_opposee=150-250, action=150-200, invalide_si=100-150"""
 
 
 async def analyze_crypto(data: dict) -> dict:
@@ -441,7 +442,7 @@ async def analyze_crypto(data: dict) -> dict:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=1800, system_prompt=_SYSTEM_CRYPTO)
+    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_CRYPTO)
     result = _parse_json(raw)
 
     if not result or "score" not in result:
@@ -483,36 +484,36 @@ def _fallback_crypto(dashboard: dict) -> dict:
 _SYSTEM_MARKET = """Tu es CORTEX, analyste macro senior pour Badr — investisseur tech.
 
 MISSION :
-1. Évalue chaque indicateur de récession (green/yellow/red) avec justification courte
+1. Évalue chaque indicateur de récession (green/yellow/red) avec justification précise et chiffrée
 2. Calcule le score total (/10)
-3. Détermine le régime de marché actuel
-4. Sélectionne max 3 signaux news macro pertinents
+3. Détermine le régime de marché actuel avec justification développée
+4. Sélectionne EXACTEMENT 3 signaux news macro importants et approfondis
 
 Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 {
   "recession_indicators": {
-    "courbe_taux":    {"status": "yellow", "note": "Plate à 0.1%, non inversée"},
-    "emploi":         {"status": "green",  "note": "Claims stables, NFP solide"},
-    "ism_manuf":      {"status": "yellow", "note": "49.2, contraction légère"},
-    "ism_services":   {"status": "green",  "note": "53.1, expansion"},
-    "conso_conf":     {"status": "green",  "note": "En hausse ce mois"},
-    "credit_spread":  {"status": "green",  "note": "IG serrés, pas de stress"},
-    "earnings_rev":   {"status": "yellow", "note": "Mixtes — quelques downgrades"}
+    "courbe_taux":    {"status": "yellow", "note": "2Y-10Y à +0.15% — pente redevenue positive après 2 ans d'inversion"},
+    "emploi":         {"status": "green",  "note": "Claims 220K, NFP +175K — marché du travail résistant"},
+    "ism_manuf":      {"status": "yellow", "note": "49.2, 6e mois sous 50 — contraction industrielle modérée"},
+    "ism_services":   {"status": "green",  "note": "53.1, expansion solide — services tiennent"},
+    "conso_conf":     {"status": "green",  "note": "Conference Board 104.2, en hausse de 3 pts"},
+    "credit_spread":  {"status": "green",  "note": "IG à 85bps, HY à 340bps — pas de stress crédit"},
+    "earnings_rev":   {"status": "yellow", "note": "Révisions S&P500 Q2 : -2.3% — mixtes mais pas catastrophiques"}
   },
   "recession_score": 3,
   "regime": "Risk-on prudent",
-  "regime_justification": "2-3 lignes expliquant le régime. Factuel.",
+  "regime_justification": "Développement complet du régime en 4-5 lignes — données macro, Fed, flux de capitaux, positionnement des institutionnels. Factuel et chiffré.",
   "signals": [
     {
       "conviction": 4,
-      "title": "TITRE EN MAJUSCULES (max 70 chars)",
-      "fait": "Factuel. Complet. 3-4 lignes. Texte brut.",
-      "implication_2": "Si vrai, alors... 1-2 phrases.",
-      "implication_3": "Qui gagne / perd. 1 phrase.",
-      "these_opposee": "Argument contre. 1-2 lignes.",
-      "action": "Action concrète pour Badr.",
+      "title": "TITRE EN MAJUSCULES (max 80 chars)",
+      "fait": "Factuel, complet, APPROFONDI. Contexte macro, données chiffrées, implications sur les marchés. Minimum 6 lignes. Texte brut.",
+      "implication_2": "Si vrai, alors... impact sur les actions, obligations, devises, commodités. 3-4 phrases.",
+      "implication_3": "Qui gagne : [secteurs/pays/actifs]. Qui perd : [idem]. Asymétrie et timing. 3-4 phrases.",
+      "these_opposee": "Meilleur argument contre cette lecture macro, avec données. 2-3 lignes.",
+      "action": "Action concrète et spécifique pour Badr — ETF, ticker, allocation, timing.",
       "sizing": "Moyen",
-      "invalide_si": "Condition d'invalidation précise.",
+      "invalide_si": "Condition précise et mesurable d'invalidation — seuil de prix, donnée économique, événement.",
       "source_name": "Source",
       "source_url": "URL"
     }
@@ -520,13 +521,13 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 }
 
 Règles absolues :
+- TOUJOURS exactement 3 signaux dans signals
 - status : "green", "yellow" ou "red" uniquement
-- recession_score : calculé ainsi : score = (nb red) + 0.5 × (nb yellow), arrondi
+- recession_score : score = (nb red) + 0.5 × (nb yellow), arrondi
 - regime : parmi "Risk-on", "Risk-off", "Inflation trade", "Stagflation", "Transition"
 - sizing : "Fort", "Moyen" ou "Faible"
-- Texte brut uniquement dans toutes les valeurs string
-- Si moins de 3 signaux solides disponibles, mettre moins
-- LIMITES strictes : fait≤350, implication_2≤140, implication_3≤140, these_opposee≤120, action≤120, invalide_si≤80, note récession≤60"""
+- Tout en FRANÇAIS — texte brut, zéro markdown
+- LIMITES : fait=500-800 chars, implication_2=200-300, implication_3=200-300, these_opposee=150-250, action=150-200, invalide_si=100-150, note récession=60-100"""
 
 
 async def analyze_market(data: dict) -> dict:
@@ -571,7 +572,7 @@ async def analyze_market(data: dict) -> dict:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=1800, system_prompt=_SYSTEM_MARKET)
+    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_MARKET)
     result = _parse_json(raw)
 
     if not result or "recession_indicators" not in result:
@@ -608,13 +609,13 @@ def _fallback_market(dashboard: dict) -> dict:
 
 _SYSTEM_DEEPTECH = """Tu es CORTEX, analyste deeptech senior pour Badr — investisseur tech.
 
-MISSION : Sélectionne les 2 signaux deeptech les plus importants selon :
-1. Crédibilité (publication peer-reviewed, financement, prototype, adoption)
-2. Potentiel de rupture réel (pas juste intéressant — transformateur)
-3. Utilité pour un investisseur (angle investissement concret)
+MISSION : Sélectionne les 3 meilleurs signaux deeptech selon :
+1. Crédibilité (publication peer-reviewed, financement confirmé, prototype, adoption)
+2. Potentiel de rupture réel (pas juste intéressant — transformateur sur 3-10 ans)
+3. Utilité pour un investisseur (angle investissement concret et actionnable)
 4. Diversité des domaines si possible (biotech, quantique, robotique, énergie, matériaux, espace)
 
-Pour chaque signal, fournis l'analyse complète.
+Pour chaque signal, fournis une analyse COMPLÈTE et APPROFONDIE.
 
 Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 {
@@ -622,25 +623,25 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
     {
       "conviction": 4,
       "horizon": "3-5",
-      "title": "TITRE EN MAJUSCULES — DOMAINE (max 70 chars)",
-      "fait": "Factuel. Qui, quoi, où, chiffres précis. 4-5 lignes. Texte brut.",
-      "implication_2": "Si vrai, alors... — impact sur l'industrie. 1-2 phrases.",
-      "implication_3": "Qui gagne : [X]. Qui perd : [Y]. 1-2 phrases.",
+      "title": "TITRE EN MAJUSCULES — DOMAINE (max 80 chars)",
+      "fait": "Factuel, complet et APPROFONDI. Qui, quoi, où, chiffres précis, contexte scientifique, état de l'art avant cette découverte, ce qui change. Minimum 6-8 lignes denses. Texte brut.",
+      "implication_2": "Si vrai, alors... — impact sur l'industrie concernée, disruption des acteurs en place, nouveaux marchés créés. 3-4 phrases.",
+      "implication_3": "Qui gagne concrètement : [entreprises/secteurs précis avec explication]. Qui perd : [idem]. Asymétrie temporelle. 3-4 phrases.",
       "credibilite_score": 3,
       "peer_reviewed": true,
-      "peer_reviewed_detail": "Nature, vol. 612, 2024",
+      "peer_reviewed_detail": "Nature, vol. 612, décembre 2024 — peer-reviewed par 5 experts indépendants",
       "financement": true,
-      "financement_detail": "$120M Series C (a16z)",
+      "financement_detail": "$120M Series C (a16z, Sequoia) — valorisation $800M pré-money",
       "prototype": true,
-      "prototype_detail": "Démonstration publique au MIT, vidéo disponible",
+      "prototype_detail": "Démonstration publique au MIT janvier 2025, vidéo disponible, résultats reproductibles",
       "adoption": false,
       "adoption_detail": "",
       "investissement_cotes": ["NVDA", "IONQ", "ARKG"],
       "investissement_etf": ["ARKG", "BOTZ"],
-      "investissement_early": ["Startup X (non coté)", "Surveiller la IPO de Y"],
-      "action": "Action concrète pour Badr — spécifique.",
+      "investissement_early": ["Startup X — surveiller tour Series A", "IPO de Y prévue Q3 2025"],
+      "action": "Action concrète et spécifique pour Badr — ticker précis, timing d'entrée, conditions.",
       "sizing": "Faible",
-      "invalide_si": "Seuil précis d'invalidation.",
+      "invalide_si": "Seuil précis et mesurable d'invalidation — résultats négatifs, retrait financement, etc.",
       "source_name": "Nature / arXiv / MIT Tech Review",
       "source_url": "URL exacte"
     }
@@ -648,14 +649,14 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 }
 
 Règles absolues :
+- TOUJOURS 3 signaux dans le tableau signals
 - horizon : exactement "1-2", "3-5", "5-10" ou "10+"
-- credibilite_score : 0-4 (nombre de critères remplis parmi les 4)
+- credibilite_score : 0-4 (nombre de critères remplis)
 - sizing : "Fort", "Moyen" ou "Faible"
-- Si un critère n'est pas rempli, mettre false et detail vide
+- Si un critère n'est pas rempli, mettre false et detail vide ""
 - investissement_cotes/etf/early : listes vides [] si rien de pertinent
-- Texte brut uniquement
-- Maximum 2 signaux même si plus de bons candidats
-- LIMITES strictes : fait≤350, implication_2≤140, implication_3≤140, action≤120, invalide_si≤80, detail crédibilité≤60"""
+- Tout en FRANÇAIS — texte brut, zéro markdown
+- LIMITES : fait=500-800 chars, implication_2=200-300, implication_3=200-300, action=150-200, invalide_si=100-150, detail crédibilité=60-120"""
 
 
 async def analyze_deeptech(signals: list[dict]) -> dict:
@@ -680,7 +681,7 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux deeptech collectés :\n\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=1800, system_prompt=_SYSTEM_DEEPTECH)
+    raw = _call_claude(user_prompt, max_tokens=5000, system_prompt=_SYSTEM_DEEPTECH)
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -794,7 +795,7 @@ async def generate_nexus(
         f"Détail : {top_fait[:300]}"
     )
 
-    raw = _call_claude(user_prompt, max_tokens=800, system_prompt=_SYSTEM_NEXUS, model="claude-haiku-4-5-20251001")
+    raw = _call_claude(user_prompt, max_tokens=1200, system_prompt=_SYSTEM_NEXUS, model="claude-3-5-haiku-20241022")
     result = _parse_json(raw)
 
     if not result or "question" not in result:
