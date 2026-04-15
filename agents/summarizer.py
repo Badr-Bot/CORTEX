@@ -124,11 +124,11 @@ def _call_claude(
     prompt: str,
     max_tokens: int = 4000,
     system_prompt: str = None,
-    model: str = "claude-3-5-sonnet-20241022",
+    model: str = "claude-sonnet-4-6",
 ) -> str | None:
     """
     Appel Claude avec prompt caching optionnel.
-    model : "claude-3-5-sonnet-20241022" (défaut) ou "claude-3-5-haiku-20241022" (4x moins cher)
+    model : "claude-sonnet-4-6" (défaut) ou "claude-haiku-4-5-20251001" (4x moins cher)
 
     Si system_prompt fourni, il est envoyé avec cache_control ephemeral
     → Anthropic le met en cache côté serveur (TTL 5 min).
@@ -795,7 +795,7 @@ async def generate_nexus(
         f"Détail : {top_fait[:300]}"
     )
 
-    raw = _call_claude(user_prompt, max_tokens=1200, system_prompt=_SYSTEM_NEXUS, model="claude-3-5-haiku-20241022")
+    raw = _call_claude(user_prompt, max_tokens=1200, system_prompt=_SYSTEM_NEXUS, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "question" not in result:
