@@ -141,6 +141,7 @@ def _call_claude(
         kwargs = dict(
             model=model,
             max_tokens=max_tokens,
+            temperature=0,
             messages=[{"role": "user", "content": prompt}],
         )
 

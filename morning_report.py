@@ -761,32 +761,28 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     # ── Envoi Telegram (HTML mode) ────────────────────────────────────────────
     if send_telegram:
         try:
-            from tgbot.bot import broadcast_message, ask_morning_question
+            from tgbot.bot import broadcast_message
+            from datetime import datetime
 
-            total_sent = 0
-            for i, msg in enumerate(messages, 1):
-                parts = _split_at_boundary(msg, max_chars=3800)
-                for j, part in enumerate(parts):
-                    await broadcast_message(part, parse_mode="HTML")
-                    total_sent += 1
-                    logger.info(
-                        f"  MSG {i}/5"
-                        + (f" partie {j+1}/{len(parts)}" if len(parts) > 1 else "")
-                        + f" broadcasté ✅ ({len(part)} chars)"
-                    )
-                    if len(parts) > 1:
-                        await asyncio.sleep(1)
-                if i < len(messages):
-                    await asyncio.sleep(2)
-
-            logger.info(f"Total: {total_sent} broadcasts envoyés")
-
-            question = nexus_data.get("question", "")
-            if question:
-                await ask_morning_question(question, send=False)
+            # Simple notification de disponibilité
+            today_fr = _fr_date()
+            signals_total = (
+                len(ai_analyzed.get("signals", [])) +
+                len(crypto_analyzed.get("signals", [])) +
+                len(market_analyzed.get("signals", [])) +
+                len(deeptech_analyzed.get("signals", []))
+            )
+            msg = (
+                f"📊 <b>Rapport CORTEX — {today_fr}</b>\n\n"
+                f"✅ {signals_total} signaux analysés\n"
+                f"🧠 IA · ₿ Crypto · 📈 Marchés · ⚡ DeepTech · ◈ Nexus\n\n"
+                f"👉 <a href=\"https://cortex-seven-omega.vercel.app\">Voir le rapport</a>"
+            )
+            await broadcast_message(msg, parse_mode="HTML")
+            logger.info("Notification Telegram envoyée ✅")
 
         except Exception as e:
-            logger.error(f"Erreur envoi Telegram: {e}")
+            logger.error(f"Erreur notification Telegram: {e}")
 
     # ── Sauvegarde Supabase pour le dashboard Vercel ─────────────────────────
     try:
