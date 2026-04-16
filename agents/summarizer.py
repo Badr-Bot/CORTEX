@@ -284,6 +284,10 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
   "watchlist": [
     "Signal early pas encore mûr — [source] — pourquoi surveiller et quand agir",
     "Autre signal — [source] — signal à confirmer d'ici [délai]"
+  ],
+  "questions": [
+    "Question DIRECTE qui force Badr à prendre position sur le signal IA le plus fort du jour. Format : 'Si [fait], tu [action A] ou [action B] ?' ou 'Est-ce que [évènement] change ta thèse sur [sujet] ?'. 1 phrase max.",
+    "Deuxième question sur un autre angle IA — technique, business ou investissement. 1 phrase max."
   ]
 }
 
@@ -294,6 +298,7 @@ Règles absolues :
 - Tout le texte en FRANÇAIS
 - Texte brut uniquement — zéro markdown dans les valeurs de texte
 - watchlist : 2-3 items max
+- questions : EXACTEMENT 2 questions en français, directes, basées sur les signaux du jour
 - LIMITES DE LONGUEUR (en caractères) :
   fait          : 500-800 chars (minimum 500 — analyse complète)
   implication_2 : 200-300 chars
@@ -362,24 +367,58 @@ def _fallback_ai(signals: list[dict]) -> dict:
 # ANALYZE_CRYPTO — Dashboard + Score + Signaux
 # ══════════════════════════════════════════════════════════════════════════════
 
-_SYSTEM_CRYPTO = """Tu es CORTEX, analyste crypto senior pour Badr — investisseur tech.
+_SYSTEM_CRYPTO = """Tu es CORTEX, analyste crypto senior pour Badr — investisseur tech avec objectif de longueur d'avance sur le marché.
 
 MISSION :
-1. Détermine la phase du cycle (Accumulation / Markup / Distribution / Markdown)
-2. Score chaque facteur de direction de -2 à +2 avec justification détaillée
-3. Sélectionne EXACTEMENT 3 signaux news crypto pertinents et importants
-4. Rédige le bear case complet qui invaliderait ta lecture
+1. Analyse le cycle (Accumulation / Markup / Distribution / Markdown) avec données on-chain
+2. Donne une RECOMMANDATION CLAIRE : acheter, tenir, ou vendre BTC + alts — avec timing précis
+3. Identifie 3 altcoins/projets web3 TRENDING ou ÉMERGENTS à surveiller maintenant
+4. Sélectionne EXACTEMENT 3 signaux news crypto/web3 à fort impact
+5. Score chaque facteur de direction
+6. Pose 2 questions pour forcer une décision
 
 Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 {
   "phase": "Accumulation",
+  "recommandation": {
+    "verdict": "ACCUMULER",
+    "alts": "ATTENDRE",
+    "horizon": "2-4 semaines",
+    "raisonnement": "Explication factuelle avec les données concrètes qui justifient cette lecture. Fear&Greed, on-chain, niveaux clés. 200-250 chars."
+  },
+  "trending_alts": [
+    {
+      "ticker": "SOL",
+      "nom": "Solana",
+      "theme": "Memecoins + DePIN écosystème",
+      "signal": "Volume DEX +67% en 7j, TVL $8.2B en hausse",
+      "verdict": "SURVEILLER",
+      "timing": "Entrée si BTC confirme au-dessus de $85k"
+    },
+    {
+      "ticker": "SUI",
+      "nom": "Sui Network",
+      "theme": "L1 gaming + NFT",
+      "signal": "Partenariat Sony Music annoncé",
+      "verdict": "ACHETER",
+      "timing": "Zone $3.2-3.4 — SL sous $2.8"
+    },
+    {
+      "ticker": "HYPE",
+      "nom": "Hyperliquid",
+      "theme": "DEX perps decentralisé",
+      "signal": "Volume record $18B/24h, dépasse Binance Futures",
+      "verdict": "SURVEILLER",
+      "timing": "Attendre retrace sur zone $20-22"
+    }
+  ],
   "volume_vs_30d": "description humaine complète du volume vs moyenne 30j avec contexte",
   "score": {
-    "onchain":   {"value": 1,  "note": "justification précise avec données concrètes"},
-    "cycle":     {"value": 1,  "note": "justification précise avec données concrètes"},
-    "macro":     {"value": 0,  "note": "justification précise avec données concrètes"},
-    "sentiment": {"value": -1, "note": "justification précise avec données concrètes"},
-    "momentum":  {"value": 0,  "note": "justification précise avec données concrètes"}
+    "onchain":   {"value": 1,  "note": "justification précise avec données concrètes — pas de N/A"},
+    "cycle":     {"value": 1,  "note": "justification précise avec données concrètes — pas de N/A"},
+    "macro":     {"value": 0,  "note": "justification précise avec données concrètes — pas de N/A"},
+    "sentiment": {"value": -1, "note": "justification précise avec données concrètes — pas de N/A"},
+    "momentum":  {"value": 0,  "note": "justification précise avec données concrètes — pas de N/A"}
   },
   "direction": "NEUTRE-BULLISH",
   "magnitude": "faible",
@@ -388,27 +427,35 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
     {
       "conviction": 4,
       "title": "TITRE SIGNAL EN MAJUSCULES (max 80 chars)",
-      "fait": "Factuel, complet et APPROFONDI. Qui, quoi, chiffres, contexte de marché. Minimum 6 lignes. Texte brut.",
-      "implication_2": "Si vrai, alors... impact direct sur le prix BTC/alts, les flux, les investisseurs. 3-4 phrases.",
-      "implication_3": "Qui gagne concrètement / qui perd. Impact sur DeFi, CEX, réglementation. 3-4 phrases.",
-      "these_opposee": "Meilleur argument contre cette lecture, avec faits. 2-3 lignes.",
+      "fait": "Factuel, complet et APPROFONDI. Minimum 6 lignes. Texte brut.",
+      "implication_2": "Impact direct sur BTC/alts/DeFi. 3-4 phrases.",
+      "implication_3": "Qui gagne / qui perd. Impact sur l'écosystème. 3-4 phrases.",
+      "these_opposee": "Meilleur argument contre cette lecture. 2-3 lignes.",
       "action": "Action concrète et spécifique pour Badr — ticker, timing, condition d'entrée.",
       "sizing": "Moyen",
       "invalide_si": "Condition d'invalidation précise et mesurable.",
       "source_name": "Source",
       "source_url": "URL"
     }
+  ],
+  "questions": [
+    "Question directe sur le signal crypto le plus fort — force un choix. Ex: 'BTC est à $75k avec Fear&Greed à 23, tu achètes maintenant ou tu attends $65k ?' 1 phrase.",
+    "Question sur un altcoin ou projet web3 trending — évalue si Badr a compris la thèse. 1 phrase."
   ]
 }
 
 Règles absolues :
 - TOUJOURS exactement 3 signaux dans signals — sélectionne les 3 meilleurs news disponibles
-- score values : entiers de -2 à +2 uniquement
+- TOUJOURS exactement 3 trending_alts — si peu de data, choisis les plus pertinents selon le contexte macro
+- recommandation.verdict : parmi ACHETER / ACCUMULER / TENIR / ALLÉGER / VENDRE
+- recommandation.alts : parmi ACHETER / ACCUMULER / TENIR / ALLÉGER / VENDRE / ATTENDRE
+- score values : entiers de -2 à +2 uniquement — JAMAIS de N/A dans les notes
 - direction : parmi BULLISH / NEUTRE-BULLISH / NEUTRE / NEUTRE-BEARISH / BEARISH
 - magnitude : parmi "forte" / "modérée" / "faible"
 - sizing : "Fort", "Moyen" ou "Faible"
+- trending_alts.verdict : parmi ACHETER / ACCUMULER / SURVEILLER / EVITER
 - Tout en FRANÇAIS — texte brut, zéro markdown
-- LIMITES : fait=500-800 chars, implication_2=200-300, implication_3=200-300, these_opposee=150-250, action=150-200, invalide_si=100-150"""
+- LIMITES : fait=500-800 chars, implication_2=200-300, implication_3=200-300, these_opposee=150-250, action=150-200, invalide_si=100-150, recommandation.raisonnement=200-250 chars"""
 
 
 async def analyze_crypto(data: dict) -> dict:
@@ -517,6 +564,10 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
       "source_name": "Source",
       "source_url": "URL"
     }
+  ],
+  "questions": [
+    "Question directe sur le macro/marché le plus impactant du jour. 1 phrase, force un choix.",
+    "Question sur le risque de récession ou sur un marché spécifique. 1 phrase."
   ]
 }
 
@@ -527,6 +578,7 @@ Règles absolues :
 - regime : parmi "Risk-on", "Risk-off", "Inflation trade", "Stagflation", "Transition"
 - sizing : "Fort", "Moyen" ou "Faible"
 - Tout en FRANÇAIS — texte brut, zéro markdown
+- questions : EXACTEMENT 2 questions en français, directes, basées sur les données macro du jour
 - LIMITES : fait=500-800 chars, implication_2=200-300, implication_3=200-300, these_opposee=150-250, action=150-200, invalide_si=100-150, note récession=60-100"""
 
 
@@ -645,6 +697,9 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
       "source_name": "Nature / arXiv / MIT Tech Review",
       "source_url": "URL exacte"
     }
+  ],
+  "questions": [
+    "Question sur la technologie ou l'investissement deeptech le plus pertinent du jour. 1 phrase."
   ]
 }
 
@@ -656,6 +711,7 @@ Règles absolues :
 - Si un critère n'est pas rempli, mettre false et detail vide ""
 - investissement_cotes/etf/early : listes vides [] si rien de pertinent
 - Tout en FRANÇAIS — texte brut, zéro markdown
+- questions : 1 question en français, basée sur le signal deeptech le plus crédible
 - LIMITES : fait=500-800 chars, implication_2=200-300, implication_3=200-300, action=150-200, invalide_si=100-150, detail crédibilité=60-120"""
 
 
@@ -737,18 +793,24 @@ Si aucune chaîne réelle n'existe → retourne has_connexion: false.
 NE JAMAIS forcer : si les secteurs sont découplés ce jour, dis-le.
 Maximum 3 maillons. Dense, factuel, zéro jargon creux.
 
-MISSION 2 — QUESTION DÉCISION :
-Une seule question qui force Badr à CHOISIR (pas observer, pas analyser).
-Format binaire strict : "Si [fait précis du jour], tu [action A] ou tu [action B] ?"
-Basée sur le signal le plus impactant pour le patrimoine de Badr.
-Ton direct, frontal. 1 phrase max. En français.
+MISSION 2 — QUESTIONS DÉCISION :
+Génère 3 questions qui forcent Badr à CHOISIR (pas observer, pas analyser).
+Question principale : format binaire strict "Si [fait précis du jour], tu [action A] ou tu [action B] ?"
+Question cross-sectorielle : comment les signaux IA et Crypto combinés changent la stratégie.
+Question de recul : qu'est-ce que les signaux du jour disent sur la direction du marché à moyen terme.
+Ton direct, frontal. 1 phrase max par question. En français.
 
 Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 {
   "has_connexion": true,
   "connexion": "Fait A [Secteur] → conséquence B [Secteur] → impact C [Secteur]",
   "secteurs_lies": ["IA", "Marchés"],
-  "question": "Si [fait], tu [action A] ou tu [action B] ?"
+  "question": "La question principale binaire — OBLIGATOIRE, format 'Si [fait], tu [action A] ou [action B] ?'",
+  "questions": [
+    "La même question que question principale",
+    "Question cross-sectorielle : comment [signal IA] + [signal Crypto] changent-ils la stratégie de Badr ?",
+    "Question de recul stratégique sur la semaine ou le mois — qu'est-ce que tout ça dit sur la direction du marché ?"
+  ]
 }"""
 
 

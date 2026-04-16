@@ -254,6 +254,45 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
   return null
 }
 
+function SectionQuestions({ tab, report }: { tab: TabId; report: ReportJSON }) {
+  const questionsMap: Partial<Record<TabId, string[]>> = {
+    ai:       (report.ai as any)?.questions,
+    crypto:   (report.crypto as any)?.questions,
+    market:   (report.market as any)?.questions,
+    deeptech: (report.deeptech as any)?.questions,
+    nexus:    (report.nexus as any)?.questions,
+  }
+  const questions = questionsMap[tab]
+  if (!questions?.length) return null
+
+  const tabConfig = TABS.find(t => t.id === tab)
+  const colors = tabConfig ? TAB_COLORS[tabConfig.color] : TAB_COLORS.blue
+
+  return (
+    <div className="glass rounded-xl p-5 border border-white/5 animate-slide-up">
+      <div className="flex items-center gap-2 mb-4">
+        <div className={`w-1.5 h-1.5 rounded-full ${colors.dot}`} />
+        <div className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">
+          🧠 Questions pour toi
+        </div>
+      </div>
+      <div className="space-y-3">
+        {questions.map((q: string, i: number) => (
+          <div key={i} className="flex gap-3 items-start">
+            <span className={`shrink-0 text-xs font-bold font-mono px-2 py-0.5 rounded ${colors.active} mt-0.5`}>
+              Q{i + 1}
+            </span>
+            <p className="text-slate-200 text-sm leading-relaxed">{q}</p>
+          </div>
+        ))}
+      </div>
+      <p className="text-[10px] text-slate-600 mt-3 italic">
+        Réponds dans ta tête avant d'ouvrir les marchés → CORTEX te score le dimanche
+      </p>
+    </div>
+  )
+}
+
 interface PageProps {
   searchParams: { tab?: string }
 }
@@ -281,7 +320,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
     <div className="min-h-screen flex flex-col">
       <NavBar />
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8 space-y-6">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-8 space-y-4 sm:space-y-6">
 
         {/* Hero header */}
         <div className="animate-slide-up space-y-4">
@@ -338,8 +377,13 @@ export default async function DashboardPage({ searchParams }: PageProps) {
           <SectorContent tab={activeTab} report={json} />
         </div>
 
+        {/* Questions par section */}
+        {activeTab !== "lexique" && (
+          <SectionQuestions tab={activeTab} report={json} />
+        )}
+
         {/* Question du matin */}
-        {json.nexus?.question && (
+        {json.nexus?.question && activeTab !== "lexique" && (
           <QuestionPanel
             question={json.nexus.question}
             reportDate={report.report_date}
