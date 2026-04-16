@@ -13,7 +13,13 @@ function getClient(): SupabaseClient {
     if (!url || !anon) {
       throw new Error("Variables d'environnement Supabase manquantes : NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY requis.")
     }
-    _client = createClient(url, anon)
+    // IMPORTANT: fetch sans cache — sinon Next.js Data Cache retient les anciens
+    // rapports et le dashboard affiche des données périmées après régénération.
+    _client = createClient(url, anon, {
+      global: {
+        fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
+      },
+    })
   }
   return _client
 }
