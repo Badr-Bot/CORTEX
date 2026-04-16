@@ -10,3 +10,5 @@ logs/
 dist/
 build/
 data/seen_urls.json
+.claude/settings.local.json
+dashboard/.next/

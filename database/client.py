@@ -707,12 +707,24 @@ async def save_dashboard_report(
         # Vérifier si un rapport existe déjà pour cette date
         existing = (
             client.table("daily_reports")
-            .select("id")
+            .select("id, signals_count")
             .eq("report_date", report_date)
             .execute()
         )
 
-        if existing.data:
+        existing_data = existing.data[0] if existing.data else None
+
+        # Protection: ne pas écraser un bon rapport avec un rapport dégradé
+        if existing_data and existing_data.get("signals_count", 0) >= 8:
+            new_count = signals_count or 0
+            if new_count < existing_data["signals_count"]:
+                logger.info(
+                    f"Protection rapport : {existing_data['signals_count']} signaux existants > "
+                    f"{new_count} nouveaux — conservation du rapport existant"
+                )
+                return existing_data
+
+        if existing_data:
             result = (
                 client.table("daily_reports")
                 .update({
@@ -721,7 +733,7 @@ async def save_dashboard_report(
                     "question":       question,
                     "report_date":    report_date,
                 })
-                .eq("id", existing.data[0]["id"])
+                .eq("id", existing_data["id"])
                 .execute()
             )
         else:
