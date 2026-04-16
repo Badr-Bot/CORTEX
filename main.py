@@ -41,17 +41,13 @@ async def startup() -> tuple:
 
     # ── Étape 1 : Variables d'environnement ─────────────────────────
     logger.info("[1/7] Chargement des variables d'environnement...")
-    required_vars = [
-        "TELEGRAM_BOT_TOKEN",
-        "SUPABASE_URL",
-        "SUPABASE_SERVICE_KEY",
-        "TELEGRAM_CHAT_ID"
-    ]
+    required_vars = ["SUPABASE_URL", "SUPABASE_SERVICE_KEY"]
     missing = [v for v in required_vars if not os.getenv(v)]
     if missing:
         logger.critical(f"Variables d'environnement manquantes : {missing}")
         sys.exit(1)
-    logger.info("Variables d'environnement : OK")
+    telegram_enabled = bool(os.getenv("TELEGRAM_BOT_TOKEN") and os.getenv("TELEGRAM_CHAT_ID"))
+    logger.info(f"Variables d'environnement : OK (Telegram {'activé' if telegram_enabled else 'désactivé'})")
 
     # ── Étape 2 : Logger (déjà initialisé ci-dessus) ────────────────
     logger.info("[2/7] Logger initialisé")
@@ -68,35 +64,36 @@ async def startup() -> tuple:
     logger.info("[4/7] Vérification schema base de données...")
     await init_db()
 
-    # ── Étape 5 : Test connexion Telegram ───────────────────────────
-    logger.info("[5/7] Test connexion Telegram...")
-    telegram_ok = await test_telegram_connection()
-    if not telegram_ok:
-        logger.critical("Connexion Telegram échouée — impossible de démarrer")
-        sys.exit(1)
-    logger.info("Connexion Telegram : ✅")
-
-    # ── Étape 6 : Message de démarrage Telegram ──────────────────────
-    logger.info("[6/7] Envoi du message de démarrage...")
-    startup_message = (
-        "🟢 *CORTEX EST EN LIGNE*\n\n"
-        "📡 Système : opérationnel\n"
-        "🗄️ Database : connectée ✅\n"
-        "🤖 Agents : en construction 🔧\n"
-        "⏰ Prochain rapport : demain 6h00\n\n"
-        "Bienvenue Badr.\n"
-        "CORTEX surveille pendant que tu dors."
-    )
-    await send_message(startup_message)
-    logger.info("Message de démarrage envoyé")
+    # ── Étape 5 : Test connexion Telegram (optionnel) ───────────────
+    application = None
+    if telegram_enabled:
+        logger.info("[5/7] Test connexion Telegram...")
+        telegram_ok = await test_telegram_connection()
+        if telegram_ok:
+            logger.info("Connexion Telegram : ✅")
+            # ── Étape 6 : Message de démarrage Telegram ──────────────
+            logger.info("[6/7] Envoi du message de démarrage...")
+            startup_message = (
+                "🟢 *CORTEX EST EN LIGNE*\n\n"
+                "📡 Système : opérationnel\n"
+                "🗄️ Database : connectée ✅\n"
+                "🤖 Agents : en construction 🔧\n"
+                "⏰ Prochain rapport : demain 6h00\n\n"
+                "Bienvenue Badr.\n"
+                "CORTEX surveille pendant que tu dors."
+            )
+            await send_message(startup_message)
+            logger.info("Message de démarrage envoyé")
+            application = build_application()
+        else:
+            logger.warning("Connexion Telegram échouée — mode dégradé sans Telegram")
+    else:
+        logger.info("[5/7] Telegram désactivé (pas de token) — skip")
 
     # ── Étape 7 : Démarrage du scheduler ────────────────────────────
     logger.info("[7/7] Démarrage du scheduler...")
     scheduler = build_scheduler()
     start_scheduler(scheduler)
-
-    # Construction du bot (mode polling)
-    application = build_application()
 
     logger.info("=" * 60)
     logger.info("CORTEX opérationnel — En attente de signaux")
@@ -119,14 +116,15 @@ async def shutdown(scheduler, application) -> None:
     # Arrêt du scheduler
     stop_scheduler(scheduler)
 
-    # Arrêt du bot Telegram
-    try:
-        if application.running:
-            await application.stop()
-            await application.shutdown()
-        logger.info("Bot Telegram arrêté")
-    except Exception as e:
-        logger.error(f"Erreur lors de l'arrêt du bot : {e}")
+    # Arrêt du bot Telegram (si activé)
+    if application is not None:
+        try:
+            if application.running:
+                await application.stop()
+                await application.shutdown()
+            logger.info("Bot Telegram arrêté")
+        except Exception as e:
+            logger.error(f"Erreur lors de l'arrêt du bot : {e}")
 
     logger.info("CORTEX arrêté proprement. À bientôt Badr.")
 
@@ -143,11 +141,14 @@ async def main() -> None:
         # Démarrage de tous les composants
         scheduler, application = await startup()
 
-        # Démarrage du bot en mode polling (bloquant)
-        logger.info("Bot en mode polling — CORTEX actif")
-        await application.initialize()
-        await application.start()
-        await application.updater.start_polling(drop_pending_updates=True)
+        # Démarrage du bot en mode polling (si Telegram activé)
+        if application is not None:
+            logger.info("Bot en mode polling — CORTEX actif")
+            await application.initialize()
+            await application.start()
+            await application.updater.start_polling(drop_pending_updates=True)
+        else:
+            logger.info("CORTEX actif (scheduler only, pas de bot Telegram)")
 
         # Maintien du processus actif
         while True:
