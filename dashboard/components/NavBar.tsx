@@ -88,7 +88,7 @@ export default function NavBar() {
             </span>
           </Link>
 
-          <nav className="flex items-center gap-1">
+          <nav className="hidden sm:flex items-center gap-1">
             {links.map((l) => {
               const isActive = pathname === l.href
               return (
