@@ -324,14 +324,20 @@ async def analyze_ai(signals: list[dict]) -> dict:
     from agents.board import run_debate
     signals = await run_debate(signals, sector="Intelligence Artificielle")
 
-    from agents.memory import get_sector_history, format_ai_history, save_analysis
+    from agents.memory import (
+        get_sector_history, format_ai_history, save_analysis,
+        get_agent_learnings, format_learnings_context,
+    )
     history     = await get_sector_history("ai", days=7)
     history_ctx = format_ai_history(history)
+    learnings   = await get_agent_learnings("ai", limit=5)
+    learn_ctx   = format_learnings_context(learnings, "IA")
 
     context = _prep_signals(signals, 15)
 
-    # Partie dynamique (signaux + historique — non mise en cache)
     user_prompt = ""
+    if learn_ctx:
+        user_prompt += f"{learn_ctx}\n\n"
     if history_ctx:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux IA collectés :\n\n{context}"
@@ -477,9 +483,14 @@ async def analyze_crypto(data: dict) -> dict:
     signals   = await run_debate(signals, sector="Crypto & Web3")
     context   = _prep_signals(signals, 12)
 
-    from agents.memory import get_sector_history, format_crypto_history, save_analysis as _save
+    from agents.memory import (
+        get_sector_history, format_crypto_history, save_analysis as _save,
+        get_agent_learnings, format_learnings_context,
+    )
     history     = await get_sector_history("crypto", days=7)
     history_ctx = format_crypto_history(history)
+    learnings   = await get_agent_learnings("crypto", limit=5)
+    learn_ctx   = format_learnings_context(learnings, "Crypto")
 
     dash_str = (
         f"BTC Prix     : ${dashboard.get('btc_price', 'N/A'):,} "
@@ -493,6 +504,8 @@ async def analyze_crypto(data: dict) -> dict:
     )
 
     user_prompt = "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
+    if learn_ctx:
+        user_prompt += f"\n\n{learn_ctx}"
     if history_ctx:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
@@ -605,9 +618,14 @@ async def analyze_market(data: dict) -> dict:
     signals   = await run_debate(signals, sector="Marchés & Macro")
     context   = _prep_signals(signals, 12)
 
-    from agents.memory import get_sector_history, format_market_history, save_analysis as _save_mkt
+    from agents.memory import (
+        get_sector_history, format_market_history, save_analysis as _save_mkt,
+        get_agent_learnings, format_learnings_context,
+    )
     history     = await get_sector_history("market", days=7)
     history_ctx = format_market_history(history)
+    learnings   = await get_agent_learnings("market", limit=5)
+    learn_ctx   = format_learnings_context(learnings, "Marchés")
 
     def _fmt(key: str) -> str:
         d = dashboard.get(key, {})
@@ -632,6 +650,8 @@ async def analyze_market(data: dict) -> dict:
     )
 
     user_prompt = "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
+    if learn_ctx:
+        user_prompt += f"\n\n{learn_ctx}"
     if history_ctx:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
@@ -741,13 +761,20 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
     from agents.board import run_debate
     signals = await run_debate(signals, sector="DeepTech & Science")
 
-    from agents.memory import get_sector_history, format_deeptech_history, save_analysis as _save_dt
+    from agents.memory import (
+        get_sector_history, format_deeptech_history, save_analysis as _save_dt,
+        get_agent_learnings, format_learnings_context,
+    )
     history     = await get_sector_history("deeptech", days=7)
     history_ctx = format_deeptech_history(history)
+    learnings   = await get_agent_learnings("deeptech", limit=5)
+    learn_ctx   = format_learnings_context(learnings, "DeepTech")
 
     context = _prep_signals(signals, 10)
 
     user_prompt = ""
+    if learn_ctx:
+        user_prompt += f"{learn_ctx}\n\n"
     if history_ctx:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux deeptech collectés :\n\n{context}"
@@ -838,7 +865,12 @@ async def generate_nexus(
     """
     Trouve la connexion la plus puissante entre les 4 secteurs.
     Génère la question du matin binaire et actionnée.
+    Injecte l'historique Nexus 7 jours + learnings globaux.
     """
+    from agents.memory import (
+        get_sector_history, save_analysis as _save_nexus,
+        get_agent_learnings, format_learnings_context,
+    )
 
     def _summarize(data: dict, sector: str) -> str:
         signals = data.get("signals", [])
@@ -865,12 +897,31 @@ async def generate_nexus(
     crypto_dir    = crypto_data.get("direction", "")
     market_regime = market_data.get("regime", "")
 
+    # Historique Nexus 7 jours — éviter les connexions déjà faites
+    nexus_history = await get_sector_history("nexus", days=7)
+    nexus_hist_ctx = ""
+    if nexus_history:
+        past = ["── Connexions Nexus passées (ne pas répéter la même logique) ──"]
+        for e in nexus_history[:5]:
+            conn = e["data"].get("connexion", "")
+            if conn:
+                past.append(f"  {e['report_date']}: {conn[:100]}")
+        if len(past) > 1:
+            nexus_hist_ctx = "\n".join(past)
+
+    # Learnings globaux du dimanche
+    learnings = await get_agent_learnings("global", limit=3)
+    learn_ctx = format_learnings_context(learnings, "Global")
+
     user_prompt = (
         f"SIGNAUX DU JOUR :\n{summary}\n\n"
         f"Crypto : {crypto_dir} | Marché : {market_regime}\n\n"
-        f"Signal le plus fort : {top_title}\n"
-        f"Détail : {top_fait[:300]}"
+        f"Signal le plus fort : {top_title}\nDétail : {top_fait[:300]}"
     )
+    if nexus_hist_ctx:
+        user_prompt += f"\n\n{nexus_hist_ctx}"
+    if learn_ctx:
+        user_prompt += f"\n\n{learn_ctx}"
 
     raw = _call_claude(user_prompt, max_tokens=1200, system_prompt=_SYSTEM_NEXUS, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
@@ -885,11 +936,7 @@ async def generate_nexus(
         }
 
     logger.info(
-        f"generate_nexus: connexion={'oui' if result.get('has_connexion') else 'non'}, "
-        f"question générée"
+        f"generate_nexus: connexion={'oui' if result.get('has_connexion') else 'non'}, question générée"
     )
-
-    from agents.memory import save_analysis as _save_nexus
     await _save_nexus("nexus", result)
-
     return result
