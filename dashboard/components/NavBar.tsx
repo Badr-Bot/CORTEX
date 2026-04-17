@@ -68,65 +68,92 @@ export default function NavBar() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 glass-strong border-b border-indigo-500/10 scan-line-container">
-      {/* Top accent line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+    <>
+      {/* ── Header desktop ─────────────────────────────────────────────── */}
+      <header className="sticky top-0 z-50 glass-strong border-b border-indigo-500/10 scan-line-container">
+        <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
 
-      <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-        {/* Brand */}
-        <div className="flex items-center gap-6">
-          <Link
-            href="/"
-            className="flex items-center gap-2 group"
-            onClick={playClick}
-          >
-            <div className="w-7 h-7 rounded-md bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg group-hover:shadow-indigo-500/40 transition-shadow">
-              <span className="text-white text-xs font-bold font-mono">C</span>
+        <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+          {/* Brand */}
+          <div className="flex items-center gap-6">
+            <Link href="/" className="flex items-center gap-2 group" onClick={playClick}>
+              <div className="w-7 h-7 rounded-md bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg group-hover:shadow-indigo-500/40 transition-shadow">
+                <span className="text-white text-xs font-bold font-mono">C</span>
+              </div>
+              <span className="font-bold tracking-[0.2em] text-white text-sm gradient-text">CORTEX</span>
+            </Link>
+
+            {/* Nav links — desktop uniquement */}
+            <nav className="hidden md:flex items-center gap-1">
+              {links.map((l) => {
+                const isActive = pathname === l.href
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={playClick}
+                    onMouseEnter={playHover}
+                    className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-all duration-200 ${
+                      isActive
+                        ? "bg-indigo-500/15 text-white border border-indigo-500/30"
+                        : "text-slate-400 hover:text-white hover:bg-white/5 border border-transparent"
+                    }`}
+                  >
+                    <span className={`text-[10px] font-mono ${isActive ? "text-cyan-400" : "text-slate-600"}`}>
+                      {l.icon}
+                    </span>
+                    {l.label}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee]" />
+                    )}
+                  </Link>
+                )
+              })}
+            </nav>
+          </div>
+
+          {/* Right side */}
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-2 text-xs text-slate-500 font-mono">
+              <span className="status-live text-green-400">LIVE</span>
             </div>
-            <span className="font-bold tracking-[0.2em] text-white text-sm gradient-text">
-              CORTEX
-            </span>
-          </Link>
-
-          <nav className="hidden lg:flex items-center gap-1">
-            {links.map((l) => {
-              const isActive = pathname === l.href
-              return (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  onClick={playClick}
-                  onMouseEnter={playHover}
-                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-all duration-200 ${
-                    isActive
-                      ? "bg-indigo-500/15 text-white border border-indigo-500/30"
-                      : "text-slate-400 hover:text-white hover:bg-white/5 border border-transparent"
-                  }`}
-                >
-                  <span className={`text-[10px] font-mono ${isActive ? "text-cyan-400" : "text-slate-600"}`}>
-                    {l.icon}
-                  </span>
-                  {l.label}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee]" />
-                  )}
-                </Link>
-              )
-            })}
-          </nav>
-        </div>
-
-        {/* Right side */}
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-2 text-xs text-slate-500 font-mono">
-            <span className="status-live text-green-400">LIVE</span>
-          </div>
-          <div className="hidden md:block text-xs text-slate-600 font-mono">
-            {formatDate()} &nbsp;·&nbsp;
-            <span ref={timeRef} className="text-indigo-400">{formatTime()}</span>
+            <div className="hidden md:block text-xs text-slate-600 font-mono">
+              {formatDate()} &nbsp;·&nbsp;
+              <span ref={timeRef} className="text-indigo-400">{formatTime()}</span>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* ── Barre de navigation mobile (en bas) ────────────────────────── */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0a0a12]/95 backdrop-blur border-t border-indigo-500/15">
+        <div className="flex items-center justify-around h-16 px-2">
+          {links.map((l) => {
+            const isActive = pathname === l.href
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={playClick}
+                className={`flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl transition-all duration-200 ${
+                  isActive ? "text-white" : "text-slate-500"
+                }`}
+              >
+                <span className={`text-base font-mono ${isActive ? "text-cyan-400" : "text-slate-600"}`}>
+                  {l.icon}
+                </span>
+                <span className="text-[10px] font-medium tracking-wide">{l.label}</span>
+                {isActive && (
+                  <span className="w-1 h-1 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee]" />
+                )}
+              </Link>
+            )
+          })}
+        </div>
+      </nav>
+
+      {/* Spacer pour éviter que le contenu soit caché par la nav mobile */}
+      <div className="md:hidden h-16" />
+    </>
   )
 }

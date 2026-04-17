@@ -313,7 +313,7 @@ Règles absolues :
 async def analyze_ai(signals: list[dict]) -> dict:
     """
     Sélectionne les 3 meilleurs signaux IA et génère l'analyse complète.
-    Groq pré-filtre les signaux bruts → top 15 avant envoi à Claude Sonnet.
+    Groq pré-filtre → top 15. Mémoire 7 jours + learnings hebdo injectés.
     """
     if not signals:
         return _fallback_ai([])
@@ -321,14 +321,21 @@ async def analyze_ai(signals: list[dict]) -> dict:
     # Pré-filtrage Groq : 120 signaux → 15
     signals = _prefilter_with_groq(signals, sector="AI/tech", max_count=15)
 
-    from agents.memory import get_sector_history, format_ai_history, save_analysis
+    from agents.memory import (
+        get_sector_history, format_ai_history, save_analysis,
+        get_agent_learnings, format_learnings_context,
+    )
     history     = await get_sector_history("ai", days=7)
     history_ctx = format_ai_history(history)
+    learnings   = await get_agent_learnings("ai", limit=5)
+    learn_ctx   = format_learnings_context(learnings, "IA")
 
     context = _prep_signals(signals, 15)
 
-    # Partie dynamique (signaux + historique — non mise en cache)
+    # Partie dynamique (signaux + historique + learnings — non mise en cache)
     user_prompt = ""
+    if learn_ctx:
+        user_prompt += f"{learn_ctx}\n\n"
     if history_ctx:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux IA collectés :\n\n{context}"
@@ -470,9 +477,14 @@ async def analyze_crypto(data: dict) -> dict:
     signals   = _prefilter_with_groq(signals, sector="crypto/blockchain", max_count=12)
     context   = _prep_signals(signals, 12)
 
-    from agents.memory import get_sector_history, format_crypto_history, save_analysis as _save
+    from agents.memory import (
+        get_sector_history, format_crypto_history, save_analysis as _save,
+        get_agent_learnings, format_learnings_context,
+    )
     history     = await get_sector_history("crypto", days=7)
     history_ctx = format_crypto_history(history)
+    learnings   = await get_agent_learnings("crypto", limit=5)
+    learn_ctx   = format_learnings_context(learnings, "Crypto")
 
     dash_str = (
         f"BTC Prix     : ${dashboard.get('btc_price', 'N/A'):,} "
@@ -486,6 +498,8 @@ async def analyze_crypto(data: dict) -> dict:
     )
 
     user_prompt = "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
+    if learn_ctx:
+        user_prompt += f"\n\n{learn_ctx}"
     if history_ctx:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
@@ -594,9 +608,14 @@ async def analyze_market(data: dict) -> dict:
     signals   = _prefilter_with_groq(signals, sector="macro/markets/finance", max_count=12)
     context   = _prep_signals(signals, 12)
 
-    from agents.memory import get_sector_history, format_market_history, save_analysis as _save_mkt
+    from agents.memory import (
+        get_sector_history, format_market_history, save_analysis as _save_mkt,
+        get_agent_learnings, format_learnings_context,
+    )
     history     = await get_sector_history("market", days=7)
     history_ctx = format_market_history(history)
+    learnings   = await get_agent_learnings("market", limit=5)
+    learn_ctx   = format_learnings_context(learnings, "Marchés")
 
     def _fmt(key: str) -> str:
         d = dashboard.get(key, {})
@@ -621,6 +640,8 @@ async def analyze_market(data: dict) -> dict:
     )
 
     user_prompt = "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
+    if learn_ctx:
+        user_prompt += f"\n\n{learn_ctx}"
     if history_ctx:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
@@ -727,13 +748,20 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
     # Pré-filtrage Groq : 50 signaux → 10
     signals = _prefilter_with_groq(signals, sector="deeptech/science/research", max_count=10)
 
-    from agents.memory import get_sector_history, format_deeptech_history, save_analysis as _save_dt
+    from agents.memory import (
+        get_sector_history, format_deeptech_history, save_analysis as _save_dt,
+        get_agent_learnings, format_learnings_context,
+    )
     history     = await get_sector_history("deeptech", days=7)
     history_ctx = format_deeptech_history(history)
+    learnings   = await get_agent_learnings("deeptech", limit=5)
+    learn_ctx   = format_learnings_context(learnings, "DeepTech")
 
     context = _prep_signals(signals, 10)
 
     user_prompt = ""
+    if learn_ctx:
+        user_prompt += f"{learn_ctx}\n\n"
     if history_ctx:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux deeptech collectés :\n\n{context}"
@@ -824,7 +852,12 @@ async def generate_nexus(
     """
     Trouve la connexion la plus puissante entre les 4 secteurs.
     Génère la question du matin binaire et actionnée.
+    Injecte l'historique Nexus 7 jours + learnings pour améliorer la détection.
     """
+    from agents.memory import (
+        get_sector_history, save_analysis as _save_nexus,
+        get_agent_learnings, format_learnings_context,
+    )
 
     def _summarize(data: dict, sector: str) -> str:
         signals = data.get("signals", [])
@@ -851,12 +884,28 @@ async def generate_nexus(
     crypto_dir    = crypto_data.get("direction", "")
     market_regime = market_data.get("regime", "")
 
-    user_prompt = (
-        f"SIGNAUX DU JOUR :\n{summary}\n\n"
-        f"Crypto : {crypto_dir} | Marché : {market_regime}\n\n"
-        f"Signal le plus fort : {top_title}\n"
-        f"Détail : {top_fait[:300]}"
-    )
+    # Historique Nexus 7 jours — connexions passées pour éviter les répétitions
+    nexus_history = await get_sector_history("nexus", days=7)
+    nexus_hist_ctx = ""
+    if nexus_history:
+        past_lines = ["── Connexions Nexus des 7 derniers jours (ne pas répéter la même) ──"]
+        for entry in nexus_history[:5]:
+            date = entry["report_date"]
+            conn = entry["data"].get("connexion", "")
+            if conn:
+                past_lines.append(f"  {date}: {conn[:100]}")
+        if len(past_lines) > 1:
+            nexus_hist_ctx = "\n".join(past_lines)
+
+    # Learnings globaux
+    learnings  = await get_agent_learnings("global", limit=3)
+    learn_ctx  = format_learnings_context(learnings, "Global")
+
+    user_prompt = f"SIGNAUX DU JOUR :\n{summary}\n\nCrypto : {crypto_dir} | Marché : {market_regime}\n\nSignal le plus fort : {top_title}\nDétail : {top_fait[:300]}"
+    if nexus_hist_ctx:
+        user_prompt += f"\n\n{nexus_hist_ctx}"
+    if learn_ctx:
+        user_prompt += f"\n\n{learn_ctx}"
 
     raw = _call_claude(user_prompt, max_tokens=1200, system_prompt=_SYSTEM_NEXUS, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
@@ -875,7 +924,6 @@ async def generate_nexus(
         f"question générée"
     )
 
-    from agents.memory import save_analysis as _save_nexus
     await _save_nexus("nexus", result)
 
     return result
