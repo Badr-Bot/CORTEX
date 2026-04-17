@@ -1,5 +1,6 @@
 import type { ReportJSON } from "@/lib/types"
 import SignalCard from "./SignalCard"
+import TradingViewChart from "./TradingViewChart"
 
 interface Props { crypto: ReportJSON["crypto"] }
 
@@ -177,6 +178,18 @@ export default function CryptoSection({ crypto }: Props) {
           </div>
         </div>
       )}
+
+      {/* Charts */}
+      <div className="glass rounded-xl p-5 card-hover border border-amber-500/10">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-1.5 h-1.5 rounded-full bg-amber-400/60" />
+          <div className="text-[10px] text-amber-400 uppercase tracking-widest font-semibold">📈 Graphiques 30 jours</div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <TradingViewChart symbol="BTCUSD" label="₿ Bitcoin / USD" height={200} />
+          <TradingViewChart symbol="ETHUSD" label="Ξ Ethereum / USD" height={200} />
+        </div>
+      </div>
 
       {/* Score */}
       {crypto.score && Object.keys(crypto.score).length > 0 && (

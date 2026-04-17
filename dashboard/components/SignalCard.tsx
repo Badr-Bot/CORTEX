@@ -53,6 +53,7 @@ export default function SignalCard({ signal, index, sector = "ai" }: Props) {
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <span className="stars text-sm">{stars(signal.conviction)}</span>
+          <span className="text-[9px] text-slate-600 ml-1">conviction</span>
           {isDeeptech && (
             <span className="text-xs text-violet-400 bg-violet-500/10 border border-violet-500/30 rounded-md px-2 py-0.5 font-mono">
               {horizonLabel(dt.horizon)}
@@ -99,6 +100,9 @@ export default function SignalCard({ signal, index, sector = "ai" }: Props) {
           <span className="text-[10px] text-slate-500 uppercase tracking-wider">💼 Position</span>
           <span className={`text-xs font-semibold font-mono px-2 py-0.5 rounded border ${sizing.bg} ${sizing.color}`}>
             {signal.sizing}
+          </span>
+          <span className="text-[9px] text-slate-600">
+            {signal.sizing === "Fort" ? "(5-10% portef.)" : signal.sizing === "Moyen" ? "(2-5%)" : signal.sizing === "Faible" ? "(<2%)" : null}
           </span>
         </div>
         <div className="flex items-center gap-1.5">

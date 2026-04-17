@@ -1,5 +1,6 @@
 import type { ReportJSON, HotStock } from "@/lib/types"
 import SignalCard from "./SignalCard"
+import TradingViewChart from "./TradingViewChart"
 
 interface Props { market: ReportJSON["market"] }
 
@@ -174,6 +175,18 @@ export default function MarketSection({ market }: Props) {
           {market.hot_stocks.map((s, i) => <StockRow key={i} stock={s} index={i} />)}
         </div>
       )}
+
+      {/* Charts */}
+      <div className="glass rounded-xl p-5 card-hover border border-emerald-500/10">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400/60" />
+          <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold">📊 Graphiques 30 jours</div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <TradingViewChart symbol="SP:SPX" label="📊 S&P 500" height={200} />
+          <TradingViewChart symbol="TVC:GOLD" label="🥇 Or (XAU/USD)" height={200} />
+        </div>
+      </div>
 
       {/* Signaux */}
       {market.signals?.map((sig, i) => (
