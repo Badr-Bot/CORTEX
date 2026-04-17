@@ -313,13 +313,16 @@ Règles absolues :
 async def analyze_ai(signals: list[dict]) -> dict:
     """
     Sélectionne les 3 meilleurs signaux IA et génère l'analyse complète.
-    Groq pré-filtre les signaux bruts → top 15 avant envoi à Claude Sonnet.
+    Pipeline : Groq (→12) → Board débat (→4) → Claude Sonnet deep analysis.
     """
     if not signals:
         return _fallback_ai([])
 
-    # Pré-filtrage Groq : 120 signaux → 15
-    signals = _prefilter_with_groq(signals, sector="AI/tech", max_count=15)
+    # Étape 1 : Groq pré-filtre → 12
+    signals = _prefilter_with_groq(signals, sector="AI/tech", max_count=12)
+    # Étape 2 : Board débat → 4 signaux par consensus
+    from agents.board import run_debate
+    signals = await run_debate(signals, sector="Intelligence Artificielle")
 
     from agents.memory import get_sector_history, format_ai_history, save_analysis
     history     = await get_sector_history("ai", days=7)
@@ -467,7 +470,11 @@ async def analyze_crypto(data: dict) -> dict:
     """
     dashboard = data.get("dashboard", {})
     signals   = data.get("signals", [])
+    # Étape 1 : Groq pré-filtre → 12
     signals   = _prefilter_with_groq(signals, sector="crypto/blockchain", max_count=12)
+    # Étape 2 : Board débat → 4
+    from agents.board import run_debate
+    signals   = await run_debate(signals, sector="Crypto & Web3")
     context   = _prep_signals(signals, 12)
 
     from agents.memory import get_sector_history, format_crypto_history, save_analysis as _save
@@ -591,7 +598,11 @@ async def analyze_market(data: dict) -> dict:
     """
     dashboard = data.get("dashboard", {})
     signals   = data.get("signals", [])
+    # Étape 1 : Groq pré-filtre → 12
     signals   = _prefilter_with_groq(signals, sector="macro/markets/finance", max_count=12)
+    # Étape 2 : Board débat → 4
+    from agents.board import run_debate
+    signals   = await run_debate(signals, sector="Marchés & Macro")
     context   = _prep_signals(signals, 12)
 
     from agents.memory import get_sector_history, format_market_history, save_analysis as _save_mkt
@@ -724,8 +735,11 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
     if not signals:
         return {"signals": []}
 
-    # Pré-filtrage Groq : 50 signaux → 10
+    # Étape 1 : Groq pré-filtre → 10
     signals = _prefilter_with_groq(signals, sector="deeptech/science/research", max_count=10)
+    # Étape 2 : Board débat → 4
+    from agents.board import run_debate
+    signals = await run_debate(signals, sector="DeepTech & Science")
 
     from agents.memory import get_sector_history, format_deeptech_history, save_analysis as _save_dt
     history     = await get_sector_history("deeptech", days=7)
