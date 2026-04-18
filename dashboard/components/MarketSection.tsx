@@ -186,7 +186,7 @@ export default function MarketSection({ market }: Props) {
           <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold">📊 Graphiques 30 jours</div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <TradingViewChart symbol="SP:SPX" label="📊 S&P 500" height={200} />
+          <TradingViewChart symbol="CAPITALCOM:US500" label="📊 S&P 500" height={200} />
           <TradingViewChart symbol="TVC:GOLD" label="🥇 Or (XAU/USD)" height={200} />
         </div>
       </div>

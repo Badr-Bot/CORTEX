@@ -218,7 +218,7 @@ def _call_claude_arbitre(prompt: str) -> dict | None:
 
 BOARD_MODELS = {
     "Llama 3.3":  lambda p: _call_groq(p, "llama-3.3-70b-versatile"),
-    "Gemma 2":    lambda p: _call_groq(p, "gemma2-9b-it"),
+    "Gemma 2":    lambda p: _call_groq(p, "meta-llama/llama-4-scout-17b-16e-instruct"),
     "Gemini Pro": lambda p: _call_gemini(p),
 }
 

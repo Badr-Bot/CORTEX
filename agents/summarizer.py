@@ -603,7 +603,10 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
     "ism_services":   {"status": "green",  "note": "53.1, expansion solide — services tiennent"},
     "conso_conf":     {"status": "green",  "note": "Conference Board 104.2, en hausse de 3 pts"},
     "credit_spread":  {"status": "green",  "note": "IG à 85bps, HY à 340bps — pas de stress crédit"},
-    "earnings_rev":   {"status": "yellow", "note": "Révisions S&P500 Q2 : -2.3% — mixtes mais pas catastrophiques"}
+    "earnings_rev":   {"status": "yellow", "note": "Révisions S&P500 Q2 : -2.3% — mixtes mais pas catastrophiques"},
+    "pmi_composite":  {"status": "green",  "note": "PMI composite 52.3 — expansion modérée, services dominent"},
+    "retail_sales":   {"status": "green",  "note": "Ventes détail +0.4% MoM — consommateur encore actif"},
+    "housing":        {"status": "yellow", "note": "Mises en chantier -8% — immobilier sous pression des taux"}
   },
   "recession_score": 3,
   "regime": "Risk-on prudent",
@@ -632,7 +635,8 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 Règles absolues :
 - TOUJOURS exactement 3 signaux dans signals
 - status : "green", "yellow" ou "red" uniquement
-- recession_score : score = (nb red) + 0.5 × (nb yellow), arrondi
+- recession_indicators : EXACTEMENT 10 indicateurs (courbe_taux, emploi, ism_manuf, ism_services, conso_conf, credit_spread, earnings_rev, pmi_composite, retail_sales, housing)
+- recession_score : score = (nb red) + 0.5 × (nb yellow), arrondi sur 10
 - regime : parmi "Risk-on", "Risk-off", "Inflation trade", "Stagflation", "Transition"
 - sizing : "Fort", "Moyen" ou "Faible"
 - Tout en FRANÇAIS — texte brut, zéro markdown
@@ -895,33 +899,33 @@ def _fallback_deeptech(signals: list[dict]) -> dict:
 # GENERATE_NEXUS — Connexion cross-secteurs + Question du matin
 # ══════════════════════════════════════════════════════════════════════════════
 
-_SYSTEM_NEXUS = """Tu es CORTEX, analyste stratégique senior pour Badr — investisseur tech.
+_SYSTEM_NEXUS = """Tu es CORTEX, analyste stratégique senior pour Badr — investisseur individuel qui veut devenir plus intelligent chaque jour sur les marchés, la tech et l'économie mondiale.
 
 MISSION 1 — CHAÎNE CAUSALE DU JOUR :
-Identifie la chaîne causale la plus puissante entre les secteurs : A → B → C → D.
-Format impératif : chaque maillon = "Fait précis [secteur]" → flèche → conséquence.
-Exemple : "Fed hawkish [Marchés] → dollar fort [DXY] → BTC sous pression [Crypto] → rotation vers or [Marchés]"
+Identifie la chaîne causale la plus puissante entre les 4 secteurs (IA, Crypto, Marchés, DeepTech).
+Format impératif : chaque maillon = "Fait précis [SECTEUR]" → conséquence.
+Exemple : "Fed hawkish [MARCHÉS] → dollar fort [MARCHÉS] → BTC sous pression [CRYPTO] → rotation vers GPU cloud [IA]"
 Si aucune chaîne réelle n'existe → retourne has_connexion: false.
-NE JAMAIS forcer : si les secteurs sont découplés ce jour, dis-le.
-Maximum 3 maillons. Dense, factuel, zéro jargon creux.
+NE JAMAIS forcer une connexion artificielle.
+Maximum 3 maillons. Dense, factuel.
 
-MISSION 2 — QUESTIONS DÉCISION :
-Génère 3 questions qui forcent Badr à CHOISIR (pas observer, pas analyser).
-Question principale : format binaire strict "Si [fait précis du jour], tu [action A] ou tu [action B] ?"
-Question cross-sectorielle : comment les signaux IA et Crypto combinés changent la stratégie.
-Question de recul : qu'est-ce que les signaux du jour disent sur la direction du marché à moyen terme.
+MISSION 2 — 3 QUESTIONS POUR GRANDIR INTELLECTUELLEMENT :
+But unique : rendre Badr plus intelligent. Chaque question doit forcer une DÉCISION ou révéler une INSIGHT non-évident.
+- Question 1 (binaire) : format strict "Si [fait précis du jour], tu [action A] ou tu [action B] ?" — peut porter sur N'IMPORTE QUEL secteur ou combinaison de secteurs.
+- Question 2 (connexion inter-secteurs) : comment 2 signaux de secteurs DIFFÉRENTS se combinent pour créer une opportunité ou un risque non-évident. Peut être Marchés+DeepTech, Crypto+IA, etc.
+- Question 3 (recul stratégique) : qu'est-ce que les signaux du jour révèlent sur une tendance de fond à 3-6 mois ? Forcer une prise de position.
 Ton direct, frontal. 1 phrase max par question. En français.
 
 Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 {
   "has_connexion": true,
-  "connexion": "Fait A [Secteur] → conséquence B [Secteur] → impact C [Secteur]",
-  "secteurs_lies": ["IA", "Marchés"],
-  "question": "La question principale binaire — OBLIGATOIRE, format 'Si [fait], tu [action A] ou [action B] ?'",
+  "connexion": "Fait A [SECTEUR] → conséquence B [SECTEUR] → impact C [SECTEUR]",
+  "secteurs_lies": ["Crypto", "Marchés"],
+  "question": "La question binaire principale — format 'Si [fait], tu [action A] ou [action B] ?'",
   "questions": [
-    "La même question que question principale",
-    "Question cross-sectorielle : comment [signal IA] + [signal Crypto] changent-ils la stratégie de Badr ?",
-    "Question de recul stratégique sur la semaine ou le mois — qu'est-ce que tout ça dit sur la direction du marché ?"
+    "Question binaire : Si [fait précis de n'importe quel secteur], tu [action A] ou [action B] ?",
+    "Question connexion : [Signal secteur X] combiné à [signal secteur Y] — qu'est-ce que ça implique concrètement pour Badr ?",
+    "Question recul : Qu'est-ce que [tendance observée aujourd'hui] dit sur [marché/secteur] dans 3-6 mois ?"
   ]
 }"""
 
