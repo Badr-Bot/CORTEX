@@ -205,13 +205,15 @@ def format_deeptech_history(history: list[dict]) -> str:
 _LEARNINGS_TABLE = "agent_learnings"
 
 
-async def get_agent_learnings(sector: str, limit: int = 5) -> list[dict]:
+async def get_agent_learnings(sector: str, limit: int = 5, max_weeks: int = 8) -> list[dict]:
     """
     Récupère les N derniers apprentissages pour un secteur depuis Supabase.
+    Pattern decay : ignore les patterns de plus de max_weeks semaines (défaut 8).
 
     Args:
-        sector : 'ai' | 'crypto' | 'market' | 'deeptech' | 'global'
-        limit  : nombre max de learnings à récupérer
+        sector    : 'ai' | 'crypto' | 'market' | 'deeptech' | 'global'
+        limit     : nombre max de learnings à récupérer
+        max_weeks : âge max en semaines (pattern decay)
     Returns:
         Liste de {'week_of': str, 'learning': str, 'pattern': str}
     """
@@ -219,11 +221,15 @@ async def get_agent_learnings(sector: str, limit: int = 5) -> list[dict]:
     if not client:
         return []
 
+    from datetime import date, timedelta
+    cutoff = (date.today() - timedelta(weeks=max_weeks)).isoformat()
+
     def _do_fetch():
         return (
             client.table(_LEARNINGS_TABLE)
             .select("week_of, learning, pattern, signal_title")
             .eq("sector", sector)
+            .gte("week_of", cutoff)   # Pattern decay : ignorer > 8 semaines
             .order("created_at", desc=True)
             .limit(limit)
             .execute()
@@ -231,7 +237,10 @@ async def get_agent_learnings(sector: str, limit: int = 5) -> list[dict]:
 
     try:
         result = await asyncio.to_thread(_do_fetch)
-        return result.data or []
+        data = result.data or []
+        if len(data) < limit:
+            logger.debug(f"Pattern decay [{sector}]: {limit - len(data)} patterns expirés ignorés")
+        return data
     except Exception as e:
         logger.warning(f"Erreur get_agent_learnings [{sector}]: {e}")
         return []

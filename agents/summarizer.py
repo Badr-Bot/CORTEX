@@ -915,6 +915,7 @@ But unique : rendre Badr plus intelligent. Chaque question doit forcer une DÉCI
 - Question 2 (connexion inter-secteurs) : comment 2 signaux de secteurs DIFFÉRENTS se combinent pour créer une opportunité ou un risque non-évident. Peut être Marchés+DeepTech, Crypto+IA, etc.
 - Question 3 (recul stratégique) : qu'est-ce que les signaux du jour révèlent sur une tendance de fond à 3-6 mois ? Forcer une prise de position.
 Ton direct, frontal. 1 phrase max par question. En français.
+ANTI-RÉPÉTITION ABSOLUE : Si des questions passées sont fournies en contexte, chaque question générée DOIT être sur un angle/ticker/secteur différent. Zéro tolérance pour la répétition de thème.
 
 Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 {
@@ -975,18 +976,35 @@ async def generate_nexus(
     )
     long_ctx = format_long_memory_context([], patterns_global, similar_nexus)
 
-    # Charger historique des 7 dernières connexions Nexus pour éviter les répétitions
+    # Anti-répétition Nexus : 7 jours de questions + connexions déjà vues
     from agents.memory import get_sector_history
     nexus_history = await get_sector_history("nexus", days=7)
     past_nexus = ""
     if nexus_history:
-        lines = ["── Connexions Nexus déjà générées (ne pas répéter) ──"]
-        for entry in nexus_history[:5]:
-            date = entry["report_date"]
-            conn = entry["data"].get("connexion", "")
+        conn_lines = ["── CONNEXIONS déjà générées (ne pas répéter le même angle) ──"]
+        q_lines    = ["── QUESTIONS déjà posées (INTERDITES — trouver angles différents) ──"]
+        for entry in nexus_history[:7]:
+            report_date = entry["report_date"]
+            data = entry["data"]
+            conn = data.get("connexion", "")
             if conn:
-                lines.append(f"  {date}: {conn[:100]}")
-        past_nexus = "\n".join(lines) if len(lines) > 1 else ""
+                conn_lines.append(f"  {report_date}: {conn[:120]}")
+            # Extraire toutes les questions posées ce jour
+            qs = data.get("questions", [])
+            q_main = data.get("question", "")
+            if q_main:
+                qs = [q_main] + [q for q in qs if q != q_main]
+            for q in qs[:3]:
+                if q and len(q) > 10:
+                    q_lines.append(f"  [{report_date}] {q[:150]}")
+        has_conn = len(conn_lines) > 1
+        has_q    = len(q_lines) > 1
+        parts = []
+        if has_conn:
+            parts.append("\n".join(conn_lines))
+        if has_q:
+            parts.append("\n".join(q_lines))
+        past_nexus = "\n\n".join(parts)
 
     user_prompt = ""
     if long_ctx:

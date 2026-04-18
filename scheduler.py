@@ -83,6 +83,18 @@ async def run_long_memory_compression() -> None:
         logger.error(f"Erreur run_long_memory_compression : {e}")
 
 
+async def run_alert_monitor() -> None:
+    """
+    Surveillance toutes les 30 min — alertes Telegram si seuils déclenchés.
+    VIX +20%, BTC ±10%, S&P -3%, Or +3%, DXY +1.5%
+    """
+    try:
+        from agents.alert_monitor import check_and_send_alerts
+        await check_and_send_alerts()
+    except Exception as e:
+        logger.error(f"Erreur run_alert_monitor : {e}")
+
+
 async def run_monthly_synthesis() -> None:
     """
     Tâche mensuelle — 1er du mois à 08:00.
@@ -160,6 +172,16 @@ def build_scheduler() -> AsyncIOScheduler:
         name="Synthèse mensuelle",
         replace_existing=True,
         misfire_grace_time=600
+    )
+
+    # ── Job 6 : Alert Monitor — toutes les 30 min ────────────────────
+    scheduler.add_job(
+        func=run_alert_monitor,
+        trigger=CronTrigger(minute="*/30", timezone=TIMEZONE),
+        id="alert_monitor",
+        name="Alert Monitor (VIX/BTC/SP500)",
+        replace_existing=True,
+        misfire_grace_time=120
     )
 
     # Log des jobs configurés
