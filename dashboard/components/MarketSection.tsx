@@ -77,16 +77,19 @@ export default function MarketSection({ market }: Props) {
           {dashItems.map(({ key, label, icon }) => {
             const item = d[key] as { price: string; change_pct: number } | undefined
             if (!item) return null
-            const chg = item.change_pct || 0
-            const isUp = chg >= 0
+            const chg = item.change_pct ?? 0
+            const isUp   = chg > 0
+            const isDown = chg < 0
+            const arrow  = isUp ? "▲" : isDown ? "▼" : "→"
+            const color  = isUp ? "text-emerald-400" : isDown ? "text-red-400" : "text-slate-500"
             return (
               <div key={key} className="space-y-1">
                 <div className="text-[10px] text-slate-500 uppercase tracking-wider flex items-center gap-1">
                   <span>{icon}</span>{label}
                 </div>
                 <div className="text-white font-mono font-bold">{item.price}</div>
-                <div className={`text-xs font-mono font-semibold ${isUp ? "text-emerald-400" : "text-red-400"}`}>
-                  {isUp ? "▲" : "▼"} {Math.abs(chg).toFixed(1)}%
+                <div className={`text-xs font-mono font-semibold ${color}`}>
+                  {arrow} {Math.abs(chg).toFixed(2)}%
                 </div>
               </div>
             )

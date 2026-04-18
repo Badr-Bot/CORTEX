@@ -42,18 +42,20 @@ export default function SignalCard({ signal, index, sector = "ai" }: Props) {
       style={{ animationDelay: `${index * 0.06}s` }}
     >
       {/* Header */}
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="flex-shrink-0 w-7 h-7 rounded-md bg-white/5 border border-white/10 flex items-center justify-center">
+      <div className="flex items-start gap-3">
+        <div className="flex items-start gap-3 min-w-0 flex-1">
+          <div className="flex-shrink-0 w-7 h-7 rounded-md bg-white/5 border border-white/10 flex items-center justify-center mt-0.5">
             <span className="text-xs font-mono text-slate-400">#{index + 1}</span>
           </div>
-          <h3 className="font-semibold text-white text-sm uppercase tracking-wide leading-snug">
+          <h3 className="font-semibold text-white text-sm uppercase tracking-wide leading-snug break-words min-w-0">
             {signal.title}
           </h3>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="stars text-sm">{stars(signal.conviction)}</span>
-          <span className="text-[9px] text-slate-600 ml-1">conviction</span>
+        <div className="flex flex-col items-end gap-1 shrink-0">
+          <div className="flex items-center gap-1.5">
+            <span className="stars text-sm leading-none">{stars(signal.conviction)}</span>
+            <span className="text-[9px] text-slate-600">conviction</span>
+          </div>
           {isDeeptech && (
             <span className="text-xs text-violet-400 bg-violet-500/10 border border-violet-500/30 rounded-md px-2 py-0.5 font-mono">
               {horizonLabel(dt.horizon)}
