@@ -293,35 +293,9 @@ export default async function DashboardPage({ searchParams }: PageProps) {
     <div className="min-h-screen flex flex-col">
       <NavBar />
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-3 sm:py-5 space-y-4 sm:space-y-6">
-
-        {/* Hero header */}
-        <div className="animate-slide-up space-y-4">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-[10px] font-mono text-indigo-400/60 uppercase tracking-widest">📋 Rapport quotidien</span>
-                <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-indigo-500/30 to-transparent" />
-              </div>
-              <h1 className="text-2xl font-bold text-white leading-tight">
-                ☀️ Rapport du <span className="gradient-text">matin</span>
-              </h1>
-              <p className="text-slate-500 text-sm mt-1 font-mono">{formatDate(report.report_date)}</p>
-            </div>
-            <div className="text-right shrink-0">
-              <div className="glass rounded-xl px-4 py-2.5 border border-indigo-500/20">
-                <div className="text-2xl font-bold font-mono gradient-text">{report.signals_count}</div>
-                <div className="text-[10px] text-slate-500 uppercase tracking-wider">signaux</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Decorative line */}
-          <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
-        </div>
-
-        {/* Tabs — sticky sous le header */}
-        <div className="sticky top-14 z-40 bg-[#040408] -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 border-b border-white/5 flex gap-2 overflow-x-auto scrollbar-hide animate-slide-up stagger-1">
+      {/* Tabs — collés sous NavBar, sticky ensemble, rien ne passe entre les deux */}
+      <div className="sticky top-14 z-40 bg-[#040408] border-b border-white/5">
+        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex gap-2 overflow-x-auto scrollbar-hide">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id
             const colors = TAB_COLORS[tab.color]
@@ -343,6 +317,32 @@ export default async function DashboardPage({ searchParams }: PageProps) {
               </a>
             )
           })}
+        </div>
+      </div>
+
+      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6">
+
+        {/* Hero header */}
+        <div className="animate-slide-up space-y-4">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-mono text-indigo-400/60 uppercase tracking-widest">📋 Rapport quotidien</span>
+                <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-indigo-500/30 to-transparent" />
+              </div>
+              <h1 className="text-2xl font-bold text-white leading-tight">
+                ☀️ Rapport du <span className="gradient-text">matin</span>
+              </h1>
+              <p className="text-slate-500 text-sm mt-1 font-mono">{formatDate(report.report_date)}</p>
+            </div>
+            <div className="text-right shrink-0">
+              <div className="glass rounded-xl px-4 py-2.5 border border-indigo-500/20">
+                <div className="text-2xl font-bold font-mono gradient-text">{report.signals_count}</div>
+                <div className="text-[10px] text-slate-500 uppercase tracking-wider">signaux</div>
+              </div>
+            </div>
+          </div>
+          <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
         </div>
 
         {/* Tab content */}
