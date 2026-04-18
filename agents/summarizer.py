@@ -795,7 +795,7 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 
 Règles absolues :
 - TOUJOURS 3 signaux dans le tableau signals
-- horizon : exactement "1-2", "3-5", "5-10" ou "10+"
+- horizon : UNIQUEMENT "5-10" ou "10+" — les technologies deeptech n'ont JAMAIS d'impact en moins de 5 ans
 - credibilite_score : 0-4 (nombre de critères remplis)
 - sizing : "Fort", "Moyen" ou "Faible"
 - Si un critère n'est pas rempli, mettre false et detail vide ""

@@ -38,6 +38,20 @@ MARKET_NEWS_FEEDS = [
     {"name": "FT Markets",       "url": "https://www.ft.com/rss/home/uk"},
 ]
 
+SECTOR_ETFS = {
+    "technologie":  "XLK",
+    "finance":      "XLF",
+    "sante":        "XLV",
+    "energie":      "XLE",
+    "industrie":    "XLI",
+    "consommation": "XLY",
+    "staples":      "XLP",
+    "materiaux":    "XLB",
+    "immobilier":   "XLRE",
+    "services":     "XLC",
+    "utilities":    "XLU",
+}
+
 EARNINGS_TICKERS = [
     "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA", "AMD",
     "NFLX", "CRM", "ORCL", "INTC", "QCOM", "AVGO", "TSM", "ASML",
@@ -275,6 +289,62 @@ async def _fetch_ticker(client: httpx.AsyncClient, key: str, symbol: str) -> tup
         return key, {"price": "N/A", "change_pct": 0.0, "raw_price": 0}
 
 
+async def collect_sectors() -> dict:
+    """
+    Récupère les 11 secteurs US via Yahoo Finance ETFs (XLK, XLF, etc.).
+    Retourne un dict avec performance de chaque secteur + market breadth.
+    """
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+    sectors = {}
+
+    async def _fetch_sector(client: httpx.AsyncClient, name: str, symbol: str) -> tuple:
+        try:
+            r = await client.get(
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}",
+                params={"interval": "1d", "range": "5d"}, timeout=8,
+            )
+            if r.status_code != 200:
+                return name, None
+            meta = r.json()["chart"]["result"][0]["meta"]
+            price = meta.get("regularMarketPrice") or 0
+            prev = meta.get("chartPreviousClose") or meta.get("regularMarketPreviousClose") or price
+            change_pct = round((price - prev) / prev * 100, 2) if prev else 0
+            return name, {"symbol": symbol, "price": round(price, 2), "change_pct": change_pct}
+        except Exception as e:
+            logger.debug(f"Sector {symbol}: {e}")
+            return name, None
+
+    try:
+        async with httpx.AsyncClient(headers=headers) as client:
+            tasks = [_fetch_sector(client, name, sym) for name, sym in SECTOR_ETFS.items()]
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        for r in results:
+            if isinstance(r, tuple) and r[1] is not None:
+                sectors[r[0]] = r[1]
+
+        # Market breadth : % de secteurs en hausse
+        changes = [s["change_pct"] for s in sectors.values()]
+        if changes:
+            pct_up = round(sum(1 for c in changes if c > 0) / len(changes) * 100)
+            best = max(sectors.items(), key=lambda x: x[1]["change_pct"])
+            worst = min(sectors.items(), key=lambda x: x[1]["change_pct"])
+            sectors["_breadth"] = {
+                "pct_secteurs_hausse": pct_up,
+                "meilleur": {"nom": best[0], "change_pct": best[1]["change_pct"]},
+                "pire":     {"nom": worst[0], "change_pct": worst[1]["change_pct"]},
+                "sentiment": "bullish" if pct_up >= 70 else "bearish" if pct_up <= 30 else "mitige",
+            }
+        logger.info(
+            f"Secteurs: {len([s for s in sectors if not s.startswith('_')])} secteurs "
+            f"— breadth {sectors.get('_breadth', {}).get('pct_secteurs_hausse', '?')}% en hausse"
+        )
+    except Exception as e:
+        logger.warning(f"collect_sectors erreur: {e}")
+
+    return sectors
+
+
 async def collect_dashboard() -> dict:
     """Récupère tous les indicateurs marché en parallèle via Yahoo Finance."""
     headers = {
@@ -284,10 +354,11 @@ async def collect_dashboard() -> dict:
         tasks = [_fetch_ticker(client, k, v) for k, v in TICKERS.items()]
         ticker_results = await asyncio.gather(*tasks, return_exceptions=True)
 
-    # Récupérer earnings + insider en parallèle avec les tickers
-    earnings_result, insider_result = await asyncio.gather(
+    # Récupérer earnings + insider + secteurs en parallèle
+    earnings_result, insider_result, sectors_result = await asyncio.gather(
         collect_earnings_calendar(),
         collect_insider_trades(),
+        collect_sectors(),
         return_exceptions=True,
     )
 
@@ -315,9 +386,14 @@ async def collect_dashboard() -> dict:
     # Insider buys (3 derniers jours, > $100K)
     dashboard["insider_buys"] = insider_result if isinstance(insider_result, list) else []
 
+    # 11 secteurs US + market breadth
+    dashboard["sectors"] = sectors_result if isinstance(sectors_result, dict) else {}
+
+    breadth = dashboard["sectors"].get("_breadth", {})
     logger.info(
         f"Dashboard marché: S&P {dashboard.get('sp500', {}).get('price', 'N/A')}, "
         f"VIX {dashboard.get('vix', {}).get('price', 'N/A')} | "
+        f"Breadth {breadth.get('pct_secteurs_hausse', '?')}% | "
         f"Earnings: {len(dashboard['earnings_week'])} | "
         f"Insiders: {len(dashboard['insider_buys'])}"
     )

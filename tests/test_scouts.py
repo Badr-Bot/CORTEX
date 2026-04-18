@@ -103,6 +103,58 @@ def test_recession_score_max():
     score = nb_red * 1
     assert score == 10
 
+# ── Sectors US ───────────────────────────────────────────────────────────────
+
+@pytest.mark.asyncio
+async def test_sectors_returns_11_sectors():
+    from agents.scout_market import collect_sectors
+    result = await collect_sectors()
+    sector_keys = [k for k in result if not k.startswith("_")]
+    assert len(sector_keys) == 11, f"Attendu 11 secteurs, obtenu {len(sector_keys)}: {sector_keys}"
+
+@pytest.mark.asyncio
+async def test_sectors_has_breadth():
+    from agents.scout_market import collect_sectors
+    result = await collect_sectors()
+    breadth = result.get("_breadth", {})
+    assert "pct_secteurs_hausse" in breadth, "_breadth.pct_secteurs_hausse manquant"
+    assert 0 <= breadth["pct_secteurs_hausse"] <= 100, "pct_secteurs_hausse hors [0,100]"
+    assert "sentiment" in breadth, "_breadth.sentiment manquant"
+    assert breadth["sentiment"] in {"bullish", "bearish", "mitige"}, f"sentiment invalide: {breadth['sentiment']}"
+
+@pytest.mark.asyncio
+async def test_sectors_change_pct_not_all_zero():
+    from agents.scout_market import collect_sectors
+    result = await collect_sectors()
+    changes = [v["change_pct"] for k, v in result.items() if not k.startswith("_")]
+    assert any(c != 0 for c in changes), "Tous les change_pct secteurs sont 0"
+
+
+# ── Exchange Flows ────────────────────────────────────────────────────────────
+
+@pytest.mark.asyncio
+async def test_exchange_flows_structure():
+    from agents.scout_crypto import collect_exchange_flows
+    result = await collect_exchange_flows()
+    assert isinstance(result, dict), "exchange_flows doit etre un dict"
+    for field in ["binance_vol_24h_usd", "top5_exchanges_vol_btc", "trend", "pression"]:
+        assert field in result, f"champ '{field}' manquant"
+
+@pytest.mark.asyncio
+async def test_exchange_flows_trend_valid():
+    from agents.scout_crypto import collect_exchange_flows
+    result = await collect_exchange_flows()
+    valid_trends = {"accumulation", "distribution", "indecis", "faible_volume", "inconnu"}
+    assert result["trend"] in valid_trends, f"trend invalide: {result['trend']}"
+
+@pytest.mark.asyncio
+async def test_exchange_flows_volume_positive():
+    from agents.scout_crypto import collect_exchange_flows
+    result = await collect_exchange_flows()
+    assert result["binance_vol_24h_usd"] >= 0, "binance_vol_24h_usd negatif"
+    assert result["top5_exchanges_vol_btc"] >= 0, "top5_exchanges_vol_btc negatif"
+
+
 def test_recession_has_10_indicators():
     """Verifie que le prompt genere bien 10 indicateurs."""
     expected = {"courbe_taux", "emploi", "ism_manuf", "ism_services",

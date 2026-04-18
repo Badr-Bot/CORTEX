@@ -155,6 +155,78 @@ async def _fetch_mempool_fees(client: httpx.AsyncClient) -> dict:
         return {}
 
 
+async def collect_exchange_flows() -> dict:
+    """
+    Estime les flux d'échanges crypto (accumulation vs distribution) via :
+    - Volume Binance 24h (tendance achat/vente)
+    - Top exchanges volume CoinGecko
+    - Heuristique : volume élevé + prix monte → accumulation ; volume élevé + prix baisse → distribution
+    """
+    result = {
+        "binance_vol_24h_usd": 0,
+        "top5_exchanges_vol_btc": 0.0,
+        "trend": "inconnu",
+        "pression": "neutre",
+    }
+    try:
+        headers = {"User-Agent": "Mozilla/5.0"}
+        async with httpx.AsyncClient(headers=headers, follow_redirects=True) as client:
+            binance_r, gecko_r = await asyncio.gather(
+                client.get("https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT", timeout=8),
+                client.get(
+                    "https://api.coingecko.com/api/v3/exchanges",
+                    params={"per_page": 5, "page": 1}, timeout=10,
+                ),
+                return_exceptions=True,
+            )
+
+        # Binance volume
+        binance_vol_usd = 0
+        if not isinstance(binance_r, Exception) and binance_r.status_code == 200:
+            bd = binance_r.json()
+            binance_vol_usd = float(bd.get("quoteVolume", 0))
+            btc_change = float(bd.get("priceChangePercent", 0))
+            result["binance_vol_24h_usd"] = int(binance_vol_usd)
+            result["btc_change_24h_pct"] = round(btc_change, 2)
+        else:
+            btc_change = 0.0
+
+        # CoinGecko top exchanges
+        top5_vol = 0.0
+        if not isinstance(gecko_r, Exception) and gecko_r.status_code == 200:
+            exchanges = gecko_r.json()
+            top5_vol = sum(float(ex.get("trade_volume_24h_btc", 0) or 0) for ex in exchanges[:5])
+            result["top5_exchanges_vol_btc"] = round(top5_vol, 1)
+
+        # Heuristique flux : volume élevé + prix monte = acheteurs agressifs (accumulation)
+        # Volume élevé + prix baisse = vendeurs agressifs (distribution)
+        # Volume faible = pas de signal fort
+        high_volume_threshold = 800_000_000  # $800M Binance 24h = "élevé"
+        if binance_vol_usd > high_volume_threshold:
+            if btc_change > 1.0:
+                result["trend"] = "accumulation"
+                result["pression"] = "achat"
+            elif btc_change < -1.0:
+                result["trend"] = "distribution"
+                result["pression"] = "vente"
+            else:
+                result["trend"] = "indecis"
+                result["pression"] = "neutre"
+        else:
+            result["trend"] = "faible_volume"
+            result["pression"] = "neutre"
+
+        logger.info(
+            f"Exchange flows: Binance ${result['binance_vol_24h_usd']:,} | "
+            f"BTC {result.get('btc_change_24h_pct', '?')}% | "
+            f"Trend: {result['trend']}"
+        )
+    except Exception as e:
+        logger.warning(f"collect_exchange_flows erreur: {e}")
+
+    return result
+
+
 async def collect_dashboard() -> dict:
     """Récupère toutes les données dashboard crypto en parallèle."""
     headers = {"User-Agent": "CORTEX/1.0"}
@@ -169,6 +241,8 @@ async def collect_dashboard() -> dict:
             _fetch_mempool_fees(client),
         )
 
+    exchange_flows = await collect_exchange_flows()
+
     dashboard = {
         **global_data,
         **btc_data,
@@ -177,16 +251,13 @@ async def collect_dashboard() -> dict:
         **ls_data,
         **mempool_data,
         "funding_description": funding,
+        "exchange_flows": exchange_flows,
     }
     logger.info(
         f"Dashboard crypto: BTC ${dashboard.get('btc_price', 'N/A'):,} "
         f"({dashboard.get('btc_change_24h', '?')}%), "
         f"F&G {dashboard.get('fear_greed_score', '?')}, "
-        f"L/S {dashboard.get('long_short_ratio', '?'):.0%}"
-        if dashboard.get('long_short_ratio') else
-        f"Dashboard crypto: BTC ${dashboard.get('btc_price', 'N/A'):,} "
-        f"({dashboard.get('btc_change_24h', '?')}%), "
-        f"F&G {dashboard.get('fear_greed_score', '?')}"
+        f"Flows: {exchange_flows.get('trend', '?')}"
     )
     return dashboard
 
