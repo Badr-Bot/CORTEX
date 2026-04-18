@@ -384,7 +384,7 @@ async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "/desabonner — Se désabonner\n"
         "/rapport — Demander le dernier rapport\n"
         "/help — Cette aide\n\n"
-        "_CORTEX surveille : IA • Crypto • Marchés • DeepTech_"
+        "_IA \u2022 Crypto \u2022 March\u00e9s \u2022 DeepTech_"
     )
 
     admin_help = (
@@ -400,7 +400,7 @@ async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "/abonner — S'abonner aux rapports\n"
         "/desabonner — Se désabonner\n"
         "/help — Cette aide\n\n"
-        "_CORTEX surveille : IA • Crypto • Marchés • DeepTech_"
+        "_IA \u2022 Crypto \u2022 March\u00e9s \u2022 DeepTech_"
     )
 
     help_text = admin_help if is_admin else base_help

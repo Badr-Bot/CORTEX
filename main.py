@@ -74,13 +74,7 @@ async def startup() -> tuple:
             # ── Étape 6 : Message de démarrage Telegram ──────────────
             logger.info("[6/7] Envoi du message de démarrage...")
             startup_message = (
-                "🟢 *CORTEX EST EN LIGNE*\n\n"
-                "📡 Système : opérationnel\n"
-                "🗄️ Database : connectée ✅\n"
-                "🤖 Agents : en construction 🔧\n"
-                "⏰ Prochain rapport : demain 6h00\n\n"
-                "Bienvenue Badr.\n"
-                "CORTEX surveille pendant que tu dors."
+                "\u26a1\ufe0f Syst\u00e8me red\u00e9marr\u00e9. Prochain rapport demain \u00e0 6h."
             )
             await send_message(startup_message)
             logger.info("Message de démarrage envoyé")

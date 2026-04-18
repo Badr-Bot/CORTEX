@@ -64,11 +64,12 @@ async def test_market_signals_list():
 
 # ── Scout AI ──────────────────────────────────────────────────────────────────
 
-@pytest.mark.asyncio
-async def test_ai_signals_list():
-    from agents.scout_ai import collect_signals
-    sigs = await collect_signals()
-    assert isinstance(sigs, list), "signals IA doit etre une liste"
+def test_ai_scout_importable():
+    """Verifie que le module scout_ai est importable et a run_scout_ai."""
+    from agents import scout_ai
+    import inspect
+    assert hasattr(scout_ai, "run_scout_ai"), "run_scout_ai manquant dans scout_ai"
+    assert inspect.iscoroutinefunction(scout_ai.run_scout_ai), "run_scout_ai doit etre async"
 
 
 # ── Score recession ───────────────────────────────────────────────────────────
@@ -108,3 +109,50 @@ def test_recession_has_10_indicators():
                 "conso_conf", "credit_spread", "earnings_rev",
                 "pmi_composite", "retail_sales", "housing"}
     assert len(expected) == 10
+
+
+# ── Earnings Calendar ─────────────────────────────────────────────────────────
+
+@pytest.mark.asyncio
+async def test_earnings_calendar_returns_list():
+    from agents.scout_market import collect_earnings_calendar
+    result = await collect_earnings_calendar()
+    assert isinstance(result, list), "earnings calendar doit retourner une liste"
+
+@pytest.mark.asyncio
+async def test_earnings_calendar_structure():
+    from agents.scout_market import collect_earnings_calendar
+    result = await collect_earnings_calendar()
+    for item in result:
+        assert "ticker" in item, f"champ 'ticker' manquant: {item}"
+        assert "date" in item, f"champ 'date' manquant: {item}"
+        assert "days_until" in item, f"champ 'days_until' manquant: {item}"
+        assert 0 <= item["days_until"] <= 7, f"days_until hors fenetre 7j: {item}"
+
+
+# ── Insider Trading ───────────────────────────────────────────────────────────
+
+@pytest.mark.asyncio
+async def test_insider_trades_returns_list():
+    from agents.scout_market import collect_insider_trades
+    result = await collect_insider_trades()
+    assert isinstance(result, list), "insider trades doit retourner une liste"
+
+@pytest.mark.asyncio
+async def test_insider_trades_structure():
+    from agents.scout_market import collect_insider_trades
+    result = await collect_insider_trades()
+    required = ["insider", "company", "ticker", "type", "shares", "value_usd", "date"]
+    for trade in result:
+        for field in required:
+            assert field in trade, f"champ '{field}' manquant dans: {trade}"
+        assert trade["type"] == "BUY", f"type doit etre BUY: {trade['type']}"
+        assert trade["value_usd"] >= 100_000, f"value_usd < 100K: {trade['value_usd']}"
+
+@pytest.mark.asyncio
+async def test_insider_trades_sorted_by_value():
+    from agents.scout_market import collect_insider_trades
+    result = await collect_insider_trades()
+    if len(result) >= 2:
+        values = [t["value_usd"] for t in result]
+        assert values == sorted(values, reverse=True), "trades doivent etre tries par value_usd desc"

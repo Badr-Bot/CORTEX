@@ -106,8 +106,11 @@ async def _get_week_data() -> dict:
         logger.warning(f"Erreur récupération données semaine: {e}")
         journal, analyses = [], []
 
-    # Prix BTC semaine (CoinGecko gratuit)
-    btc_weekly = await _fetch_btc_weekly()
+    # Prix BTC semaine (CoinGecko gratuit) + macro hebdo (Yahoo Finance)
+    btc_weekly, macro_weekly = await asyncio.gather(
+        _fetch_btc_weekly(),
+        _fetch_macro_weekly(),
+    )
 
     # Signaux clés de la semaine (top signal par secteur par jour)
     signals_summary = _summarize_analyses(analyses)
@@ -117,6 +120,7 @@ async def _get_week_data() -> dict:
         "analyses":        analyses,
         "signals_summary": signals_summary,
         "btc_weekly":      btc_weekly,
+        "macro_weekly":    macro_weekly,
     }
 
 
@@ -145,6 +149,62 @@ async def _fetch_btc_weekly() -> dict:
     except Exception as e:
         logger.debug(f"BTC weekly: {e}")
     return {}
+
+
+async def _fetch_macro_weekly() -> dict:
+    """
+    Récupère les variations hebdomadaires des indices macro via Yahoo Finance.
+    Retourne S&P500, Nasdaq, VIX, DXY avec variation % lundi→vendredi.
+    """
+    _MACRO_TICKERS = {
+        "sp500":  "^GSPC",
+        "nasdaq": "^IXIC",
+        "vix":    "^VIX",
+        "dxy":    "DX-Y.NYB",
+    }
+
+    _LABELS = {
+        "sp500":  "S&P 500",
+        "nasdaq": "Nasdaq",
+        "vix":    "VIX",
+        "dxy":    "DXY",
+    }
+
+    YAHOO_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+
+    results: dict = {}
+
+    async def _fetch_one(key: str, symbol: str) -> None:
+        try:
+            import httpx
+            async with httpx.AsyncClient(headers=headers) as client:
+                r = await client.get(
+                    YAHOO_CHART_URL.format(symbol=symbol),
+                    params={"interval": "1d", "range": "7d"},
+                    timeout=10,
+                )
+            data = r.json()
+            chart_result = data.get("chart", {}).get("result", [{}])[0]
+            quotes = chart_result.get("indicators", {}).get("quote", [{}])
+            closes = [c for c in (quotes[0].get("close") or []) if c is not None] if quotes else []
+            if len(closes) >= 2:
+                start = closes[0]
+                end   = closes[-1]
+                chg   = (end - start) / start * 100
+                results[key] = {
+                    "label":      _LABELS[key],
+                    "start":      round(start, 2),
+                    "end":        round(end, 2),
+                    "change_pct": round(chg, 2),
+                    "direction":  "hausse" if chg > 1 else ("baisse" if chg < -1 else "stable"),
+                }
+        except Exception as e:
+            logger.debug(f"Macro weekly {symbol}: {e}")
+
+    await asyncio.gather(*[_fetch_one(k, v) for k, v in _MACRO_TICKERS.items()])
+    logger.info(f"Macro weekly récupérée : {list(results.keys())}")
+    return results
 
 
 def _summarize_analyses(analyses: list) -> str:
@@ -183,7 +243,7 @@ def _summarize_analyses(analyses: list) -> str:
 
 # ── Appel Claude Sonnet pour l'évaluation ────────────────────────────────────
 
-def _call_claude_bilan(journal: list, signals_summary: str, btc_weekly: dict) -> dict | None:
+def _call_claude_bilan(journal: list, signals_summary: str, btc_weekly: dict, macro_weekly: dict | None = None) -> dict | None:
     """Appel Claude Sonnet pour évaluer la semaine."""
     api_key = os.getenv("ANTHROPIC_API_KEY", "")
     if not api_key:
@@ -205,6 +265,7 @@ def _call_claude_bilan(journal: list, signals_summary: str, btc_weekly: dict) ->
         if not journal_text.strip():
             journal_text = "Badr n'a pas répondu aux questions cette semaine."
 
+        # Bloc BTC
         btc_str = ""
         if btc_weekly:
             btc_str = (
@@ -213,10 +274,27 @@ def _call_claude_bilan(journal: list, signals_summary: str, btc_weekly: dict) ->
                 f"({btc_weekly.get('change_pct','?')}%) — {btc_weekly.get('direction','')}"
             )
 
+        # Bloc macro hebdo (S&P500, Nasdaq, VIX, DXY)
+        macro_str = ""
+        if macro_weekly:
+            macro_lines = ["\n\nCONTEXTE MACRO DE LA SEMAINE :"]
+            for key, info in macro_weekly.items():
+                label = info.get("label", key)
+                chg   = info.get("change_pct", 0)
+                start = info.get("start", "?")
+                end   = info.get("end", "?")
+                direction = info.get("direction", "stable")
+                sign  = "+" if chg >= 0 else ""
+                macro_lines.append(
+                    f"  - {label} : {start} → {end} ({sign}{chg}%) — {direction}"
+                )
+            macro_str = "\n".join(macro_lines)
+
         user_prompt = (
             f"JOURNAL DE LA SEMAINE :\n{journal_text}\n\n"
             f"SIGNAUX ET PRÉDICTIONS :\n{signals_summary}\n"
             f"{btc_str}"
+            f"{macro_str}"
         )
 
         resp = client.messages.create(
@@ -291,7 +369,7 @@ async def _save_learnings(evaluation: dict) -> None:
 
 # ── Construction du message Telegram ─────────────────────────────────────────
 
-def _build_bilan_message(evaluation: dict, btc_weekly: dict) -> str:
+def _build_bilan_message(evaluation: dict, btc_weekly: dict, macro_weekly: dict | None = None) -> str:
     """Construit le message HTML du bilan du dimanche."""
     now = datetime.now()
     week_start = now - timedelta(days=6)
@@ -329,16 +407,25 @@ def _build_bilan_message(evaluation: dict, btc_weekly: dict) -> str:
         f"  Total : {total} question(s) analysée(s)",
     ]
 
-    # BTC
-    if btc_weekly:
-        btc_dir = btc_weekly.get("direction", "")
-        btc_chg = btc_weekly.get("change_pct", 0)
-        btc_col = "🟢" if btc_chg > 0 else "🔴"
-        lines += [
-            "",
-            f"  {btc_col} BTC cette semaine : {'+' if btc_chg > 0 else ''}{btc_chg}% "
-            f"(${btc_weekly.get('start_price',0):,} → ${btc_weekly.get('end_price',0):,})",
-        ]
+    # BTC + Macro indices
+    if btc_weekly or macro_weekly:
+        lines += ["", "<b>📈 Marchés cette semaine</b>", ""]
+        if btc_weekly:
+            btc_chg = btc_weekly.get("change_pct", 0)
+            btc_col = "🟢" if btc_chg > 0 else "🔴"
+            lines.append(
+                f"  {btc_col} BTC : {'+' if btc_chg > 0 else ''}{btc_chg}% "
+                f"(${btc_weekly.get('start_price',0):,} → ${btc_weekly.get('end_price',0):,})"
+            )
+        if macro_weekly:
+            _MACRO_ICONS = {"hausse": "🟢", "baisse": "🔴", "stable": "⚪"}
+            for key, info in macro_weekly.items():
+                label  = info.get("label", key)
+                chg    = info.get("change_pct", 0)
+                direc  = info.get("direction", "stable")
+                icon   = _MACRO_ICONS.get(direc, "⚪")
+                sign   = "+" if chg >= 0 else ""
+                lines.append(f"  {icon} {_h(label)} : {sign}{chg}%")
 
     # Évaluations par jour
     evaluations = evaluation.get("evaluations", [])
@@ -420,12 +507,17 @@ async def run_weekly_bilan() -> None:
     journal         = data["journal"]
     signals_summary = data["signals_summary"]
     btc_weekly      = data["btc_weekly"]
+    macro_weekly    = data.get("macro_weekly", {})
 
-    logger.info(f"  {len(journal)} entrées journal, BTC {btc_weekly.get('change_pct','?')}%")
+    macro_summary = ", ".join(
+        f"{v.get('label','?')} {'+' if v.get('change_pct',0)>=0 else ''}{v.get('change_pct','?')}%"
+        for v in macro_weekly.values()
+    ) if macro_weekly else "N/A"
+    logger.info(f"  {len(journal)} entrées journal, BTC {btc_weekly.get('change_pct','?')}%, macro: {macro_summary}")
 
     # 2. Évaluation Claude Sonnet
     evaluation = await asyncio.to_thread(
-        _call_claude_bilan, journal, signals_summary, btc_weekly
+        _call_claude_bilan, journal, signals_summary, btc_weekly, macro_weekly
     )
 
     if not evaluation:
@@ -468,7 +560,7 @@ async def run_weekly_bilan() -> None:
         logger.warning(f"Sauvegarde débrief échouée: {e}")
 
     # 5. Construire et envoyer le message
-    msg = _build_bilan_message(evaluation, btc_weekly)
+    msg = _build_bilan_message(evaluation, btc_weekly, macro_weekly)
 
     try:
         from tgbot.bot import send_message
