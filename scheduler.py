@@ -67,6 +67,22 @@ async def run_weekly_summary() -> None:
         logger.error(f"Erreur run_weekly_summary : {e}")
 
 
+async def run_long_memory_compression() -> None:
+    """
+    Tâche hebdomadaire — Dimanche à 21:00 (après le bilan de 20:00).
+    Filet de sécurité : si la compression dans weekly_bilan a échoué, on réessaie.
+    En pratique, weekly_bilan.py déclenche déjà la compression en fin de bilan.
+    """
+    try:
+        from agents.long_memory import run_weekly_compression
+        from datetime import datetime, timedelta
+        week_of = (datetime.now() - timedelta(days=6)).strftime("%Y-%m-%d")
+        logger.info(f"Long memory compression (sécurité) — semaine {week_of}")
+        await run_weekly_compression(week_of)
+    except Exception as e:
+        logger.error(f"Erreur run_long_memory_compression : {e}")
+
+
 async def run_monthly_synthesis() -> None:
     """
     Tâche mensuelle — 1er du mois à 08:00.
@@ -126,7 +142,17 @@ def build_scheduler() -> AsyncIOScheduler:
         misfire_grace_time=600
     )
 
-    # ── Job 4 : Synthèse mensuelle — 1er du mois à 08:00 ────────────
+    # ── Job 4 : Long memory compression — Dimanche à 21:00 ─────────
+    scheduler.add_job(
+        func=run_long_memory_compression,
+        trigger=CronTrigger(day_of_week="sun", hour=21, minute=0, timezone=TIMEZONE),
+        id="long_memory_compression",
+        name="Long memory compression (sécurité)",
+        replace_existing=True,
+        misfire_grace_time=600
+    )
+
+    # ── Job 5 : Synthèse mensuelle — 1er du mois à 08:00 ────────────
     scheduler.add_job(
         func=run_monthly_synthesis,
         trigger=CronTrigger(day=1, hour=8, minute=0, timezone=TIMEZONE),
