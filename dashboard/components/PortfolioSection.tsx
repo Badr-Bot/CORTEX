@@ -96,8 +96,8 @@ function ProjectionChart({
   }, [currentValue, currentMonth])
 
   // Échelle
-  const W = 780, H = 320
-  const PAD = { l: 72, r: 24, t: 28, b: 44 }
+  const W = 900, H = 420
+  const PAD = { l: 80, r: 90, t: 32, b: 52 }
   const cW = W - PAD.l - PAD.r
   const cH = H - PAD.t - PAD.b
 
@@ -132,7 +132,7 @@ function ProjectionChart({
 
   return (
     <div className="w-full overflow-x-auto">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ minWidth: 340 }}>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" overflow="visible" style={{ minWidth: 480 }}>
         <defs>
           {SCENARIOS.map((s) => (
             <linearGradient key={s.id} id={`grad_${s.id}`} x1="0" y1="0" x2="0" y2="1">
@@ -148,7 +148,7 @@ function ProjectionChart({
             <g key={m}>
               <line x1={0} y1={yS(m)} x2={cW} y2={yS(m)}
                 stroke="#f59e0b" strokeOpacity={0.18} strokeDasharray="4 4" strokeWidth={0.8} />
-              <text x={-6} y={yS(m) + 4} textAnchor="end" fontSize={9} fill="#f59e0b" opacity={0.55}>
+              <text x={-6} y={yS(m) + 4} textAnchor="end" fontSize={11} fill="#f59e0b" opacity={0.7}>
                 {m >= 1_000_000 ? `$${m / 1_000_000}M` : `$${m / 1_000}K`}
               </text>
             </g>
@@ -159,7 +159,7 @@ function ProjectionChart({
             <>
               <line x1={xS(phase2Month)} y1={0} x2={xS(phase2Month)} y2={cH}
                 stroke="#60a5fa" strokeOpacity={0.25} strokeDasharray="3 3" strokeWidth={1} />
-              <text x={xS(phase2Month) + 3} y={10} fontSize={8} fill="#60a5fa" opacity={0.6}>
+              <text x={xS(phase2Month) + 4} y={14} fontSize={10} fill="#60a5fa" opacity={0.7}>
                 +€830 DCA
               </text>
             </>
@@ -191,11 +191,12 @@ function ProjectionChart({
                 if (endM > TOTAL_MONTHS - 2) return null
                 return (
                   <text
-                    x={xS(endM) + 3}
-                    y={yS(endV) - 4}
-                    fontSize={8}
+                    x={xS(endM) + 5}
+                    y={yS(endV) - 5}
+                    fontSize={11}
                     fill={s.color}
-                    opacity={0.7}
+                    opacity={0.85}
+                    fontWeight="600"
                   >
                     {fmt$(endV)}
                   </text>
@@ -207,17 +208,17 @@ function ProjectionChart({
           {/* Trajectoire réelle */}
           {realPoints.length > 0 && (
             <>
-              <path d={realPath} fill="none" stroke="#fff" strokeWidth={2.5} opacity={0.9} />
+              <path d={realPath} fill="none" stroke="#fff" strokeWidth={3} opacity={0.95} />
               {realPoints.map((p, i) => (
-                <circle key={i} cx={xS(p.m)} cy={yS(p.v)} r={3} fill="#fff" opacity={0.9} />
+                <circle key={i} cx={xS(p.m)} cy={yS(p.v)} r={4} fill="#fff" opacity={0.95} />
               ))}
               {/* Label dernier point réel */}
               <text
-                x={xS(realPoints[realPoints.length - 1].m) + 5}
-                y={yS(realPoints[realPoints.length - 1].v) - 6}
-                fontSize={9}
+                x={xS(realPoints[realPoints.length - 1].m) + 6}
+                y={yS(realPoints[realPoints.length - 1].v) - 8}
+                fontSize={12}
                 fill="#fff"
-                fontWeight="600"
+                fontWeight="700"
               >
                 {fmt$(realPoints[realPoints.length - 1].v)} réel
               </text>
@@ -249,7 +250,7 @@ function ProjectionChart({
           {/* X axis */}
           <line x1={0} y1={cH} x2={cW} y2={cH} stroke="#1e293b" strokeWidth={0.5} />
           {xLabels.map(({ m, label }) => (
-            <text key={m} x={xS(m)} y={cH + 16} textAnchor="middle" fontSize={9} fill="#475569">
+            <text key={m} x={xS(m)} y={cH + 20} textAnchor="middle" fontSize={11} fill="#64748b">
               {label}
             </text>
           ))}
@@ -297,8 +298,8 @@ function ZoomChart({
       points: computeProjection(currentValue, s.annualRate, WINDOW_FUTURE, currentMonth),
     })), [currentValue, currentMonth])
 
-  const W = 780, H = 240
-  const PAD = { l: 72, r: 24, t: 20, b: 44 }
+  const W = 900, H = 360
+  const PAD = { l: 80, r: 90, t: 28, b: 52 }
   const cW = W - PAD.l - PAD.r
   const cH = H - PAD.t - PAD.b
 
@@ -322,18 +323,18 @@ function ZoomChart({
     .map((p, i) => `${i === 0 ? "M" : "L"} ${xS(p.m).toFixed(1)} ${yS(p.v).toFixed(1)}`)
     .join(" ")
 
-  // Labels X : chaque mois, montrer le mois/an
+  // Labels X : tous les 2 mois
   const xLabels = Array.from({ length: TOTAL_WINDOW + 1 }, (_, i) => {
     const absM = startM + i
     const yr = PORTFOLIO_START_DATE.getFullYear() + Math.floor(absM / 12)
     const mo = (PORTFOLIO_START_DATE.getMonth() + absM) % 12
     const moLabel = ["jan","fév","mar","avr","mai","jun","jul","aoû","sep","oct","nov","déc"][mo]
     return { i, label: `${moLabel} ${String(yr).slice(2)}` }
-  }).filter((_, i) => i % 2 === 0) // un sur deux pour pas encombrer
+  }).filter((_, i) => i % 2 === 0)
 
-  // Y grid : quelques niveaux
+  // Y grid
   const range = maxVal - minVal
-  const step = Math.pow(10, Math.floor(Math.log10(range / 4)))
+  const step = Math.pow(10, Math.floor(Math.log10(Math.max(range / 4, 1))))
   const gridLines: number[] = []
   for (let v = Math.ceil(minVal / step) * step; v <= maxVal; v += step) {
     gridLines.push(Math.round(v))
@@ -341,11 +342,11 @@ function ZoomChart({
 
   return (
     <div className="w-full overflow-x-auto">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ minWidth: 340 }}>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" overflow="visible" style={{ minWidth: 480 }}>
         <defs>
           {SCENARIOS.map((s) => (
             <linearGradient key={`z_${s.id}`} id={`zgrad_${s.id}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={s.color} stopOpacity="0.18" />
+              <stop offset="0%" stopColor={s.color} stopOpacity="0.22" />
               <stop offset="100%" stopColor={s.color} stopOpacity="0" />
             </linearGradient>
           ))}
@@ -355,9 +356,8 @@ function ZoomChart({
           {/* Y grid */}
           {gridLines.map((v) => (
             <g key={v}>
-              <line x1={0} y1={yS(v)} x2={cW} y2={yS(v)}
-                stroke="#334155" strokeWidth={0.6} />
-              <text x={-6} y={yS(v) + 4} textAnchor="end" fontSize={9} fill="#475569">
+              <line x1={0} y1={yS(v)} x2={cW} y2={yS(v)} stroke="#334155" strokeWidth={0.7} />
+              <text x={-8} y={yS(v) + 4} textAnchor="end" fontSize={11} fill="#64748b">
                 {v >= 1_000_000 ? `$${(v/1_000_000).toFixed(1)}M` : v >= 1000 ? `$${(v/1000).toFixed(0)}K` : `$${v}`}
               </text>
             </g>
@@ -365,12 +365,12 @@ function ZoomChart({
 
           {/* Today line */}
           <line x1={xS(currentMonth)} y1={0} x2={xS(currentMonth)} y2={cH}
-            stroke="#94a3b8" strokeOpacity={0.35} strokeWidth={1.5} />
-          <text x={xS(currentMonth) + 3} y={10} fontSize={8} fill="#94a3b8" opacity={0.7}>
+            stroke="#94a3b8" strokeOpacity={0.4} strokeWidth={1.5} strokeDasharray="4 3" />
+          <text x={xS(currentMonth) + 4} y={14} fontSize={10} fill="#94a3b8" opacity={0.8}>
             Aujourd'hui
           </text>
 
-          {/* Scenario fills + lines (future only) */}
+          {/* Scenario fills + lines */}
           {projections.filter((p) => activeScenarios.has(p.id)).map((s) => (
             <g key={s.id}>
               <path
@@ -381,17 +381,17 @@ function ZoomChart({
                 d={toPath(s.points, currentMonth)}
                 fill="none"
                 stroke={s.color}
-                strokeWidth={s.strokeWidth}
-                strokeDasharray={s.dashed ? "5 4" : undefined}
+                strokeWidth={s.strokeWidth + 0.5}
+                strokeDasharray={s.dashed ? "6 4" : undefined}
                 opacity={0.9}
               />
-              {/* Label valeur à +12 mois */}
+              {/* Label à droite */}
               {(() => {
                 const endV = s.points[s.points.length - 1]
                 const endM = currentMonth + s.points.length - 1
                 return (
-                  <text x={xS(endM) + 3} y={yS(endV) - 4} fontSize={9} fill={s.color} opacity={0.8}>
-                    {endV >= 1000 ? `$${(endV/1000).toFixed(0)}K` : `$${endV}`}
+                  <text x={xS(endM) + 6} y={yS(endV) + 4} fontSize={11} fill={s.color} opacity={0.9} fontWeight="600">
+                    {endV >= 1_000_000 ? `$${(endV/1_000_000).toFixed(2)}M` : `$${(endV/1000).toFixed(0)}K`}
                   </text>
                 )
               })()}
@@ -401,17 +401,29 @@ function ZoomChart({
           {/* Trajectoire réelle */}
           {realPoints.length > 0 && (
             <>
-              <path d={realPath} fill="none" stroke="#fff" strokeWidth={2.5} opacity={0.95} />
+              <path d={realPath} fill="none" stroke="#fff" strokeWidth={3} opacity={0.95} />
               {realPoints.map((p, i) => (
-                <circle key={i} cx={xS(p.m)} cy={yS(p.v)} r={3.5} fill="#fff" opacity={0.95} />
+                <circle key={i} cx={xS(p.m)} cy={yS(p.v)} r={4.5} fill="#fff" opacity={0.95} />
               ))}
+              {/* Label dernier point */}
+              <text
+                x={xS(realPoints[realPoints.length - 1].m) + 6}
+                y={yS(realPoints[realPoints.length - 1].v) - 9}
+                fontSize={12}
+                fill="#fff"
+                fontWeight="700"
+              >
+                {realPoints[realPoints.length - 1].v >= 1000
+                  ? `$${(realPoints[realPoints.length - 1].v / 1000).toFixed(0)}K réel`
+                  : `$${realPoints[realPoints.length - 1].v} réel`}
+              </text>
             </>
           )}
 
           {/* X axis */}
           <line x1={0} y1={cH} x2={cW} y2={cH} stroke="#1e293b" strokeWidth={0.5} />
           {xLabels.map(({ i, label }) => (
-            <text key={i} x={xS(startM + i)} y={cH + 16} textAnchor="middle" fontSize={8.5} fill="#475569">
+            <text key={i} x={xS(startM + i)} y={cH + 20} textAnchor="middle" fontSize={11} fill="#64748b">
               {label}
             </text>
           ))}
