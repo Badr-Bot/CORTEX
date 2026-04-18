@@ -259,6 +259,168 @@ function ProjectionChart({
   )
 }
 
+// ── Zoom Chart (−12 mois / +12 mois) ─────────────────────────────────────────
+
+function ZoomChart({
+  currentValue,
+  snapshots,
+  activeScenarios,
+}: {
+  currentValue: number
+  snapshots: Snapshot[]
+  activeScenarios: Set<string>
+}) {
+  const now = new Date()
+  const currentMonth = monthsSinceStart(now)
+  const WINDOW_PAST = 12
+  const WINDOW_FUTURE = 12
+  const TOTAL_WINDOW = WINDOW_PAST + WINDOW_FUTURE
+  const startM = Math.max(0, currentMonth - WINDOW_PAST)
+  const endM = currentMonth + WINDOW_FUTURE
+
+  // Trajectoire réelle dans la fenêtre
+  const realPoints = useMemo(() => {
+    const pts: { m: number; v: number }[] = []
+    for (const s of snapshots) {
+      const d = new Date(s.snapshot_date)
+      const m = monthsSinceStart(d)
+      if (m >= startM && m <= currentMonth) pts.push({ m, v: s.total_value })
+    }
+    if (!pts.find((p) => p.m === currentMonth)) pts.push({ m: currentMonth, v: currentValue })
+    return pts.sort((a, b) => a.m - b.m)
+  }, [snapshots, currentValue, currentMonth, startM])
+
+  // Projections : seulement 12 mois depuis aujourd'hui
+  const projections = useMemo(() =>
+    SCENARIOS.map((s) => ({
+      ...s,
+      points: computeProjection(currentValue, s.annualRate, WINDOW_FUTURE, currentMonth),
+    })), [currentValue, currentMonth])
+
+  const W = 780, H = 240
+  const PAD = { l: 72, r: 24, t: 20, b: 44 }
+  const cW = W - PAD.l - PAD.r
+  const cH = H - PAD.t - PAD.b
+
+  // Min/max Y sur la fenêtre
+  const allVals = [
+    ...realPoints.map((p) => p.v),
+    ...projections.filter((p) => activeScenarios.has(p.id)).flatMap((p) => p.points),
+  ]
+  const minVal = Math.max(0, Math.min(...allVals) * 0.92)
+  const maxVal = Math.max(...allVals) * 1.08
+
+  const xS = (m: number) => ((m - startM) / TOTAL_WINDOW) * cW
+  const yS = (v: number) => cH - Math.min(((v - minVal) / (maxVal - minVal)) * cH, cH)
+
+  const toPath = (points: number[], fromM: number) =>
+    points
+      .map((v, i) => `${i === 0 ? "M" : "L"} ${xS(fromM + i).toFixed(1)} ${yS(v).toFixed(1)}`)
+      .join(" ")
+
+  const realPath = realPoints
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${xS(p.m).toFixed(1)} ${yS(p.v).toFixed(1)}`)
+    .join(" ")
+
+  // Labels X : chaque mois, montrer le mois/an
+  const xLabels = Array.from({ length: TOTAL_WINDOW + 1 }, (_, i) => {
+    const absM = startM + i
+    const yr = PORTFOLIO_START_DATE.getFullYear() + Math.floor(absM / 12)
+    const mo = (PORTFOLIO_START_DATE.getMonth() + absM) % 12
+    const moLabel = ["jan","fév","mar","avr","mai","jun","jul","aoû","sep","oct","nov","déc"][mo]
+    return { i, label: `${moLabel} ${String(yr).slice(2)}` }
+  }).filter((_, i) => i % 2 === 0) // un sur deux pour pas encombrer
+
+  // Y grid : quelques niveaux
+  const range = maxVal - minVal
+  const step = Math.pow(10, Math.floor(Math.log10(range / 4)))
+  const gridLines: number[] = []
+  for (let v = Math.ceil(minVal / step) * step; v <= maxVal; v += step) {
+    gridLines.push(Math.round(v))
+  }
+
+  return (
+    <div className="w-full overflow-x-auto">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ minWidth: 340 }}>
+        <defs>
+          {SCENARIOS.map((s) => (
+            <linearGradient key={`z_${s.id}`} id={`zgrad_${s.id}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={s.color} stopOpacity="0.18" />
+              <stop offset="100%" stopColor={s.color} stopOpacity="0" />
+            </linearGradient>
+          ))}
+        </defs>
+
+        <g transform={`translate(${PAD.l},${PAD.t})`}>
+          {/* Y grid */}
+          {gridLines.map((v) => (
+            <g key={v}>
+              <line x1={0} y1={yS(v)} x2={cW} y2={yS(v)}
+                stroke="#334155" strokeWidth={0.6} />
+              <text x={-6} y={yS(v) + 4} textAnchor="end" fontSize={9} fill="#475569">
+                {v >= 1_000_000 ? `$${(v/1_000_000).toFixed(1)}M` : v >= 1000 ? `$${(v/1000).toFixed(0)}K` : `$${v}`}
+              </text>
+            </g>
+          ))}
+
+          {/* Today line */}
+          <line x1={xS(currentMonth)} y1={0} x2={xS(currentMonth)} y2={cH}
+            stroke="#94a3b8" strokeOpacity={0.35} strokeWidth={1.5} />
+          <text x={xS(currentMonth) + 3} y={10} fontSize={8} fill="#94a3b8" opacity={0.7}>
+            Aujourd'hui
+          </text>
+
+          {/* Scenario fills + lines (future only) */}
+          {projections.filter((p) => activeScenarios.has(p.id)).map((s) => (
+            <g key={s.id}>
+              <path
+                d={`${toPath(s.points, currentMonth)} L ${xS(currentMonth + s.points.length - 1)} ${cH} L ${xS(currentMonth)} ${cH} Z`}
+                fill={`url(#zgrad_${s.id})`}
+              />
+              <path
+                d={toPath(s.points, currentMonth)}
+                fill="none"
+                stroke={s.color}
+                strokeWidth={s.strokeWidth}
+                strokeDasharray={s.dashed ? "5 4" : undefined}
+                opacity={0.9}
+              />
+              {/* Label valeur à +12 mois */}
+              {(() => {
+                const endV = s.points[s.points.length - 1]
+                const endM = currentMonth + s.points.length - 1
+                return (
+                  <text x={xS(endM) + 3} y={yS(endV) - 4} fontSize={9} fill={s.color} opacity={0.8}>
+                    {endV >= 1000 ? `$${(endV/1000).toFixed(0)}K` : `$${endV}`}
+                  </text>
+                )
+              })()}
+            </g>
+          ))}
+
+          {/* Trajectoire réelle */}
+          {realPoints.length > 0 && (
+            <>
+              <path d={realPath} fill="none" stroke="#fff" strokeWidth={2.5} opacity={0.95} />
+              {realPoints.map((p, i) => (
+                <circle key={i} cx={xS(p.m)} cy={yS(p.v)} r={3.5} fill="#fff" opacity={0.95} />
+              ))}
+            </>
+          )}
+
+          {/* X axis */}
+          <line x1={0} y1={cH} x2={cW} y2={cH} stroke="#1e293b" strokeWidth={0.5} />
+          {xLabels.map(({ i, label }) => (
+            <text key={i} x={xS(startM + i)} y={cH + 16} textAnchor="middle" fontSize={8.5} fill="#475569">
+              {label}
+            </text>
+          ))}
+        </g>
+      </svg>
+    </div>
+  )
+}
+
 // ── Milestone Table ───────────────────────────────────────────────────────────
 
 function MilestoneTable({
@@ -685,6 +847,25 @@ export default function PortfolioSection() {
             </div>
             <MilestoneTable currentValue={totalValue} activeScenarios={activeScenarios} />
           </div>
+        )}
+      </div>
+
+      {/* ── Chart Zoom −12 / +12 mois ── */}
+      <div className="glass border border-white/10 rounded-xl p-5">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+          <span className="text-[10px] text-cyan-400 uppercase tracking-widest font-semibold">
+            Zoom · −12 mois / +12 mois
+          </span>
+        </div>
+        {loading ? (
+          <div className="h-36 bg-white/5 rounded-lg animate-pulse" />
+        ) : (
+          <ZoomChart
+            currentValue={totalValue}
+            snapshots={snapshots}
+            activeScenarios={activeScenarios}
+          />
         )}
       </div>
 
