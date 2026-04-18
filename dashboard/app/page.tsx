@@ -4,6 +4,7 @@ import SignalCard from "@/components/SignalCard"
 import CryptoSection from "@/components/CryptoSection"
 import MarketSection from "@/components/MarketSection"
 import QuestionPanel from "@/components/QuestionPanel"
+import SectionQuestionsPanel from "@/components/SectionQuestionsPanel"
 import type { ReportJSON } from "@/lib/types"
 
 export const dynamic = 'force-dynamic'
@@ -254,43 +255,15 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
   return null
 }
 
-function SectionQuestions({ tab, report }: { tab: TabId; report: ReportJSON }) {
-  const questionsMap: Partial<Record<TabId, string[]>> = {
+function getSectionQuestions(tab: TabId, report: ReportJSON): string[] {
+  const map: Partial<Record<TabId, string[]>> = {
     ai:       (report.ai as any)?.questions,
     crypto:   (report.crypto as any)?.questions,
     market:   (report.market as any)?.questions,
     deeptech: (report.deeptech as any)?.questions,
     nexus:    (report.nexus as any)?.questions,
   }
-  const questions = questionsMap[tab]
-  if (!questions?.length) return null
-
-  const tabConfig = TABS.find(t => t.id === tab)
-  const colors = tabConfig ? TAB_COLORS[tabConfig.color] : TAB_COLORS.blue
-
-  return (
-    <div className="glass rounded-xl p-5 border border-white/5 animate-slide-up">
-      <div className="flex items-center gap-2 mb-4">
-        <div className={`w-1.5 h-1.5 rounded-full ${colors.dot}`} />
-        <div className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">
-          🧠 Questions pour toi
-        </div>
-      </div>
-      <div className="space-y-3">
-        {questions.map((q: string, i: number) => (
-          <div key={i} className="flex gap-3 items-start">
-            <span className={`shrink-0 text-xs font-bold font-mono px-2 py-0.5 rounded ${colors.active} mt-0.5`}>
-              Q{i + 1}
-            </span>
-            <p className="text-slate-200 text-sm leading-relaxed">{q}</p>
-          </div>
-        ))}
-      </div>
-      <p className="text-[10px] text-slate-600 mt-3 italic">
-        Réponds dans ta tête avant d'ouvrir les marchés → CORTEX te score le dimanche
-      </p>
-    </div>
-  )
+  return map[tab] ?? []
 }
 
 interface PageProps {
@@ -320,7 +293,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
     <div className="min-h-screen flex flex-col">
       <NavBar />
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-8 space-y-4 sm:space-y-6">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-3 sm:py-5 space-y-4 sm:space-y-6">
 
         {/* Hero header */}
         <div className="animate-slide-up space-y-4">
@@ -347,8 +320,8 @@ export default async function DashboardPage({ searchParams }: PageProps) {
           <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide animate-slide-up stagger-1">
+        {/* Tabs — sticky sous le header */}
+        <div className="sticky top-14 z-40 bg-[#040408]/95 backdrop-blur-sm -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 flex gap-2 overflow-x-auto scrollbar-hide animate-slide-up stagger-1">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id
             const colors = TAB_COLORS[tab.color]
@@ -377,13 +350,16 @@ export default async function DashboardPage({ searchParams }: PageProps) {
           <SectorContent tab={activeTab} report={json} />
         </div>
 
-        {/* Questions par section */}
-        {activeTab !== "lexique" && (
-          <SectionQuestions tab={activeTab} report={json} />
-        )}
+        {/* Questions par section avec champs de réponse */}
+        {activeTab !== "lexique" && (() => {
+          const qs = getSectionQuestions(activeTab, json)
+          return qs.length > 0 ? (
+            <SectionQuestionsPanel tab={activeTab} questions={qs} reportDate={report.report_date} />
+          ) : null
+        })()}
 
-        {/* Question du matin */}
-        {json.nexus?.question && activeTab !== "lexique" && (
+        {/* Question du matin — uniquement sur l'onglet Nexus */}
+        {json.nexus?.question && activeTab === "nexus" && (
           <QuestionPanel
             question={json.nexus.question}
             reportDate={report.report_date}

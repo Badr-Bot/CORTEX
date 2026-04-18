@@ -85,8 +85,25 @@ async def _fetch_ticker(client: httpx.AsyncClient, key: str, symbol: str) -> tup
         meta = result.get("meta", {})
 
         price = meta.get("regularMarketPrice", 0)
-        prev  = meta.get("previousClose", price) or price
-        change_pct = ((price - prev) / prev * 100) if prev else 0
+
+        # Priorité : chartPreviousClose > regularMarketPreviousClose > previousClose
+        # Évite le bug weekend où previousClose = regularMarketPrice → change_pct = 0
+        prev = (
+            meta.get("chartPreviousClose") or
+            meta.get("regularMarketPreviousClose") or
+            meta.get("previousClose")
+        )
+
+        if prev and prev != price:
+            change_pct = (price - prev) / prev * 100
+        else:
+            # Fallback : last two closes from historical data (fonctionne même le weekend)
+            quotes = result.get("indicators", {}).get("quote", [{}])
+            closes = [c for c in (quotes[0].get("close") or []) if c is not None] if quotes else []
+            if len(closes) >= 2 and closes[-2]:
+                change_pct = (closes[-1] - closes[-2]) / closes[-2] * 100
+            else:
+                change_pct = 0.0
 
         # Formatting selon le ticker
         if key == "gold":
