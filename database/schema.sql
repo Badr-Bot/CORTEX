@@ -143,6 +143,16 @@ CREATE TABLE IF NOT EXISTS subscribers (
   approved_by BIGINT
 );
 
+CREATE TABLE IF NOT EXISTS portfolio_snapshots (
+  id            UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  snapshot_date DATE UNIQUE NOT NULL DEFAULT CURRENT_DATE,
+  total_value   NUMERIC(14,2) NOT NULL,
+  stocks_value  NUMERIC(14,2) NOT NULL,
+  crypto_value  NUMERIC(14,2) NOT NULL,
+  total_invested NUMERIC(14,2),
+  created_at    TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- ============================================================
 -- RÈGLES DE RÉTENTION DES DONNÉES :
 -- signals + analyses : 30 jours complets

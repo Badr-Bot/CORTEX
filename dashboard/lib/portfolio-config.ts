@@ -43,11 +43,75 @@ export function computeDCAMonthly(date: Date): number {
   return phase1Total + DCA_PHASE2_BONUS_EUR * EUR_TO_USD
 }
 
+// ── Scénarios de croissance ───────────────────────────────────────────────────
+// Adaptés au profil : ~73% tech (NVDA/GOOGL/MSFT/META) + 27% crypto (BTC/ETH/SOL)
+
+export interface Scenario {
+  id: string
+  label: string
+  sublabel: string        // contexte macro
+  annualRate: number
+  color: string           // hex ou classe Tailwind
+  strokeWidth: number
+  dashed?: boolean
+  description: string     // explication pour l'UI
+}
+
+export const SCENARIOS: Scenario[] = [
+  {
+    id: "recession",
+    label: "🔴 Récession Tech",
+    sublabel: "Taux élevés, IA Winter, BTC bear",
+    annualRate: 0.02,
+    color: "#ef4444",
+    strokeWidth: 1.5,
+    dashed: true,
+    description:
+      "Taux Fed maintenus > 5% jusqu'en 2027, correction IA (-40% NVDA), BTC sous $30K. " +
+      "Tech underperforms : +2%/an (inflation comprise = perte réelle).",
+  },
+  {
+    id: "base",
+    label: "🟡 Croissance de base",
+    sublabel: "S&P historique, IA intégrée, BTC $120K",
+    annualRate: 0.12,
+    color: "#f59e0b",
+    strokeWidth: 1.5,
+    description:
+      "Adoption IA progressive, bénéfices tech solides mais sans euphorie. " +
+      "BTC consolide autour de $100-120K. Comparable au S&P 2013-2020 (+12%/an).",
+  },
+  {
+    id: "ia_bull",
+    label: "🟢 IA Bull Run",
+    sublabel: "NVDA ×4, META/GOOGL dominent, BTC $300K",
+    annualRate: 0.30,
+    color: "#10b981",
+    strokeWidth: 2,
+    description:
+      "L'IA générative explose la productivité mondiale. NVDA devient la plus grande cap. " +
+      "Meta et Google écrasent la pub. BTC institutionnel à $300K. +30%/an (réaliste — " +
+      "le Nasdaq a fait +29%/an sur 2020-2021).",
+  },
+  {
+    id: "supercycle",
+    label: "🚀 Supercycle Tech+Crypto",
+    sublabel: "AGI confirmée, BTC $1M, NVDA ×15",
+    annualRate: 0.55,
+    color: "#a78bfa",
+    strokeWidth: 2,
+    description:
+      "Scénario euphorique : AGI annoncée avant 2030, BTC réserve de valeur souveraine à $1M, " +
+      "NVDA ×10-15. Rare mais pas impossible — NVDA a fait +650% sur 2023-2024 seul. +55%/an.",
+  },
+]
+
 // Calcule la projection sur N mois à partir d'une valeur initiale
 export function computeProjection(
   startValue: number,
   annualRate: number,
-  totalMonths: number = 168
+  totalMonths: number = 168,
+  startMonth: number = 0  // décalage si on part de l'historique
 ): number[] {
   const monthlyRate = Math.pow(1 + annualRate, 1 / 12) - 1
   const phase1Months = 36 // Apr 2026 → Mar 2029
@@ -57,7 +121,8 @@ export function computeProjection(
   let val = startValue
   const results: number[] = [val]
   for (let m = 1; m <= totalMonths; m++) {
-    const dca = m <= phase1Months ? dca1 : dca2
+    const absMonth = startMonth + m
+    const dca = absMonth <= phase1Months ? dca1 : dca2
     val = val * (1 + monthlyRate) + dca
     results.push(Math.round(val))
   }

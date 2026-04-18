@@ -1,16 +1,17 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import {
   POSITIONS,
   DCA_PHASE1,
-  DCA_PHASE2_START,
   DCA_PHASE2_BONUS_EUR,
   EUR_TO_USD,
   PORTFOLIO_START_DATE,
+  SCENARIOS,
   computeProjection,
   findMilestoneMonth,
   type Position,
+  type Scenario,
 } from "@/lib/portfolio-config"
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -24,176 +25,305 @@ interface EnrichedPosition extends Position {
   weight: number
 }
 
+interface Snapshot {
+  snapshot_date: string
+  total_value: number
+  stocks_value: number
+  crypto_value: number
+  total_invested: number | null
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 const fmt$ = (v: number) =>
   v.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 })
-
 const fmtSmall$ = (v: number) =>
   v.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 })
-
 const fmtPct = (v: number) => `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`
-
-const pnlColor = (v: number) => (v > 0 ? "text-emerald-400" : v < 0 ? "text-red-400" : "text-slate-400")
-
+const pnlColor = (v: number) =>
+  v > 0 ? "text-emerald-400" : v < 0 ? "text-red-400" : "text-slate-400"
 const TICKER_EMOJI: Record<string, string> = {
   NVDA: "🟢", GOOGL: "🔵", MSFT: "🔷", META: "🟣", PDD: "🟠",
   BTC: "🟡", ETH: "🔵", SOL: "🟣",
 }
 
-// ── Projection Chart (SVG) ────────────────────────────────────────────────────
+// Calcule le nombre de mois entre PORTFOLIO_START_DATE et une date
+function monthsSinceStart(date: Date): number {
+  const s = PORTFOLIO_START_DATE
+  return (date.getFullYear() - s.getFullYear()) * 12 + (date.getMonth() - s.getMonth())
+}
 
-function ProjectionChart({ startValue }: { startValue: number }) {
-  const MONTHS = 168 // 14 ans
-  const proj10 = useMemo(() => computeProjection(startValue, 0.10, MONTHS), [startValue])
-  const proj20 = useMemo(() => computeProjection(startValue, 0.20, MONTHS), [startValue])
+// ── Projection Chart ──────────────────────────────────────────────────────────
 
-  const milestones = [100_000, 250_000, 500_000, 1_000_000]
-  const W = 760, H = 300
-  const PAD = { l: 70, r: 20, t: 20, b: 40 }
-  const chartW = W - PAD.l - PAD.r
-  const chartH = H - PAD.t - PAD.b
+function ProjectionChart({
+  currentValue,
+  snapshots,
+  activeScenarios,
+}: {
+  currentValue: number
+  snapshots: Snapshot[]
+  activeScenarios: Set<string>
+}) {
+  const TOTAL_MONTHS = 168 // 14 ans depuis start
+  const now = new Date()
+  const currentMonth = monthsSinceStart(now)
 
-  const maxVal = Math.max(...proj20) * 1.05
-  const xScale = (m: number) => (m / MONTHS) * chartW
-  const yScale = (v: number) => chartH - (v / maxVal) * chartH
+  // Trajectoire réelle : convertit les snapshots en points (mois depuis start, valeur)
+  const realPoints = useMemo(() => {
+    const pts: { m: number; v: number }[] = []
+    // Point de départ initial (aujourd'hui si pas de snapshot)
+    for (const s of snapshots) {
+      const d = new Date(s.snapshot_date)
+      const m = monthsSinceStart(d)
+      if (m >= 0 && m <= TOTAL_MONTHS) {
+        pts.push({ m, v: s.total_value })
+      }
+    }
+    // Toujours ajouter le point courant
+    if (!pts.find((p) => p.m === currentMonth)) {
+      pts.push({ m: currentMonth, v: currentValue })
+    }
+    return pts.sort((a, b) => a.m - b.m)
+  }, [snapshots, currentValue, currentMonth])
 
-  const toPath = (data: number[]) =>
-    data.map((v, i) => `${i === 0 ? "M" : "L"} ${xScale(i).toFixed(1)} ${yScale(v).toFixed(1)}`).join(" ")
+  // Projections par scénario — depuis la valeur actuelle
+  const projections = useMemo(() => {
+    const remainingMonths = TOTAL_MONTHS - currentMonth
+    return SCENARIOS.map((s) => ({
+      ...s,
+      points: computeProjection(currentValue, s.annualRate, remainingMonths, currentMonth),
+    }))
+  }, [currentValue, currentMonth])
 
-  // Labels X : tous les 2 ans
-  const xLabels: { m: number; label: string }[] = []
-  for (let y = 0; y <= 14; y += 2) {
-    xLabels.push({ m: y * 12, label: String(2026 + y) })
-  }
+  // Échelle
+  const W = 780, H = 320
+  const PAD = { l: 72, r: 24, t: 28, b: 44 }
+  const cW = W - PAD.l - PAD.r
+  const cH = H - PAD.t - PAD.b
 
-  // Milestone 10%
-  const m10_100k = findMilestoneMonth(proj10, 100_000)
-  const m10_1M   = findMilestoneMonth(proj10, 1_000_000)
-  const m20_1M   = findMilestoneMonth(proj20, 1_000_000)
+  const maxVal = Math.max(
+    ...projections.filter((p) => activeScenarios.has(p.id)).flatMap((p) => p.points),
+    currentValue * 1.2,
+  ) * 1.05
+
+  const xS = (m: number) => (m / TOTAL_MONTHS) * cW
+  const yS = (v: number) => cH - Math.min((v / maxVal) * cH, cH)
+
+  const toPath = (points: number[], startMonth: number) =>
+    points
+      .map((v, i) => `${i === 0 ? "M" : "L"} ${xS(startMonth + i).toFixed(1)} ${yS(v).toFixed(1)}`)
+      .join(" ")
+
+  const realPath = realPoints
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${xS(p.m).toFixed(1)} ${yS(p.v).toFixed(1)}`)
+    .join(" ")
+
+  // Labels X — tous les 2 ans
+  const xLabels = Array.from({ length: 8 }, (_, i) => ({
+    m: i * 24,
+    label: String(PORTFOLIO_START_DATE.getFullYear() + i * 2),
+  }))
+
+  // Y grid — milestones
+  const milestones = [100_000, 250_000, 500_000, 1_000_000].filter((m) => m < maxVal * 0.98)
+
+  // Phase 2 marker
+  const phase2Month = 36
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-4 flex-wrap text-xs">
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 h-0.5 bg-emerald-400 inline-block rounded" />
-          <span className="text-slate-400">+10%/an</span>
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 h-0.5 bg-violet-400 inline-block rounded" />
-          <span className="text-slate-400">+20%/an</span>
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 h-0.5 bg-amber-400 border-dashed inline-block rounded" />
-          <span className="text-slate-400">Milestones</span>
-        </span>
-        <span className="ml-auto text-slate-600 font-mono">DCA +€830 dès avr. 2029</span>
-      </div>
-
-      <div className="w-full overflow-x-auto">
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ minWidth: 320 }}>
-          <defs>
-            <linearGradient id="g10" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#34d399" stopOpacity="0.15" />
-              <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
+    <div className="w-full overflow-x-auto">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ minWidth: 340 }}>
+        <defs>
+          {SCENARIOS.map((s) => (
+            <linearGradient key={s.id} id={`grad_${s.id}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={s.color} stopOpacity="0.12" />
+              <stop offset="100%" stopColor={s.color} stopOpacity="0" />
             </linearGradient>
-            <linearGradient id="g20" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.15" />
-              <stop offset="100%" stopColor="#a78bfa" stopOpacity="0" />
-            </linearGradient>
-          </defs>
+          ))}
+        </defs>
 
-          <g transform={`translate(${PAD.l},${PAD.t})`}>
-            {/* Grid lines */}
-            {milestones.map((m) => (
-              <g key={m}>
-                <line
-                  x1={0} y1={yScale(m)} x2={chartW} y2={yScale(m)}
-                  stroke="#f59e0b" strokeOpacity="0.2" strokeDasharray="4 4" strokeWidth={0.8}
-                />
-                <text x={-6} y={yScale(m) + 4} textAnchor="end" fontSize={9} fill="#f59e0b" opacity={0.6}>
-                  {m >= 1_000_000 ? `$${m/1_000_000}M` : `$${m/1_000}K`}
-                </text>
-              </g>
-            ))}
-
-            {/* Phase 2 start (April 2029 = month 36) */}
-            <line
-              x1={xScale(36)} y1={0} x2={xScale(36)} y2={chartH}
-              stroke="#60a5fa" strokeOpacity="0.3" strokeDasharray="3 3" strokeWidth={1}
-            />
-            <text x={xScale(36) + 3} y={12} fontSize={9} fill="#60a5fa" opacity={0.6}>
-              +€830 DCA
-            </text>
-
-            {/* Fill areas */}
-            <path
-              d={`${toPath(proj20)} L ${xScale(MONTHS)} ${chartH} L 0 ${chartH} Z`}
-              fill="url(#g20)"
-            />
-            <path
-              d={`${toPath(proj10)} L ${xScale(MONTHS)} ${chartH} L 0 ${chartH} Z`}
-              fill="url(#g10)"
-            />
-
-            {/* Lines */}
-            <path d={toPath(proj20)} fill="none" stroke="#a78bfa" strokeWidth={2} />
-            <path d={toPath(proj10)} fill="none" stroke="#34d399" strokeWidth={2} />
-
-            {/* Current value dot */}
-            <circle cx={0} cy={yScale(startValue)} r={4} fill="#f59e0b" />
-            <text x={6} y={yScale(startValue) - 6} fontSize={9} fill="#f59e0b">
-              {fmt$(startValue)} aujourd'hui
-            </text>
-
-            {/* Milestone annotations */}
-            {m10_100k && (
-              <g>
-                <circle cx={xScale(m10_100k)} cy={yScale(100_000)} r={3} fill="#34d399" />
-                <text x={xScale(m10_100k) + 4} y={yScale(100_000) - 5} fontSize={8} fill="#34d399" opacity={0.8}>
-                  $100K à {2026 + Math.floor(m10_100k / 12)}.{String(m10_100k % 12 || 12).padStart(2, "0")}
-                </text>
-              </g>
-            )}
-            {m20_1M && (
-              <g>
-                <circle cx={xScale(m20_1M)} cy={yScale(1_000_000)} r={3} fill="#a78bfa" />
-                <text x={xScale(m20_1M) + 4} y={yScale(1_000_000) - 5} fontSize={8} fill="#a78bfa" opacity={0.8}>
-                  $1M à {2026 + Math.floor(m20_1M / 12)}
-                </text>
-              </g>
-            )}
-
-            {/* X axis */}
-            <line x1={0} y1={chartH} x2={chartW} y2={chartH} stroke="#334155" strokeWidth={0.5} />
-            {xLabels.map(({ m, label }) => (
-              <text key={m} x={xScale(m)} y={chartH + 16} textAnchor="middle" fontSize={9} fill="#475569">
-                {label}
+        <g transform={`translate(${PAD.l},${PAD.t})`}>
+          {/* Milestone horizontals */}
+          {milestones.map((m) => (
+            <g key={m}>
+              <line x1={0} y1={yS(m)} x2={cW} y2={yS(m)}
+                stroke="#f59e0b" strokeOpacity={0.18} strokeDasharray="4 4" strokeWidth={0.8} />
+              <text x={-6} y={yS(m) + 4} textAnchor="end" fontSize={9} fill="#f59e0b" opacity={0.55}>
+                {m >= 1_000_000 ? `$${m / 1_000_000}M` : `$${m / 1_000}K`}
               </text>
-            ))}
-          </g>
-        </svg>
-      </div>
+            </g>
+          ))}
 
-      {/* Summary milestones table */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-        {[
-          { label: "$100K", m10: findMilestoneMonth(proj10, 100_000), m20: findMilestoneMonth(proj20, 100_000) },
-          { label: "$250K", m10: findMilestoneMonth(proj10, 250_000), m20: findMilestoneMonth(proj20, 250_000) },
-          { label: "$500K", m10: findMilestoneMonth(proj10, 500_000), m20: findMilestoneMonth(proj20, 500_000) },
-          { label: "$1M",   m10: findMilestoneMonth(proj10, 1_000_000), m20: findMilestoneMonth(proj20, 1_000_000) },
-        ].map(({ label, m10, m20 }) => (
-          <div key={label} className="bg-white/5 border border-white/10 rounded-lg p-3 text-center">
-            <div className="text-slate-300 font-bold text-sm mb-1">{label}</div>
-            <div className="text-emerald-400">
-              {m10 ? `${2026 + Math.floor(m10 / 12)} (10%)` : "—"}
-            </div>
-            <div className="text-violet-400 mt-0.5">
-              {m20 ? `${2026 + Math.floor(m20 / 12)} (20%)` : "—"}
-            </div>
-          </div>
-        ))}
-      </div>
+          {/* Phase 2 DCA marker */}
+          {phase2Month <= TOTAL_MONTHS && (
+            <>
+              <line x1={xS(phase2Month)} y1={0} x2={xS(phase2Month)} y2={cH}
+                stroke="#60a5fa" strokeOpacity={0.25} strokeDasharray="3 3" strokeWidth={1} />
+              <text x={xS(phase2Month) + 3} y={10} fontSize={8} fill="#60a5fa" opacity={0.6}>
+                +€830 DCA
+              </text>
+            </>
+          )}
+
+          {/* Today marker */}
+          <line x1={xS(currentMonth)} y1={0} x2={xS(currentMonth)} y2={cH}
+            stroke="#94a3b8" strokeOpacity={0.2} strokeWidth={1} />
+
+          {/* Scenario fills + lines */}
+          {projections.filter((p) => activeScenarios.has(p.id)).map((s) => (
+            <g key={s.id}>
+              <path
+                d={`${toPath(s.points, currentMonth)} L ${xS(currentMonth + s.points.length - 1)} ${cH} L ${xS(currentMonth)} ${cH} Z`}
+                fill={`url(#grad_${s.id})`}
+              />
+              <path
+                d={toPath(s.points, currentMonth)}
+                fill="none"
+                stroke={s.color}
+                strokeWidth={s.strokeWidth}
+                strokeDasharray={s.dashed ? "5 4" : undefined}
+                opacity={0.85}
+              />
+              {/* Label fin de courbe */}
+              {(() => {
+                const endM = currentMonth + s.points.length - 1
+                const endV = s.points[s.points.length - 1]
+                if (endM > TOTAL_MONTHS - 2) return null
+                return (
+                  <text
+                    x={xS(endM) + 3}
+                    y={yS(endV) - 4}
+                    fontSize={8}
+                    fill={s.color}
+                    opacity={0.7}
+                  >
+                    {fmt$(endV)}
+                  </text>
+                )
+              })()}
+            </g>
+          ))}
+
+          {/* Trajectoire réelle */}
+          {realPoints.length > 0 && (
+            <>
+              <path d={realPath} fill="none" stroke="#fff" strokeWidth={2.5} opacity={0.9} />
+              {realPoints.map((p, i) => (
+                <circle key={i} cx={xS(p.m)} cy={yS(p.v)} r={3} fill="#fff" opacity={0.9} />
+              ))}
+              {/* Label dernier point réel */}
+              <text
+                x={xS(realPoints[realPoints.length - 1].m) + 5}
+                y={yS(realPoints[realPoints.length - 1].v) - 6}
+                fontSize={9}
+                fill="#fff"
+                fontWeight="600"
+              >
+                {fmt$(realPoints[realPoints.length - 1].v)} réel
+              </text>
+            </>
+          )}
+
+          {/* Milestone dots sur les scénarios actifs */}
+          {[100_000, 500_000, 1_000_000].map((target) =>
+            projections
+              .filter((p) => activeScenarios.has(p.id))
+              .map((s) => {
+                const idx = findMilestoneMonth(s.points, target)
+                if (idx === null) return null
+                const absM = currentMonth + idx
+                const v = s.points[idx]
+                return (
+                  <circle
+                    key={`${s.id}_${target}`}
+                    cx={xS(absM)}
+                    cy={yS(v)}
+                    r={4}
+                    fill={s.color}
+                    opacity={0.8}
+                  />
+                )
+              })
+          )}
+
+          {/* X axis */}
+          <line x1={0} y1={cH} x2={cW} y2={cH} stroke="#1e293b" strokeWidth={0.5} />
+          {xLabels.map(({ m, label }) => (
+            <text key={m} x={xS(m)} y={cH + 16} textAnchor="middle" fontSize={9} fill="#475569">
+              {label}
+            </text>
+          ))}
+        </g>
+      </svg>
+    </div>
+  )
+}
+
+// ── Milestone Table ───────────────────────────────────────────────────────────
+
+function MilestoneTable({
+  currentValue,
+  activeScenarios,
+}: {
+  currentValue: number
+  activeScenarios: Set<string>
+}) {
+  const currentMonth = monthsSinceStart(new Date())
+  const remaining = 168 - currentMonth
+  const targets = [100_000, 250_000, 500_000, 1_000_000]
+
+  const projMap = useMemo(
+    () =>
+      Object.fromEntries(
+        SCENARIOS.map((s) => [
+          s.id,
+          computeProjection(currentValue, s.annualRate, remaining, currentMonth),
+        ])
+      ),
+    [currentValue, currentMonth, remaining]
+  )
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-xs">
+        <thead>
+          <tr className="border-b border-white/10">
+            <th className="text-left text-slate-500 pb-2 pr-3 font-medium">Milestone</th>
+            {SCENARIOS.filter((s) => activeScenarios.has(s.id)).map((s) => (
+              <th key={s.id} className="text-center pb-2 px-2 font-medium" style={{ color: s.color }}>
+                {s.label.split(" ").slice(1).join(" ")}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {targets.map((t) => (
+            <tr key={t} className="border-b border-white/5">
+              <td className="py-2 pr-3 text-amber-400 font-semibold">
+                {t >= 1_000_000 ? `$${t / 1_000_000}M` : `$${t / 1_000}K`}
+              </td>
+              {SCENARIOS.filter((s) => activeScenarios.has(s.id)).map((s) => {
+                const proj = projMap[s.id]
+                if (!proj) return <td key={s.id} className="text-center py-2 px-2 text-slate-600">—</td>
+                if (currentValue >= t)
+                  return <td key={s.id} className="text-center py-2 px-2 text-emerald-400">✓ atteint</td>
+                const idx = findMilestoneMonth(proj, t)
+                if (idx === null)
+                  return <td key={s.id} className="text-center py-2 px-2 text-slate-600">+14 ans</td>
+                const absMonth = currentMonth + idx
+                const yr = PORTFOLIO_START_DATE.getFullYear() + Math.floor(absMonth / 12)
+                const mo = (PORTFOLIO_START_DATE.getMonth() + (absMonth % 12)) % 12
+                const moLabel = ["jan","fév","mar","avr","mai","jun","jul","aoû","sep","oct","nov","déc"][mo]
+                return (
+                  <td key={s.id} className="text-center py-2 px-2" style={{ color: s.color }}>
+                    {moLabel} {yr}
+                  </td>
+                )
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
@@ -201,65 +331,45 @@ function ProjectionChart({ startValue }: { startValue: number }) {
 // ── CORTEX Speech ─────────────────────────────────────────────────────────────
 
 function CortexSpeech({
-  positions,
-  totalValue,
-  totalPnl,
-  totalPnlPct,
-  stocksValue,
-  cryptoValue,
+  positions, totalValue, totalPnl, totalPnlPct, stocksValue, cryptoValue,
 }: {
   positions: EnrichedPosition[]
-  totalValue: number
-  totalPnl: number
-  totalPnlPct: number
-  stocksValue: number
-  cryptoValue: number
+  totalValue: number; totalPnl: number; totalPnlPct: number
+  stocksValue: number; cryptoValue: number
 }) {
   const best  = [...positions].sort((a, b) => b.pnlPct - a.pnlPct)[0]
   const worst = [...positions].sort((a, b) => a.pnlPct - b.pnlPct)[0]
-  const stockPct = ((stocksValue / totalValue) * 100).toFixed(0)
-  const cryptoPct = ((cryptoValue / totalValue) * 100).toFixed(0)
-
-  const proj10at5y = computeProjection(totalValue, 0.10, 60)[60]
-  const proj20at5y = computeProjection(totalValue, 0.20, 60)[60]
+  const proj_base_5y = computeProjection(totalValue, 0.12, 60, monthsSinceStart(new Date()))[60]
+  const proj_ia_5y   = computeProjection(totalValue, 0.30, 60, monthsSinceStart(new Date()))[60]
 
   return (
-    <div className="glass border border-white/10 rounded-xl p-5 space-y-4 text-sm leading-relaxed">
-      <div className="flex items-center gap-2 mb-2">
+    <div className="glass border border-white/10 rounded-xl p-5 space-y-3 text-sm leading-relaxed">
+      <div className="flex items-center gap-2 mb-1">
         <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse-glow" />
         <span className="text-[10px] text-indigo-400 uppercase tracking-widest font-semibold">
-          Analyse CORTEX — Portefeuille Badr
+          Analyse CORTEX — {new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
         </span>
       </div>
-
       <p className="text-slate-300">
-        Ton portefeuille pèse actuellement{" "}
-        <span className="text-white font-semibold">{fmt$(totalValue)}</span>, avec une performance globale de{" "}
+        Portefeuille à <span className="text-white font-semibold">{fmt$(totalValue)}</span> —
+        performance globale{" "}
         <span className={`font-semibold ${pnlColor(totalPnl)}`}>{fmtPct(totalPnlPct)}</span>{" "}
-        ({fmtSmall$(totalPnl)} de P&L). À ce stade, c'est de la friction normale — pas un signal d'alarme.
+        ({fmtSmall$(totalPnl)} de P&L). Tech{" "}
+        <span className="text-blue-300">{((stocksValue / totalValue) * 100).toFixed(0)}%</span>,
+        Crypto <span className="text-amber-300">{((cryptoValue / totalValue) * 100).toFixed(0)}%</span>.
       </p>
-
       <p className="text-slate-400">
-        <span className="text-blue-300 font-medium">Tech : {stockPct}%</span> du portefeuille,
-        <span className="text-amber-300 font-medium"> Crypto : {cryptoPct}%</span>. Meilleur performer :{" "}
-        <span className="text-emerald-300 font-medium">{best?.name} ({fmtPct(best?.pnlPct ?? 0)})</span>.
+        Leader : <span className="text-emerald-300 font-medium">{best?.name} ({fmtPct(best?.pnlPct ?? 0)})</span>.
         Point de vigilance :{" "}
         <span className="text-red-300 font-medium">{worst?.name} ({fmtPct(worst?.pnlPct ?? 0)})</span>.
+        Long terme — ne rien vendre sauf signal CORTEX (VIX +20% ou BTC -10%).
       </p>
-
       <p className="text-slate-400">
-        Avec ton DCA de <span className="text-white font-medium">$500/mois</span> (NVDA + GOOGL + META + BTC),
-        en maintenant cette cadence et en ajoutant{" "}
-        <span className="text-blue-300 font-medium">€830/mois dès avril 2029</span>, à{" "}
-        <span className="text-emerald-400 font-medium">10%/an</span> tu atteins{" "}
-        <span className="text-white font-semibold">{fmt$(proj10at5y)}</span> dans 5 ans.
-        À <span className="text-violet-400 font-medium">20%/an</span> (scénario tech bull) :{" "}
-        <span className="text-white font-semibold">{fmt$(proj20at5y)}</span>.
-      </p>
-
-      <p className="text-slate-500 text-xs border-t border-white/5 pt-3">
-        Stratégie validée — long terme, pas de vente prévue. CORTEX te préviendra si VIX spike +20%,
-        BTC crash -10% ou S&P recule -3% en séance. En dehors de ces seuils : laisse tourner, continue le DCA.
+        DCA $500/mois en cours. Dans 5 ans — scénario base (12%/an) :{" "}
+        <span className="text-amber-300 font-semibold">{fmt$(proj_base_5y)}</span> ·
+        scénario IA Bull (30%/an) :{" "}
+        <span className="text-emerald-300 font-semibold">{fmt$(proj_ia_5y)}</span>.
+        À partir d'avril 2029 : +€830/mois — accélération significative.
       </p>
     </div>
   )
@@ -268,24 +378,35 @@ function CortexSpeech({
 // ── Main Component ────────────────────────────────────────────────────────────
 
 export default function PortfolioSection() {
-  const [prices, setPrices] = useState<Record<string, number>>({})
-  const [loading, setLoading] = useState(true)
-  const [lastUpdate, setLastUpdate] = useState("")
+  const [prices, setPrices]               = useState<Record<string, number>>({})
+  const [snapshots, setSnapshots]         = useState<Snapshot[]>([])
+  const [loading, setLoading]             = useState(true)
+  const [lastUpdate, setLastUpdate]       = useState("")
+  const [activeScenarios, setActiveScenarios] = useState<Set<string>>(
+    new Set(["recession", "base", "ia_bull", "supercycle"])
+  )
 
+  // Fetch prix live + historique en parallèle
   useEffect(() => {
-    fetch("/api/portfolio")
-      .then((r) => r.json())
-      .then((data) => {
-        setPrices(data.prices ?? {})
-        setLastUpdate(new Date(data.timestamp).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }))
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
+    Promise.all([
+      fetch("/api/portfolio").then((r) => r.json()),
+      fetch("/api/portfolio/snapshot").then((r) => r.json()),
+    ]).then(([priceData, histData]) => {
+      setPrices(priceData.prices ?? {})
+      setSnapshots(histData.snapshots ?? [])
+      setLastUpdate(
+        new Date(priceData.timestamp).toLocaleTimeString("fr-FR", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      )
+      setLoading(false)
+    }).catch(() => setLoading(false))
   }, [])
 
-  // Positions enrichies avec prix live
+  // Enrichir les positions
   const enriched = useMemo<EnrichedPosition[]>(() => {
-    const positions = POSITIONS.map((p) => {
+    const list = POSITIONS.map((p) => {
       const currentPrice = prices[p.ticker] ?? p.avgCost
       const invested = p.qty * p.avgCost
       const currentValue = p.qty * currentPrice
@@ -293,9 +414,25 @@ export default function PortfolioSection() {
       const pnlPct = (pnl / invested) * 100
       return { ...p, currentPrice, invested, currentValue, pnl, pnlPct, weight: 0 }
     })
-    const total = positions.reduce((s, p) => s + p.currentValue, 0)
-    return positions.map((p) => ({ ...p, weight: total > 0 ? (p.currentValue / total) * 100 : 0 }))
+    const total = list.reduce((s, p) => s + p.currentValue, 0)
+    return list.map((p) => ({ ...p, weight: total > 0 ? (p.currentValue / total) * 100 : 0 }))
   }, [prices])
+
+  // Sauvegarder snapshot du jour (une fois les prix chargés)
+  const saveSnapshot = useCallback(async (val: number, stocks: number, crypto: number, invested: number) => {
+    try {
+      await fetch("/api/portfolio/snapshot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          total_value: Math.round(val * 100) / 100,
+          stocks_value: Math.round(stocks * 100) / 100,
+          crypto_value: Math.round(crypto * 100) / 100,
+          total_invested: Math.round(invested * 100) / 100,
+        }),
+      })
+    } catch {}
+  }, [])
 
   const totalInvested = enriched.reduce((s, p) => s + p.invested, 0)
   const totalValue    = enriched.reduce((s, p) => s + p.currentValue, 0)
@@ -304,23 +441,39 @@ export default function PortfolioSection() {
   const stocksValue   = enriched.filter((p) => p.type === "stock").reduce((s, p) => s + p.currentValue, 0)
   const cryptoValue   = enriched.filter((p) => p.type === "crypto").reduce((s, p) => s + p.currentValue, 0)
 
-  const monthlyDCA = 500
-  const bonusUsd = DCA_PHASE2_BONUS_EUR * EUR_TO_USD
+  // Sauvegarde snapshot une fois les données chargées
+  useEffect(() => {
+    if (!loading && totalValue > 0) {
+      saveSnapshot(totalValue, stocksValue, cryptoValue, totalInvested)
+    }
+  }, [loading, totalValue])
 
-  const stocks = enriched.filter((p) => p.type === "stock")
+  const stocks  = enriched.filter((p) => p.type === "stock")
   const cryptos = enriched.filter((p) => p.type === "crypto")
+
+  const toggleScenario = (id: string) => {
+    setActiveScenarios((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        if (next.size > 1) next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+  }
 
   return (
     <div className="space-y-6 animate-slide-up">
 
-      {/* ── Header ── */}
+      {/* ── Header valeur totale ── */}
       <div className="glass border border-white/10 rounded-xl p-5">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse-glow" />
               <span className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold">
-                Portefeuille Revolut — Suivi CORTEX
+                Portefeuille Revolut · Suivi CORTEX
               </span>
             </div>
             <div className="flex items-baseline gap-3 mt-3">
@@ -329,27 +482,27 @@ export default function PortfolioSection() {
               ) : (
                 <span className="text-3xl font-bold text-white tracking-tight">{fmt$(totalValue)}</span>
               )}
-              <span className={`text-lg font-semibold ${pnlColor(totalPnl)}`}>
-                {fmtPct(totalPnlPct)}
-              </span>
+              {!loading && (
+                <span className={`text-lg font-semibold ${pnlColor(totalPnl)}`}>{fmtPct(totalPnlPct)}</span>
+              )}
             </div>
-            <div className={`text-sm mt-1 ${pnlColor(totalPnl)}`}>
-              {totalPnl >= 0 ? "+" : ""}{fmtSmall$(totalPnl)} vs investi ({fmt$(totalInvested)})
-            </div>
+            {!loading && (
+              <div className={`text-sm mt-1 ${pnlColor(totalPnl)}`}>
+                {totalPnl >= 0 ? "+" : ""}{fmtSmall$(totalPnl)} vs investi ({fmt$(totalInvested)})
+              </div>
+            )}
           </div>
-
-          {/* Allocation pills */}
           <div className="flex flex-col gap-2 items-end text-xs">
             <div className="flex items-center gap-2">
               <span className="text-slate-500">Tech</span>
               <div className="bg-blue-500/20 border border-blue-500/30 text-blue-300 rounded-full px-3 py-1 font-semibold">
-                {fmt$(stocksValue)} · {((stocksValue / totalValue) * 100).toFixed(0)}%
+                {loading ? "…" : `${fmt$(stocksValue)} · ${((stocksValue / totalValue) * 100).toFixed(0)}%`}
               </div>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-slate-500">Crypto</span>
               <div className="bg-amber-500/20 border border-amber-500/30 text-amber-300 rounded-full px-3 py-1 font-semibold">
-                {fmt$(cryptoValue)} · {((cryptoValue / totalValue) * 100).toFixed(0)}%
+                {loading ? "…" : `${fmt$(cryptoValue)} · ${((cryptoValue / totalValue) * 100).toFixed(0)}%`}
               </div>
             </div>
             {lastUpdate && (
@@ -357,17 +510,13 @@ export default function PortfolioSection() {
             )}
           </div>
         </div>
-
-        {/* Allocation bar */}
         <div className="mt-4 h-2 rounded-full overflow-hidden bg-white/5 flex">
-          <div
-            className="bg-blue-500/60 h-full transition-all"
-            style={{ width: `${(stocksValue / totalValue) * 100}%` }}
-          />
-          <div
-            className="bg-amber-500/60 h-full transition-all"
-            style={{ width: `${(cryptoValue / totalValue) * 100}%` }}
-          />
+          {!loading && (
+            <>
+              <div className="bg-blue-500/60 h-full transition-all" style={{ width: `${(stocksValue / totalValue) * 100}%` }} />
+              <div className="bg-amber-500/60 h-full transition-all" style={{ width: `${(cryptoValue / totalValue) * 100}%` }} />
+            </>
+          )}
         </div>
       </div>
 
@@ -375,11 +524,8 @@ export default function PortfolioSection() {
       {!loading && (
         <CortexSpeech
           positions={enriched}
-          totalValue={totalValue}
-          totalPnl={totalPnl}
-          totalPnlPct={totalPnlPct}
-          stocksValue={stocksValue}
-          cryptoValue={cryptoValue}
+          totalValue={totalValue} totalPnl={totalPnl} totalPnlPct={totalPnlPct}
+          stocksValue={stocksValue} cryptoValue={cryptoValue}
         />
       )}
 
@@ -392,7 +538,7 @@ export default function PortfolioSection() {
           <div className="px-5 py-3 border-b border-white/5 flex items-center justify-between">
             <span className="text-sm font-semibold text-slate-300">{label}</span>
             <span className="text-xs text-slate-500 font-mono">
-              {fmt$(items.reduce((s, p) => s + p.currentValue, 0))}
+              {loading ? "…" : fmt$(items.reduce((s, p) => s + p.currentValue, 0))}
             </span>
           </div>
           <div className="divide-y divide-white/5">
@@ -421,12 +567,11 @@ export default function PortfolioSection() {
                         {fmtPct(p.pnlPct)} ({p.pnl >= 0 ? "+" : ""}{fmtSmall$(p.pnl)})
                       </div>
                     </div>
-                    {/* Weight bar */}
                     <div className="hidden sm:flex flex-col items-end gap-1 w-14 shrink-0">
                       <span className="text-[10px] text-slate-600 font-mono">{p.weight.toFixed(1)}%</span>
                       <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
                         <div
-                          className={p.type === "stock" ? "bg-blue-400/60 h-full rounded-full" : "bg-amber-400/60 h-full rounded-full"}
+                          className={`h-full rounded-full ${p.type === "stock" ? "bg-blue-400/60" : "bg-amber-400/60"}`}
                           style={{ width: `${Math.min(p.weight * 3, 100)}%` }}
                         />
                       </div>
@@ -445,48 +590,101 @@ export default function PortfolioSection() {
             Plan DCA — Le 5 de chaque mois
           </span>
         </div>
-        <div className="space-y-3">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            {DCA_PHASE1.map((d) => (
-              <div key={d.ticker} className="bg-white/5 border border-white/10 rounded-lg p-3 text-center">
-                <div className="text-white font-semibold">{d.ticker}</div>
-                <div className="text-cyan-300 font-mono text-sm mt-0.5">${d.amountUsd}/mois</div>
-              </div>
-            ))}
-          </div>
-          <div className="text-xs text-slate-500 flex items-center justify-between pt-1">
-            <span>Phase 1 (maintenant → mars 2029) : <span className="text-white font-medium">${monthlyDCA}/mois</span></span>
-            <span className="font-mono text-slate-600">${(monthlyDCA * 12).toLocaleString()}/an</span>
-          </div>
-          <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 text-xs">
-            <div className="text-blue-300 font-semibold mb-1">Dès avril 2029 — Phase 2</div>
-            <div className="text-slate-400">
-              +€{DCA_PHASE2_BONUS_EUR}/mois ≈ <span className="text-white font-medium">${bonusUsd.toFixed(0)}</span>,
-              réparti avec la même clé : NVDA 30% · GOOGL 30% · META 20% · BTC 20%
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+          {DCA_PHASE1.map((d) => (
+            <div key={d.ticker} className="bg-white/5 border border-white/10 rounded-lg p-3 text-center">
+              <div className="text-white font-semibold">{d.ticker}</div>
+              <div className="text-cyan-300 font-mono text-sm mt-0.5">${d.amountUsd}/mois</div>
             </div>
-            <div className="text-slate-500 mt-1">
-              Total Phase 2 :{" "}
-              <span className="text-white font-medium">
-                ${(monthlyDCA + bonusUsd).toFixed(0)}/mois
-              </span>{" "}
-              · ${((monthlyDCA + bonusUsd) * 12).toFixed(0)}/an
-            </div>
+          ))}
+        </div>
+        <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 text-xs">
+          <div className="text-blue-300 font-semibold mb-1">Dès avril 2029 — Phase 2</div>
+          <div className="text-slate-400">
+            +€{DCA_PHASE2_BONUS_EUR}/mois ≈{" "}
+            <span className="text-white font-medium">${(DCA_PHASE2_BONUS_EUR * EUR_TO_USD).toFixed(0)}</span>,
+            même clé : NVDA 30% · GOOGL 30% · META 20% · BTC 20%
+          </div>
+          <div className="text-slate-500 mt-1">
+            Total Phase 2 :{" "}
+            <span className="text-white font-medium">
+              ${(500 + DCA_PHASE2_BONUS_EUR * EUR_TO_USD).toFixed(0)}/mois
+            </span>
           </div>
         </div>
       </div>
 
-      {/* ── Projection Chart ── */}
+      {/* ── Chart Projection ── */}
       <div className="glass border border-white/10 rounded-xl p-5">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-          <span className="text-[10px] text-violet-400 uppercase tracking-widest font-semibold">
-            Trajectoire de croissance — 14 ans
-          </span>
+        <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+            <span className="text-[10px] text-violet-400 uppercase tracking-widest font-semibold">
+              Trajectoire · 14 ans
+            </span>
+          </div>
+          {/* Legend réelle */}
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="w-5 h-0.5 bg-white rounded inline-block" />
+            <span className="text-slate-400">Trajectoire réelle</span>
+          </div>
         </div>
+
+        {/* Scenario toggles */}
+        <div className="flex flex-wrap gap-2 mb-5">
+          {SCENARIOS.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => toggleScenario(s.id)}
+              className={`text-xs px-3 py-1.5 rounded-full border transition-all font-medium ${
+                activeScenarios.has(s.id)
+                  ? "opacity-100"
+                  : "opacity-30 grayscale"
+              }`}
+              style={{
+                borderColor: s.color + "60",
+                backgroundColor: s.color + "18",
+                color: s.color,
+              }}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Scenario descriptions */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5">
+          {SCENARIOS.filter((s) => activeScenarios.has(s.id)).map((s) => (
+            <div
+              key={s.id}
+              className="rounded-lg p-3 text-xs border"
+              style={{ borderColor: s.color + "30", backgroundColor: s.color + "0c" }}
+            >
+              <div className="font-semibold mb-1" style={{ color: s.color }}>{s.label}</div>
+              <div className="text-slate-500 text-[11px] leading-snug">{s.sublabel}</div>
+              <div className="text-slate-600 text-[10px] mt-1 leading-snug">{s.description}</div>
+            </div>
+          ))}
+        </div>
+
         {loading ? (
           <div className="h-48 bg-white/5 rounded-lg animate-pulse" />
         ) : (
-          <ProjectionChart startValue={totalValue} />
+          <ProjectionChart
+            currentValue={totalValue}
+            snapshots={snapshots}
+            activeScenarios={activeScenarios}
+          />
+        )}
+
+        {/* Milestone table */}
+        {!loading && (
+          <div className="mt-5 border-t border-white/10 pt-4">
+            <div className="text-[10px] text-slate-500 uppercase tracking-widest mb-3 font-medium">
+              Quand atteins-tu ces milestones ?
+            </div>
+            <MilestoneTable currentValue={totalValue} activeScenarios={activeScenarios} />
+          </div>
         )}
       </div>
 
