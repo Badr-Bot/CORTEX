@@ -321,7 +321,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
         </div>
 
         {/* Tabs — sticky sous le header */}
-        <div className="sticky top-14 z-40 bg-[#040408]/95 backdrop-blur-sm -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 flex gap-2 overflow-x-auto scrollbar-hide animate-slide-up stagger-1">
+        <div className="sticky top-14 z-40 bg-[#040408] -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 border-b border-white/5 flex gap-2 overflow-x-auto scrollbar-hide animate-slide-up stagger-1">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id
             const colors = TAB_COLORS[tab.color]
