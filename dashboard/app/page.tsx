@@ -5,6 +5,7 @@ import CryptoSection from "@/components/CryptoSection"
 import MarketSection from "@/components/MarketSection"
 import QuestionPanel from "@/components/QuestionPanel"
 import SectionQuestionsPanel from "@/components/SectionQuestionsPanel"
+import PortfolioSection from "@/components/PortfolioSection"
 import type { ReportJSON } from "@/lib/types"
 
 export const dynamic = 'force-dynamic'
@@ -122,23 +123,25 @@ function formatDate(dateStr: string) {
 }
 
 const TABS = [
-  { id: "ai",       label: "IA",        icon: "🧠", color: "blue"    },
-  { id: "crypto",   label: "Crypto",    icon: "₿",  color: "amber"   },
-  { id: "market",   label: "Marchés",   icon: "📈", color: "emerald" },
-  { id: "deeptech", label: "DeepTech",  icon: "⚡", color: "violet"  },
-  { id: "nexus",    label: "Nexus",     icon: "◈",  color: "orange"  },
-  { id: "lexique",  label: "Lexique",   icon: "📖", color: "cyan"    },
+  { id: "ai",          label: "IA",           icon: "🧠", color: "blue"    },
+  { id: "crypto",      label: "Crypto",       icon: "₿",  color: "amber"   },
+  { id: "market",      label: "Marchés",      icon: "📈", color: "emerald" },
+  { id: "deeptech",    label: "DeepTech",     icon: "⚡", color: "violet"  },
+  { id: "nexus",       label: "Nexus",        icon: "◈",  color: "orange"  },
+  { id: "portefeuille", label: "Portfolio",   icon: "💼", color: "green"   },
+  { id: "lexique",     label: "Lexique",      icon: "📖", color: "cyan"    },
 ] as const
 
 type TabId = typeof TABS[number]["id"]
 
 const TAB_COLORS: Record<string, { active: string; dot: string; shadow: string }> = {
-  blue:    { active: "bg-blue-500/15 text-blue-300 border-blue-500/40",    dot: "bg-blue-400",    shadow: "shadow-[0_0_12px_rgba(99,102,241,0.3)]"  },
-  amber:   { active: "bg-amber-500/15 text-amber-300 border-amber-500/40", dot: "bg-amber-400",   shadow: "shadow-[0_0_12px_rgba(245,158,11,0.3)]"  },
+  blue:    { active: "bg-blue-500/15 text-blue-300 border-blue-500/40",       dot: "bg-blue-400",    shadow: "shadow-[0_0_12px_rgba(99,102,241,0.3)]"   },
+  amber:   { active: "bg-amber-500/15 text-amber-300 border-amber-500/40",    dot: "bg-amber-400",   shadow: "shadow-[0_0_12px_rgba(245,158,11,0.3)]"   },
   emerald: { active: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40", dot: "bg-emerald-400", shadow: "shadow-[0_0_12px_rgba(16,185,129,0.3)]" },
-  violet:  { active: "bg-violet-500/15 text-violet-300 border-violet-500/40", dot: "bg-violet-400",  shadow: "shadow-[0_0_12px_rgba(168,85,247,0.3)]"  },
-  orange:  { active: "bg-orange-500/15 text-orange-300 border-orange-500/40", dot: "bg-orange-400",  shadow: "shadow-[0_0_12px_rgba(249,115,22,0.3)]"   },
-  cyan:    { active: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40",    dot: "bg-cyan-400",    shadow: "shadow-[0_0_12px_rgba(6,182,212,0.3)]"    },
+  violet:  { active: "bg-violet-500/15 text-violet-300 border-violet-500/40", dot: "bg-violet-400",  shadow: "shadow-[0_0_12px_rgba(168,85,247,0.3)]"   },
+  orange:  { active: "bg-orange-500/15 text-orange-300 border-orange-500/40", dot: "bg-orange-400",  shadow: "shadow-[0_0_12px_rgba(249,115,22,0.3)]"    },
+  green:   { active: "bg-green-500/15 text-green-300 border-green-500/40",    dot: "bg-green-400",   shadow: "shadow-[0_0_12px_rgba(34,197,94,0.3)]"    },
+  cyan:    { active: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40",       dot: "bg-cyan-400",    shadow: "shadow-[0_0_12px_rgba(6,182,212,0.3)]"    },
 }
 
 function EmptyState() {
@@ -250,6 +253,8 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
     )
   }
 
+  if (tab === "portefeuille") return <PortfolioSection />
+
   if (tab === "lexique") return <LexiqueSection />
 
   return null
@@ -282,11 +287,45 @@ export default async function DashboardPage({ searchParams }: PageProps) {
     return <EmptyState />
   }
 
+  const activeTab = (searchParams.tab as TabId) || "ai"
+
+  // Le tab Portfolio ne nécessite pas de rapport — toujours accessible
+  if (activeTab === "portefeuille") {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <NavBar />
+        <div className="sticky top-14 z-40 bg-[#040408] border-b border-white/5">
+          <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex gap-2 overflow-x-auto scrollbar-hide">
+            {TABS.map((tab) => {
+              const isActive = activeTab === tab.id
+              const colors = TAB_COLORS[tab.color]
+              return (
+                <a
+                  key={tab.id}
+                  href={`/?tab=${tab.id}`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all whitespace-nowrap ${
+                    isActive ? `${colors.active} ${colors.shadow}` : "text-slate-500 border-transparent hover:text-slate-300"
+                  }`}
+                >
+                  {isActive && <span className={`w-1 h-1 rounded-full ${colors.dot}`} />}
+                  <span className="text-base leading-none">{tab.icon}</span>
+                  {tab.label}
+                </a>
+              )
+            })}
+          </div>
+        </div>
+        <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6">
+          <PortfolioSection />
+        </main>
+      </div>
+    )
+  }
+
   if (!report || !report.report_json || !Object.keys(report.report_json).length) {
     return <EmptyState />
   }
 
-  const activeTab = (searchParams.tab as TabId) || "ai"
   const json = report.report_json
 
   return (
