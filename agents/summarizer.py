@@ -16,6 +16,7 @@ Fonctions :
   generate_nexus(all_data)     → connexion cross-secteurs + question
 """
 
+import asyncio
 import os
 import json
 import re
@@ -325,13 +326,33 @@ async def analyze_ai(signals: list[dict]) -> dict:
     signals = await run_debate(signals, sector="Intelligence Artificielle")
 
     from agents.memory import get_sector_history, format_ai_history, save_analysis
-    history     = await get_sector_history("ai", days=7)
-    history_ctx = format_ai_history(history)
+    from agents.long_memory import (
+        get_all_weekly_summaries, get_all_patterns, semantic_search,
+        format_long_memory_context, embed_and_save,
+    )
+    from agents.memory import get_agent_learnings, format_learnings_context
 
     context = _prep_signals(signals, 15)
 
-    # Partie dynamique (signaux + historique — non mise en cache)
+    # Charger toute la mémoire en parallèle
+    history, summaries, patterns, learnings = await asyncio.gather(
+        get_sector_history("ai", days=7),
+        get_all_weekly_summaries("ai", limit=8),
+        get_all_patterns("ai"),
+        get_agent_learnings("ai", limit=5),
+    )
+    similar = await semantic_search(context[:600], "ai", top_k=3)
+
+    history_ctx  = format_ai_history(history)
+    long_ctx     = format_long_memory_context(summaries, patterns, similar)
+    learnings_ctx = format_learnings_context(learnings, "IA")
+
+    # Partie dynamique (signaux + mémoire — non mise en cache)
     user_prompt = ""
+    if long_ctx:
+        user_prompt += f"{long_ctx}\n\n"
+    if learnings_ctx:
+        user_prompt += f"{learnings_ctx}\n\n"
     if history_ctx:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux IA collectés :\n\n{context}"
@@ -344,7 +365,11 @@ async def analyze_ai(signals: list[dict]) -> dict:
         return _fallback_ai(signals[:3])
 
     logger.info(f"analyze_ai: {len(result.get('signals', []))} signaux analysés")
-    await save_analysis("ai", result)
+    today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
+    await asyncio.gather(
+        save_analysis("ai", result),
+        embed_and_save(today, "ai", result),
+    )
     return result
 
 
@@ -478,8 +503,24 @@ async def analyze_crypto(data: dict) -> dict:
     context   = _prep_signals(signals, 12)
 
     from agents.memory import get_sector_history, format_crypto_history, save_analysis as _save
-    history     = await get_sector_history("crypto", days=7)
-    history_ctx = format_crypto_history(history)
+    from agents.long_memory import (
+        get_all_weekly_summaries, get_all_patterns, semantic_search,
+        format_long_memory_context, embed_and_save,
+    )
+    from agents.memory import get_agent_learnings, format_learnings_context
+
+    # Charger toute la mémoire en parallèle
+    history, summaries, patterns, learnings = await asyncio.gather(
+        get_sector_history("crypto", days=7),
+        get_all_weekly_summaries("crypto", limit=8),
+        get_all_patterns("crypto"),
+        get_agent_learnings("crypto", limit=5),
+    )
+    similar = await semantic_search(context[:600], "crypto", top_k=3)
+
+    history_ctx   = format_crypto_history(history)
+    long_ctx      = format_long_memory_context(summaries, patterns, similar)
+    learnings_ctx = format_learnings_context(learnings, "Crypto")
 
     dash_str = (
         f"BTC Prix     : ${dashboard.get('btc_price', 'N/A'):,} "
@@ -492,7 +533,12 @@ async def analyze_crypto(data: dict) -> dict:
         f"Vol. 24h     : ${dashboard.get('total_volume_24h', 0):,.0f}"
     )
 
-    user_prompt = "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
+    user_prompt = ""
+    if long_ctx:
+        user_prompt += f"{long_ctx}\n\n"
+    if learnings_ctx:
+        user_prompt += f"{learnings_ctx}\n\n"
+    user_prompt += "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
     if history_ctx:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
@@ -509,7 +555,11 @@ async def analyze_crypto(data: dict) -> dict:
         f"analyze_crypto: direction={result.get('direction')}, "
         f"{len(result.get('signals', []))} signaux"
     )
-    await _save("crypto", result)
+    today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
+    await asyncio.gather(
+        _save("crypto", result),
+        embed_and_save(today, "crypto", result),
+    )
     return result
 
 
@@ -606,8 +656,23 @@ async def analyze_market(data: dict) -> dict:
     context   = _prep_signals(signals, 12)
 
     from agents.memory import get_sector_history, format_market_history, save_analysis as _save_mkt
-    history     = await get_sector_history("market", days=7)
-    history_ctx = format_market_history(history)
+    from agents.long_memory import (
+        get_all_weekly_summaries, get_all_patterns, semantic_search,
+        format_long_memory_context, embed_and_save,
+    )
+    from agents.memory import get_agent_learnings, format_learnings_context
+
+    history, summaries, patterns, learnings = await asyncio.gather(
+        get_sector_history("market", days=7),
+        get_all_weekly_summaries("market", limit=8),
+        get_all_patterns("market"),
+        get_agent_learnings("market", limit=5),
+    )
+    similar = await semantic_search(context[:600], "market", top_k=3)
+
+    history_ctx   = format_market_history(history)
+    long_ctx      = format_long_memory_context(summaries, patterns, similar)
+    learnings_ctx = format_learnings_context(learnings, "Marchés")
 
     def _fmt(key: str) -> str:
         d = dashboard.get(key, {})
@@ -631,7 +696,12 @@ async def analyze_market(data: dict) -> dict:
         f"({dashboard.get('us_10y', {}).get('change_bps', 'N/A')})"
     )
 
-    user_prompt = "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
+    user_prompt = ""
+    if long_ctx:
+        user_prompt += f"{long_ctx}\n\n"
+    if learnings_ctx:
+        user_prompt += f"{learnings_ctx}\n\n"
+    user_prompt += "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
     if history_ctx:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
@@ -648,7 +718,11 @@ async def analyze_market(data: dict) -> dict:
         f"analyze_market: régime={result.get('regime')}, "
         f"récession={result.get('recession_score')}/10"
     )
-    await _save_mkt("market", result)
+    today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
+    await asyncio.gather(
+        _save_mkt("market", result),
+        embed_and_save(today, "market", result),
+    )
     return result
 
 
@@ -742,12 +816,31 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
     signals = await run_debate(signals, sector="DeepTech & Science")
 
     from agents.memory import get_sector_history, format_deeptech_history, save_analysis as _save_dt
-    history     = await get_sector_history("deeptech", days=7)
-    history_ctx = format_deeptech_history(history)
+    from agents.long_memory import (
+        get_all_weekly_summaries, get_all_patterns, semantic_search,
+        format_long_memory_context, embed_and_save,
+    )
+    from agents.memory import get_agent_learnings, format_learnings_context
 
     context = _prep_signals(signals, 10)
 
+    history, summaries, patterns, learnings = await asyncio.gather(
+        get_sector_history("deeptech", days=7),
+        get_all_weekly_summaries("deeptech", limit=8),
+        get_all_patterns("deeptech"),
+        get_agent_learnings("deeptech", limit=5),
+    )
+    similar = await semantic_search(context[:600], "deeptech", top_k=3)
+
+    history_ctx   = format_deeptech_history(history)
+    long_ctx      = format_long_memory_context(summaries, patterns, similar)
+    learnings_ctx = format_learnings_context(learnings, "DeepTech")
+
     user_prompt = ""
+    if long_ctx:
+        user_prompt += f"{long_ctx}\n\n"
+    if learnings_ctx:
+        user_prompt += f"{learnings_ctx}\n\n"
     if history_ctx:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux deeptech collectés :\n\n{context}"
@@ -760,7 +853,11 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
         return _fallback_deeptech(signals[:2])
 
     logger.info(f"analyze_deeptech: {len(result.get('signals', []))} signaux analysés")
-    await _save_dt("deeptech", result)
+    today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
+    await asyncio.gather(
+        _save_dt("deeptech", result),
+        embed_and_save(today, "deeptech", result),
+    )
     return result
 
 
@@ -865,7 +962,34 @@ async def generate_nexus(
     crypto_dir    = crypto_data.get("direction", "")
     market_regime = market_data.get("regime", "")
 
-    user_prompt = (
+    # Charger mémoire longue durée Nexus (patterns globaux + contextes similaires)
+    from agents.long_memory import get_all_patterns, semantic_search, format_long_memory_context
+    nexus_query = f"{summary[:400]} | {crypto_dir} | {market_regime}"
+    patterns_global, similar_nexus = await asyncio.gather(
+        get_all_patterns("global"),
+        semantic_search(nexus_query, "ai", top_k=2),
+    )
+    long_ctx = format_long_memory_context([], patterns_global, similar_nexus)
+
+    # Charger historique des 7 dernières connexions Nexus pour éviter les répétitions
+    from agents.memory import get_sector_history
+    nexus_history = await get_sector_history("nexus", days=7)
+    past_nexus = ""
+    if nexus_history:
+        lines = ["── Connexions Nexus déjà générées (ne pas répéter) ──"]
+        for entry in nexus_history[:5]:
+            date = entry["report_date"]
+            conn = entry["data"].get("connexion", "")
+            if conn:
+                lines.append(f"  {date}: {conn[:100]}")
+        past_nexus = "\n".join(lines) if len(lines) > 1 else ""
+
+    user_prompt = ""
+    if long_ctx:
+        user_prompt += f"{long_ctx}\n\n"
+    if past_nexus:
+        user_prompt += f"{past_nexus}\n\n"
+    user_prompt += (
         f"SIGNAUX DU JOUR :\n{summary}\n\n"
         f"Crypto : {crypto_dir} | Marché : {market_regime}\n\n"
         f"Signal le plus fort : {top_title}\n"

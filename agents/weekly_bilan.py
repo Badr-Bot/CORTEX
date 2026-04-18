@@ -442,6 +442,16 @@ async def run_weekly_bilan() -> None:
     await _save_learnings(evaluation)
     logger.info("Learnings sauvegardés dans agent_learnings")
 
+    # 3b. Compression long mémoire + extraction patterns (Gemini Pro)
+    try:
+        from agents.long_memory import run_weekly_compression, run_pattern_extraction
+        week_of = (datetime.now() - timedelta(days=6)).strftime("%Y-%m-%d")
+        await run_weekly_compression(week_of)
+        await run_pattern_extraction(evaluation, week_of)
+        logger.info("Long memory compression + patterns terminés ✅")
+    except Exception as e:
+        logger.warning(f"Long memory post-bilan échoué (non bloquant): {e}")
+
     # 4. Sauvegarder le débrief dans Supabase (dashboard Vercel)
     try:
         from database.client import save_weekly_debrief
