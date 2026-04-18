@@ -773,10 +773,8 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
                 len(deeptech_analyzed.get("signals", []))
             )
             msg = (
-                f"📊 <b>Rapport CORTEX — {today_fr}</b>\n\n"
-                f"✅ {signals_total} signaux analysés\n"
-                f"🧠 IA · ₿ Crypto · 📈 Marchés · ⚡ DeepTech · ◈ Nexus\n\n"
-                f"👉 <a href=\"https://cortex-seven-omega.vercel.app\">Voir le rapport</a>"
+                f"Le rapport du {today_fr} est prêt.\n\n"
+                f"<a href=\"https://cortex-seven-omega.vercel.app\">Ouvrir CORTEX</a>"
             )
             await broadcast_message(msg, parse_mode="HTML")
             logger.info("Notification Telegram envoyée ✅")
