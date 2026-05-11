@@ -1,0 +1,26 @@
+name: CORTEX — Rapport version v3
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Envoyer rapport de version
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python -c "import asyncio; from agents.version_report import send_version_report; asyncio.run(send_version_report())"
