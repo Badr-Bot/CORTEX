@@ -287,6 +287,13 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
     "Signal early pas encore mûr — [source] — pourquoi surveiller et quand agir",
     "Autre signal — [source] — signal à confirmer d'ici [délai]"
   ],
+  "decision": {
+    "ticker": "NVDA",
+    "direction": "LONG",
+    "horizon": "1-4 semaines",
+    "conviction_pct": 70,
+    "reasoning": "Explication concise de la décision — max 200 chars"
+  },
   "questions": [
     "Question DIRECTE qui force Badr à prendre position sur le signal IA le plus fort du jour. Format : 'Si [fait], tu [action A] ou [action B] ?' ou 'Est-ce que [évènement] change ta thèse sur [sujet] ?'. 1 phrase max.",
     "Deuxième question sur un autre angle IA — technique, business ou investissement. 1 phrase max."
@@ -300,6 +307,7 @@ Règles absolues :
 - Tout le texte en FRANÇAIS
 - Texte brut uniquement — zéro markdown dans les valeurs de texte
 - watchlist : 2-3 items max
+- decision : OBLIGATOIRE — 1 décision concrète basée sur les signaux du jour. ticker = action/ETF/crypto exact. direction = "LONG" ou "WATCH" (pas de short sans levier). conviction_pct = 50-90.
 - questions : EXACTEMENT 2 questions en français, directes, basées sur les signaux du jour
 - LIMITES DE LONGUEUR (en caractères) :
   fait          : 500-800 chars (minimum 500 — analyse complète)
@@ -366,10 +374,18 @@ async def analyze_ai(signals: list[dict]) -> dict:
 
     logger.info(f"analyze_ai: {len(result.get('signals', []))} signaux analysés")
     today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
-    await asyncio.gather(
-        save_analysis("ai", result),
-        embed_and_save(today, "ai", result),
-    )
+    save_tasks = [save_analysis("ai", result), embed_and_save(today, "ai", result)]
+    decision = result.get("decision")
+    if decision and decision.get("ticker"):
+        from database.client import save_trading_decision
+        save_tasks.append(save_trading_decision(
+            sector="ai", ticker=decision["ticker"],
+            direction=decision.get("direction", "WATCH"),
+            horizon=decision.get("horizon", ""),
+            conviction_pct=int(decision.get("conviction_pct", 50)),
+            reasoning=decision.get("reasoning", ""),
+        ))
+    await asyncio.gather(*save_tasks)
     return result
 
 
@@ -467,6 +483,13 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
       "source_url": "URL"
     }
   ],
+  "decision": {
+    "ticker": "BTC",
+    "direction": "LONG",
+    "horizon": "2-4 semaines",
+    "conviction_pct": 65,
+    "reasoning": "Explication concise — max 200 chars"
+  },
   "questions": [
     "Question directe sur le signal crypto le plus fort — force un choix. Ex: 'BTC est à $75k avec Fear&Greed à 23, tu achètes maintenant ou tu attends $65k ?' 1 phrase.",
     "Question sur un altcoin ou projet web3 trending — évalue si Badr a compris la thèse. 1 phrase."
@@ -476,6 +499,7 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 Règles absolues :
 - TOUJOURS exactement 3 signaux dans signals — sélectionne les 3 meilleurs news disponibles
 - TOUJOURS exactement 3 trending_alts — si peu de data, choisis les plus pertinents selon le contexte macro
+- decision : OBLIGATOIRE — ticker précis (BTC/ETH/SOL/MSTR etc.), direction "LONG" ou "WATCH", conviction 50-90%.
 - recommandation.verdict : parmi ACHETER / ACCUMULER / TENIR / ALLÉGER / VENDRE
 - recommandation.alts : parmi ACHETER / ACCUMULER / TENIR / ALLÉGER / VENDRE / ATTENDRE
 - score values : entiers de -2 à +2 uniquement — JAMAIS de N/A dans les notes
@@ -556,10 +580,18 @@ async def analyze_crypto(data: dict) -> dict:
         f"{len(result.get('signals', []))} signaux"
     )
     today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
-    await asyncio.gather(
-        _save("crypto", result),
-        embed_and_save(today, "crypto", result),
-    )
+    save_tasks = [_save("crypto", result), embed_and_save(today, "crypto", result)]
+    decision = result.get("decision")
+    if decision and decision.get("ticker"):
+        from database.client import save_trading_decision
+        save_tasks.append(save_trading_decision(
+            sector="crypto", ticker=decision["ticker"],
+            direction=decision.get("direction", "WATCH"),
+            horizon=decision.get("horizon", ""),
+            conviction_pct=int(decision.get("conviction_pct", 50)),
+            reasoning=decision.get("reasoning", ""),
+        ))
+    await asyncio.gather(*save_tasks)
     return result
 
 
@@ -626,6 +658,13 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
       "source_url": "URL"
     }
   ],
+  "decision": {
+    "ticker": "SPY",
+    "direction": "WATCH",
+    "horizon": "1-3 semaines",
+    "conviction_pct": 55,
+    "reasoning": "Explication concise — max 200 chars"
+  },
   "questions": [
     "Question directe sur le macro/marché le plus impactant du jour. 1 phrase, force un choix.",
     "Question sur le risque de récession ou sur un marché spécifique. 1 phrase."
@@ -635,7 +674,8 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
 Règles absolues :
 - TOUJOURS exactement 3 signaux dans signals
 - status : "green", "yellow" ou "red" uniquement
-- recession_indicators : EXACTEMENT 10 indicateurs (courbe_taux, emploi, ism_manuf, ism_services, conso_conf, credit_spread, earnings_rev, pmi_composite, retail_sales, housing)
+- recession_indicators : EXACTEMENT 10 indicateurs
+- decision : OBLIGATOIRE — ticker précis (SPY/QQQ/GLD/TLT/MSFT etc.), direction "LONG" ou "WATCH", conviction 50-90%. (courbe_taux, emploi, ism_manuf, ism_services, conso_conf, credit_spread, earnings_rev, pmi_composite, retail_sales, housing)
 - recession_score : score = (nb red) + 0.5 × (nb yellow), arrondi sur 10
 - regime : parmi "Risk-on", "Risk-off", "Inflation trade", "Stagflation", "Transition"
 - sizing : "Fort", "Moyen" ou "Faible"
@@ -700,12 +740,41 @@ async def analyze_market(data: dict) -> dict:
         f"({dashboard.get('us_10y', {}).get('change_bps', 'N/A')})"
     )
 
+    # Données FRED macro
+    fred = dashboard.get("fred", {})
+    fred_lines = []
+    if fred.get("yield_curve_10y2y"):
+        d = fred["yield_curve_10y2y"]
+        fred_lines.append(f"Courbe taux 10Y-2Y : {d['value']:+.2f}pts (prev {d['prev']:+.2f})")
+    if fred.get("jobless_claims"):
+        d = fred["jobless_claims"]
+        fred_lines.append(f"Jobless claims : {d['value']:,.0f}k ({'+' if d['change']>=0 else ''}{d['change']:.0f}k)")
+    if fred.get("housing_starts"):
+        d = fred["housing_starts"]
+        fred_lines.append(f"Housing starts : {d['value']:,.0f}k annualisé ({'+' if d['change']>=0 else ''}{d['change']:.0f}k)")
+    if fred.get("consumer_confidence"):
+        d = fred["consumer_confidence"]
+        fred_lines.append(f"Consumer confidence : {d['value']:.1f} ({'+' if d['change']>=0 else ''}{d['change']:.1f})")
+    if fred.get("retail_sales"):
+        d = fred["retail_sales"]
+        fred_lines.append(f"Retail sales : ${d['value']:,.0f}M ({'+' if d['change']>=0 else ''}{d['change']:.0f}M)")
+    if fred.get("hy_spread"):
+        d = fred["hy_spread"]
+        fred_lines.append(f"HY credit spread : {d['value']:.2f}% ({'+' if d['change']>=0 else ''}{d['change']:.3f}%)")
+
+    fed_watch = dashboard.get("fed_watch", {})
+    if fed_watch.get("fed_hold_prob") is not None:
+        fred_lines.append(f"CME FedWatch : {fed_watch['fed_hold_prob']}% maintien / {fed_watch['fed_cut_prob']}% baisse")
+
+    fred_str = "\n".join(fred_lines) if fred_lines else "FRED data indisponible"
+
     user_prompt = ""
     if long_ctx:
         user_prompt += f"{long_ctx}\n\n"
     if learnings_ctx:
         user_prompt += f"{learnings_ctx}\n\n"
     user_prompt += "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
+    user_prompt += f"\n\nINDICATEURS MACRO FRED (données officielles US) :\n{fred_str}"
     if history_ctx:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
@@ -723,10 +792,18 @@ async def analyze_market(data: dict) -> dict:
         f"récession={result.get('recession_score')}/10"
     )
     today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
-    await asyncio.gather(
-        _save_mkt("market", result),
-        embed_and_save(today, "market", result),
-    )
+    save_tasks = [_save_mkt("market", result), embed_and_save(today, "market", result)]
+    decision = result.get("decision")
+    if decision and decision.get("ticker"):
+        from database.client import save_trading_decision
+        save_tasks.append(save_trading_decision(
+            sector="market", ticker=decision["ticker"],
+            direction=decision.get("direction", "WATCH"),
+            horizon=decision.get("horizon", ""),
+            conviction_pct=int(decision.get("conviction_pct", 50)),
+            reasoning=decision.get("reasoning", ""),
+        ))
+    await asyncio.gather(*save_tasks)
     return result
 
 

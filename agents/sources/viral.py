@@ -223,7 +223,16 @@ async def fetch_hacker_news(hours: int = 48) -> list[dict]:
     """Top stories IA sur Hacker News via Algolia."""
     signals = []
     cutoff  = _hours_ago_ts(hours)
-    queries = ["AI LLM", "OpenAI Anthropic", "machine learning model", "AI agent autonomous"]
+    queries = [
+        "OpenAI GPT model release",
+        "Anthropic Claude model",
+        "AI partnership deal billion",
+        "new AI model benchmark",
+        "LLM agent autonomous reasoning",
+        "AI funding raises",
+        "Gemini Grok xAI release",
+        "open source AI model",
+    ]
 
     async with httpx.AsyncClient(timeout=15) as client:
         for q in queries:
@@ -251,11 +260,13 @@ async def fetch_hacker_news(hours: int = 48) -> list[dict]:
                     signals.append({
                         "sector":      "ai",
                         "category":    "viral",
+                        "signal_tag":  "VIRAL COMMUNAUTÉ",
                         "source_name": "Hacker News",
                         "source_url":  url,
                         "title":       f"🔺 {title}",
                         "raw_content": f"Points: {points} | Comments: {hit.get('num_comments', 0)}",
                         "stars_count": points,
+                        "is_major":    False,
                     })
             except Exception as e:
                 logger.warning(f"HN erreur '{q}': {e}")

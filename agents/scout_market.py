@@ -12,11 +12,14 @@ Sources :
 import asyncio
 import feedparser
 import httpx
+import os
 import re
 from datetime import datetime, timezone, timedelta
 from utils.logger import get_logger
 
 logger = get_logger("scout_ai.market")
+
+FRED_BASE = "https://api.stlouisfed.org/fred/series/observations"
 
 YAHOO_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 
@@ -69,6 +72,96 @@ MARKET_KEYWORDS = [
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
+
+async def collect_fred_indicators() -> dict:
+    """
+    Collecte les indicateurs macro via FRED API (gratuit).
+    Séries : PMI composite, jobless claims, housing starts, consumer confidence,
+             yield curve T10Y2Y, credit spread HY, retail sales.
+    """
+    api_key = os.getenv("FRED_API_KEY", "")
+    if not api_key:
+        logger.warning("FRED_API_KEY manquant — indicateurs macro indisponibles")
+        return {}
+
+    # Série FRED → (label lisible, unité)
+    series_map = {
+        "T10Y2Y":    ("yield_curve_10y2y",    "points"),
+        "ICSA":      ("jobless_claims",        "milliers"),
+        "HOUST":     ("housing_starts",        "milliers annualisé"),
+        "UMCSENT":   ("consumer_confidence",   "indice"),
+        "BAMLH0A0HYM2EY": ("hy_spread",        "bps"),
+        "RETAILSL":  ("retail_sales",          "millions $"),
+        "MSPNHSUS":  ("median_home_price",     "USD"),
+    }
+
+    result = {}
+    async with httpx.AsyncClient(timeout=12) as client:
+        tasks = []
+        for series_id, (key, unit) in series_map.items():
+            tasks.append(_fetch_fred_series(client, api_key, series_id, key, unit))
+        fetched = await asyncio.gather(*tasks, return_exceptions=True)
+
+    for item in fetched:
+        if isinstance(item, dict):
+            result.update(item)
+
+    logger.info(f"FRED: {len(result)} indicateurs macro collectés")
+    return result
+
+
+async def _fetch_fred_series(client, api_key: str, series_id: str, key: str, unit: str) -> dict:
+    try:
+        r = await client.get(FRED_BASE, params={
+            "series_id":       series_id,
+            "api_key":         api_key,
+            "file_type":       "json",
+            "sort_order":      "desc",
+            "limit":           2,
+            "observation_start": "2020-01-01",
+        })
+        if r.status_code != 200:
+            return {}
+        obs = [o for o in r.json().get("observations", []) if o.get("value") != "."]
+        if not obs:
+            return {}
+        latest = float(obs[0]["value"])
+        prev   = float(obs[1]["value"]) if len(obs) > 1 else latest
+        change = round(latest - prev, 3)
+        return {
+            key: {
+                "value":  latest,
+                "prev":   prev,
+                "change": change,
+                "unit":   unit,
+                "date":   obs[0].get("date", ""),
+            }
+        }
+    except Exception as e:
+        logger.debug(f"FRED {series_id}: {e}")
+        return {}
+
+
+async def fetch_fed_watch() -> dict:
+    """
+    Probabilité CME FedWatch pour la prochaine réunion FOMC.
+    Scrappe la page CME publique (pas d'API officielle gratuite).
+    """
+    try:
+        async with httpx.AsyncClient(timeout=10, headers={"User-Agent": "Mozilla/5.0"}) as client:
+            r = await client.get("https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html")
+        # Chercher pattern de probabilité dans le HTML
+        import re as _re
+        # Pattern : "No Change\n<number>%" dans le rendu JS
+        match = _re.search(r'"probability":\s*([\d.]+).*?"description":\s*"No Change"', r.text)
+        if match:
+            prob_hold = float(match.group(1))
+            return {"fed_hold_prob": round(prob_hold, 1), "fed_cut_prob": round(100 - prob_hold, 1)}
+    except Exception:
+        pass
+    # Fallback via FRED Fed Funds target
+    return {"fed_hold_prob": None, "fed_cut_prob": None}
+
 
 def _is_market_relevant(text: str) -> bool:
     t = text.lower()
@@ -380,14 +473,18 @@ async def collect_dashboard() -> dict:
         vix_val = dashboard["vix"].get("raw_price", 20)
         dashboard["vix"]["interpretation"] = _vix_interpretation(vix_val)
 
-    # Earnings calendar (7 prochains jours)
     dashboard["earnings_week"] = earnings_result if isinstance(earnings_result, list) else []
+    dashboard["insider_buys"]  = insider_result if isinstance(insider_result, list) else []
+    dashboard["sectors"]       = sectors_result if isinstance(sectors_result, dict) else {}
 
-    # Insider buys (3 derniers jours, > $100K)
-    dashboard["insider_buys"] = insider_result if isinstance(insider_result, list) else []
-
-    # 11 secteurs US + market breadth
-    dashboard["sectors"] = sectors_result if isinstance(sectors_result, dict) else {}
+    # FRED macro indicators + FedWatch
+    fred_data, fed_watch = await asyncio.gather(
+        collect_fred_indicators(),
+        fetch_fed_watch(),
+        return_exceptions=True,
+    )
+    dashboard["fred"] = fred_data if isinstance(fred_data, dict) else {}
+    dashboard["fed_watch"] = fed_watch if isinstance(fed_watch, dict) else {}
 
     breadth = dashboard["sectors"].get("_breadth", {})
     logger.info(

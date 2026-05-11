@@ -762,6 +762,72 @@ async def save_dashboard_report(
 # DASHBOARD VERCEL — Weekly Debrief
 # ============================================================
 
+async def save_trading_decision(
+    sector: str,
+    ticker: str,
+    direction: str,
+    horizon: str,
+    conviction_pct: int,
+    reasoning: str,
+) -> Optional[dict]:
+    """Sauvegarde une décision de trading générée par CORTEX."""
+    try:
+        client = get_supabase_client()
+        result = client.table("trading_decisions").insert({
+            "decision_date":  datetime.now(timezone.utc).date().isoformat(),
+            "sector":         sector,
+            "ticker":         ticker,
+            "direction":      direction,
+            "horizon":        horizon,
+            "conviction_pct": conviction_pct,
+            "reasoning":      reasoning,
+        }).execute()
+        logger.info(f"Décision trading sauvegardée : [{sector}] {direction} {ticker} ({conviction_pct}%)")
+        return result.data[0] if result.data else None
+    except Exception as e:
+        logger.error(f"Erreur save_trading_decision: {e}")
+        return None
+
+
+async def get_open_decisions(days_back: int = 14) -> list:
+    """Récupère les décisions sans outcome (à évaluer)."""
+    try:
+        from datetime import timedelta
+        client = get_supabase_client()
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=days_back)).date().isoformat()
+        result = (
+            client.table("trading_decisions")
+            .select("*")
+            .gte("decision_date", cutoff)
+            .is_("outcome", "null")
+            .order("decision_date", desc=True)
+            .execute()
+        )
+        return result.data or []
+    except Exception as e:
+        logger.error(f"Erreur get_open_decisions: {e}")
+        return []
+
+
+async def update_decision_outcome(
+    decision_id: str,
+    outcome: str,
+    pnl_pct: float = None,
+) -> Optional[dict]:
+    """Met à jour le résultat d'une décision (WIN/LOSS/NEUTRAL)."""
+    try:
+        client = get_supabase_client()
+        result = client.table("trading_decisions").update({
+            "outcome":      outcome,
+            "outcome_date": datetime.now(timezone.utc).date().isoformat(),
+            "pnl_pct":      pnl_pct,
+        }).eq("id", decision_id).execute()
+        return result.data[0] if result.data else None
+    except Exception as e:
+        logger.error(f"Erreur update_decision_outcome: {e}")
+        return None
+
+
 async def save_weekly_debrief(
     week_of: str,
     evaluation_json: dict,

@@ -81,12 +81,32 @@ Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
     "Learning #2 à appliquer dès lundi prochain",
     "Learning #3 à appliquer dès lundi prochain"
   ],
+  "decisions_bilan": [
+    {
+      "ticker": "NVDA",
+      "sector": "ai",
+      "direction": "LONG",
+      "date_prise": "Lundi 06 Mai",
+      "conviction_pct": 70,
+      "verdict": "WIN",
+      "pnl_pct": 4.2,
+      "explication": "NVDA a progressé de +4.2% suite à l'annonce du partenariat. Thèse validée."
+    }
+  ],
+  "decisions_score": {
+    "wins": 0,
+    "losses": 0,
+    "neutral": 0,
+    "hit_rate_pct": 0,
+    "pnl_total_pct": 0.0
+  },
   "focus_semaine": "Une seule chose sur laquelle Badr doit se concentrer la semaine prochaine"
 }
 
 Règles absolues :
 - verdict : exactement "correct", "partiel" ou "incorrect"
 - taux_reussite : (correct + partiel*0.5) / total * 100, arrondi entier
+- decisions_bilan.verdict : "WIN", "LOSS" ou "NEUTRAL" — basé sur le mouvement réel du ticker sur l'horizon
 - Tout en FRANÇAIS
 - Texte brut dans toutes les valeurs string (pas de markdown)
 - evaluations : uniquement les jours où Badr a répondu (ignorer les jours sans réponse)"""
@@ -97,14 +117,15 @@ Règles absolues :
 async def _get_week_data() -> dict:
     """Récupère journal + analyses + mouvements de prix de la semaine."""
     try:
-        from database.client import get_week_journal, get_week_analyses
-        journal, analyses = await asyncio.gather(
+        from database.client import get_week_journal, get_week_analyses, get_open_decisions
+        journal, analyses, open_decisions = await asyncio.gather(
             get_week_journal(days_back=7),
             get_week_analyses(days_back=7),
+            get_open_decisions(days_back=14),
         )
     except Exception as e:
         logger.warning(f"Erreur récupération données semaine: {e}")
-        journal, analyses = [], []
+        journal, analyses, open_decisions = [], [], []
 
     # Prix BTC semaine (CoinGecko gratuit) + macro hebdo (Yahoo Finance)
     btc_weekly, macro_weekly = await asyncio.gather(
@@ -116,11 +137,12 @@ async def _get_week_data() -> dict:
     signals_summary = _summarize_analyses(analyses)
 
     return {
-        "journal":         journal,
-        "analyses":        analyses,
-        "signals_summary": signals_summary,
-        "btc_weekly":      btc_weekly,
-        "macro_weekly":    macro_weekly,
+        "journal":          journal,
+        "analyses":         analyses,
+        "signals_summary":  signals_summary,
+        "btc_weekly":       btc_weekly,
+        "macro_weekly":     macro_weekly,
+        "open_decisions":   open_decisions if isinstance(open_decisions, list) else [],
     }
 
 
@@ -243,7 +265,7 @@ def _summarize_analyses(analyses: list) -> str:
 
 # ── Appel Claude Sonnet pour l'évaluation ────────────────────────────────────
 
-def _call_claude_bilan(journal: list, signals_summary: str, btc_weekly: dict, macro_weekly: dict | None = None) -> dict | None:
+def _call_claude_bilan(journal: list, signals_summary: str, btc_weekly: dict, macro_weekly: dict | None = None, open_decisions: list | None = None) -> dict | None:
     """Appel Claude Sonnet pour évaluer la semaine."""
     api_key = os.getenv("ANTHROPIC_API_KEY", "")
     if not api_key:
@@ -290,11 +312,27 @@ def _call_claude_bilan(journal: list, signals_summary: str, btc_weekly: dict, ma
                 )
             macro_str = "\n".join(macro_lines)
 
+        # Bloc décisions trading
+        decisions_str = ""
+        if open_decisions:
+            decisions_str = "\n\nDÉCISIONS DE TRADING CORTEX À ÉVALUER :\n"
+            for d in open_decisions:
+                decisions_str += (
+                    f"  - [{d.get('sector','').upper()}] {d.get('direction','?')} {d.get('ticker','?')} "
+                    f"(conviction {d.get('conviction_pct','?')}%) "
+                    f"— Prise le {d.get('decision_date','')} — {d.get('reasoning','')}\n"
+                )
+            decisions_str += (
+                "\nPour chaque décision, évalue si elle était correcte selon les mouvements "
+                "réels de la semaine. Calcule le PnL estimé si LONG/SHORT sur 1 semaine."
+            )
+
         user_prompt = (
             f"JOURNAL DE LA SEMAINE :\n{journal_text}\n\n"
             f"SIGNAUX ET PRÉDICTIONS :\n{signals_summary}\n"
             f"{btc_str}"
             f"{macro_str}"
+            f"{decisions_str}"
         )
 
         resp = client.messages.create(
@@ -516,8 +554,9 @@ async def run_weekly_bilan() -> None:
     logger.info(f"  {len(journal)} entrées journal, BTC {btc_weekly.get('change_pct','?')}%, macro: {macro_summary}")
 
     # 2. Évaluation Claude Sonnet
+    open_decisions = week_data.get("open_decisions", [])
     evaluation = await asyncio.to_thread(
-        _call_claude_bilan, journal, signals_summary, btc_weekly, macro_weekly
+        _call_claude_bilan, journal, signals_summary, btc_weekly, macro_weekly, open_decisions
     )
 
     if not evaluation:
@@ -530,7 +569,23 @@ async def run_weekly_bilan() -> None:
             "focus_semaine":  "Continue à répondre aux questions du matin pour activer l'apprentissage.",
         }
 
-    # 3. Sauvegarder les learnings
+    # 3. Sauvegarder les outcomes des décisions trading
+    decisions_bilan = evaluation.get("decisions_bilan", [])
+    if decisions_bilan and open_decisions:
+        from database.client import update_decision_outcome
+        decisions_by_ticker = {d.get("ticker", "").upper(): d for d in open_decisions}
+        for db in decisions_bilan:
+            ticker = db.get("ticker", "").upper()
+            if ticker in decisions_by_ticker:
+                orig = decisions_by_ticker[ticker]
+                await update_decision_outcome(
+                    decision_id=orig["id"],
+                    outcome=db.get("verdict", "NEUTRAL"),
+                    pnl_pct=db.get("pnl_pct"),
+                )
+        logger.info(f"Outcomes mis à jour : {len(decisions_bilan)} décisions évaluées")
+
+    # 3b. Sauvegarder les learnings
     await _save_learnings(evaluation)
     logger.info("Learnings sauvegardés dans agent_learnings")
 
