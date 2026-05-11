@@ -828,6 +828,243 @@ async def update_decision_outcome(
         return None
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# PAPER TRADING PORTFOLIOS
+# ══════════════════════════════════════════════════════════════════════════════
+
+def get_next_portfolio_code(portfolio_type: str) -> str:
+    """Génère le prochain code de portefeuille (PW1, PW2, PM1, PM3, PA1...)."""
+    prefix = {"weekly": "PW", "monthly": "PM", "annual": "PA"}.get(portfolio_type, "PX")
+    try:
+        client = get_supabase_client()
+        result = (
+            client.table("paper_portfolios")
+            .select("code")
+            .like("code", f"{prefix}%")
+            .order("created_at", desc=True)
+            .limit(1)
+            .execute()
+        )
+        if result.data:
+            last_num = int(result.data[0]["code"][len(prefix):])
+            return f"{prefix}{last_num + 1}"
+        return f"{prefix}1"
+    except Exception:
+        return f"{prefix}1"
+
+
+def save_portfolio(
+    portfolio_type: str,
+    rationale: str,
+    benchmark_start: float = None,
+) -> Optional[dict]:
+    """Crée un nouveau portefeuille fictif."""
+    from datetime import timedelta
+    horizon = {"weekly": 7, "monthly": 30, "annual": 365}[portfolio_type]
+    code = get_next_portfolio_code(portfolio_type)
+    today = datetime.now(timezone.utc).date()
+    end_date = today + timedelta(days=horizon)
+    try:
+        client = get_supabase_client()
+        result = client.table("paper_portfolios").insert({
+            "code":            code,
+            "portfolio_type":  portfolio_type,
+            "horizon_days":    horizon,
+            "initial_value":   1000.00,
+            "current_value":   1000.00,
+            "start_date":      today.isoformat(),
+            "end_date":        end_date.isoformat(),
+            "benchmark_start": benchmark_start,
+            "rationale":       rationale,
+            "status":          "active",
+        }).execute()
+        logger.info(f"Portfolio créé : {code} ({portfolio_type}, {today} → {end_date})")
+        return result.data[0] if result.data else None
+    except Exception as e:
+        logger.error(f"Erreur save_portfolio: {e}")
+        return None
+
+
+def save_position(
+    portfolio_id: str,
+    ticker: str,
+    asset_type: str,
+    allocation_pct: float,
+    allocation_usd: float,
+    entry_price: float,
+    quantity: float,
+    conviction: str,
+    reasoning: str,
+) -> Optional[dict]:
+    """Sauvegarde une position dans un portefeuille."""
+    try:
+        client = get_supabase_client()
+        result = client.table("paper_positions").insert({
+            "portfolio_id":   portfolio_id,
+            "ticker":         ticker,
+            "asset_type":     asset_type,
+            "direction":      "LONG",
+            "allocation_pct": allocation_pct,
+            "allocation_usd": allocation_usd,
+            "entry_price":    entry_price,
+            "current_price":  entry_price,
+            "quantity":       quantity,
+            "pnl_usd":        0,
+            "pnl_pct":        0,
+            "conviction":     conviction,
+            "reasoning":      reasoning,
+            "status":         "open",
+        }).execute()
+        return result.data[0] if result.data else None
+    except Exception as e:
+        logger.error(f"Erreur save_position [{ticker}]: {e}")
+        return None
+
+
+def get_active_portfolios() -> list:
+    """Retourne tous les portefeuilles actifs."""
+    try:
+        client = get_supabase_client()
+        result = (
+            client.table("paper_portfolios")
+            .select("*, paper_positions(*)")
+            .eq("status", "active")
+            .order("created_at", desc=False)
+            .execute()
+        )
+        return result.data or []
+    except Exception as e:
+        logger.error(f"Erreur get_active_portfolios: {e}")
+        return []
+
+
+def get_portfolio_by_code(code: str) -> Optional[dict]:
+    """Retourne un portefeuille par son code."""
+    try:
+        client = get_supabase_client()
+        result = (
+            client.table("paper_portfolios")
+            .select("*, paper_positions(*)")
+            .eq("code", code)
+            .limit(1)
+            .execute()
+        )
+        return result.data[0] if result.data else None
+    except Exception as e:
+        logger.error(f"Erreur get_portfolio_by_code [{code}]: {e}")
+        return None
+
+
+def update_position_price(
+    position_id: str,
+    current_price: float,
+    pnl_usd: float,
+    pnl_pct: float,
+) -> bool:
+    """Met à jour le prix courant d'une position."""
+    try:
+        client = get_supabase_client()
+        client.table("paper_positions").update({
+            "current_price": current_price,
+            "pnl_usd":       pnl_usd,
+            "pnl_pct":       pnl_pct,
+        }).eq("id", position_id).execute()
+        return True
+    except Exception as e:
+        logger.error(f"Erreur update_position_price [{position_id}]: {e}")
+        return False
+
+
+def update_portfolio_value(portfolio_id: str, current_value: float) -> bool:
+    """Met à jour la valeur totale d'un portefeuille."""
+    try:
+        client = get_supabase_client()
+        client.table("paper_portfolios").update({
+            "current_value": current_value,
+        }).eq("id", portfolio_id).execute()
+        return True
+    except Exception as e:
+        logger.error(f"Erreur update_portfolio_value: {e}")
+        return False
+
+
+def save_portfolio_snapshot(
+    portfolio_id: str,
+    snapshot_date: str,
+    portfolio_value: float,
+    sp500_value: float,
+    pnl_pct: float,
+    sp500_pnl_pct: float,
+) -> bool:
+    """Sauvegarde un snapshot quotidien du portefeuille."""
+    try:
+        client = get_supabase_client()
+        client.table("paper_snapshots").upsert({
+            "portfolio_id":    portfolio_id,
+            "snapshot_date":   snapshot_date,
+            "portfolio_value": portfolio_value,
+            "sp500_value":     sp500_value,
+            "pnl_pct":         pnl_pct,
+            "sp500_pnl_pct":   sp500_pnl_pct,
+        }, on_conflict="portfolio_id,snapshot_date").execute()
+        return True
+    except Exception as e:
+        logger.error(f"Erreur save_portfolio_snapshot: {e}")
+        return False
+
+
+def close_portfolio(
+    portfolio_id: str,
+    final_value: float,
+    benchmark_end: float,
+    pnl_pct: float,
+    benchmark_pnl_pct: float,
+) -> bool:
+    """Clôture un portefeuille en fin de période."""
+    beat = pnl_pct > benchmark_pnl_pct
+    try:
+        client = get_supabase_client()
+        client.table("paper_portfolios").update({
+            "status":             "closed",
+            "current_value":      final_value,
+            "benchmark_end":      benchmark_end,
+            "pnl_pct":            pnl_pct,
+            "benchmark_pnl_pct":  benchmark_pnl_pct,
+            "beat_sp500":         beat,
+            "closed_at":          datetime.now(timezone.utc).isoformat(),
+        }).eq("id", portfolio_id).execute()
+        client.table("paper_positions").update({
+            "status":    "closed",
+            "closed_at": datetime.now(timezone.utc).isoformat(),
+        }).eq("portfolio_id", portfolio_id).eq("status", "open").execute()
+        result = "BATTU" if beat else "SOUS-PERFORMÉ"
+        logger.info(f"Portfolio clôturé : {pnl_pct:+.1f}% vs S&P500 {benchmark_pnl_pct:+.1f}% → S&P500 {result}")
+        return True
+    except Exception as e:
+        logger.error(f"Erreur close_portfolio: {e}")
+        return False
+
+
+def get_portfolio_history(portfolio_type: str = None, limit: int = 10) -> list:
+    """Retourne l'historique des portefeuilles clôturés."""
+    try:
+        client = get_supabase_client()
+        q = (
+            client.table("paper_portfolios")
+            .select("code, portfolio_type, start_date, end_date, initial_value, current_value, pnl_pct, benchmark_pnl_pct, beat_sp500")
+            .eq("status", "closed")
+            .order("closed_at", desc=True)
+            .limit(limit)
+        )
+        if portfolio_type:
+            q = q.eq("portfolio_type", portfolio_type)
+        result = q.execute()
+        return result.data or []
+    except Exception as e:
+        logger.error(f"Erreur get_portfolio_history: {e}")
+        return []
+
+
 async def save_weekly_debrief(
     week_of: str,
     evaluation_json: dict,

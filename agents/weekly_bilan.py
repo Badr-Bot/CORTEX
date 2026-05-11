@@ -526,6 +526,17 @@ def _build_bilan_message(evaluation: dict, btc_weekly: dict, macro_weekly: dict 
         ]
 
     lines += [SEP]
+
+    # Portefeuilles paper trading
+    try:
+        from agents.portfolio_manager import get_portfolios_summary
+        pf_summary = get_portfolios_summary()
+        if pf_summary:
+            lines += ["", MED, "", pf_summary, ""]
+    except Exception as e:
+        logger.warning(f"Portfolio summary indisponible: {e}")
+
+    lines += [SEP]
     return "\n".join(lines)
 
 
