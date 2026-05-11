@@ -1,5 +1,5 @@
 """
-CORTEX — Agent SCOUT-MARKET v1
+CORTEX — Agent SCOUT-MARKET v3
 Collecte : dashboard marchés temps réel + signaux news macro
 
 Sources :

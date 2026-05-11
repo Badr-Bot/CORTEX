@@ -1,5 +1,5 @@
 """
-CORTEX — Crash Monitor v1
+CORTEX — Crash Monitor v3
 Indicateurs de risque systémique et précurseurs de crash boursier
 
 Sources gratuites (sans API key) :

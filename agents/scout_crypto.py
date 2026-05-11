@@ -1,5 +1,5 @@
 """
-CORTEX — Agent SCOUT-CRYPTO v1
+CORTEX — Agent SCOUT-CRYPTO v3
 Collecte : dashboard temps réel + signaux news crypto
 
 Sources :

@@ -1,9 +1,9 @@
-# CORTEX V1 — Mémoire du Projet
+# CORTEX V3 — Mémoire du Projet
 
 ## Architecture Générale
 
-CORTEX V1 est un système de veille quotidienne IA composé de :
-- **Backend Python** (Railway) : agents d'analyse, bot Telegram, scheduler
+CORTEX V3 est un système de veille quotidienne IA composé de :
+- **Backend Python** (GitHub Actions) : agents d'analyse, bot Telegram, cron schedulés
 - **Dashboard Next.js** (Vercel) : interface web de consultation des rapports
 
 ## Stack Technique
@@ -14,7 +14,7 @@ CORTEX V1 est un système de veille quotidienne IA composé de :
 - Groq (via GROQ_API_KEY)
 - Supabase (base de données)
 - Telegram Bot (via python-telegram-bot)
-- Railway pour le déploiement
+- GitHub Actions pour les tâches planifiées (gratuit)
 
 ### Dashboard (dashboard/)
 - Next.js 14.2.29 (App Router)
@@ -32,7 +32,7 @@ Tables principales (voir database/schema.sql) :
 
 ## Variables d'Environnement
 
-### Backend (Railway)
+### Backend (GitHub Actions secrets)
 - TELEGRAM_BOT_TOKEN
 - SUPABASE_URL
 - SUPABASE_SERVICE_KEY

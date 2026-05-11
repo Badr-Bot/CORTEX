@@ -1,5 +1,5 @@
 """
-CORTEX — Agent SCOUT-DEEPTECH v1
+CORTEX — Agent SCOUT-DEEPTECH v3
 Collecte : signaux deeptech (biotech, quantum, robotique, énergie, matériaux, espace)
 
 Sources :

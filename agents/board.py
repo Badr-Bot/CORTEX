@@ -1,5 +1,5 @@
 """
-CORTEX — DebateBoard v1
+CORTEX — DebateBoard v3
 
 Board multi-modeles : 3 IA gratuites debattent sur les signaux,
 Claude Sonnet arbitre et selectionne les 3-4 meilleurs.

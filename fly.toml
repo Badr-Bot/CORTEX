@@ -1,4 +1,4 @@
-app = "cortex-v1"
+app = "cortex-v3"
 primary_region = "cdg"
 
 [build]
