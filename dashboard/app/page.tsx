@@ -5,7 +5,7 @@ import CryptoSection from "@/components/CryptoSection"
 import MarketSection from "@/components/MarketSection"
 import QuestionPanel from "@/components/QuestionPanel"
 import SectionQuestionsPanel from "@/components/SectionQuestionsPanel"
-import PortfolioSection from "@/components/PortfolioSection"
+import PortfolioView from "@/components/PortfolioView"
 import type { ReportJSON, DailyReport, JournalEntry } from "@/lib/types"
 
 export const dynamic = 'force-dynamic'
@@ -227,7 +227,7 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
     )
   }
 
-  if (tab === "portefeuille") return <PortfolioSection />
+  if (tab === "portefeuille") return <PortfolioView />
 
   if (tab === "lexique") return <LexiqueSection />
 
@@ -305,7 +305,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
 
   // Contenu principal selon l'onglet actif et la disponibilité du rapport
   function MainContent() {
-    if (activeTab === "portefeuille") return <PortfolioSection />
+    if (activeTab === "portefeuille") return <PortfolioView />
     if (activeTab === "lexique") return <LexiqueSection />
 
     if (!hasReport) {
