@@ -6,7 +6,7 @@ import MarketSection from "@/components/MarketSection"
 import QuestionPanel from "@/components/QuestionPanel"
 import SectionQuestionsPanel from "@/components/SectionQuestionsPanel"
 import PortfolioSection from "@/components/PortfolioSection"
-import type { ReportJSON } from "@/lib/types"
+import type { ReportJSON, DailyReport, JournalEntry } from "@/lib/types"
 
 export const dynamic = 'force-dynamic'
 
@@ -144,32 +144,6 @@ const TAB_COLORS: Record<string, { active: string; dot: string; shadow: string }
   cyan:    { active: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40",       dot: "bg-cyan-400",    shadow: "shadow-[0_0_12px_rgba(6,182,212,0.3)]"    },
 }
 
-function EmptyState() {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <NavBar />
-      <main className="flex-1 flex items-center justify-center">
-        <div className="text-center space-y-6 animate-fade-in">
-          <div className="relative inline-block">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500/20 to-violet-500/20 border border-indigo-500/20 flex items-center justify-center mx-auto animate-float">
-              <span className="text-3xl">⚡</span>
-            </div>
-            <div className="absolute -inset-4 rounded-full border border-indigo-500/10 animate-ping opacity-30" />
-          </div>
-          <div>
-            <h1 className="text-white font-bold text-xl mb-2 gradient-text">Pas encore de rapport aujourd'hui</h1>
-            <p className="text-slate-500 text-sm font-mono">CORTEX génère le rapport à 06h00 chaque matin</p>
-          </div>
-          <div className="flex items-center justify-center gap-2 text-xs text-slate-600 font-mono">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/50 animate-pulse-glow" />
-            Système en veille
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/50 animate-pulse-glow" />
-          </div>
-        </div>
-      </main>
-    </div>
-  )
-}
 
 function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
   if (tab === "ai") {
@@ -275,92 +249,90 @@ interface PageProps {
   searchParams: { tab?: string }
 }
 
+function TabBar({ activeTab }: { activeTab: TabId }) {
+  return (
+    <div className="sticky top-14 z-40 bg-[#040408] border-b border-white/5">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex gap-2 overflow-x-auto scrollbar-hide">
+        {TABS.map((tab) => {
+          const isActive = activeTab === tab.id
+          const colors = TAB_COLORS[tab.color]
+          return (
+            <a
+              key={tab.id}
+              href={`/?tab=${tab.id}`}
+              className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 border ${
+                isActive
+                  ? `${colors.active} ${colors.shadow}`
+                  : "text-slate-500 border-transparent hover:text-slate-300 hover:bg-white/5"
+              }`}
+            >
+              <span className="text-base leading-none">{tab.icon}</span>
+              {tab.label}
+              {isActive && (
+                <span className={`w-1.5 h-1.5 rounded-full ${colors.dot} shadow-lg`} />
+              )}
+            </a>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 export default async function DashboardPage({ searchParams }: PageProps) {
-  let report = null
-  let journalEntry = null
+  const activeTab = (searchParams.tab as TabId) || "ai"
+
+  let report: DailyReport | null = null
+  let journalEntry: JournalEntry | null = null
+  let fetchError = false
+
   try {
     ;[report, journalEntry] = await Promise.all([
       getLatestReport(),
       getTodayJournal(),
     ])
   } catch {
-    return <EmptyState />
+    fetchError = true
   }
 
-  const activeTab = (searchParams.tab as TabId) || "ai"
+  const hasReport = !fetchError && !!report && !!report.report_json && Object.keys(report.report_json).length > 0
 
-  // Le tab Portfolio ne nécessite pas de rapport — toujours accessible
-  if (activeTab === "portefeuille") {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <NavBar />
-        <div className="sticky top-14 z-40 bg-[#040408] border-b border-white/5">
-          <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex gap-2 overflow-x-auto scrollbar-hide">
-            {TABS.map((tab) => {
-              const isActive = activeTab === tab.id
-              const colors = TAB_COLORS[tab.color]
-              return (
-                <a
-                  key={tab.id}
-                  href={`/?tab=${tab.id}`}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all whitespace-nowrap ${
-                    isActive ? `${colors.active} ${colors.shadow}` : "text-slate-500 border-transparent hover:text-slate-300"
-                  }`}
-                >
-                  {isActive && <span className={`w-1 h-1 rounded-full ${colors.dot}`} />}
-                  <span className="text-base leading-none">{tab.icon}</span>
-                  {tab.label}
-                </a>
-              )
-            })}
+  // Contenu principal selon l'onglet actif et la disponibilité du rapport
+  function MainContent() {
+    if (activeTab === "portefeuille") return <PortfolioSection />
+    if (activeTab === "lexique") return <LexiqueSection />
+
+    if (!hasReport) {
+      return (
+        <div className="flex-1 flex items-center justify-center py-24">
+          <div className="text-center space-y-6 animate-fade-in">
+            <div className="relative inline-block">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500/20 to-violet-500/20 border border-indigo-500/20 flex items-center justify-center mx-auto animate-float">
+                <span className="text-3xl">⚡</span>
+              </div>
+              <div className="absolute -inset-4 rounded-full border border-indigo-500/10 animate-ping opacity-30" />
+            </div>
+            <div>
+              <h1 className="text-white font-bold text-xl mb-2 gradient-text">
+                {fetchError ? "Connexion impossible" : "Pas encore de rapport aujourd'hui"}
+              </h1>
+              <p className="text-slate-500 text-sm font-mono">
+                {fetchError ? "Erreur de connexion à la base de données" : "CORTEX génère le rapport à 06h00 chaque matin"}
+              </p>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-xs text-slate-600 font-mono">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/50 animate-pulse-glow" />
+              Système en veille
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/50 animate-pulse-glow" />
+            </div>
           </div>
         </div>
-        <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6">
-          <PortfolioSection />
-        </main>
-      </div>
-    )
-  }
+      )
+    }
 
-  if (!report || !report.report_json || !Object.keys(report.report_json).length) {
-    return <EmptyState />
-  }
-
-  const json = report.report_json
-
-  return (
-    <div className="min-h-screen flex flex-col">
-      <NavBar />
-
-      {/* Tabs — collés sous NavBar, sticky ensemble, rien ne passe entre les deux */}
-      <div className="sticky top-14 z-40 bg-[#040408] border-b border-white/5">
-        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex gap-2 overflow-x-auto scrollbar-hide">
-          {TABS.map((tab) => {
-            const isActive = activeTab === tab.id
-            const colors = TAB_COLORS[tab.color]
-            return (
-              <a
-                key={tab.id}
-                href={`/?tab=${tab.id}`}
-                className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 border ${
-                  isActive
-                    ? `${colors.active} ${colors.shadow}`
-                    : "text-slate-500 border-transparent hover:text-slate-300 hover:bg-white/5"
-                }`}
-              >
-                <span className="text-base leading-none">{tab.icon}</span>
-                {tab.label}
-                {isActive && (
-                  <span className={`w-1.5 h-1.5 rounded-full ${colors.dot} shadow-lg`} />
-                )}
-              </a>
-            )
-          })}
-        </div>
-      </div>
-
-      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6">
-
+    const json = report!.report_json
+    return (
+      <>
         {/* Hero header */}
         <div className="animate-slide-up space-y-4">
           <div className="flex items-start justify-between gap-4">
@@ -372,11 +344,11 @@ export default async function DashboardPage({ searchParams }: PageProps) {
               <h1 className="text-2xl font-bold text-white leading-tight">
                 ☀️ Rapport du <span className="gradient-text">matin</span>
               </h1>
-              <p className="text-slate-500 text-sm mt-1 font-mono">{formatDate(report.report_date)}</p>
+              <p className="text-slate-500 text-sm mt-1 font-mono">{formatDate(report!.report_date)}</p>
             </div>
             <div className="text-right shrink-0">
               <div className="glass rounded-xl px-4 py-2.5 border border-indigo-500/20">
-                <div className="text-2xl font-bold font-mono gradient-text">{report.signals_count}</div>
+                <div className="text-2xl font-bold font-mono gradient-text">{report!.signals_count}</div>
                 <div className="text-[10px] text-slate-500 uppercase tracking-wider">signaux</div>
               </div>
             </div>
@@ -389,24 +361,32 @@ export default async function DashboardPage({ searchParams }: PageProps) {
           <SectorContent tab={activeTab} report={json} />
         </div>
 
-        {/* Questions par section avec champs de réponse */}
-        {activeTab !== "lexique" && (() => {
+        {/* Questions par section */}
+        {(() => {
           const qs = getSectionQuestions(activeTab, json)
           return qs.length > 0 ? (
-            <SectionQuestionsPanel tab={activeTab} questions={qs} reportDate={report.report_date} />
+            <SectionQuestionsPanel tab={activeTab} questions={qs} reportDate={report!.report_date} />
           ) : null
         })()}
 
-        {/* Question du matin — uniquement sur l'onglet Nexus */}
+        {/* Question du matin — uniquement sur Nexus */}
         {json.nexus?.question && activeTab === "nexus" && (
           <QuestionPanel
             question={json.nexus.question}
-            reportDate={report.report_date}
+            reportDate={report!.report_date}
             existingResponse={journalEntry?.your_response}
           />
         )}
+      </>
+    )
+  }
 
-        {/* Footer */}
+  return (
+    <div className="min-h-screen flex flex-col">
+      <NavBar />
+      <TabBar activeTab={activeTab} />
+      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6">
+        <MainContent />
         <div className="pt-4 pb-8 flex items-center justify-center gap-3 text-[10px] text-slate-700 font-mono">
           <span className="w-8 h-px bg-slate-800" />
           CORTEX INTELLIGENCE SYSTEM
