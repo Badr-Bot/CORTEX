@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server"
 
+export const dynamic = 'force-dynamic'
+
 const STOCK_TICKERS = ["NVDA", "GOOGL", "MSFT", "META", "PDD"]
 const CRYPTO_IDS = "bitcoin,ethereum,solana"
 
