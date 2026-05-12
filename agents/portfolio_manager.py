@@ -124,7 +124,7 @@ async def _load_full_context() -> dict:
         learnings_crypto,
         learnings_market,
     ) = await asyncio.gather(
-        asyncio.to_thread(get_week_analyses, "ai", days=3),
+        get_week_analyses(days_back=3),
         get_open_decisions(days_back=30),
         asyncio.to_thread(get_portfolio_history, "weekly", 5),
         asyncio.to_thread(get_portfolio_history, "monthly", 5),
