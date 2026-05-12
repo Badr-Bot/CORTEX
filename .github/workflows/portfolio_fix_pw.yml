@@ -1,0 +1,68 @@
+name: CORTEX — Fix PW vide (recréer weekly $1000)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Supprimer PW vides et recréer
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: |
+          python -c "
+          import asyncio
+          from database.client import get_supabase_client
+          from agents.portfolio_manager import create_portfolio
+
+          async def fix_pw():
+              sb = get_supabase_client()
+
+              # Supprimer tous les PW sans positions (broken)
+              broken = (
+                  sb.table('paper_portfolios')
+                  .select('id, code, current_value')
+                  .eq('portfolio_type', 'weekly')
+                  .eq('status', 'active')
+                  .execute()
+              )
+              for p in (broken.data or []):
+                  positions = (
+                      sb.table('paper_positions')
+                      .select('id')
+                      .eq('portfolio_id', p['id'])
+                      .execute()
+                  )
+                  if not positions.data:
+                      print(f'Suppression {p[\"code\"]} (0 positions)')
+                      sb.table('paper_portfolios').delete().eq('id', p['id']).execute()
+
+              # Créer un nouveau weekly
+              result = await create_portfolio('weekly')
+              if result:
+                  print(f'Nouveau PW créé : {result[\"code\"]}')
+              else:
+                  print('Echec création PW')
+
+          asyncio.run(fix_pw())
+          "
