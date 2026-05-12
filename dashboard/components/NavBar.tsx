@@ -145,8 +145,6 @@ export default function NavBar() {
         </div>
       </nav>
 
-      {/* Spacer pour éviter que le contenu soit caché par la nav mobile */}
-      <div className="md:hidden h-16" />
     </>
   )
 }

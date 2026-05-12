@@ -251,8 +251,10 @@ interface PageProps {
 
 function TabBar({ activeTab }: { activeTab: TabId }) {
   return (
-    <div className="sticky top-14 z-40 bg-[#040408] border-b border-white/5">
-      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex gap-2 overflow-x-auto scrollbar-hide">
+    <div className="sticky top-14 z-40 glass-strong border-b border-indigo-500/10">
+      {/* Ligne de séparation subtile avec le header */}
+      <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/15 to-transparent" />
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex gap-1 overflow-x-auto scrollbar-hide">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id
           const colors = TAB_COLORS[tab.color]
@@ -260,16 +262,20 @@ function TabBar({ activeTab }: { activeTab: TabId }) {
             <a
               key={tab.id}
               href={`/?tab=${tab.id}`}
-              className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 border ${
+              className={`flex-shrink-0 relative flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-all duration-200 border whitespace-nowrap ${
                 isActive
                   ? `${colors.active} ${colors.shadow}`
-                  : "text-slate-500 border-transparent hover:text-slate-300 hover:bg-white/5"
+                  : "text-slate-500 border-transparent hover:text-slate-300 hover:bg-white/[0.06]"
               }`}
             >
-              <span className="text-base leading-none">{tab.icon}</span>
+              <span className="text-sm leading-none">{tab.icon}</span>
               {tab.label}
               {isActive && (
-                <span className={`w-1.5 h-1.5 rounded-full ${colors.dot} shadow-lg`} />
+                <>
+                  <span className={`w-1 h-1 rounded-full ${colors.dot} shadow-sm`} />
+                  {/* Underline glow sur l'onglet actif */}
+                  <span className={`absolute bottom-0 left-2 right-2 h-px rounded-full ${colors.dot} opacity-50`} />
+                </>
               )}
             </a>
           )
@@ -385,7 +391,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
     <div className="min-h-screen flex flex-col">
       <NavBar />
       <TabBar activeTab={activeTab} />
-      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-6 pb-24 md:pb-6 space-y-4 sm:space-y-6">
         <MainContent />
         <div className="pt-4 pb-8 flex items-center justify-center gap-3 text-[10px] text-slate-700 font-mono">
           <span className="w-8 h-px bg-slate-800" />
