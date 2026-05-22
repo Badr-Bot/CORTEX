@@ -1,0 +1,135 @@
+name: CORTEX — Explication système
+on:
+  workflow_dispatch:
+
+jobs:
+  explain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Envoyer explication CORTEX
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          pip install python-telegram-bot==21.0.1 -q
+
+          python3 << 'PYEOF'
+          import asyncio, os
+          from telegram import Bot
+
+          TOKEN   = os.environ["TELEGRAM_BOT_TOKEN"]
+          CHAT_ID = int(os.environ["TELEGRAM_CHAT_ID"])
+
+          MESSAGES = [
+
+          """🧠 *CORTEX — Comment ça fonctionne (1/5)*
+*Vue d'ensemble*
+
+CORTEX est ton système d'intelligence quotidienne automatisé.
+Chaque matin à 06h00, il :
+
+1️⃣ Collecte des centaines de signaux (news IA, crypto, marchés, science)
+2️⃣ Les filtre via un débat entre plusieurs IA gratuites
+3️⃣ Fait analyser les meilleurs par Claude
+4️⃣ Te génère un briefing structuré sur Telegram
+
+Il tourne 100% en autonome sur GitHub Actions — tu n'as rien à faire.
+
+Les workflows actifs :
+• Rapport du matin — tous les jours à 06h00
+• Alertes marchés — toutes les 30 minutes (24h/24)
+• Portfolio update — chaque soir à 18h00
+• Bilan hebdo — dimanche soir""",
+
+          """📡 *CORTEX — Les Scouts (2/5)*
+*Étape 1 : Collecte des signaux*
+
+5 agents "Scout" collectent en parallèle :
+
+🤖 *Scout IA* — Médias tech (TechCrunch, MIT Review, OpenAI Blog, DeepMind, AWS...) → ~30 articles
+📊 *Scout Marché* — S&P, VIX, earnings, insider trades, secteurs → données temps réel
+₿ *Scout Crypto* — News crypto/blockchain, prix BTC, Fear & Greed, flux exchange
+🔬 *Scout DeepTech* — arXiv (40+ papiers), GitHub Trending, HackerNews, HuggingFace
+⚡ *Scout Faibles Signaux* — Reddit (r/MachineLearning, r/LocalLLaMA...), tweets des titans IA, papiers arXiv
+
+En plus : un *Crash Monitor* (score sur 10) surveille le risque de crash via yield curve, VIX, spreads obligataires.
+
+Résultat : ~200-250 signaux bruts collectés en 20 secondes.""",
+
+          """⚖️ *CORTEX — Le Board (3/5)*
+*Étape 2 : Le débat multi-IA (c'est ici que la magie opère)*
+
+Les 200+ signaux sont d'abord pré-filtrés par Groq (Llama 3.3) : 200 → 12 signaux par secteur.
+
+Ensuite, *3 IA gratuites débattent en 2 rounds* pour chaque secteur (IA, Crypto, Marché, DeepTech) :
+
+*Round 1 — Plaidoirie* :
+• Llama 3.3 70B (Groq) vote ses 3 meilleurs signaux + justification
+• Gemma 2 (Groq) vote ses 3 meilleurs + justification
+
+*Round 2 — Débat* :
+• Chaque modèle lit les picks des autres
+• Il "soutient" ou "challenge" les choix adverses avec des arguments
+
+*Arbitrage* :
+• Claude lit tout le débat complet
+• Il sélectionne les 3-4 signaux les plus robustes (consensus fort + meilleurs arguments)
+
+Résultat : 12 signaux → 3-4 signaux par secteur, les plus solides. Tout ça GRATUITEMENT via les IA open-source.""",
+
+          """✍️ *CORTEX — L'Analyse (4/5)*
+*Étape 3 : Rédaction par Claude*
+
+Une fois les meilleurs signaux sélectionnés, Claude Haiku analyse chaque secteur en parallèle :
+
+🤖 *Section IA* — Analyse les 3-4 signaux IA retenus, identifie les implications business et technologiques
+
+₿ *Section Crypto* — Direction marché (BULLISH/BEARISH), analyse on-chain, risques
+
+📈 *Section Marché* — Régime (BULL/BEAR/NEUTRE), indicateurs macro FRED (Fed, inflation, taux)
+
+🔬 *Section DeepTech* — Percées scientifiques, papiers à surveiller, implications futures
+
+Puis *Claude Sonnet* génère le *NEXUS* — la connexion cross-sectorielle :
+↳ Y a-t-il un signal commun entre l'IA, la crypto et les marchés ?
+↳ Une question stratégique à te poser pour orienter tes décisions
+
+Résultat : 5 messages Telegram structurés, avec données temps réel et analyses.""",
+
+          """💰 *CORTEX — Coûts & Architecture (5/5)*
+*Ce que ça coûte et comment c'est optimisé*
+
+*Coûts mensuels :*
+• Claude Haiku (analyses) : ~$1.50/mois
+• Claude Sonnet (NEXUS uniquement) : ~$1.00/mois
+• Groq (Llama, Gemma, pré-filtre) : 0€ — gratuit
+• Gemini Flash (board) : 0€ — gratuit
+• GitHub Actions : 0€ — gratuit (repo public)
+• Supabase (base données) : 0€ — free tier
+• *TOTAL : ~3-5€/mois*
+
+*L'intelligence principale est gratuite.*
+Le board (Groq/Llama) fait le vrai travail de sélection.
+Claude ne rédige que depuis des signaux déjà triés.
+
+*Ce que tu peux faire avec CORTEX :*
+• Recevoir le rapport automatiquement chaque matin
+• Consulter ton dashboard web
+• Gérer tes paper portfolios (PW/PM/PA)
+• Taper /rapport pour relire le dernier rapport
+• Taper /help pour toutes les commandes
+
+*CORTEX tourne 24h/24, 7j/7, sans intervention.*
+🚀"""
+
+          ]
+
+          async def main():
+              bot = Bot(token=TOKEN)
+              for msg in MESSAGES:
+                  await bot.send_message(chat_id=CHAT_ID, text=msg, parse_mode="Markdown")
+                  await asyncio.sleep(1)
+              print("Explication envoyée ✅")
+
+          asyncio.run(main())
+          PYEOF

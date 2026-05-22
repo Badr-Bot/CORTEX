@@ -365,7 +365,7 @@ async def analyze_ai(signals: list[dict]) -> dict:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux IA collectés :\n\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_AI)
+    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_AI, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -567,7 +567,7 @@ async def analyze_crypto(data: dict) -> dict:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_CRYPTO)
+    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_CRYPTO, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "score" not in result:
@@ -779,7 +779,7 @@ async def analyze_market(data: dict) -> dict:
         user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_MARKET)
+    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_MARKET, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "recession_indicators" not in result:
@@ -926,7 +926,7 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
         user_prompt += f"{history_ctx}\n\n"
     user_prompt += f"Voici {len(signals)} signaux deeptech collectés :\n\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=5000, system_prompt=_SYSTEM_DEEPTECH)
+    raw = _call_claude(user_prompt, max_tokens=5000, system_prompt=_SYSTEM_DEEPTECH, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -1095,7 +1095,7 @@ async def generate_nexus(
         f"Détail : {top_fait[:300]}"
     )
 
-    raw = _call_claude(user_prompt, max_tokens=1200, system_prompt=_SYSTEM_NEXUS, model="claude-haiku-4-5-20251001")
+    raw = _call_claude(user_prompt, max_tokens=1200, system_prompt=_SYSTEM_NEXUS, model="claude-sonnet-4-6")
     result = _parse_json(raw)
 
     if not result or "question" not in result:
