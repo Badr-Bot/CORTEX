@@ -5,11 +5,11 @@ Board multi-modeles : 3 IA gratuites debattent sur les signaux,
 Claude Sonnet arbitre et selectionne les 3-4 meilleurs.
 
 Pipeline :
-  Round 1 — Plaidoirie  : Llama 3.3 + Gemma 2 (Groq) + Gemini 1.5 Pro (Google)
+  Round 1 — Plaidoirie  : Llama 3.3 + Gemma 2 (Groq) + Gemini 2.0 Flash (Google)
   Round 2 — Debat       : chaque modele soutient ou challenge les picks des autres
   Arbitrage             : Claude Sonnet lit tout le debat et selectionne 3-4 finaux
 
-Modeles gratuits : Llama 3.3 70B + Gemma 2 9B (GROQ_API_KEY) + Gemini 1.5 Pro (GEMINI_API_KEY)
+Modeles gratuits : Llama 3.3 70B + Gemma 2 9B (GROQ_API_KEY) + Gemini 2.0 Flash (GEMINI_API_KEY)
 Arbitre payant   : Claude Sonnet (ANTHROPIC_API_KEY)
 """
 
@@ -40,9 +40,8 @@ def _get_gemini():
     if not key:
         return None
     try:
-        import google.generativeai as genai
-        genai.configure(api_key=key)
-        return genai.GenerativeModel("gemini-1.5-pro")
+        from google import genai
+        return genai.Client(api_key=key)
     except Exception as e:
         logger.warning(f"Gemini init echec: {e}")
         return None
@@ -184,14 +183,14 @@ def _call_groq(prompt: str, model: str) -> dict | None:
 
 
 def _call_gemini(prompt: str) -> dict | None:
-    model = _get_gemini()
-    if not model:
+    client = _get_gemini()
+    if not client:
         return None
     try:
-        resp = model.generate_content(prompt)
+        resp = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
         return _extract_json(resp.text)
     except Exception as e:
-        logger.warning(f"Gemini Pro echec: {e}")
+        logger.warning(f"Gemini Flash echec: {e}")
         return None
 
 

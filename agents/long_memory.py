@@ -1,5 +1,5 @@
 """
-CORTEX — Long-Term Memory System (Gemini Pro)
+CORTEX — Long-Term Memory System (Gemini 2.0 Flash)
 Mémoire longue durée en 3 niveaux :
 
   Niveau 1 — Compressions hebdomadaires
@@ -45,7 +45,7 @@ _gemini_model = None
 
 
 def _get_gemini():
-    """Retourne une instance GenerativeModel Gemini Pro, ou None si indisponible."""
+    """Retourne un client Gemini (google.genai), ou None si indisponible."""
     global _gemini_model
     if _gemini_model is not None:
         return _gemini_model
@@ -54,19 +54,12 @@ def _get_gemini():
         logger.warning("GEMINI_API_KEY absent — long memory Gemini désactivé")
         return None
     try:
-        import google.generativeai as genai
-        genai.configure(api_key=key)
-        _gemini_model = genai.GenerativeModel(
-            model_name="gemini-1.5-pro",
-            generation_config={
-                "temperature": 0,
-                "max_output_tokens": 1024,
-            },
-        )
-        logger.info("Gemini Pro (long_memory) initialisé")
+        from google import genai
+        _gemini_model = genai.Client(api_key=key)
+        logger.info("Gemini Flash (long_memory) initialisé")
         return _gemini_model
     except Exception as e:
-        logger.warning(f"Gemini Pro init échoué: {e}")
+        logger.warning(f"Gemini init échoué: {e}")
         return None
 
 
@@ -91,20 +84,16 @@ async def _embed(text: str) -> list[float] | None:
     Génère un vecteur d'embedding (768 dims) via Gemini text-embedding-004.
     Gratuit, robuste, compatible pgvector.
     """
-    key = os.getenv("GEMINI_API_KEY", "")
-    if not key:
+    client = _get_gemini()
+    if not client:
         return None
     try:
-        import google.generativeai as genai
-        genai.configure(api_key=key)
-
         def _do_embed():
-            result = genai.embed_content(
-                model="models/text-embedding-004",
-                content=text[:2000],
-                task_type="RETRIEVAL_DOCUMENT",
+            result = client.models.embed_content(
+                model="text-embedding-004",
+                contents=text[:2000],
             )
-            return result["embedding"]
+            return result.embeddings[0].values
 
         embedding = await asyncio.to_thread(_do_embed)
         return embedding
@@ -181,7 +170,7 @@ async def compress_week(week_of: str, sector: str, analyses: list[dict]) -> str 
 
     try:
         def _do_call():
-            resp = client.generate_content(prompt)
+            resp = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
             return resp.text.strip()
 
         summary = await asyncio.to_thread(_do_call)
@@ -319,7 +308,7 @@ async def extract_patterns_from_bilan(bilan_data: dict, week_of: str) -> list[di
 
     try:
         def _do_call():
-            resp = client.generate_content(prompt)
+            resp = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
             return resp.text.strip()
 
         raw = await asyncio.to_thread(_do_call)
