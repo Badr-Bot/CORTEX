@@ -703,7 +703,14 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         except Exception as e:
             logger.error(f"Erreur notification Telegram: {e}")
 
-    # ── Enregistrement dedup + Sauvegarde Supabase ───────────────────────────
+    # ── Sauvegarde contexte + Enregistrement dedup ───────────────────────────
+    try:
+        from agents.context import save_daily
+        save_daily(ai_analyzed, crypto_analyzed, market_analyzed, deeptech_analyzed)
+        logger.info("Contexte journalier sauvegardé ✅")
+    except Exception as e:
+        logger.warning(f"Sauvegarde contexte échouée (non bloquant): {e}")
+
     all_signals = (
         ai_analyzed.get("signals", []) +
         crypto_analyzed.get("signals", []) +

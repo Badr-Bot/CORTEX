@@ -321,51 +321,25 @@ Règles absolues :
 
 async def analyze_ai(signals: list[dict]) -> dict:
     """
-    Sélectionne les 3 meilleurs signaux IA et génère l'analyse complète.
     Pipeline : Groq (→12) → Board débat (→4) → Claude Sonnet deep analysis.
     """
     if not signals:
         return _fallback_ai([])
 
-    # Étape 1 : Groq pré-filtre → 12
     signals = _prefilter_with_groq(signals, sector="AI/tech", max_count=12)
-    # Étape 2 : Board débat → 4 signaux par consensus
     from agents.board import run_debate
     signals = await run_debate(signals, sector="Intelligence Artificielle")
 
-    from agents.memory import get_sector_history, format_ai_history, save_analysis
-    from agents.long_memory import (
-        get_all_weekly_summaries, get_all_patterns, semantic_search,
-        format_long_memory_context, embed_and_save,
-    )
-    from agents.memory import get_agent_learnings, format_learnings_context
+    from agents.context import load_context
+    context    = _prep_signals(signals, 15)
+    ctx_str    = load_context(sector="ai", days=14)
 
-    context = _prep_signals(signals, 15)
-
-    # Charger toute la mémoire en parallèle
-    history, summaries, patterns, learnings = await asyncio.gather(
-        get_sector_history("ai", days=7),
-        get_all_weekly_summaries("ai", limit=8),
-        get_all_patterns("ai"),
-        get_agent_learnings("ai", limit=5),
-    )
-    similar = await semantic_search(context[:600], "ai", top_k=3)
-
-    history_ctx  = format_ai_history(history)
-    long_ctx     = format_long_memory_context(summaries, patterns, similar)
-    learnings_ctx = format_learnings_context(learnings, "IA")
-
-    # Partie dynamique (signaux + mémoire — non mise en cache)
     user_prompt = ""
-    if long_ctx:
-        user_prompt += f"{long_ctx}\n\n"
-    if learnings_ctx:
-        user_prompt += f"{learnings_ctx}\n\n"
-    if history_ctx:
-        user_prompt += f"{history_ctx}\n\n"
+    if ctx_str:
+        user_prompt += f"{ctx_str}\n\n"
     user_prompt += f"Voici {len(signals)} signaux IA collectés :\n\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_AI, model="claude-haiku-4-5-20251001")
+    raw    = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_AI, model="claude-sonnet-4-6")
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -373,19 +347,6 @@ async def analyze_ai(signals: list[dict]) -> dict:
         return _fallback_ai(signals[:3])
 
     logger.info(f"analyze_ai: {len(result.get('signals', []))} signaux analysés")
-    today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
-    save_tasks = [save_analysis("ai", result), embed_and_save(today, "ai", result)]
-    decision = result.get("decision")
-    if decision and decision.get("ticker"):
-        from database.client import save_trading_decision
-        save_tasks.append(save_trading_decision(
-            sector="ai", ticker=decision["ticker"],
-            direction=decision.get("direction", "WATCH"),
-            horizon=decision.get("horizon", ""),
-            conviction_pct=int(decision.get("conviction_pct", 50)),
-            reasoning=decision.get("reasoning", ""),
-        ))
-    await asyncio.gather(*save_tasks)
     return result
 
 
@@ -513,38 +474,18 @@ Règles absolues :
 
 async def analyze_crypto(data: dict) -> dict:
     """
-    Analyse le marché crypto : phase du cycle, score de direction, signaux.
-    Groq pré-filtre les signaux bruts → top 12 avant envoi à Claude Sonnet.
+    Pipeline : Groq (→12) → Board débat (→4) → Claude Sonnet deep analysis.
     data = {dashboard: dict, signals: list}
     """
     dashboard = data.get("dashboard", {})
     signals   = data.get("signals", [])
-    # Étape 1 : Groq pré-filtre → 12
     signals   = _prefilter_with_groq(signals, sector="crypto/blockchain", max_count=12)
-    # Étape 2 : Board débat → 4
     from agents.board import run_debate
     signals   = await run_debate(signals, sector="Crypto & Web3")
     context   = _prep_signals(signals, 12)
 
-    from agents.memory import get_sector_history, format_crypto_history, save_analysis as _save
-    from agents.long_memory import (
-        get_all_weekly_summaries, get_all_patterns, semantic_search,
-        format_long_memory_context, embed_and_save,
-    )
-    from agents.memory import get_agent_learnings, format_learnings_context
-
-    # Charger toute la mémoire en parallèle
-    history, summaries, patterns, learnings = await asyncio.gather(
-        get_sector_history("crypto", days=7),
-        get_all_weekly_summaries("crypto", limit=8),
-        get_all_patterns("crypto"),
-        get_agent_learnings("crypto", limit=5),
-    )
-    similar = await semantic_search(context[:600], "crypto", top_k=3)
-
-    history_ctx   = format_crypto_history(history)
-    long_ctx      = format_long_memory_context(summaries, patterns, similar)
-    learnings_ctx = format_learnings_context(learnings, "Crypto")
+    from agents.context import load_context
+    ctx_str = load_context(sector="crypto", days=14)
 
     dash_str = (
         f"BTC Prix     : ${dashboard.get('btc_price', 'N/A'):,} "
@@ -558,16 +499,12 @@ async def analyze_crypto(data: dict) -> dict:
     )
 
     user_prompt = ""
-    if long_ctx:
-        user_prompt += f"{long_ctx}\n\n"
-    if learnings_ctx:
-        user_prompt += f"{learnings_ctx}\n\n"
+    if ctx_str:
+        user_prompt += f"{ctx_str}\n\n"
     user_prompt += "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
-    if history_ctx:
-        user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_CRYPTO, model="claude-haiku-4-5-20251001")
+    raw    = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_CRYPTO, model="claude-sonnet-4-6")
     result = _parse_json(raw)
 
     if not result or "score" not in result:
@@ -579,19 +516,6 @@ async def analyze_crypto(data: dict) -> dict:
         f"analyze_crypto: direction={result.get('direction')}, "
         f"{len(result.get('signals', []))} signaux"
     )
-    today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
-    save_tasks = [_save("crypto", result), embed_and_save(today, "crypto", result)]
-    decision = result.get("decision")
-    if decision and decision.get("ticker"):
-        from database.client import save_trading_decision
-        save_tasks.append(save_trading_decision(
-            sector="crypto", ticker=decision["ticker"],
-            direction=decision.get("direction", "WATCH"),
-            horizon=decision.get("horizon", ""),
-            conviction_pct=int(decision.get("conviction_pct", 50)),
-            reasoning=decision.get("reasoning", ""),
-        ))
-    await asyncio.gather(*save_tasks)
     return result
 
 
@@ -686,37 +610,18 @@ Règles absolues :
 
 async def analyze_market(data: dict) -> dict:
     """
-    Analyse les marchés : score récession, régime, signaux macro.
-    Groq pré-filtre les signaux bruts → top 12 avant envoi à Claude Sonnet.
+    Pipeline : Groq (→12) → Board débat (→4) → Claude Sonnet deep analysis.
     data = {dashboard: dict, signals: list}
     """
     dashboard = data.get("dashboard", {})
     signals   = data.get("signals", [])
-    # Étape 1 : Groq pré-filtre → 12
     signals   = _prefilter_with_groq(signals, sector="macro/markets/finance", max_count=12)
-    # Étape 2 : Board débat → 4
     from agents.board import run_debate
     signals   = await run_debate(signals, sector="Marchés & Macro")
     context   = _prep_signals(signals, 12)
 
-    from agents.memory import get_sector_history, format_market_history, save_analysis as _save_mkt
-    from agents.long_memory import (
-        get_all_weekly_summaries, get_all_patterns, semantic_search,
-        format_long_memory_context, embed_and_save,
-    )
-    from agents.memory import get_agent_learnings, format_learnings_context
-
-    history, summaries, patterns, learnings = await asyncio.gather(
-        get_sector_history("market", days=7),
-        get_all_weekly_summaries("market", limit=8),
-        get_all_patterns("market"),
-        get_agent_learnings("market", limit=5),
-    )
-    similar = await semantic_search(context[:600], "market", top_k=3)
-
-    history_ctx   = format_market_history(history)
-    long_ctx      = format_long_memory_context(summaries, patterns, similar)
-    learnings_ctx = format_learnings_context(learnings, "Marchés")
+    from agents.context import load_context
+    ctx_str = load_context(sector="market", days=14)
 
     def _fmt(key: str) -> str:
         d = dashboard.get(key, {})
@@ -740,7 +645,6 @@ async def analyze_market(data: dict) -> dict:
         f"({dashboard.get('us_10y', {}).get('change_bps', 'N/A')})"
     )
 
-    # Données FRED macro
     fred = dashboard.get("fred", {})
     fred_lines = []
     if fred.get("yield_curve_10y2y"):
@@ -761,25 +665,19 @@ async def analyze_market(data: dict) -> dict:
     if fred.get("hy_spread"):
         d = fred["hy_spread"]
         fred_lines.append(f"HY credit spread : {d['value']:.2f}% ({'+' if d['change']>=0 else ''}{d['change']:.3f}%)")
-
     fed_watch = dashboard.get("fed_watch", {})
     if fed_watch.get("fed_hold_prob") is not None:
         fred_lines.append(f"CME FedWatch : {fed_watch['fed_hold_prob']}% maintien / {fed_watch['fed_cut_prob']}% baisse")
-
     fred_str = "\n".join(fred_lines) if fred_lines else "FRED data indisponible"
 
     user_prompt = ""
-    if long_ctx:
-        user_prompt += f"{long_ctx}\n\n"
-    if learnings_ctx:
-        user_prompt += f"{learnings_ctx}\n\n"
+    if ctx_str:
+        user_prompt += f"{ctx_str}\n\n"
     user_prompt += "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
     user_prompt += f"\n\nINDICATEURS MACRO FRED (données officielles US) :\n{fred_str}"
-    if history_ctx:
-        user_prompt += f"\n\n{history_ctx}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_MARKET, model="claude-haiku-4-5-20251001")
+    raw    = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_MARKET, model="claude-sonnet-4-6")
     result = _parse_json(raw)
 
     if not result or "recession_indicators" not in result:
@@ -791,19 +689,6 @@ async def analyze_market(data: dict) -> dict:
         f"analyze_market: régime={result.get('regime')}, "
         f"récession={result.get('recession_score')}/10"
     )
-    today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
-    save_tasks = [_save_mkt("market", result), embed_and_save(today, "market", result)]
-    decision = result.get("decision")
-    if decision and decision.get("ticker"):
-        from database.client import save_trading_decision
-        save_tasks.append(save_trading_decision(
-            sector="market", ticker=decision["ticker"],
-            direction=decision.get("direction", "WATCH"),
-            horizon=decision.get("horizon", ""),
-            conviction_pct=int(decision.get("conviction_pct", 50)),
-            reasoning=decision.get("reasoning", ""),
-        ))
-    await asyncio.gather(*save_tasks)
     return result
 
 
@@ -884,49 +769,25 @@ Règles absolues :
 
 async def analyze_deeptech(signals: list[dict]) -> dict:
     """
-    Sélectionne les 2 meilleurs signaux deeptech et génère l'analyse complète.
-    Groq pré-filtre les signaux bruts → top 10 avant envoi à Claude Sonnet.
+    Pipeline : Groq (→10) → Board débat (→4) → Claude Sonnet deep analysis.
     """
     if not signals:
         return {"signals": []}
 
-    # Étape 1 : Groq pré-filtre → 10
     signals = _prefilter_with_groq(signals, sector="deeptech/science/research", max_count=10)
-    # Étape 2 : Board débat → 4
     from agents.board import run_debate
     signals = await run_debate(signals, sector="DeepTech & Science")
 
-    from agents.memory import get_sector_history, format_deeptech_history, save_analysis as _save_dt
-    from agents.long_memory import (
-        get_all_weekly_summaries, get_all_patterns, semantic_search,
-        format_long_memory_context, embed_and_save,
-    )
-    from agents.memory import get_agent_learnings, format_learnings_context
-
+    from agents.context import load_context
     context = _prep_signals(signals, 10)
-
-    history, summaries, patterns, learnings = await asyncio.gather(
-        get_sector_history("deeptech", days=7),
-        get_all_weekly_summaries("deeptech", limit=8),
-        get_all_patterns("deeptech"),
-        get_agent_learnings("deeptech", limit=5),
-    )
-    similar = await semantic_search(context[:600], "deeptech", top_k=3)
-
-    history_ctx   = format_deeptech_history(history)
-    long_ctx      = format_long_memory_context(summaries, patterns, similar)
-    learnings_ctx = format_learnings_context(learnings, "DeepTech")
+    ctx_str = load_context(sector="deeptech", days=14)
 
     user_prompt = ""
-    if long_ctx:
-        user_prompt += f"{long_ctx}\n\n"
-    if learnings_ctx:
-        user_prompt += f"{learnings_ctx}\n\n"
-    if history_ctx:
-        user_prompt += f"{history_ctx}\n\n"
+    if ctx_str:
+        user_prompt += f"{ctx_str}\n\n"
     user_prompt += f"Voici {len(signals)} signaux deeptech collectés :\n\n{context}"
 
-    raw = _call_claude(user_prompt, max_tokens=5000, system_prompt=_SYSTEM_DEEPTECH, model="claude-haiku-4-5-20251001")
+    raw    = _call_claude(user_prompt, max_tokens=5000, system_prompt=_SYSTEM_DEEPTECH, model="claude-sonnet-4-6")
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -934,11 +795,6 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
         return _fallback_deeptech(signals[:2])
 
     logger.info(f"analyze_deeptech: {len(result.get('signals', []))} signaux analysés")
-    today = __import__("datetime").datetime.now().strftime("%Y-%m-%d")
-    await asyncio.gather(
-        _save_dt("deeptech", result),
-        embed_and_save(today, "deeptech", result),
-    )
     return result
 
 
