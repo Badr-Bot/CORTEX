@@ -685,9 +685,7 @@ async def save_dashboard_report(
     crypto_data: dict,
     market_data: dict,
     deeptech_data: dict,
-    nexus_data: dict,
     signals_count: int = 0,
-    question: str = "",
 ) -> Optional[dict]:
     """
     Sauvegarde le rapport du matin en JSON structuré pour le dashboard Vercel.
@@ -701,7 +699,6 @@ async def save_dashboard_report(
             "crypto":   crypto_data,
             "market":   market_data,
             "deeptech": deeptech_data,
-            "nexus":    nexus_data,
         }
 
         # Vérifier si un rapport existe déjà pour cette date
@@ -728,10 +725,9 @@ async def save_dashboard_report(
             result = (
                 client.table("daily_reports")
                 .update({
-                    "report_json":    report_json,
-                    "signals_count":  signals_count,
-                    "question":       question,
-                    "report_date":    report_date,
+                    "report_json":   report_json,
+                    "signals_count": signals_count,
+                    "report_date":   report_date,
                 })
                 .eq("id", existing_data["id"])
                 .execute()
@@ -740,12 +736,11 @@ async def save_dashboard_report(
             result = (
                 client.table("daily_reports")
                 .insert({
-                    "report_date":    report_date,
-                    "report_json":    report_json,
-                    "signals_count":  signals_count,
-                    "question":       question,
-                    "report_content": "",
-                    "sectors_covered": ["ai", "crypto", "market", "deeptech", "nexus"],
+                    "report_date":     report_date,
+                    "report_json":     report_json,
+                    "signals_count":   signals_count,
+                    "report_content":  "",
+                    "sectors_covered": ["ai", "crypto", "market", "deeptech"],
                 })
                 .execute()
             )

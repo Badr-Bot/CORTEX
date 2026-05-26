@@ -47,9 +47,16 @@ export default function SignalCard({ signal, index, sector = "ai" }: Props) {
           <div className="flex-shrink-0 w-7 h-7 rounded-md bg-white/5 border border-white/10 flex items-center justify-center mt-0.5">
             <span className="text-xs font-mono text-slate-400">#{index + 1}</span>
           </div>
-          <h3 className="font-semibold text-white text-sm uppercase tracking-wide leading-snug break-words min-w-0">
-            {signal.title}
-          </h3>
+          <div className="min-w-0">
+            <h3 className="font-semibold text-white text-sm uppercase tracking-wide leading-snug break-words">
+              {signal.title}
+            </h3>
+            {(signal as any).dedup_tag && (
+              <span className="inline-block mt-1 text-[9px] text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded px-1.5 py-0.5 font-mono">
+                {(signal as any).dedup_tag}
+              </span>
+            )}
+          </div>
         </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
           <div className="flex items-center gap-1.5">

@@ -52,49 +52,6 @@ async def run_agents() -> None:
         logger.error(f"Erreur run_agents : {e}")
 
 
-async def run_weekly_summary() -> None:
-    """
-    Tâche hebdomadaire — Dimanche à 20:00.
-    Bilan de la semaine : évaluation des réponses de Badr, patterns détectés,
-    learnings sauvegardés dans agent_learnings (Supabase).
-    """
-    try:
-        from agents.weekly_bilan import run_weekly_bilan
-        week = datetime.now().strftime("Semaine %W/%Y")
-        logger.info(f"Bilan hebdomadaire CORTEX — {week}")
-        await run_weekly_bilan()
-    except Exception as e:
-        logger.error(f"Erreur run_weekly_summary : {e}")
-
-
-async def run_long_memory_compression() -> None:
-    """
-    Tâche hebdomadaire — Dimanche à 21:00 (après le bilan de 20:00).
-    Filet de sécurité : si la compression dans weekly_bilan a échoué, on réessaie.
-    En pratique, weekly_bilan.py déclenche déjà la compression en fin de bilan.
-    """
-    try:
-        from agents.long_memory import run_weekly_compression
-        from datetime import datetime, timedelta
-        week_of = (datetime.now() - timedelta(days=6)).strftime("%Y-%m-%d")
-        logger.info(f"Long memory compression (sécurité) — semaine {week_of}")
-        await run_weekly_compression(week_of)
-    except Exception as e:
-        logger.error(f"Erreur run_long_memory_compression : {e}")
-
-
-async def run_alert_monitor() -> None:
-    """
-    Surveillance toutes les 30 min — alertes Telegram si seuils déclenchés.
-    VIX +20%, BTC ±10%, S&P -3%, Or +3%, DXY +1.5%
-    """
-    try:
-        from agents.alert_monitor import check_and_send_alerts
-        await check_and_send_alerts()
-    except Exception as e:
-        logger.error(f"Erreur run_alert_monitor : {e}")
-
-
 async def run_monthly_synthesis() -> None:
     """
     Tâche mensuelle — 1er du mois à 08:00.
@@ -144,27 +101,7 @@ def build_scheduler() -> AsyncIOScheduler:
         misfire_grace_time=300
     )
 
-    # ── Job 3 : Résumé hebdomadaire — Dimanche à 20:00 ──────────────
-    scheduler.add_job(
-        func=run_weekly_summary,
-        trigger=CronTrigger(day_of_week="sun", hour=20, minute=0, timezone=TIMEZONE),
-        id="weekly_summary",
-        name="Résumé hebdomadaire",
-        replace_existing=True,
-        misfire_grace_time=600
-    )
-
-    # ── Job 4 : Long memory compression — Dimanche à 21:00 ─────────
-    scheduler.add_job(
-        func=run_long_memory_compression,
-        trigger=CronTrigger(day_of_week="sun", hour=21, minute=0, timezone=TIMEZONE),
-        id="long_memory_compression",
-        name="Long memory compression (sécurité)",
-        replace_existing=True,
-        misfire_grace_time=600
-    )
-
-    # ── Job 5 : Synthèse mensuelle — 1er du mois à 08:00 ────────────
+    # ── Job 3 : Synthèse mensuelle — 1er du mois à 08:00 ────────────
     scheduler.add_job(
         func=run_monthly_synthesis,
         trigger=CronTrigger(day=1, hour=8, minute=0, timezone=TIMEZONE),
@@ -172,16 +109,6 @@ def build_scheduler() -> AsyncIOScheduler:
         name="Synthèse mensuelle",
         replace_existing=True,
         misfire_grace_time=600
-    )
-
-    # ── Job 6 : Alert Monitor — toutes les 30 min ────────────────────
-    scheduler.add_job(
-        func=run_alert_monitor,
-        trigger=CronTrigger(minute="*/30", timezone=TIMEZONE),
-        id="alert_monitor",
-        name="Alert Monitor (VIX/BTC/SP500)",
-        replace_existing=True,
-        misfire_grace_time=120
     )
 
     # Log des jobs configurés

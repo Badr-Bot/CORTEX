@@ -1,12 +1,9 @@
-import { getLatestReport, getTodayJournal } from "@/lib/supabase"
+import { getLatestReport } from "@/lib/supabase"
 import NavBar from "@/components/NavBar"
 import SignalCard from "@/components/SignalCard"
 import CryptoSection from "@/components/CryptoSection"
 import MarketSection from "@/components/MarketSection"
-import QuestionPanel from "@/components/QuestionPanel"
-import SectionQuestionsPanel from "@/components/SectionQuestionsPanel"
-import PortfolioView from "@/components/PortfolioView"
-import type { ReportJSON, DailyReport, JournalEntry } from "@/lib/types"
+import type { ReportJSON, DailyReport } from "@/lib/types"
 
 export const dynamic = 'force-dynamic'
 
@@ -123,25 +120,21 @@ function formatDate(dateStr: string) {
 }
 
 const TABS = [
-  { id: "ai",          label: "IA",           icon: "🧠", color: "blue"    },
-  { id: "crypto",      label: "Crypto",       icon: "₿",  color: "amber"   },
-  { id: "market",      label: "Marchés",      icon: "📈", color: "emerald" },
-  { id: "deeptech",    label: "DeepTech",     icon: "⚡", color: "violet"  },
-  { id: "nexus",       label: "Nexus",        icon: "◈",  color: "orange"  },
-  { id: "portefeuille", label: "Portfolio",   icon: "💼", color: "green"   },
-  { id: "lexique",     label: "Lexique",      icon: "📖", color: "cyan"    },
+  { id: "ai",       label: "IA",       icon: "🧠", color: "blue"    },
+  { id: "crypto",   label: "Crypto",   icon: "₿",  color: "amber"   },
+  { id: "market",   label: "Marchés",  icon: "📈", color: "emerald" },
+  { id: "deeptech", label: "DeepTech", icon: "⚡", color: "violet"  },
+  { id: "lexique",  label: "Lexique",  icon: "📖", color: "cyan"    },
 ] as const
 
 type TabId = typeof TABS[number]["id"]
 
 const TAB_COLORS: Record<string, { active: string; dot: string; shadow: string }> = {
-  blue:    { active: "bg-blue-500/15 text-blue-300 border-blue-500/40",       dot: "bg-blue-400",    shadow: "shadow-[0_0_12px_rgba(99,102,241,0.3)]"   },
-  amber:   { active: "bg-amber-500/15 text-amber-300 border-amber-500/40",    dot: "bg-amber-400",   shadow: "shadow-[0_0_12px_rgba(245,158,11,0.3)]"   },
-  emerald: { active: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40", dot: "bg-emerald-400", shadow: "shadow-[0_0_12px_rgba(16,185,129,0.3)]" },
-  violet:  { active: "bg-violet-500/15 text-violet-300 border-violet-500/40", dot: "bg-violet-400",  shadow: "shadow-[0_0_12px_rgba(168,85,247,0.3)]"   },
-  orange:  { active: "bg-orange-500/15 text-orange-300 border-orange-500/40", dot: "bg-orange-400",  shadow: "shadow-[0_0_12px_rgba(249,115,22,0.3)]"    },
-  green:   { active: "bg-green-500/15 text-green-300 border-green-500/40",    dot: "bg-green-400",   shadow: "shadow-[0_0_12px_rgba(34,197,94,0.3)]"    },
-  cyan:    { active: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40",       dot: "bg-cyan-400",    shadow: "shadow-[0_0_12px_rgba(6,182,212,0.3)]"    },
+  blue:    { active: "bg-blue-500/15 text-blue-300 border-blue-500/40",          dot: "bg-blue-400",    shadow: "shadow-[0_0_12px_rgba(99,102,241,0.3)]"   },
+  amber:   { active: "bg-amber-500/15 text-amber-300 border-amber-500/40",       dot: "bg-amber-400",   shadow: "shadow-[0_0_12px_rgba(245,158,11,0.3)]"   },
+  emerald: { active: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40", dot: "bg-emerald-400", shadow: "shadow-[0_0_12px_rgba(16,185,129,0.3)]"   },
+  violet:  { active: "bg-violet-500/15 text-violet-300 border-violet-500/40",    dot: "bg-violet-400",  shadow: "shadow-[0_0_12px_rgba(168,85,247,0.3)]"   },
+  cyan:    { active: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40",          dot: "bg-cyan-400",    shadow: "shadow-[0_0_12px_rgba(6,182,212,0.3)]"    },
 }
 
 
@@ -192,57 +185,9 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
     )
   }
 
-  if (tab === "nexus") {
-    const n = report.nexus
-    return (
-      <div className="space-y-4">
-        <div className="glass border-l-2 accent-nexus rounded-xl p-5 card-hover animate-slide-up">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-1.5 h-1.5 rounded-full bg-orange-400 shadow-[0_0_6px_#f97316] animate-pulse-glow" />
-            <div className="text-[10px] text-orange-400 uppercase tracking-widest font-semibold">
-              🔗 Connexion du jour
-            </div>
-          </div>
-          {n.has_connexion && n.connexion ? (
-            <>
-              {n.secteurs_lies?.length > 0 && (
-                <div className="flex items-center gap-2 mb-3 flex-wrap">
-                  {n.secteurs_lies.map((s, i) => (
-                    <span key={i} className="text-xs text-slate-500 bg-white/5 border border-white/10 rounded-full px-2 py-0.5">
-                      {s}
-                    </span>
-                  ))}
-                  <span className="text-slate-600">×</span>
-                </div>
-              )}
-              <p className="text-slate-200 leading-relaxed">{n.connexion}</p>
-            </>
-          ) : (
-            <p className="text-slate-500 italic">
-              Pas de connexion significative aujourd'hui — les secteurs évoluent indépendamment.
-            </p>
-          )}
-        </div>
-      </div>
-    )
-  }
-
-  if (tab === "portefeuille") return <PortfolioView />
-
   if (tab === "lexique") return <LexiqueSection />
 
   return null
-}
-
-function getSectionQuestions(tab: TabId, report: ReportJSON): string[] {
-  const map: Partial<Record<TabId, string[]>> = {
-    ai:       (report.ai as any)?.questions,
-    crypto:   (report.crypto as any)?.questions,
-    market:   (report.market as any)?.questions,
-    deeptech: (report.deeptech as any)?.questions,
-    nexus:    (report.nexus as any)?.questions,
-  }
-  return map[tab] ?? []
 }
 
 interface PageProps {
@@ -289,23 +234,17 @@ export default async function DashboardPage({ searchParams }: PageProps) {
   const activeTab = (searchParams.tab as TabId) || "ai"
 
   let report: DailyReport | null = null
-  let journalEntry: JournalEntry | null = null
   let fetchError = false
 
   try {
-    ;[report, journalEntry] = await Promise.all([
-      getLatestReport(),
-      getTodayJournal(),
-    ])
+    report = await getLatestReport()
   } catch {
     fetchError = true
   }
 
   const hasReport = !fetchError && !!report && !!report.report_json && Object.keys(report.report_json).length > 0
 
-  // Contenu principal selon l'onglet actif et la disponibilité du rapport
   function MainContent() {
-    if (activeTab === "portefeuille") return <PortfolioView />
     if (activeTab === "lexique") return <LexiqueSection />
 
     if (!hasReport) {
@@ -339,7 +278,6 @@ export default async function DashboardPage({ searchParams }: PageProps) {
     const json = report!.report_json
     return (
       <>
-        {/* Hero header */}
         <div className="animate-slide-up space-y-4">
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -362,27 +300,9 @@ export default async function DashboardPage({ searchParams }: PageProps) {
           <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
         </div>
 
-        {/* Tab content */}
         <div className="animate-fade-in">
           <SectorContent tab={activeTab} report={json} />
         </div>
-
-        {/* Questions par section */}
-        {(() => {
-          const qs = getSectionQuestions(activeTab, json)
-          return qs.length > 0 ? (
-            <SectionQuestionsPanel tab={activeTab} questions={qs} reportDate={report!.report_date} />
-          ) : null
-        })()}
-
-        {/* Question du matin — uniquement sur Nexus */}
-        {json.nexus?.question && activeTab === "nexus" && (
-          <QuestionPanel
-            question={json.nexus.question}
-            reportDate={report!.report_date}
-            existingResponse={journalEntry?.your_response}
-          />
-        )}
       </>
     )
   }

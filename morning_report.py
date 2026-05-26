@@ -534,94 +534,6 @@ def build_msg4(deeptech_data: dict) -> str:
     return "\n".join(lines)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# BUILD MSG 5 — NEXUS + SCORECARD + QUESTION
-# ══════════════════════════════════════════════════════════════════════════════
-
-def build_msg5(nexus_data: dict, scorecard_data: dict | None = None) -> str:
-    has_conn  = nexus_data.get("has_connexion", False)
-    connexion = nexus_data.get("connexion", "")
-    secteurs  = nexus_data.get("secteurs_lies", [])
-    question  = nexus_data.get("question", "Quel est ton focus aujourd'hui ?")
-
-    lines = [
-        SEP_HEAVY,
-        "<b>🔗 CORTEX — NEXUS</b>",
-        f"<i>📅 {_fr_date()}</i>",
-        "<i>La connexion cachée entre les 4 secteurs du jour.</i>",
-        SEP_HEAVY,
-        "",
-        "<b>🔗 Connexion du jour</b>",
-        "",
-    ]
-
-    if has_conn and connexion:
-        if secteurs:
-            lines.append(f"<i>{_h(' × '.join(secteurs))}</i>")
-            lines.append("")
-        lines.append(_h(connexion))
-    else:
-        lines.append("<i>Pas de connexion significative aujourd'hui — les secteurs évoluent indépendamment.</i>")
-
-    # Scorecard (lundi uniquement)
-    if scorecard_data:
-        total = scorecard_data.get("total", 0)
-        conf  = scorecard_data.get("confirmed", 0)
-        inv   = scorecard_data.get("invalidated", 0)
-        pend  = scorecard_data.get("pending", 0)
-        hit   = scorecard_data.get("best_hit", "—")
-        miss  = scorecard_data.get("worst_miss", "—")
-        biais = scorecard_data.get("biais", "")
-        conf_pct = round(conf / total * 100) if total else 0
-
-        lines += [
-            "",
-            SEP_LIGHT,
-            "",
-            "<b>📊 Scorecard de la semaine</b>",
-            "<i>Combien d'analyses CORTEX se sont révélées justes ?</i>",
-            "",
-            f"  📈 Signaux remontés : <b>{total}</b>",
-            f"  ✅ Confirmés : <b>{conf}</b> ({conf_pct}%)",
-            f"  ❌ Invalidés : <b>{inv}</b>",
-            f"  ⏳ En attente : <b>{pend}</b>",
-            "",
-            f"  🏆 Meilleur signal : <i>{_h(hit)}</i>",
-            f"  📉 Plus gros miss : <i>{_h(miss)}</i>",
-        ]
-        if biais:
-            lines += ["", f"  🔍 <b>Biais détecté :</b> <i>{_h(biais)}</i>"]
-
-    elif _is_monday():
-        lines += [
-            "",
-            SEP_LIGHT,
-            "",
-            "<b>📊 Scorecard</b>",
-            "<i>Disponible après 7 jours de signaux trackés.</i>",
-        ]
-
-    # Question du matin
-    lines += [
-        "",
-        SEP_LIGHT,
-        "",
-        "<b>☀️ Question du matin</b>",
-        "<i>Force-toi à décider — pas juste observer.</i>",
-        "",
-        f"<b>{_h(question)}</b>",
-        "",
-        "<i>→ Réponds ici. Ta réponse est sauvegardée dans ton journal.</i>",
-        "",
-        SEP_HEAVY,
-    ]
-
-    return "\n".join(lines)
-
-
-def _is_monday() -> bool:
-    return datetime.now().weekday() == 0
-
 
 def _split_at_boundary(text: str, max_chars: int = 3800) -> list[str]:
     """Découpe proprement aux séparateurs ▬▬▬ (jamais au milieu d'un signal)."""
@@ -653,21 +565,21 @@ def _split_at_boundary(text: str, max_chars: int = 3800) -> list[str]:
 
 async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dict:
     """
-    Lance le cycle complet CORTEX v3 :
-      1. Collecte parallèle des 4 agents + stock screener
-      2. Analyse Claude (Sonnet + Haiku) en parallèle
-      3. Génération NEXUS (Haiku)
-      4. Construction des 5 messages HTML
-      5. Envoi Telegram séquentiel
+    Lance le cycle CORTEX :
+      1. Collecte parallèle des 4 agents
+      2. Analyse Claude (Sonnet) en parallèle
+      3. Déduplication (7 jours glissants)
+      4. Construction des 4 messages HTML
+      5. Envoi Telegram
 
-    Retourne : {messages, ai, crypto, market, deeptech, nexus}
+    Retourne : {messages, ai, crypto, market, deeptech}
     """
     logger.info("=" * 55)
     logger.info("CORTEX v3 — Démarrage rapport du matin")
     logger.info("=" * 55)
 
     # ── Étape 1 : Collecte parallèle ──────────────────────────────────────────
-    logger.info("Étape 1/3 — Collecte parallèle (4 agents + stock screener)...")
+    logger.info("Étape 1/3 — Collecte parallèle (4 agents)...")
 
     from agents.sources import titans, media, weak_signals, viral
     from agents import scout_crypto, scout_market, scout_deeptech
@@ -707,7 +619,7 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     if isinstance(deeptech_raw, Exception): deeptech_raw = []
 
     # ── Étape 2 : Analyse Claude en parallèle ─────────────────────────────────
-    logger.info("Étape 2/3 — Analyse Claude (Sonnet×4 + Haiku×1) en parallèle...")
+    logger.info("Étape 2/3 — Analyse Claude (Sonnet) en parallèle...")
 
     from agents import summarizer
 
@@ -738,21 +650,29 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         f"DeepTech: {len(deeptech_analyzed.get('signals', []))}"
     )
 
-    # ── Étape 3 : NEXUS (Haiku) ───────────────────────────────────────────────
-    logger.info("Étape 3/3 — Génération NEXUS (Haiku) + Question du matin...")
+    # ── Étape 3 : Déduplication (7 jours glissants) ───────────────────────────
+    logger.info("Étape 3/3 — Déduplication des signaux...")
+    from agents.dedup import filter_signals, mark_sent
 
-    nexus_data = await summarizer.generate_nexus(
-        ai_analyzed, crypto_analyzed, market_analyzed, deeptech_analyzed
-    )
+    def _dedup_section(data: dict) -> dict:
+        sigs = data.get("signals", [])
+        deduped = filter_signals(sigs)
+        if len(sigs) != len(deduped):
+            logger.info(f"  Dedup: {len(sigs)} → {len(deduped)} signaux")
+        return {**data, "signals": deduped}
 
-    # ── Construction des 5 messages HTML ─────────────────────────────────────
+    ai_analyzed       = _dedup_section(ai_analyzed)
+    crypto_analyzed   = _dedup_section(crypto_analyzed)
+    market_analyzed   = _dedup_section(market_analyzed)
+    deeptech_analyzed = _dedup_section(deeptech_analyzed)
+
+    # ── Construction des 4 messages HTML ─────────────────────────────────────
     msg1 = build_msg1(ai_analyzed)
     msg2 = build_msg2(crypto_analyzed)
     msg3 = build_msg3(market_analyzed)
     msg4 = build_msg4(deeptech_analyzed)
-    msg5 = build_msg5(nexus_data)
 
-    messages = [msg1, msg2, msg3, msg4, msg5]
+    messages = [msg1, msg2, msg3, msg4]
 
     logger.info("Messages construits :")
     for i, m in enumerate(messages, 1):
@@ -783,28 +703,26 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         except Exception as e:
             logger.error(f"Erreur notification Telegram: {e}")
 
-    # ── Sauvegarde Supabase pour le dashboard Vercel ─────────────────────────
+    # ── Enregistrement dedup + Sauvegarde Supabase ───────────────────────────
+    all_signals = (
+        ai_analyzed.get("signals", []) +
+        crypto_analyzed.get("signals", []) +
+        market_analyzed.get("signals", []) +
+        deeptech_analyzed.get("signals", [])
+    )
+    mark_sent(all_signals)
+
     try:
-        from database.client import save_dashboard_report, insert_journal_entry
-        question = nexus_data.get("question", "")
-        signals_total = (
-            len(ai_analyzed.get("signals", []))
-            + len(crypto_analyzed.get("signals", []))
-            + len(market_analyzed.get("signals", []))
-            + len(deeptech_analyzed.get("signals", []))
-        )
+        from database.client import save_dashboard_report
+        signals_total = len(all_signals)
         await save_dashboard_report(
             report_date=datetime.now().strftime("%Y-%m-%d"),
             ai_data=ai_analyzed,
             crypto_data=crypto_analyzed,
             market_data=market_analyzed,
             deeptech_data=deeptech_analyzed,
-            nexus_data=nexus_data,
             signals_count=signals_total,
-            question=question,
         )
-        if question:
-            await insert_journal_entry(question_asked=question)
         logger.info("Dashboard report sauvegardé dans Supabase ✅")
     except Exception as e:
         logger.warning(f"Sauvegarde dashboard échouée (non bloquant): {e}")
@@ -814,10 +732,9 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     logger.info("=" * 55)
 
     return {
-        "messages":  messages,
-        "ai":        ai_analyzed,
-        "crypto":    crypto_analyzed,
-        "market":    market_analyzed,
-        "deeptech":  deeptech_analyzed,
-        "nexus":     nexus_data,
+        "messages": messages,
+        "ai":       ai_analyzed,
+        "crypto":   crypto_analyzed,
+        "market":   market_analyzed,
+        "deeptech": deeptech_analyzed,
     }

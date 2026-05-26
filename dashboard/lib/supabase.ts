@@ -1,5 +1,5 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js"
-import type { DailyReport, JournalEntry, WeeklyDebrief } from "./types"
+import type { DailyReport } from "./types"
 
 // Lazy singleton — instancié seulement à la première requête (pas au build)
 // Ceci évite l'erreur "supabaseUrl is required" lors de la collecte de données
@@ -65,42 +65,3 @@ export async function getReportHistory(limit = 30): Promise<DailyReport[]> {
   return (data || []) as DailyReport[]
 }
 
-// ── Journal ───────────────────────────────────────────────────────────────────
-
-export async function getTodayJournal(): Promise<JournalEntry | null> {
-  const today = new Date().toISOString().split("T")[0]
-  const { data } = await getClient()
-    .from("journal")
-    .select("*")
-    .eq("date", today)
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .single()
-
-  return data as JournalEntry | null
-}
-
-export async function getWeekJournal(): Promise<JournalEntry[]> {
-  const cutoff = new Date()
-  cutoff.setDate(cutoff.getDate() - 7)
-  const { data } = await getClient()
-    .from("journal")
-    .select("*")
-    .gte("created_at", cutoff.toISOString())
-    .order("created_at", { ascending: false })
-
-  return (data || []) as JournalEntry[]
-}
-
-// ── Weekly Debrief ────────────────────────────────────────────────────────────
-
-export async function getLatestDebrief(): Promise<WeeklyDebrief | null> {
-  const { data } = await getClient()
-    .from("weekly_debrief")
-    .select("*")
-    .order("week_of", { ascending: false })
-    .limit(1)
-    .single()
-
-  return data as WeeklyDebrief | null
-}
