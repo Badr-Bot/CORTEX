@@ -504,7 +504,7 @@ async def analyze_crypto(data: dict) -> dict:
     user_prompt += "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw    = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_CRYPTO, model="claude-sonnet-4-6")
+    raw    = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_CRYPTO, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "score" not in result:
@@ -787,7 +787,7 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
         user_prompt += f"{ctx_str}\n\n"
     user_prompt += f"Voici {len(signals)} signaux deeptech collectés :\n\n{context}"
 
-    raw    = _call_claude(user_prompt, max_tokens=5000, system_prompt=_SYSTEM_DEEPTECH, model="claude-sonnet-4-6")
+    raw    = _call_claude(user_prompt, max_tokens=3500, system_prompt=_SYSTEM_DEEPTECH, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
