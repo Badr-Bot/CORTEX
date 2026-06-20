@@ -137,8 +137,9 @@ def _build_glossary(terms: list[str]) -> str:
 
 def _signal_block(sig: dict, num: str, show_these: bool = True) -> str:
     """Bloc signal universel (IA / Crypto / Marchés) en HTML."""
-    stars   = _stars(sig.get("conviction", 3))
-    title   = _h(sig.get("title", "SIGNAL").upper())
+    stars    = _stars(sig.get("conviction", 3))
+    title    = _h(sig.get("title", "SIGNAL").upper())
+    en_clair = _h(sig.get("en_clair", ""))
     fait    = _h(sig.get("fait", ""))
     impl2   = _h(sig.get("implication_2", ""))
     impl3   = _h(sig.get("implication_3", ""))
@@ -149,8 +150,10 @@ def _signal_block(sig: dict, num: str, show_these: bool = True) -> str:
     src_n   = sig.get("source_name", "Source")
     src_u   = sig.get("source_url", "")
 
-    lines = [
-        f"<b>{stars} {num} {title}</b>",
+    lines = [f"<b>{stars} {num} {title}</b>"]
+    if en_clair:
+        lines += ["", f"🟢 <b>En clair :</b> <i>{en_clair}</i>"]
+    lines += [
         "",
         "<b>📌 Ce qui se passe</b>",
         fait,
@@ -182,8 +185,9 @@ def _signal_block(sig: dict, num: str, show_these: bool = True) -> str:
 
 def _signal_block_deeptech(sig: dict, num: str) -> str:
     """Bloc signal DeepTech enrichi : crédibilité + angle investissement."""
-    stars   = _stars(sig.get("conviction", 3))
-    title   = _h(sig.get("title", "SIGNAL").upper())
+    stars    = _stars(sig.get("conviction", 3))
+    title    = _h(sig.get("title", "SIGNAL").upper())
+    en_clair = _h(sig.get("en_clair", ""))
     horizon = _horizon_tag(sig.get("horizon", "3-5"))
     fait    = _h(sig.get("fait", ""))
     impl2   = _h(sig.get("implication_2", ""))
@@ -217,6 +221,10 @@ def _signal_block_deeptech(sig: dict, num: str) -> str:
     lines = [
         f"<b>{stars} {num} {title}</b>",
         f"🕐 <b>Horizon :</b> {horizon}",
+    ]
+    if en_clair:
+        lines += ["", f"🟢 <b>En clair :</b> <i>{en_clair}</i>"]
+    lines += [
         "",
         "<b>📌 Ce qui se passe</b>",
         fait,

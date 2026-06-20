@@ -1,9 +1,10 @@
 name: CORTEX — Rapport du matin
 
 on:
-  schedule:
-    - cron: '0 5 * * *'  # 06:00 Paris (UTC+1)
-  workflow_dispatch:       # Déclenchement manuel possible
+  # Plus de cron programmé ici : le rapport est lancé par l'app déployée
+  # (Fly/Railway) via APScheduler à 6h pile Europe/Paris (gère l'heure d'été).
+  # Garder ce workflow uniquement en secours manuel si l'app est down.
+  workflow_dispatch:       # Déclenchement manuel uniquement
 
 jobs:
   run:
