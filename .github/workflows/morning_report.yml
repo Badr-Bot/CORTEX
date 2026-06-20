@@ -1,10 +1,16 @@
 name: CORTEX — Rapport du matin
 
 on:
-  # Plus de cron programmé ici : le rapport est lancé par l'app déployée
-  # (Fly/Railway) via APScheduler à 6h pile Europe/Paris (gère l'heure d'été).
-  # Garder ce workflow uniquement en secours manuel si l'app est down.
-  workflow_dispatch:       # Déclenchement manuel uniquement
+  schedule:
+    # RÉALITÉ : c'est GitHub Actions qui génère le rapport (l'app serveur
+    # Fly/Railway n'est pas allumée). Les crons GitHub gratuits partent en
+    # retard (best-effort, observé +3 à +6h). On vise donc TÔT (03:00 UTC)
+    # pour que la livraison réelle tombe le matin.
+    # NB heure d'été : Paris = UTC+2 en été, UTC+1 en hiver.
+    # Livraison à 6h PILE = impossible à garantir ici → nécessite l'app
+    # serveur allumée (APScheduler, timezone Europe/Paris).
+    - cron: '0 3 * * *'
+  workflow_dispatch:       # Déclenchement manuel possible
 
 jobs:
   run:
