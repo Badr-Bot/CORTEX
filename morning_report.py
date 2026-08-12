@@ -673,6 +673,41 @@ def _split_at_boundary(text: str, max_chars: int = 3800) -> list[str]:
 # ORCHESTRATEUR PRINCIPAL
 # ══════════════════════════════════════════════════════════════════════════════
 
+MIN_SIGNAUX_RAPPORT_VALIDE = 8
+
+
+async def _rapport_du_jour_deja_publie() -> bool:
+    """
+    Un rapport complet existe-t-il déjà en base pour aujourd'hui ?
+
+    Sert de garde au pipeline gratuit, devenu filet de secours du mode cowork.
+    En cas de doute (Supabase injoignable), on répond False : mieux vaut un
+    rapport en double qu'aucun rapport.
+    """
+    try:
+        from database.client import get_supabase_client
+
+        today = datetime.now().strftime("%Y-%m-%d")
+        client = get_supabase_client()
+        result = (
+            client.table("daily_reports")
+            .select("signals_count")
+            .eq("report_date", today)
+            .execute()
+        )
+        if not result.data:
+            return False
+        count = result.data[0].get("signals_count") or 0
+        if count >= MIN_SIGNAUX_RAPPORT_VALIDE:
+            logger.info(f"Rapport du jour déjà en base ({count} signaux)")
+            return True
+        logger.info(f"Rapport du jour incomplet ({count} signaux) — on le régénère")
+        return False
+    except Exception as e:
+        logger.warning(f"Vérification du rapport du jour impossible : {e} — on continue")
+        return False
+
+
 async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dict:
     """
     Lance le cycle CORTEX :
@@ -687,6 +722,14 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     logger.info("=" * 55)
     logger.info("CORTEX v3 — Démarrage rapport du matin")
     logger.info("=" * 55)
+
+    # Le mode cowork (agent Claude planifié, voir COWORK.md) rédige un rapport de
+    # meilleure qualité et le publie avant nous. Si c'est déjà fait aujourd'hui,
+    # on ne refait pas le travail : ça éviterait surtout d'écraser le bon rapport
+    # et d'envoyer une seconde notification Telegram.
+    if await _rapport_du_jour_deja_publie():
+        logger.info("Rapport du jour déjà publié (mode cowork) — rien à faire ✅")
+        return {"messages": [], "skipped": True}
 
     # ── Étape 1 : Collecte parallèle ──────────────────────────────────────────
     logger.info("Étape 1/3 — Collecte parallèle (4 agents)...")

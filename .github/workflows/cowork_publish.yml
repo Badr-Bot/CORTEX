@@ -1,0 +1,54 @@
+name: CORTEX — Publier le rapport cowork
+
+# L'agent Claude planifié rédige data/cowork/rapport_AAAA-MM-JJ.json et le pousse.
+# Ce workflow prend le relais pour livrer : il détient les secrets Supabase et
+# Telegram, que l'agent cloud n'a pas.
+
+on:
+  push:
+    paths:
+      - 'data/cowork/rapport_*.json'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date du rapport à publier (AAAA-MM-JJ, vide = le plus récent)'
+        required: false
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Déterminer le rapport à publier
+        id: cible
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            echo "date=${{ github.event.inputs.date }}" >> "$GITHUB_OUTPUT"
+          else
+            dernier=$(ls -1 data/cowork/rapport_*.json 2>/dev/null | sort | tail -1)
+            if [ -z "$dernier" ]; then
+              echo "Aucun rapport cowork trouvé." >&2
+              exit 1
+            fi
+            date=$(basename "$dernier" .json | sed 's/^rapport_//')
+            echo "date=$date" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publier
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python cowork_publish.py "${{ steps.cible.outputs.date }}"

@@ -1,0 +1,456 @@
+{
+  "date": "2026-08-12",
+  "crypto_dashboard": {
+    "btc_dominance": 56.2,
+    "total_volume_24h": 51421824950.90921,
+    "market_cap_change": -0.1,
+    "btc_price": 63480,
+    "btc_change_24h": -0.3,
+    "btc_price_source": "CoinGecko",
+    "fear_greed_score": 27,
+    "fear_greed_label": "Peur",
+    "fear_greed_trend": "en hausse",
+    "fear_greed_avg_7d": 29,
+    "open_interest_btc": 8888878400.0,
+    "long_short_ratio": 0.6421030027558068,
+    "mempool_fee": 3,
+    "liq_longs_24h_usd": 0,
+    "liq_shorts_24h_usd": 0,
+    "liq_dominance": "N/A",
+    "funding_description": "Neutres (0.010%)",
+    "exchange_flows": {
+      "binance_vol_24h_usd": 818686718,
+      "top5_exchanges_vol_btc": 137291.5,
+      "trend": "indecis",
+      "pression": "neutre",
+      "btc_change_24h_pct": -0.25
+    },
+    "cycle": {
+      "phase": "Transition",
+      "emoji": "🟡",
+      "conseil": "Phase indécise — attendre confirmation de direction",
+      "cycle_score": 0
+    }
+  },
+  "market_dashboard": {
+    "sp500": {
+      "price": "7,748",
+      "change_pct": 0.32303798123919464,
+      "raw_price": 7748.5
+    },
+    "nasdaq": {
+      "price": "26,588",
+      "change_pct": 0.8536367029492453,
+      "raw_price": 26588.488
+    },
+    "gold": {
+      "price": "$4,468",
+      "change_pct": 2.9373142580689753,
+      "raw_price": 4468.2
+    },
+    "oil": {
+      "price": "$82.6",
+      "change_pct": 5.666410846763868,
+      "raw_price": 82.61
+    },
+    "dxy": {
+      "price": "100.0",
+      "change_pct": 0.386546184738961,
+      "raw_price": 99.985
+    },
+    "vix": {
+      "price": "14.6",
+      "change_pct": -3.9603960396039577,
+      "raw_price": 14.55,
+      "interpretation": "Complaisance extrême"
+    },
+    "us_10y": {
+      "price": "4.68%",
+      "change_pct": 0.25695931477517037,
+      "raw_price": 4.682,
+      "change_bps": "+1bps"
+    },
+    "earnings_week": [],
+    "insider_buys": [
+      {
+        "insider": "Cascade Investment, L.L.C.",
+        "company": "Republic Services, Inc.",
+        "ticker": "RSG",
+        "type": "BUY",
+        "shares": 501664,
+        "value_usd": 108145762,
+        "date": "2026-08-10"
+      },
+      {
+        "insider": "Gordon Carl L",
+        "company": "Blossomhill Therapeutics, Inc.",
+        "ticker": "BLSM",
+        "type": "BUY",
+        "shares": 625000,
+        "value_usd": 10000000,
+        "date": "2026-08-10"
+      },
+      {
+        "insider": "Orbimed Advisors LLC",
+        "company": "Blossomhill Therapeutics, Inc.",
+        "ticker": "BLSM",
+        "type": "BUY",
+        "shares": 625000,
+        "value_usd": 10000000,
+        "date": "2026-08-10"
+      },
+      {
+        "insider": "Huang Jack Jiajia",
+        "company": "51Talk Online Education Group",
+        "ticker": "COE",
+        "type": "BUY",
+        "shares": 395580,
+        "value_usd": 7725778,
+        "date": "2026-08-06"
+      },
+      {
+        "insider": "Rady Ernest S",
+        "company": "American Assets Trust, Inc.",
+        "ticker": "AAT",
+        "type": "BUY",
+        "shares": 193243,
+        "value_usd": 4345305,
+        "date": "2026-08-10"
+      },
+      {
+        "insider": "Foss Eric J",
+        "company": "Primo Brands Corp",
+        "ticker": "PRMB",
+        "type": "BUY",
+        "shares": 84000,
+        "value_usd": 1998973,
+        "date": "2026-08-10"
+      },
+      {
+        "insider": "Stanage Nick L",
+        "company": "Ametek Inc/",
+        "ticker": "AME",
+        "type": "BUY",
+        "shares": 4000,
+        "value_usd": 1023400,
+        "date": "2026-08-11"
+      },
+      {
+        "insider": "Bourla Albert",
+        "company": "Pfizer Inc",
+        "ticker": "PFE",
+        "type": "BUY",
+        "shares": 38000,
+        "value_usd": 1000920,
+        "date": "2026-08-12"
+      },
+      {
+        "insider": "Mahoney Sean O",
+        "company": "Aptiv Plc",
+        "ticker": "APTV",
+        "type": "BUY",
+        "shares": 11000,
+        "value_usd": 552683,
+        "date": "2026-08-11"
+      },
+      {
+        "insider": "Lee Eugene I Jr",
+        "company": "Portillo'S Inc.",
+        "ticker": "PTLO",
+        "type": "BUY",
+        "shares": 65355,
+        "value_usd": 299979,
+        "date": "2026-08-12"
+      },
+      {
+        "insider": "Decker Mark Okey Jr",
+        "company": "Chiron Real Estate Inc.",
+        "ticker": "XRN",
+        "type": "BUY",
+        "shares": 8000,
+        "value_usd": 287040,
+        "date": "2026-08-10"
+      },
+      {
+        "insider": "Forthuber Frederick A.",
+        "company": "Western Midstream Partners, LP",
+        "ticker": "WES",
+        "type": "BUY",
+        "shares": 5140,
+        "value_usd": 249907,
+        "date": "2026-08-12"
+      },
+      {
+        "insider": "Reilly John T",
+        "company": "Six Flags Entertainment Corporation/New",
+        "ticker": "FUN",
+        "type": "BUY",
+        "shares": 15713,
+        "value_usd": 248265,
+        "date": "2026-08-12"
+      },
+      {
+        "insider": "Beer Marc D",
+        "company": "Biote Corp.",
+        "ticker": "BTMD",
+        "type": "BUY",
+        "shares": 131950,
+        "value_usd": 202204,
+        "date": "2026-08-10"
+      },
+      {
+        "insider": "Foran Joseph Wm",
+        "company": "Matador Resources Co",
+        "ticker": "MTDR",
+        "type": "BUY",
+        "shares": 3839,
+        "value_usd": 196396,
+        "date": "2026-08-10"
+      },
+      {
+        "insider": "Winmill & Co. Inc",
+        "company": "Bexil Investment Trust",
+        "ticker": "BXSY",
+        "type": "BUY",
+        "shares": 10250,
+        "value_usd": 183988,
+        "date": "2026-08-11"
+      },
+      {
+        "insider": "Bank of America Corp /de/",
+        "company": "Blackrock Municipal Credit Alpha Portfolio, Inc.",
+        "ticker": "MUNEX",
+        "type": "BUY",
+        "shares": 12740,
+        "value_usd": 156575,
+        "date": "2026-08-10"
+      },
+      {
+        "insider": "Saul Kennedy O",
+        "company": "Avidia Bancorp, Inc.",
+        "ticker": "AVBC",
+        "type": "BUY",
+        "shares": 5900,
+        "value_usd": 127733,
+        "date": "2026-08-11"
+      },
+      {
+        "insider": "Hensley Robert Z",
+        "company": "Community Healthcare Trust Inc",
+        "ticker": "CHCT",
+        "type": "BUY",
+        "shares": 8000,
+        "value_usd": 121680,
+        "date": "2026-08-11"
+      },
+      {
+        "insider": "Corrigan Jack E",
+        "company": "American Homes 4 Rent",
+        "ticker": "AMH",
+        "type": "BUY",
+        "shares": 5000,
+        "value_usd": 113980,
+        "date": "2026-08-10"
+      }
+    ],
+    "sectors": {
+      "technologie": {
+        "symbol": "XLK",
+        "price": 188.86,
+        "change_pct": 1.59
+      },
+      "finance": {
+        "symbol": "XLF",
+        "price": 57.92,
+        "change_pct": -0.14
+      },
+      "sante": {
+        "symbol": "XLV",
+        "price": 168.44,
+        "change_pct": 2.61
+      },
+      "energie": {
+        "symbol": "XLE",
+        "price": 61.03,
+        "change_pct": 6.49
+      },
+      "industrie": {
+        "symbol": "XLI",
+        "price": 185.88,
+        "change_pct": -0.25
+      },
+      "consommation": {
+        "symbol": "XLY",
+        "price": 117.89,
+        "change_pct": -0.63
+      },
+      "staples": {
+        "symbol": "XLP",
+        "price": 85.08,
+        "change_pct": -0.29
+      },
+      "materiaux": {
+        "symbol": "XLB",
+        "price": 52.58,
+        "change_pct": -0.11
+      },
+      "immobilier": {
+        "symbol": "XLRE",
+        "price": 44.49,
+        "change_pct": -1.57
+      },
+      "services": {
+        "symbol": "XLC",
+        "price": 110.27,
+        "change_pct": -0.54
+      },
+      "utilities": {
+        "symbol": "XLU",
+        "price": 43.84,
+        "change_pct": 0.41
+      },
+      "_breadth": {
+        "pct_secteurs_hausse": 36,
+        "meilleur": {
+          "nom": "energie",
+          "change_pct": 6.49
+        },
+        "pire": {
+          "nom": "immobilier",
+          "change_pct": -1.57
+        },
+        "sentiment": "mitige"
+      }
+    },
+    "fred": {},
+    "fed_watch": {
+      "fed_hold_prob": null,
+      "fed_cut_prob": null
+    }
+  },
+  "market_hot_stocks": [],
+  "market_crash": {
+    "crash_score": 2.5,
+    "color": "🟢",
+    "interpretation": "Risque systémique faible",
+    "factors": [
+      {
+        "indicator": "Courbe 10Y-2Y",
+        "value": "+0.48%",
+        "points": 0.0,
+        "label": "Courbe normale (+0.48%)"
+      },
+      {
+        "indicator": "Spread HY",
+        "value": "7.1%",
+        "points": 2.5,
+        "label": "Spread HY 7.1% — stress crédit élevé"
+      },
+      {
+        "indicator": "VIX",
+        "value": "14.6",
+        "points": 0.0,
+        "label": "VIX 15 — calme"
+      }
+    ],
+    "yield_curve": 0.48,
+    "hy_spread": 7.11,
+    "vix": 14.55,
+    "updated_at": "2026-08-12T20:52:07.164500+00:00"
+  },
+  "ecommerce_dashboard": {
+    "stocks": [
+      {
+        "nom": "Sea Limited",
+        "ticker": "SE",
+        "price": 128.11,
+        "change_pct": 11.49
+      },
+      {
+        "nom": "Shopify",
+        "ticker": "SHOP",
+        "price": 150.41,
+        "change_pct": 4.28
+      },
+      {
+        "nom": "PayPal",
+        "ticker": "PYPL",
+        "price": 59.2,
+        "change_pct": 2.19
+      },
+      {
+        "nom": "Amazon",
+        "ticker": "AMZN",
+        "price": 267.28,
+        "change_pct": -1.97
+      },
+      {
+        "nom": "Global-e",
+        "ticker": "GLBE",
+        "price": 40.55,
+        "change_pct": -2.45
+      },
+      {
+        "nom": "Wayfair",
+        "ticker": "W",
+        "price": 102.94,
+        "change_pct": -4.3
+      },
+      {
+        "nom": "MercadoLibre",
+        "ticker": "MELI",
+        "price": 1828.29,
+        "change_pct": -4.9
+      },
+      {
+        "nom": "Chewy",
+        "ticker": "CHWY",
+        "price": 22.35,
+        "change_pct": -6.99
+      },
+      {
+        "nom": "Etsy",
+        "ticker": "ETSY",
+        "price": 79.63,
+        "change_pct": -7.26
+      },
+      {
+        "nom": "Klaviyo",
+        "ticker": "KVYO",
+        "price": 17.25,
+        "change_pct": -10.62
+      }
+    ],
+    "secteur": {
+      "pct_hausse": 30,
+      "moyenne_pct": -2.05,
+      "meilleur": {
+        "nom": "Sea Limited",
+        "ticker": "SE",
+        "price": 128.11,
+        "change_pct": 11.49
+      },
+      "pire": {
+        "nom": "Klaviyo",
+        "ticker": "KVYO",
+        "price": 17.25,
+        "change_pct": -10.62
+      },
+      "sentiment": "sous pression"
+    }
+  },
+  "ecommerce_themes": {
+    "marketplace": 33,
+    "creatives": 25,
+    "automation": 13,
+    "operations": 6,
+    "emailing": 14
+  },
+  "compte_news": {
+    "ai": 75,
+    "crypto": 75,
+    "market": 50,
+    "deeptech": 62,
+    "ecommerce": 91
+  }
+}
