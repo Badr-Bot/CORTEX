@@ -24,6 +24,7 @@
   --accent-green:  #10b981;
   --accent-red:    #ef4444;
   --accent-orange: #f97316;
+  --accent-pink:   #ec4899;
 
   --text-primary:  #f1f5f9;
   --text-secondary:#94a3b8;
@@ -193,6 +194,7 @@ body {
 .accent-market  { border-left-color: var(--accent-green);  background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, transparent 60%); }
 .accent-deeptech{ border-left-color: var(--accent-violet); background: linear-gradient(135deg, rgba(168,85,247,0.06) 0%, transparent 60%); }
 .accent-nexus   { border-left-color: var(--accent-orange); background: linear-gradient(135deg, rgba(249,115,22,0.06) 0%, transparent 60%); }
+.accent-ecommerce{ border-left-color: var(--accent-pink);  background: linear-gradient(135deg, rgba(236,72,153,0.06) 0%, transparent 60%); }
 
 /* ═══════ STARS ═══════ */
 .stars { 

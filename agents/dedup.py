@@ -62,12 +62,21 @@ def check(title: str) -> tuple[str, int]:
 
 
 def register(title: str) -> None:
-    """Marque un signal comme vu aujourd'hui."""
+    """
+    Marque un signal comme vu aujourd'hui.
+
+    Idempotent à la journée : un second passage le même jour (re-run manuel du
+    workflow, test) ne recompte pas le signal. Sans cela, deux exécutions dans
+    la même journée pouvaient pousser un signal au seuil "skip" et le faire
+    disparaître du rapport du lendemain.
+    """
     cache = _purge_old(_load())
     key = _hash(title)
-    if key not in cache:
-        cache[key] = []
-    cache[key].append(datetime.now().isoformat())
+    today = datetime.now().strftime("%Y-%m-%d")
+    dates = cache.setdefault(key, [])
+    if any(d.startswith(today) for d in dates):
+        return
+    dates.append(datetime.now().isoformat())
     _save(cache)
 
 

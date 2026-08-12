@@ -54,15 +54,22 @@ def _extract_bullets(sector_data: dict, max_signals: int = 3) -> list[str]:
     return bullets
 
 
-def save_daily(ai: dict, crypto: dict, market: dict, deeptech: dict) -> None:
+def save_daily(
+    ai: dict,
+    crypto: dict,
+    market: dict,
+    deeptech: dict,
+    ecommerce: dict | None = None,
+) -> None:
     """Sauvegarde le contexte du jour (appelé après le rapport du matin)."""
     data = _purge_old(_load())
     today = datetime.now().strftime("%Y-%m-%d")
     data[today] = {
-        "ai":       _extract_bullets(ai),
-        "crypto":   _extract_bullets(crypto),
-        "market":   _extract_bullets(market),
-        "deeptech": _extract_bullets(deeptech),
+        "ai":        _extract_bullets(ai),
+        "crypto":    _extract_bullets(crypto),
+        "market":    _extract_bullets(market),
+        "deeptech":  _extract_bullets(deeptech),
+        "ecommerce": _extract_bullets(ecommerce or {}),
     }
     _save(data)
 

@@ -18,9 +18,14 @@ def _get_latest_report():
     return res.data[0]["report_json"]
 
 
+# nexus a été retiré de l'architecture (refactor du 26/05), ecommerce ajouté le 12/08
+SECTORS = ["ai", "crypto", "market", "deeptech", "ecommerce"]
+SIGNAL_SECTORS = ["ai", "crypto", "market", "ecommerce"]
+
+
 def test_report_has_all_sectors():
     rj = _get_latest_report()
-    for sector in ["ai", "crypto", "market", "deeptech", "nexus"]:
+    for sector in SECTORS:
         assert sector in rj, f"Secteur '{sector}' manquant dans report_json"
 
 
@@ -50,17 +55,20 @@ def test_market_has_10_recession_indicators():
     assert len(indicators) == 10, f"Attendu 10 indicateurs, obtenu {len(indicators)}: {list(indicators.keys())}"
 
 
-def test_nexus_has_question():
+def test_ecommerce_section_populated():
     rj = _get_latest_report()
-    n = rj.get("nexus", {})
-    assert n.get("question") not in [None, ""], "nexus.question vide"
-    assert "has_connexion" in n, "nexus.has_connexion manquant"
+    e = rj.get("ecommerce", {})
+    assert e.get("signals"), "Aucun signal e-commerce"
+    themes = {"marketplace", "automation", "emailing", "creatives", "operations"}
+    for item in e.get("nouveautes", []):
+        assert item.get("theme") in themes, f"Thème inconnu: {item.get('theme')}"
+        assert item.get("titre"), "nouveauté sans titre"
 
 
 def test_signals_have_required_fields():
     rj = _get_latest_report()
     required = ["title", "fait", "action", "sizing", "conviction", "invalide_si"]
-    for sector in ["ai", "crypto", "market"]:
+    for sector in SIGNAL_SECTORS:
         signals = rj.get(sector, {}).get("signals", [])
         assert len(signals) > 0, f"Aucun signal pour {sector}"
         for sig in signals:
@@ -71,7 +79,7 @@ def test_signals_have_required_fields():
 def test_sizing_values_valid():
     rj = _get_latest_report()
     valid = {"Fort", "Moyen", "Faible"}
-    for sector in ["ai", "crypto", "market"]:
+    for sector in SIGNAL_SECTORS:
         for sig in rj.get(sector, {}).get("signals", []):
             assert sig.get("sizing") in valid, \
                 f"{sector} signal sizing invalide: '{sig.get('sizing')}' (attendu: {valid})"
@@ -79,7 +87,7 @@ def test_sizing_values_valid():
 
 def test_conviction_range():
     rj = _get_latest_report()
-    for sector in ["ai", "crypto", "market", "deeptech"]:
+    for sector in SECTORS:
         for sig in rj.get(sector, {}).get("signals", []):
             c = sig.get("conviction", 0)
             assert 1 <= c <= 5, f"{sector} conviction hors range: {c}"

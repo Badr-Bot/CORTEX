@@ -20,6 +20,7 @@ import asyncio
 import os
 import json
 import re
+import time
 from utils.logger import get_logger
 
 logger = get_logger("scout_ai.summarizer")
@@ -121,7 +122,7 @@ def _get_client():
         return None
 
 
-def _call_claude(
+def _call_anthropic(
     prompt: str,
     max_tokens: int = 4000,
     system_prompt: str = None,
@@ -181,8 +182,193 @@ def _call_claude(
         return response.content[0].text.strip()
 
     except Exception as e:
-        logger.error(f"Claude API call échoué: {e}")
+        logger.warning(f"Anthropic indisponible: {str(e)[:160]}")
         return None
+
+
+# ── Fournisseurs gratuits (Groq / Gemini) ─────────────────────────────────────
+
+# Modèles gratuits utilisés pour l'analyse profonde.
+# gpt-oss-120b : 120B params, excellent en JSON structuré — c'est le cheval de trait.
+GROQ_DEEP_MODEL   = os.getenv("GROQ_DEEP_MODEL", "openai/gpt-oss-120b")
+GROQ_BACKUP_MODEL = os.getenv("GROQ_BACKUP_MODEL", "llama-3.3-70b-versatile")
+GEMINI_MODEL      = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
+
+# Attente avant nouvel essai quand un fournisseur gratuit dit "quota atteint".
+RATE_LIMIT_WAIT = int(os.getenv("LLM_RATE_LIMIT_WAIT", "20"))
+
+# Ordre des fournisseurs. Par défaut les GRATUITS d'abord : l'API Anthropic
+# payante n'est sollicitée qu'en dernier recours (et seulement si elle a du crédit).
+# Surchargeable via LLM_PROVIDER_ORDER="anthropic,groq,gemini".
+DEFAULT_PROVIDER_ORDER = ["groq", "gemini", "anthropic"]
+
+
+def _parse_provider_order() -> list[str]:
+    """Lit LLM_PROVIDER_ORDER, en retombant sur l'ordre par défaut si elle est
+    absente, vide ou ne contient aucun fournisseur connu (une variable définie
+    à la chaîne vide viderait sinon la liste et couperait toute analyse)."""
+    raw = os.getenv("LLM_PROVIDER_ORDER", "")
+    parsed = [p.strip().lower() for p in raw.split(",") if p.strip()]
+    known = [p for p in parsed if p in DEFAULT_PROVIDER_ORDER]
+    return known or DEFAULT_PROVIDER_ORDER
+
+
+PROVIDER_ORDER = _parse_provider_order()
+
+
+def _call_groq_deep(
+    prompt: str,
+    max_tokens: int = 4000,
+    system_prompt: str = None,
+    model: str = None,
+) -> str | None:
+    """Analyse profonde via Groq (gratuit). Essaie le gros modèle puis le backup."""
+    client = _get_groq_client()
+    if not client:
+        return None
+
+    messages = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.append({"role": "user", "content": prompt})
+
+    # Deux contraintes opposées sur le palier gratuit :
+    #  - trop peu de tokens → réponse coupée en plein JSON (le bug du 12/08 :
+    #    4000 ne suffisait pas, il faut ~3500 tokens de JSON)
+    #  - trop de tokens d'un coup → Groq répond 413 "request too large", car le
+    #    quota par minute restant est inférieur à ce qu'on demande
+    # Donc : on demande large, on patiente si le quota est momentanément à sec,
+    # et seulement ensuite on descend d'un palier. Mieux vaut attendre 20 s
+    # qu'obtenir une analyse tronquée.
+    budgets = sorted({min(max_tokens, 8000), 6000, 4500}, reverse=True)
+
+    for groq_model in [m for m in (model, GROQ_DEEP_MODEL, GROQ_BACKUP_MODEL) if m]:
+        model_broken = False
+
+        for budget in budgets:
+            if model_broken:
+                break
+            for attempt in (1, 2):
+                try:
+                    response = client.chat.completions.create(
+                        model=groq_model,
+                        messages=messages,
+                        max_tokens=budget,
+                        temperature=0.2,
+                        response_format={"type": "json_object"},
+                    )
+                    choice = response.choices[0]
+                    text = (choice.message.content or "").strip()
+
+                    if choice.finish_reason == "length":
+                        logger.warning(
+                            f"Groq [{groq_model}] réponse tronquée à {budget} tokens — réparation JSON"
+                        )
+                    if text:
+                        logger.info(f"Analyse via Groq [{groq_model}] ✅ (gratuit, {budget} tokens)")
+                        return text
+                    break  # réponse vide : palier suivant
+
+                except Exception as e:
+                    msg = str(e)[:200]
+                    is_quota = _is_quota_error(msg)
+                    if is_quota and attempt == 1:
+                        logger.info(
+                            f"Groq [{groq_model}] quota momentané — nouvel essai dans {RATE_LIMIT_WAIT}s"
+                        )
+                        time.sleep(RATE_LIMIT_WAIT)
+                        continue
+                    if is_quota:
+                        logger.info(f"Groq [{groq_model}] {budget} tokens hors quota — palier inférieur")
+                        break  # palier plus petit
+                    logger.warning(f"Groq [{groq_model}] échoué: {msg}")
+                    model_broken = True  # modèle indisponible → modèle suivant
+                    break
+    return None
+
+
+def _is_quota_error(message: str) -> bool:
+    """413 (requête trop grosse pour le quota restant) ou 429 (limite atteinte)."""
+    m = message.lower()
+    return any(x in m for x in ("too large", "rate limit", "413", "429", "quota", "resource_exhausted"))
+
+
+def _call_gemini_deep(
+    prompt: str,
+    max_tokens: int = 4000,
+    system_prompt: str = None,
+) -> str | None:
+    """Analyse profonde via Gemini Flash (gratuit)."""
+    key = os.getenv("GEMINI_API_KEY", "")
+    if not key:
+        return None
+
+    for attempt in (1, 2):
+        try:
+            from google import genai
+            from google.genai import types
+
+            client = genai.Client(api_key=key)
+            config = types.GenerateContentConfig(
+                temperature=0.2,
+                max_output_tokens=max(max_tokens, 8000),
+                response_mime_type="application/json",
+            )
+            if system_prompt:
+                config.system_instruction = system_prompt
+
+            response = client.models.generate_content(
+                model=GEMINI_MODEL, contents=prompt, config=config
+            )
+            text = (response.text or "").strip()
+            if text:
+                logger.info(f"Analyse via Gemini [{GEMINI_MODEL}] ✅ (gratuit)")
+                return text
+            return None
+        except Exception as e:
+            msg = str(e)[:200]
+            if _is_quota_error(msg) and attempt == 1:
+                logger.info(f"Gemini quota momentané — nouvel essai dans {RATE_LIMIT_WAIT}s")
+                time.sleep(RATE_LIMIT_WAIT)
+                continue
+            logger.warning(f"Gemini échoué: {msg}")
+            return None
+    return None
+
+
+def _call_llm(
+    prompt: str,
+    max_tokens: int = 4000,
+    system_prompt: str = None,
+    model: str = "claude-sonnet-4-6",
+) -> str | None:
+    """
+    Appel LLM en cascade sur plusieurs fournisseurs.
+
+    Par défaut : Groq (gratuit) → Gemini (gratuit) → Anthropic (payant, dernier recours).
+
+    Objectif : le rapport CORTEX doit rester complet même sans crédit Anthropic.
+    C'est la panne du 2026-08 (crédit épuisé → sections Crypto et Marchés vides).
+    `model` reste le modèle Anthropic souhaité si on retombe sur ce fournisseur.
+    """
+    for provider in PROVIDER_ORDER:
+        if provider == "groq":
+            out = _call_groq_deep(prompt, max_tokens, system_prompt)
+        elif provider == "gemini":
+            out = _call_gemini_deep(prompt, max_tokens, system_prompt)
+        elif provider == "anthropic":
+            out = _call_anthropic(prompt, max_tokens, system_prompt, model)
+        else:
+            continue
+        if out:
+            return out
+
+    logger.error("Tous les fournisseurs LLM ont échoué — fallback dégradé")
+    return None
+
+
+# Alias de compatibilité (ancien nom utilisé dans le code historique).
+_call_claude = _call_llm
 
 
 def _parse_json(raw: str) -> dict | list | None:
@@ -235,8 +421,82 @@ def _parse_json(raw: str) -> dict | list | None:
     except Exception:
         pass
 
+    # Tentative 3 : réparer un JSON tronqué (réponse coupée par la limite de tokens).
+    # Mieux vaut récupérer les 2 premiers signaux complets que perdre toute la section.
+    repaired = _repair_truncated_json(text)
+    if repaired is not None:
+        logger.warning("JSON tronqué réparé — analyse partielle conservée")
+        return repaired
+
     logger.error(f"JSON parse impossible: {text[:200]}")
     return None
+
+
+def _repair_truncated_json(text: str):
+    """
+    Referme un JSON coupé en cours de route : on tronque à la dernière virgule de
+    haut niveau puis on referme les accolades/crochets encore ouverts.
+    Retourne None si la réparation ne donne rien d'exploitable.
+    """
+    start = next((i for i, c in enumerate(text) if c in "{["), None)
+    if start is None:
+        return None
+    text = text[start:]
+
+    stack, in_str, escape = [], False, False
+    last_safe = None  # position juste après le dernier élément complet
+
+    for i, c in enumerate(text):
+        if escape:
+            escape = False
+            continue
+        if c == "\\":
+            escape = True
+            continue
+        if c == '"':
+            in_str = not in_str
+            continue
+        if in_str:
+            continue
+        if c in "{[":
+            stack.append(c)
+        elif c in "}]":
+            if stack:
+                stack.pop()
+            if not stack:
+                last_safe = i + 1
+        elif c == "," and len(stack) <= 2:
+            last_safe = i
+
+    if last_safe is None:
+        return None
+
+    candidate = text[:last_safe].rstrip().rstrip(",")
+
+    # Refermer ce qui reste ouvert, dans l'ordre inverse
+    stack, in_str, escape = [], False, False
+    for c in candidate:
+        if escape:
+            escape = False
+            continue
+        if c == "\\":
+            escape = True
+            continue
+        if c == '"':
+            in_str = not in_str
+            continue
+        if in_str:
+            continue
+        if c in "{[":
+            stack.append(c)
+        elif c in "}]" and stack:
+            stack.pop()
+
+    closing = "".join("}" if b == "{" else "]" for b in reversed(stack))
+    try:
+        return json.loads(candidate + closing)
+    except json.JSONDecodeError:
+        return None
 
 
 def _prep_signals(signals: list[dict], max_count: int = 80) -> str:
@@ -343,7 +603,7 @@ async def analyze_ai(signals: list[dict]) -> dict:
         user_prompt += f"{ctx_str}\n\n"
     user_prompt += f"Voici {len(signals)} signaux IA collectés :\n\n{context}"
 
-    raw    = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_AI, model="claude-sonnet-4-6")
+    raw    = _call_llm(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_AI, model="claude-sonnet-4-6")
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -354,23 +614,39 @@ async def analyze_ai(signals: list[dict]) -> dict:
     return result
 
 
-def _fallback_ai(signals: list[dict]) -> dict:
-    fallback_signals = []
-    for s in signals[:3]:
-        fallback_signals.append({
-            "conviction":    3,
-            "title":         s.get("title", "SIGNAL IA")[:70].upper(),
-            "fait":          s.get("raw_content", s.get("title", ""))[:300],
-            "implication_2": "Analyse indisponible — Claude non connecté.",
-            "implication_3": "Vérification manuelle recommandée.",
-            "these_opposee": "N/A",
-            "action":        "Lire la source directement.",
+def _degraded_signals(signals: list[dict], limit: int = 3, label: str = "SIGNAL") -> list[dict]:
+    """
+    Transforme des news brutes en blocs signaux affichables, sans LLM.
+
+    Filet de sécurité : si TOUS les fournisseurs LLM tombent, on préfère afficher
+    la news brute (titre + source + lien) plutôt qu'une section vide.
+    C'est exactement ce qui manquait à Crypto et Marchés (sections à 0 signal).
+    """
+    out = []
+    for s in signals[:limit]:
+        title   = (s.get("title") or label).strip()
+        content = (s.get("raw_content") or "").strip()
+        out.append({
+            "conviction":    2,
+            "theme":         s.get("theme"),
+            "title":         title[:80].upper(),
+            "en_clair":      title[:150],
+            "fait":          (content or title)[:500],
+            "implication_2": "Analyse automatique indisponible ce matin — news affichée brute.",
+            "implication_3": "À lire à la source pour te faire ton avis.",
+            "these_opposee": "",
+            "action":        "Ouvrir la source et juger par toi-même.",
             "sizing":        "Faible",
-            "invalide_si":   "N/A",
+            "invalide_si":   "Pas d'analyse automatique disponible pour ce signal.",
             "source_name":   s.get("source_name", ""),
             "source_url":    s.get("source_url", ""),
+            "degraded":      True,
         })
-    return {"signals": fallback_signals, "watchlist": []}
+    return out
+
+
+def _fallback_ai(signals: list[dict]) -> dict:
+    return {"signals": _degraded_signals(signals, 3, "SIGNAL IA"), "watchlist": []}
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -511,12 +787,12 @@ async def analyze_crypto(data: dict) -> dict:
     user_prompt += "DONNÉES MARCHÉ TEMPS RÉEL :\n" + dash_str
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw    = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_CRYPTO, model="claude-haiku-4-5-20251001")
+    raw    = _call_llm(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_CRYPTO, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "score" not in result:
         logger.warning("analyze_crypto: fallback activé")
-        return _fallback_crypto(dashboard)
+        return _fallback_crypto(dashboard, signals)
 
     result["dashboard"] = dashboard
     logger.info(
@@ -526,10 +802,10 @@ async def analyze_crypto(data: dict) -> dict:
     return result
 
 
-def _fallback_crypto(dashboard: dict) -> dict:
+def _fallback_crypto(dashboard: dict, signals: list[dict] | None = None) -> dict:
     return {
         "dashboard":     dashboard,
-        "phase":         "N/A",
+        "phase":         dashboard.get("cycle", {}).get("phase", "N/A"),
         "volume_vs_30d": "données indisponibles",
         "score": {
             "onchain":   {"value": 0, "note": "N/A"},
@@ -541,7 +817,7 @@ def _fallback_crypto(dashboard: dict) -> dict:
         "direction":  "NEUTRE",
         "magnitude":  "faible",
         "bear_case":  "Analyse indisponible.",
-        "signals":    [],
+        "signals":    _degraded_signals(signals or [], 3, "SIGNAL CRYPTO"),
     }
 
 
@@ -687,12 +963,12 @@ async def analyze_market(data: dict) -> dict:
     user_prompt += f"\n\nINDICATEURS MACRO FRED (données officielles US) :\n{fred_str}"
     user_prompt += f"\n\nSIGNAUX NEWS ({len(signals)} collectés) :\n{context}"
 
-    raw    = _call_claude(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_MARKET, model="claude-sonnet-4-6")
+    raw    = _call_llm(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_MARKET, model="claude-sonnet-4-6")
     result = _parse_json(raw)
 
     if not result or "recession_indicators" not in result:
         logger.warning("analyze_market: fallback activé")
-        return _fallback_market(dashboard)
+        return _fallback_market(dashboard, signals)
 
     result["dashboard"] = dashboard
     logger.info(
@@ -702,18 +978,21 @@ async def analyze_market(data: dict) -> dict:
     return result
 
 
-def _fallback_market(dashboard: dict) -> dict:
+def _fallback_market(dashboard: dict, signals: list[dict] | None = None) -> dict:
     neutral = {"status": "yellow", "note": "données indisponibles"}
     return {
         "dashboard": dashboard,
+        # Les 10 indicateurs du schéma — le fallback n'en produisait que 7,
+        # ce qui cassait le rendu du tableau récession côté dashboard.
         "recession_indicators": {k: neutral for k in [
             "courbe_taux", "emploi", "ism_manuf", "ism_services",
             "conso_conf", "credit_spread", "earnings_rev",
+            "pmi_composite", "retail_sales", "housing",
         ]},
         "recession_score": 3,
         "regime":               "Transition",
-        "regime_justification": "Analyse indisponible — Claude non connecté.",
-        "signals":              [],
+        "regime_justification": "Analyse automatique indisponible ce matin.",
+        "signals":              _degraded_signals(signals or [], 3, "SIGNAL MARCHÉ"),
     }
 
 
@@ -800,7 +1079,7 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
         user_prompt += f"{ctx_str}\n\n"
     user_prompt += f"Voici {len(signals)} signaux deeptech collectés :\n\n{context}"
 
-    raw    = _call_claude(user_prompt, max_tokens=3500, system_prompt=_SYSTEM_DEEPTECH, model="claude-haiku-4-5-20251001")
+    raw    = _call_llm(user_prompt, max_tokens=3500, system_prompt=_SYSTEM_DEEPTECH, model="claude-haiku-4-5-20251001")
     result = _parse_json(raw)
 
     if not result or "signals" not in result:
@@ -809,6 +1088,152 @@ async def analyze_deeptech(signals: list[dict]) -> dict:
 
     logger.info(f"analyze_deeptech: {len(result.get('signals', []))} signaux analysés")
     return result
+
+
+_SYSTEM_ECOMMERCE = """Tu es CORTEX, analyste e-commerce senior pour Badr — entrepreneur qui vend en ligne et investit dans la tech.
+
+RÈGLE DE STYLE (PRIORITAIRE) : Badr n'est PAS expert en marketing technique. Écris simplement, comme à un ami intelligent mais non spécialiste. Chaque terme technique (ex : ROAS, CPM, délivrabilité, flow, agentic commerce, retail media, LTV...) est expliqué en quelques mots entre parenthèses la PREMIÈRE fois. Phrases courtes. Zéro jargon non expliqué. Quitte à être plus long, sois limpide.
+
+MISSION : à partir des nouveautés e-commerce fournies, produis un briefing ACTIONNABLE pour quelqu'un qui gère une boutique en ligne.
+1. Sélectionne EXACTEMENT 3 signaux à fort impact, en couvrant des thèmes DIFFÉRENTS
+2. Pour chaque grand thème (automatisation, emailing, créas/publicité, plateformes), donne la nouveauté du jour à retenir
+3. Termine par 2 actions concrètes à tester cette semaine
+
+Les 5 thèmes suivis :
+  marketplace — Shopify, Amazon, TikTok Shop, Temu, marketplaces, D2C
+  automation  — automatisation, agents IA, agentic commerce, no-code, outils
+  emailing    — email/SMS marketing, Klaviyo, rétention, délivrabilité, CRM
+  creatives   — publicités, créas, UGC, Meta/TikTok Ads, ce qui convertit
+  operations  — logistique, paiement, supply chain, fraude, retours
+
+Réponds UNIQUEMENT avec ce JSON valide (sans markdown) :
+{
+  "tendance_globale": "Ce qui bouge vraiment en e-commerce en ce moment, en 3-4 phrases simples et factuelles. Ce que ça veut dire pour une boutique en ligne aujourd'hui. 250-350 chars.",
+  "nouveautes": [
+    {
+      "theme": "automation",
+      "titre": "Titre court de la nouveauté (max 70 chars)",
+      "quoi": "Ce que c'est, en une phrase simple et concrète. 100-180 chars.",
+      "pourquoi": "Pourquoi ça compte pour une boutique en ligne. 100-180 chars.",
+      "source_name": "Source",
+      "source_url": "URL"
+    }
+  ],
+  "signals": [
+    {
+      "conviction": 4,
+      "theme": "creatives",
+      "title": "TITRE EN MAJUSCULES (max 80 chars)",
+      "en_clair": "Résumé en 1 phrase ULTRA-simple, zéro jargon. Max 150 chars.",
+      "fait": "Factuel, complet et APPROFONDI : qui, quoi, chiffres, contexte, ce qui change concrètement pour les vendeurs en ligne. Minimum 6 lignes. Texte brut.",
+      "implication_2": "Impact direct sur une boutique en ligne : coûts, trafic, conversion, marges. 3-4 phrases.",
+      "implication_3": "Qui gagne / qui perd dans l'écosystème (plateformes, marques, agences, outils). 3-4 phrases.",
+      "these_opposee": "Meilleur argument contre cette lecture. 2-3 lignes.",
+      "action": "Action concrète et spécifique pour Badr — quel outil, quel test, quel délai.",
+      "sizing": "Moyen",
+      "invalide_si": "Condition précise et mesurable qui invaliderait l'analyse.",
+      "source_name": "Source",
+      "source_url": "URL"
+    }
+  ],
+  "actions_semaine": [
+    "Action concrète et testable cette semaine, avec le résultat attendu. Max 160 chars.",
+    "Deuxième action, sur un autre thème. Max 160 chars."
+  ],
+  "questions": [
+    "Question directe qui force Badr à décider sur le sujet e-commerce le plus fort du jour. 1 phrase."
+  ]
+}
+
+Règles absolues :
+- TOUJOURS exactement 3 signaux dans signals, sur 3 thèmes DIFFÉRENTS
+- nouveautes : 3 à 5 items, thèmes variés — priorité à automation, emailing et creatives
+- theme : uniquement "marketplace", "automation", "emailing", "creatives" ou "operations"
+- source_url : reprends l'URL EXACTE fournie dans les signaux, n'invente jamais de lien
+- conviction : entier de 1 à 5 | sizing : "Fort", "Moyen" ou "Faible"
+- actions_semaine : EXACTEMENT 2 actions
+- Tout en FRANÇAIS — texte brut, zéro markdown
+- LIMITES : en_clair=80-150, fait=500-800 chars, implication_2=200-300, implication_3=200-300, these_opposee=150-250, action=150-200, invalide_si=100-150"""
+
+
+async def analyze_ecommerce(data: dict) -> dict:
+    """
+    Pipeline : Groq (→12) → Board débat (→4) → analyse profonde.
+    data = {dashboard: dict, signals: list, themes: dict}
+    """
+    dashboard = data.get("dashboard", {})
+    raw_signals = data.get("signals", [])
+    themes = data.get("themes", {})
+
+    if not raw_signals:
+        return _fallback_ecommerce(dashboard, [])
+
+    signals = _prefilter_with_groq(raw_signals, sector="ecommerce/retail/marketing", max_count=12)
+    from agents.board import run_debate
+    signals = await run_debate(signals, sector="E-commerce")
+    context = _prep_signals(signals, 12)
+
+    from agents.context import load_context
+    ctx_str = load_context(sector="ecommerce", days=14)
+
+    stocks = dashboard.get("stocks", [])
+    secteur = dashboard.get("secteur", {})
+    dash_lines = [
+        f"{s['nom']} ({s['ticker']}) : {s['price']} ({'+' if s['change_pct'] >= 0 else ''}{s['change_pct']}%)"
+        for s in stocks[:10]
+    ]
+    if secteur:
+        dash_lines.append(
+            f"Secteur : {secteur.get('pct_hausse')}% des actions en hausse — {secteur.get('sentiment')}"
+        )
+    dash_str = "\n".join(dash_lines) if dash_lines else "Données actions indisponibles"
+
+    themes_str = ", ".join(f"{k}: {v}" for k, v in themes.items()) or "n/a"
+
+    user_prompt = ""
+    if ctx_str:
+        user_prompt += f"{ctx_str}\n\n"
+    user_prompt += "ACTIONS E-COMMERCE COTÉES (aujourd'hui) :\n" + dash_str
+    user_prompt += f"\n\nRÉPARTITION DES NOUVEAUTÉS PAR THÈME : {themes_str}"
+    user_prompt += f"\n\nNOUVEAUTÉS E-COMMERCE ({len(signals)} retenues) :\n{context}"
+
+    raw = _call_llm(user_prompt, max_tokens=4000, system_prompt=_SYSTEM_ECOMMERCE, model="claude-haiku-4-5-20251001")
+    result = _parse_json(raw)
+
+    if not result or "signals" not in result:
+        logger.warning("analyze_ecommerce: fallback activé")
+        return _fallback_ecommerce(dashboard, signals)
+
+    result["dashboard"] = dashboard
+    result["themes"] = themes
+    logger.info(
+        f"analyze_ecommerce: {len(result.get('signals', []))} signaux, "
+        f"{len(result.get('nouveautes', []))} nouveautés"
+    )
+    return result
+
+
+def _fallback_ecommerce(dashboard: dict, signals: list[dict] | None = None) -> dict:
+    signals = signals or []
+    nouveautes = [
+        {
+            "theme":       s.get("theme", "marketplace"),
+            "titre":       s.get("title", "")[:70],
+            "quoi":        (s.get("raw_content") or s.get("title", ""))[:180],
+            "pourquoi":    "Analyse automatique indisponible — à lire à la source.",
+            "source_name": s.get("source_name", ""),
+            "source_url":  s.get("source_url", ""),
+        }
+        for s in signals[:4]
+    ]
+    return {
+        "dashboard":         dashboard,
+        "tendance_globale":  "Analyse automatique indisponible ce matin — nouveautés affichées brutes.",
+        "nouveautes":        nouveautes,
+        "signals":           _degraded_signals(signals, 3, "SIGNAL E-COMMERCE"),
+        "actions_semaine":   [],
+        "themes":            {},
+    }
 
 
 def _fallback_deeptech(signals: list[dict]) -> dict:

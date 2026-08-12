@@ -10,6 +10,9 @@ logs/
 dist/
 build/
 data/seen_urls.json
+# Etat d'execution local (cache anti-doublon, memoire contextuelle 14j)
+data/dedup_cache.json
+data/context.json
 .claude/settings.local.json
 dashboard/.next/
 node_modules/

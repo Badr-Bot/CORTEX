@@ -3,6 +3,7 @@ import NavBar from "@/components/NavBar"
 import SignalCard from "@/components/SignalCard"
 import CryptoSection from "@/components/CryptoSection"
 import MarketSection from "@/components/MarketSection"
+import EcommerceSection from "@/components/EcommerceSection"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -54,6 +55,12 @@ export default async function ReportPage({ params }: { params: { date: string } 
         <section>
           <h2 className="text-green-400 font-semibold mb-4">📈 Marchés & Macro</h2>
           <MarketSection market={json.market} />
+        </section>
+
+        {/* E-commerce */}
+        <section>
+          <h2 className="text-pink-400 font-semibold mb-4">🛍️ E-commerce</h2>
+          <EcommerceSection ecommerce={json.ecommerce} />
         </section>
 
         {/* DeepTech */}

@@ -10,10 +10,8 @@ Sources :
 """
 
 import asyncio
-import feedparser
 import httpx
 import os
-import re
 from datetime import datetime, timezone, timedelta
 from utils.logger import get_logger
 
@@ -33,12 +31,19 @@ TICKERS = {
     "us_10y":  "^TNX",
 }
 
+# Flux vérifiés le 2026-08-12 (voir utils/feeds.py pour le pourquoi du User-Agent).
+# Retiré : feeds.reuters.com — le domaine ne résout plus (Reuters a fermé ses RSS publics).
 MARKET_NEWS_FEEDS = [
-    {"name": "Reuters Markets",  "url": "https://feeds.reuters.com/reuters/businessNews"},
     {"name": "MarketWatch",      "url": "https://feeds.marketwatch.com/marketwatch/topstories/"},
     {"name": "Yahoo Finance",    "url": "https://finance.yahoo.com/news/rssindex"},
     {"name": "Seeking Alpha",    "url": "https://seekingalpha.com/market_currents.xml"},
     {"name": "FT Markets",       "url": "https://www.ft.com/rss/home/uk"},
+    {"name": "CNBC Markets",     "url": "https://www.cnbc.com/id/15839135/device/rss/rss.html"},
+    {"name": "CNBC Economy",     "url": "https://www.cnbc.com/id/20910258/device/rss/rss.html"},
+    {"name": "Investing.com",    "url": "https://www.investing.com/rss/news.rss"},
+    {"name": "BBC Business",     "url": "https://feeds.bbci.co.uk/news/business/rss.xml"},
+    {"name": "Reuters (via Google News)",
+     "url": "https://news.google.com/rss/search?q=stock+market+OR+federal+reserve+when:1d&hl=en-US&gl=US&ceid=US:en"},
 ]
 
 SECTOR_ETFS = {
@@ -499,61 +504,17 @@ async def collect_dashboard() -> dict:
 
 # ── Collecte signaux news ─────────────────────────────────────────────────────
 
-async def _fetch_rss_feed(feed_info: dict, hours: int) -> list[dict]:
-    cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
-    signals = []
-    try:
-        feed = await asyncio.to_thread(feedparser.parse, feed_info["url"])
-        for entry in feed.entries[:15]:
-            pub = entry.get("published_parsed") or entry.get("updated_parsed")
-            if pub:
-                try:
-                    pub_dt = datetime(*pub[:6], tzinfo=timezone.utc)
-                    if pub_dt < cutoff:
-                        continue
-                except Exception:
-                    pass
-
-            title   = entry.get("title", "").strip()
-            url     = entry.get("link", "")
-            content = entry.get("summary", entry.get("description", ""))[:400]
-
-            if not title or not url:
-                continue
-            if not _is_market_relevant(title + " " + content):
-                continue
-
-            signals.append({
-                "title":       title,
-                "source_name": feed_info["name"],
-                "source_url":  url,
-                "raw_content": content,
-                "sector":      "market",
-                "category":    "media",
-            })
-    except Exception as e:
-        logger.warning(f"Market RSS {feed_info['name']}: {e}")
-    return signals
-
-
 async def collect_signals(hours: int = 24) -> list[dict]:
     """Collecte les signaux news marchés depuis tous les flux RSS."""
-    results = await asyncio.gather(
-        *[_fetch_rss_feed(f, hours) for f in MARKET_NEWS_FEEDS],
-        return_exceptions=True,
+    from utils.feeds import collect_from_feeds
+
+    unique = await collect_from_feeds(
+        MARKET_NEWS_FEEDS,
+        hours=hours,
+        sector="market",
+        is_relevant=_is_market_relevant,
+        max_entries=20,
     )
-    signals = []
-    for r in results:
-        if isinstance(r, list):
-            signals.extend(r)
-
-    # Déduplication
-    seen, unique = set(), []
-    for s in signals:
-        if s["source_url"] not in seen:
-            seen.add(s["source_url"])
-            unique.append(s)
-
     logger.info(f"SCOUT-MARKET signaux: {len(unique)} news ({hours}h)")
     return unique
 

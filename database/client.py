@@ -685,6 +685,7 @@ async def save_dashboard_report(
     crypto_data: dict,
     market_data: dict,
     deeptech_data: dict,
+    ecommerce_data: Optional[dict] = None,
     signals_count: int = 0,
 ) -> Optional[dict]:
     """
@@ -695,10 +696,11 @@ async def save_dashboard_report(
         client = get_supabase_client()
 
         report_json = {
-            "ai":       ai_data,
-            "crypto":   crypto_data,
-            "market":   market_data,
-            "deeptech": deeptech_data,
+            "ai":        ai_data,
+            "crypto":    crypto_data,
+            "market":    market_data,
+            "deeptech":  deeptech_data,
+            "ecommerce": ecommerce_data or {},
         }
 
         # Vérifier si un rapport existe déjà pour cette date
@@ -740,7 +742,7 @@ async def save_dashboard_report(
                     "report_json":     report_json,
                     "signals_count":   signals_count,
                     "report_content":  "",
-                    "sectors_covered": ["ai", "crypto", "market", "deeptech"],
+                    "sectors_covered": ["ai", "crypto", "market", "deeptech", "ecommerce"],
                 })
                 .execute()
             )

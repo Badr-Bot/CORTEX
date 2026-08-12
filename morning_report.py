@@ -1,11 +1,11 @@
 """
 CORTEX — Orchestrateur Rapport du Matin v3
-5 messages Telegram séquentiels en HTML :
+5 sections en HTML :
   MSG 1 : 🧠 Intelligence Artificielle
   MSG 2 : 💰 Crypto & Web3
   MSG 3 : 📈 Marchés & Macro + Actions chaudes
   MSG 4 : ⚡ DeepTech & Ruptures
-  MSG 5 : 🔗 Nexus + Scorecard + Question
+  MSG 5 : 🛍️ E-commerce (automatisation, emailing, créas, plateformes)
 
 Format : HTML (Telegram), gras sur headers, emoji comme palette couleur.
 Glossaire technique à la fin de chaque message.
@@ -53,6 +53,25 @@ GLOSSARY = {
     "bear case":       "Scénario pessimiste — raisons pour lesquelles l'analyse pourrait être fausse",
     "momentum":        "Force et direction d'une tendance de prix sur une période récente",
     "récession":       "Contraction économique sur 2 trimestres consécutifs — impact fort sur actions et crypto",
+    "roas":            "Retour sur dépense publicitaire : 3 = 3€ de ventes pour 1€ de pub dépensé",
+    "cpm":             "Coût pour 1000 affichages d'une publicité — monte quand la concurrence publicitaire s'intensifie",
+    "ltv":             "Valeur totale d'un client sur toute sa durée de vie — clé pour savoir combien on peut payer pour l'acquérir",
+    "délivrabilité":   "Capacité d'un email à arriver en boîte de réception plutôt qu'en spam",
+    "flow email":      "Séquence d'emails automatiques déclenchée par une action du client (panier abandonné, bienvenue...)",
+    "agentic commerce":"Achats effectués par un agent IA à la place du client — nouvelle porte d'entrée du trafic e-commerce",
+    "retail media":    "Publicités vendues par un distributeur sur son propre site (Amazon Ads, Walmart Connect...)",
+    "ugc":             "Contenu créé par des utilisateurs ou créateurs, utilisé comme publicité — souvent moins cher et plus crédible",
+    "taux de conversion": "Part des visiteurs qui achètent — 2 à 3% est une norme courante en e-commerce",
+    "d2c":             "Vente directe au consommateur, sans intermédiaire ni distributeur",
+}
+
+# Libellés lisibles des thèmes e-commerce
+ECOM_THEMES = {
+    "marketplace": ("🛒", "Plateformes &amp; marketplaces"),
+    "automation":  ("🤖", "Automatisation"),
+    "emailing":    ("📧", "Emailing &amp; rétention"),
+    "creatives":   ("🎨", "Créas &amp; publicité"),
+    "operations":  ("📦", "Logistique &amp; paiement"),
 }
 
 
@@ -543,6 +562,89 @@ def build_msg4(deeptech_data: dict) -> str:
 
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# BUILD MSG 5 — E-COMMERCE
+# ══════════════════════════════════════════════════════════════════════════════
+
+def build_msg5(ecom_data: dict) -> str:
+    dashboard  = ecom_data.get("dashboard", {})
+    tendance   = ecom_data.get("tendance_globale", "")
+    nouveautes = ecom_data.get("nouveautes", [])
+    signals    = ecom_data.get("signals", [])[:3]
+    actions    = ecom_data.get("actions_semaine", [])
+    stocks     = dashboard.get("stocks", [])
+    secteur    = dashboard.get("secteur", {})
+
+    lines = [
+        SEP_HEAVY,
+        "<b>🛍️ CORTEX — E-COMMERCE</b>",
+        f"<i>📅 {_fr_date()}</i>",
+        "<i>Automatisation, emailing, créas et plateformes — ce qui change pour vendre en ligne.</i>",
+        SEP_HEAVY,
+    ]
+
+    if tendance:
+        lines += ["", "<b>🌡️ La tendance du moment</b>", "", f"<i>{_h(tendance)}</i>"]
+
+    # Actions du secteur
+    if stocks:
+        lines += ["", SEP_LIGHT, "", "<b>📊 Les actions du secteur aujourd'hui</b>", ""]
+        for s in stocks[:6]:
+            chg = s.get("change_pct", 0)
+            col = "🟢" if chg >= 0 else "🔴"
+            lines.append(
+                f"  {col} <b>{_h(s.get('nom', ''))}</b> ({_h(s.get('ticker', ''))}) — "
+                f"{_h(str(s.get('price', '')))} {_arrow(chg)} {_h(_fmt_pct(chg))}"
+            )
+        if secteur:
+            lines += [
+                "",
+                f"  → <i>{_h(secteur.get('pct_hausse', '?'))}% des actions du secteur en hausse "
+                f"— {_h(secteur.get('sentiment', ''))}</i>",
+            ]
+
+    # Nouveautés par thème
+    if nouveautes:
+        lines += ["", SEP_LIGHT, "", "<b>🆕 Les nouveautés à connaître</b>"]
+        for n in nouveautes[:5]:
+            emoji, label = ECOM_THEMES.get(n.get("theme", ""), ("•", "E-commerce"))
+            lines += [
+                "",
+                f"{emoji} <b>{label}</b>",
+                f"  <b>{_h(n.get('titre', ''))}</b>",
+                f"  {_h(n.get('quoi', ''))}",
+            ]
+            if n.get("pourquoi"):
+                lines.append(f"  <i>Pourquoi ça compte : {_h(n['pourquoi'])}</i>")
+            if n.get("source_url"):
+                lines.append(f"  🔗 {_link(n.get('source_name', 'Source'), n['source_url'])}")
+
+    # Signaux approfondis
+    if signals:
+        for i, sig in enumerate(signals):
+            emoji, label = ECOM_THEMES.get(sig.get("theme", ""), ("", ""))
+            lines += ["", SEP_MED, ""]
+            if label:
+                lines.append(f"{emoji} <i>{label}</i>")
+            lines.append(_signal_block(sig, NUMS[i]))
+    else:
+        lines += ["", "<i>Aucune nouveauté e-commerce majeure aujourd'hui.</i>"]
+
+    # Actions de la semaine
+    if actions:
+        lines += ["", SEP_LIGHT, "", "<b>✅ À tester cette semaine</b>", ""]
+        for a in actions[:2]:
+            lines.append(f"  ▸ {_h(a)}")
+
+    lines.append(_build_glossary([
+        "roas", "cpm", "ltv", "délivrabilité", "flow email",
+        "agentic commerce", "retail media", "ugc", "taux de conversion", "d2c",
+    ]))
+    lines.append(SEP_HEAVY)
+
+    return "\n".join(lines)
+
+
 def _split_at_boundary(text: str, max_chars: int = 3800) -> list[str]:
     """Découpe proprement aux séparateurs ▬▬▬ (jamais au milieu d'un signal)."""
     if len(text) <= max_chars:
@@ -590,7 +692,7 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     logger.info("Étape 1/3 — Collecte parallèle (4 agents)...")
 
     from agents.sources import titans, media, weak_signals, viral
-    from agents import scout_crypto, scout_market, scout_deeptech
+    from agents import scout_crypto, scout_market, scout_deeptech, scout_ecommerce
 
     async def _collect_ai():
         results = await asyncio.gather(
@@ -613,11 +715,13 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         logger.info(f"  IA: {len(unique)} signaux collectés")
         return unique
 
-    ai_raw, crypto_raw, market_raw, deeptech_raw = await asyncio.gather(
+    ai_raw, crypto_raw, market_raw, deeptech_raw, ecom_raw = await asyncio.gather(
         _collect_ai(),
         scout_crypto.collect(hours),
         scout_market.collect(hours),
         scout_deeptech.collect(hours),
+        # Fenêtre plus large : la presse e-commerce publie moins vite (cf. scout_ecommerce)
+        scout_ecommerce.collect(max(hours, 48)),
         return_exceptions=True,
     )
 
@@ -625,24 +729,32 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     if isinstance(crypto_raw,   Exception): crypto_raw   = {"dashboard": {}, "signals": []}
     if isinstance(market_raw,   Exception): market_raw   = {"dashboard": {}, "signals": [], "hot_stocks": []}
     if isinstance(deeptech_raw, Exception): deeptech_raw = []
+    if isinstance(ecom_raw,     Exception): ecom_raw     = {"dashboard": {}, "signals": [], "themes": {}}
 
     # ── Étape 2 : Analyse Claude en parallèle ─────────────────────────────────
     logger.info("Étape 2/3 — Analyse Claude (Sonnet) en parallèle...")
 
     from agents import summarizer
 
-    ai_analyzed, crypto_analyzed, market_analyzed, deeptech_analyzed = await asyncio.gather(
+    ai_analyzed, crypto_analyzed, market_analyzed, deeptech_analyzed, ecom_analyzed = await asyncio.gather(
         summarizer.analyze_ai(ai_raw if isinstance(ai_raw, list) else []),
         summarizer.analyze_crypto(crypto_raw),
         summarizer.analyze_market(market_raw),
         summarizer.analyze_deeptech(deeptech_raw if isinstance(deeptech_raw, list) else []),
+        summarizer.analyze_ecommerce(ecom_raw),
         return_exceptions=True,
     )
 
-    if isinstance(ai_analyzed,       Exception): ai_analyzed       = summarizer._fallback_ai([])
-    if isinstance(crypto_analyzed,   Exception): crypto_analyzed   = summarizer._fallback_crypto({})
-    if isinstance(market_analyzed,   Exception): market_analyzed   = summarizer._fallback_market({})
-    if isinstance(deeptech_analyzed, Exception): deeptech_analyzed = {"signals": []}
+    if isinstance(ai_analyzed,       Exception):
+        ai_analyzed       = summarizer._fallback_ai(ai_raw if isinstance(ai_raw, list) else [])
+    if isinstance(crypto_analyzed,   Exception):
+        crypto_analyzed   = summarizer._fallback_crypto(crypto_raw.get("dashboard", {}), crypto_raw.get("signals", []))
+    if isinstance(market_analyzed,   Exception):
+        market_analyzed   = summarizer._fallback_market(market_raw.get("dashboard", {}), market_raw.get("signals", []))
+    if isinstance(deeptech_analyzed, Exception):
+        deeptech_analyzed = summarizer._fallback_deeptech(deeptech_raw[:2] if isinstance(deeptech_raw, list) else [])
+    if isinstance(ecom_analyzed,     Exception):
+        ecom_analyzed     = summarizer._fallback_ecommerce(ecom_raw.get("dashboard", {}), ecom_raw.get("signals", []))
 
     # Propagation hot_stocks + crash depuis market_raw → market_analyzed
     if isinstance(market_raw, dict):
@@ -655,7 +767,8 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         f"  IA: {len(ai_analyzed.get('signals', []))} signaux | "
         f"Crypto: {len(crypto_analyzed.get('signals', []))} | "
         f"Marchés: {len(market_analyzed.get('signals', []))} | "
-        f"DeepTech: {len(deeptech_analyzed.get('signals', []))}"
+        f"DeepTech: {len(deeptech_analyzed.get('signals', []))} | "
+        f"E-commerce: {len(ecom_analyzed.get('signals', []))}"
     )
 
     # ── Étape 3 : Déduplication (7 jours glissants) ───────────────────────────
@@ -673,14 +786,16 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     crypto_analyzed   = _dedup_section(crypto_analyzed)
     market_analyzed   = _dedup_section(market_analyzed)
     deeptech_analyzed = _dedup_section(deeptech_analyzed)
+    ecom_analyzed     = _dedup_section(ecom_analyzed)
 
-    # ── Construction des 4 messages HTML ─────────────────────────────────────
+    # ── Construction des 5 messages HTML ─────────────────────────────────────
     msg1 = build_msg1(ai_analyzed)
     msg2 = build_msg2(crypto_analyzed)
     msg3 = build_msg3(market_analyzed)
     msg4 = build_msg4(deeptech_analyzed)
+    msg5 = build_msg5(ecom_analyzed)
 
-    messages = [msg1, msg2, msg3, msg4]
+    messages = [msg1, msg2, msg3, msg4, msg5]
 
     logger.info("Messages construits :")
     for i, m in enumerate(messages, 1):
@@ -690,7 +805,6 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     if send_telegram:
         try:
             from tgbot.bot import broadcast_message
-            from datetime import datetime
 
             # Simple notification de disponibilité
             today_fr = _fr_date()
@@ -698,7 +812,8 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
                 len(ai_analyzed.get("signals", [])) +
                 len(crypto_analyzed.get("signals", [])) +
                 len(market_analyzed.get("signals", [])) +
-                len(deeptech_analyzed.get("signals", []))
+                len(deeptech_analyzed.get("signals", [])) +
+                len(ecom_analyzed.get("signals", []))
             )
             msg = (
                 f"\u2600\ufe0f <b>Rapport du {today_fr}</b>\n\n"
@@ -714,7 +829,7 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     # ── Sauvegarde contexte + Enregistrement dedup ───────────────────────────
     try:
         from agents.context import save_daily
-        save_daily(ai_analyzed, crypto_analyzed, market_analyzed, deeptech_analyzed)
+        save_daily(ai_analyzed, crypto_analyzed, market_analyzed, deeptech_analyzed, ecom_analyzed)
         logger.info("Contexte journalier sauvegardé ✅")
     except Exception as e:
         logger.warning(f"Sauvegarde contexte échouée (non bloquant): {e}")
@@ -723,7 +838,8 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
         ai_analyzed.get("signals", []) +
         crypto_analyzed.get("signals", []) +
         market_analyzed.get("signals", []) +
-        deeptech_analyzed.get("signals", [])
+        deeptech_analyzed.get("signals", []) +
+        ecom_analyzed.get("signals", [])
     )
     mark_sent(all_signals)
 
@@ -736,6 +852,7 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
             crypto_data=crypto_analyzed,
             market_data=market_analyzed,
             deeptech_data=deeptech_analyzed,
+            ecommerce_data=ecom_analyzed,
             signals_count=signals_total,
         )
         logger.info("Dashboard report sauvegardé dans Supabase ✅")
@@ -747,9 +864,10 @@ async def run_morning_report(hours: int = 24, send_telegram: bool = True) -> dic
     logger.info("=" * 55)
 
     return {
-        "messages": messages,
-        "ai":       ai_analyzed,
-        "crypto":   crypto_analyzed,
-        "market":   market_analyzed,
-        "deeptech": deeptech_analyzed,
+        "messages":  messages,
+        "ai":        ai_analyzed,
+        "crypto":    crypto_analyzed,
+        "market":    market_analyzed,
+        "deeptech":  deeptech_analyzed,
+        "ecommerce": ecom_analyzed,
     }

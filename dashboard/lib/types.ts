@@ -45,6 +45,46 @@ export interface MarketDashboard {
   us_10y?: { price: string; change_bps: string }
 }
 
+export type EcomTheme = "marketplace" | "automation" | "emailing" | "creatives" | "operations"
+
+export interface EcomSignal extends Signal {
+  theme?: EcomTheme
+}
+
+export interface EcomStock {
+  nom: string
+  ticker: string
+  price: number
+  change_pct: number
+}
+
+export interface EcomNouveaute {
+  theme: EcomTheme
+  titre: string
+  quoi: string
+  pourquoi: string
+  source_name: string
+  source_url: string
+}
+
+export interface EcommerceData {
+  dashboard?: {
+    stocks?: EcomStock[]
+    secteur?: {
+      pct_hausse: number
+      moyenne_pct: number
+      sentiment: string
+      meilleur?: EcomStock
+      pire?: EcomStock
+    }
+  }
+  tendance_globale?: string
+  nouveautes?: EcomNouveaute[]
+  signals?: EcomSignal[]
+  actions_semaine?: string[]
+  themes?: Record<string, number>
+}
+
 export interface HotStock {
   ticker: string
   name: string
@@ -80,6 +120,7 @@ export interface ReportJSON {
   deeptech: {
     signals: DeeptechSignal[]
   }
+  ecommerce?: EcommerceData
   nexus: {
     has_connexion: boolean
     connexion: string

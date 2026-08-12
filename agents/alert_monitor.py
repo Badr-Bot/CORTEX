@@ -34,7 +34,8 @@ MARKET_THRESHOLDS = {
 
 # ── Sources RSS breaking news ─────────────────────────────────
 NEWS_FEEDS = [
-    {"name": "Reuters",     "url": "https://feeds.reuters.com/reuters/topNews",                                           "cooldown_h": 6},
+    # feeds.reuters.com ne résout plus (RSS publics fermés) → repris via Google News
+    {"name": "Reuters",     "url": "https://news.google.com/rss/search?q=breaking+news+when:1d&hl=en-US&gl=US&ceid=US:en", "cooldown_h": 6},
     {"name": "BBC",         "url": "https://feeds.bbci.co.uk/news/rss.xml",                                               "cooldown_h": 6},
     {"name": "CNBC",        "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114", "cooldown_h": 6},
     {"name": "MarketWatch", "url": "https://feeds.marketwatch.com/marketwatch/topstories/",                               "cooldown_h": 6},

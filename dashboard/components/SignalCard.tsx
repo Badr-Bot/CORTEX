@@ -20,14 +20,15 @@ function horizonLabel(h: string) {
 interface Props {
   signal: Signal
   index: number
-  sector?: "ai" | "crypto" | "market" | "deeptech"
+  sector?: "ai" | "crypto" | "market" | "deeptech" | "ecommerce"
 }
 
 const SECTOR_CONFIG: Record<string, { accent: string; glow: string; label: string; icon: string }> = {
-  ai:       { accent: "accent-ai",       glow: "hover:shadow-indigo-500/10",  label: "IA",       icon: "🧠" },
-  crypto:   { accent: "accent-crypto",   glow: "hover:shadow-amber-500/10",   label: "Crypto",   icon: "₿" },
-  market:   { accent: "accent-market",   glow: "hover:shadow-emerald-500/10", label: "Marchés",  icon: "📈" },
-  deeptech: { accent: "accent-deeptech", glow: "hover:shadow-violet-500/10",  label: "DeepTech", icon: "⚡" },
+  ai:        { accent: "accent-ai",        glow: "hover:shadow-indigo-500/10",  label: "IA",         icon: "🧠" },
+  crypto:    { accent: "accent-crypto",    glow: "hover:shadow-amber-500/10",   label: "Crypto",     icon: "₿" },
+  market:    { accent: "accent-market",    glow: "hover:shadow-emerald-500/10", label: "Marchés",    icon: "📈" },
+  deeptech:  { accent: "accent-deeptech",  glow: "hover:shadow-violet-500/10",  label: "DeepTech",   icon: "⚡" },
+  ecommerce: { accent: "accent-ecommerce", glow: "hover:shadow-pink-500/10",    label: "E-commerce", icon: "🛍️" },
 }
 
 export default function SignalCard({ signal, index, sector = "ai" }: Props) {

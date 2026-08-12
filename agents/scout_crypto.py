@@ -10,9 +10,7 @@ Sources :
 """
 
 import asyncio
-import feedparser
 import httpx
-from datetime import datetime, timezone, timedelta
 from utils.logger import get_logger
 
 logger = get_logger("scout_ai.crypto")
@@ -25,11 +23,16 @@ BINANCE_LS_URL   = "https://fapi.binance.com/futures/data/globalLongShortAccount
 MEMPOOL_FEES_URL = "https://mempool.space/api/v1/fees/recommended"
 COINGLASS_LIQ_URL = "https://open-api.coinglass.com/public/v2/liquidation_history"
 
+# Flux vérifiés le 2026-08-12. Retiré : CryptoPanic (répond 200 mais 0 article).
 CRYPTO_NEWS_FEEDS = [
-    {"name": "CoinDesk",    "url": "https://www.coindesk.com/arc/outboundfeeds/rss/"},
-    {"name": "The Block",   "url": "https://www.theblock.co/rss.xml"},
-    {"name": "Decrypt",     "url": "https://decrypt.co/feed"},
-    {"name": "CryptoPanic", "url": "https://cryptopanic.com/news/rss/"},
+    {"name": "CoinDesk",         "url": "https://www.coindesk.com/arc/outboundfeeds/rss/"},
+    {"name": "The Block",        "url": "https://www.theblock.co/rss.xml"},
+    {"name": "Decrypt",          "url": "https://decrypt.co/feed"},
+    {"name": "Cointelegraph",    "url": "https://cointelegraph.com/rss"},
+    {"name": "Bitcoin Magazine", "url": "https://bitcoinmagazine.com/feed"},
+    {"name": "Bitcoinist",       "url": "https://bitcoinist.com/feed/"},
+    {"name": "NewsBTC",          "url": "https://www.newsbtc.com/feed/"},
+    {"name": "The Defiant",      "url": "https://thedefiant.io/api/feed"},
 ]
 
 CRYPTO_KEYWORDS = [
@@ -433,61 +436,17 @@ async def collect_dashboard() -> dict:
 
 # ── Collecte signaux news ─────────────────────────────────────────────────────
 
-async def _fetch_rss_feed(feed_info: dict, hours: int) -> list[dict]:
-    cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
-    signals = []
-    try:
-        feed = await asyncio.to_thread(feedparser.parse, feed_info["url"])
-        for entry in feed.entries[:20]:
-            pub = entry.get("published_parsed") or entry.get("updated_parsed")
-            if pub:
-                try:
-                    pub_dt = datetime(*pub[:6], tzinfo=timezone.utc)
-                    if pub_dt < cutoff:
-                        continue
-                except Exception:
-                    pass
-
-            title   = entry.get("title", "").strip()
-            url     = entry.get("link", "")
-            content = entry.get("summary", entry.get("description", ""))[:400]
-
-            if not title or not url:
-                continue
-            if not _is_crypto_relevant(title + " " + content):
-                continue
-
-            signals.append({
-                "title":       title,
-                "source_name": feed_info["name"],
-                "source_url":  url,
-                "raw_content": content,
-                "sector":      "crypto",
-                "category":    "media",
-            })
-    except Exception as e:
-        logger.warning(f"Crypto RSS {feed_info['name']}: {e}")
-    return signals
-
-
 async def collect_signals(hours: int = 24) -> list[dict]:
     """Collecte les signaux news crypto depuis tous les flux RSS."""
-    results = await asyncio.gather(
-        *[_fetch_rss_feed(f, hours) for f in CRYPTO_NEWS_FEEDS],
-        return_exceptions=True,
+    from utils.feeds import collect_from_feeds
+
+    unique = await collect_from_feeds(
+        CRYPTO_NEWS_FEEDS,
+        hours=hours,
+        sector="crypto",
+        is_relevant=_is_crypto_relevant,
+        max_entries=20,
     )
-    signals = []
-    for r in results:
-        if isinstance(r, list):
-            signals.extend(r)
-
-    # Déduplication par URL
-    seen, unique = set(), []
-    for s in signals:
-        if s["source_url"] not in seen:
-            seen.add(s["source_url"])
-            unique.append(s)
-
     logger.info(f"SCOUT-CRYPTO signaux: {len(unique)} news ({hours}h)")
     return unique
 

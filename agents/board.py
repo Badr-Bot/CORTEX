@@ -5,12 +5,12 @@ Board multi-modeles : 3 IA gratuites debattent sur les signaux,
 Claude Sonnet arbitre et selectionne les 3-4 meilleurs.
 
 Pipeline :
-  Round 1 — Plaidoirie  : Llama 3.3 + Gemma 2 (Groq) + Gemini 2.0 Flash (Google)
+  Round 1 — Plaidoirie  : Llama 3.3 + GPT-OSS 120B (Groq) + Gemini Flash (Google)
   Round 2 — Debat       : chaque modele soutient ou challenge les picks des autres
-  Arbitrage             : Claude Sonnet lit tout le debat et selectionne 3-4 finaux
+  Arbitrage             : un modele gratuit lit tout le debat et selectionne 3-4 finaux
 
-Modeles gratuits : Llama 3.3 70B + Gemma 2 9B (GROQ_API_KEY) + Gemini 2.0 Flash (GEMINI_API_KEY)
-Arbitre payant   : Claude Sonnet (ANTHROPIC_API_KEY)
+100% gratuit : GROQ_API_KEY + GEMINI_API_KEY.
+Anthropic n'est sollicite qu'en dernier recours (LLM_PROVIDER_ORDER).
 """
 
 import os
@@ -19,6 +19,23 @@ import re
 from utils.logger import get_logger
 
 logger = get_logger("board")
+
+# ── Modeles (tous gratuits) ───────────────────────────────────────────────────
+# Verifies contre /v1/models le 2026-08-12. meta-llama/llama-4-scout et
+# gemini-2.0-flash ont ete retires par leurs fournisseurs (404 a chaque run).
+GROQ_FAST_MODEL   = os.getenv("GROQ_BACKUP_MODEL", "llama-3.3-70b-versatile")
+GROQ_BIG_MODEL    = os.getenv("GROQ_DEEP_MODEL", "openai/gpt-oss-120b")
+GEMINI_MODEL      = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
+ARBITRE_GROQ_MODEL = GROQ_BIG_MODEL
+
+def _parse_arbitre_order() -> list[str]:
+    default = ["groq", "gemini", "anthropic"]
+    parsed = [p.strip().lower() for p in os.getenv("LLM_PROVIDER_ORDER", "").split(",") if p.strip()]
+    known = [p for p in parsed if p in default]
+    return known or default
+
+
+ARBITRE_ORDER = _parse_arbitre_order()
 
 
 # ── Clients ───────────────────────────────────────────────────────────────────
@@ -187,14 +204,14 @@ def _call_gemini(prompt: str) -> dict | None:
     if not client:
         return None
     try:
-        resp = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+        resp = client.models.generate_content(model=GEMINI_MODEL, contents=prompt)
         return _extract_json(resp.text)
     except Exception as e:
-        logger.warning(f"Gemini Flash echec: {e}")
+        logger.warning(f"Gemini Flash echec: {str(e)[:160]}")
         return None
 
 
-def _call_claude_arbitre(prompt: str) -> dict | None:
+def _call_anthropic_arbitre(prompt: str) -> dict | None:
     key = os.getenv("ANTHROPIC_API_KEY", "")
     if not key:
         return None
@@ -209,16 +226,38 @@ def _call_claude_arbitre(prompt: str) -> dict | None:
         )
         return _extract_json(resp.content[0].text)
     except Exception as e:
-        logger.warning(f"Claude arbitre echec: {e}")
+        logger.warning(f"Anthropic arbitre indisponible: {str(e)[:160]}")
         return None
+
+
+def _call_arbitre(prompt: str) -> dict | None:
+    """
+    Arbitrage du Board — gratuit d'abord (Groq puis Gemini), Anthropic en dernier.
+
+    L'arbitrage tournait sur Claude Haiku : credit epuise = arbitrage mort a chaque run.
+    Il tourne desormais sur les modeles gratuits, donc a cout zero.
+    """
+    for provider in ARBITRE_ORDER:
+        if provider == "groq":
+            out = _call_groq(prompt, ARBITRE_GROQ_MODEL)
+        elif provider == "gemini":
+            out = _call_gemini(prompt)
+        elif provider == "anthropic":
+            out = _call_anthropic_arbitre(prompt)
+        else:
+            continue
+        if out and "selected_indices" in out:
+            logger.info(f"Board arbitrage via {provider}")
+            return out
+    return None
 
 
 # ── Board ─────────────────────────────────────────────────────────────────────
 
 BOARD_MODELS = {
-    "Llama 3.3":  lambda p: _call_groq(p, "llama-3.3-70b-versatile"),
-    "Gemma 2":    lambda p: _call_groq(p, "meta-llama/llama-4-scout-17b-16e-instruct"),
-    "Gemini Pro": lambda p: _call_gemini(p),
+    "Llama 3.3":   lambda p: _call_groq(p, GROQ_FAST_MODEL),
+    "GPT-OSS 120B": lambda p: _call_groq(p, GROQ_BIG_MODEL),
+    "Gemini Flash": lambda p: _call_gemini(p),
 }
 
 
@@ -281,8 +320,8 @@ async def run_debate(signals: list[dict], sector: str) -> list[dict]:
         if result:
             round2[model_name] = result
 
-    # Arbitrage Claude Sonnet
-    arbitrage = _call_claude_arbitre(_prompt_arbitrage(signals, sector, round1, round2))
+    # Arbitrage (gratuit d'abord)
+    arbitrage = _call_arbitre(_prompt_arbitrage(signals, sector, round1, round2))
 
     if arbitrage and "selected_indices" in arbitrage:
         selected_indices = [i for i in arbitrage["selected_indices"] if isinstance(i, int) and 0 <= i < n][:4]

@@ -3,6 +3,7 @@ import NavBar from "@/components/NavBar"
 import SignalCard from "@/components/SignalCard"
 import CryptoSection from "@/components/CryptoSection"
 import MarketSection from "@/components/MarketSection"
+import EcommerceSection from "@/components/EcommerceSection"
 import type { ReportJSON, DailyReport } from "@/lib/types"
 
 export const dynamic = 'force-dynamic'
@@ -45,6 +46,22 @@ const LEXIQUE = [
     ],
   },
   {
+    category: "🛍️ E-commerce",
+    color: "pink",
+    terms: [
+      { term: "ROAS", def: "Retour sur dépense publicitaire. ROAS de 3 = 3€ de ventes générées pour 1€ de publicité dépensé. En dessous de 2, la rentabilité devient difficile selon les marges." },
+      { term: "CPM", def: "Coût pour 1000 affichages d'une publicité. Monte quand la concurrence publicitaire s'intensifie (Black Friday, fêtes) — indicateur clé du coût d'acquisition." },
+      { term: "LTV", def: "Valeur totale d'un client sur toute sa durée de vie. Détermine combien on peut se permettre de payer pour l'acquérir (LTV > 3x le coût d'acquisition est une norme saine)." },
+      { term: "Délivrabilité", def: "Capacité d'un email à arriver en boîte de réception plutôt qu'en spam. Se dégrade avec les listes non nettoyées et les faibles taux d'ouverture." },
+      { term: "Flow email", def: "Séquence d'emails automatiques déclenchée par une action du client : bienvenue, panier abandonné, post-achat. Génère souvent 30%+ du chiffre email." },
+      { term: "Agentic commerce", def: "Achats effectués par un agent IA à la place du client. Nouvelle porte d'entrée du trafic e-commerce — change la façon dont les fiches produit doivent être écrites." },
+      { term: "Retail media", def: "Publicités vendues par un distributeur sur son propre site (Amazon Ads, Walmart Connect). Canal en forte croissance, marges élevées pour les plateformes." },
+      { term: "UGC", def: "Contenu créé par des utilisateurs ou créateurs, utilisé comme publicité. Souvent moins cher à produire et plus crédible que la publicité de marque classique." },
+      { term: "Taux de conversion", def: "Part des visiteurs qui achètent. 2 à 3% est une norme courante en e-commerce — au-delà de 4%, la boutique est très performante." },
+      { term: "D2C", def: "Vente directe au consommateur, sans intermédiaire ni distributeur. Meilleures marges mais coût d'acquisition entièrement à la charge de la marque." },
+    ],
+  },
+  {
     category: "⚡ DeepTech",
     color: "violet",
     terms: [
@@ -73,6 +90,7 @@ const LEXIQUE_COLORS: Record<string, { border: string; label: string; dot: strin
   blue:    { border: "border-blue-500/20",     label: "text-blue-400",    dot: "bg-blue-400",    badge: "bg-blue-500/10 border-blue-500/30 text-blue-300"     },
   violet:  { border: "border-violet-500/20",   label: "text-violet-400",  dot: "bg-violet-400",  badge: "bg-violet-500/10 border-violet-500/30 text-violet-300" },
   orange:  { border: "border-orange-500/20",   label: "text-orange-400",  dot: "bg-orange-400",  badge: "bg-orange-500/10 border-orange-500/30 text-orange-300" },
+  pink:    { border: "border-pink-500/20",     label: "text-pink-400",    dot: "bg-pink-400",    badge: "bg-pink-500/10 border-pink-500/30 text-pink-300"     },
 }
 
 function LexiqueSection() {
@@ -120,11 +138,12 @@ function formatDate(dateStr: string) {
 }
 
 const TABS = [
-  { id: "ai",       label: "IA",       icon: "🧠", color: "blue"    },
-  { id: "crypto",   label: "Crypto",   icon: "₿",  color: "amber"   },
-  { id: "market",   label: "Marchés",  icon: "📈", color: "emerald" },
-  { id: "deeptech", label: "DeepTech", icon: "⚡", color: "violet"  },
-  { id: "lexique",  label: "Lexique",  icon: "📖", color: "cyan"    },
+  { id: "ai",        label: "IA",         icon: "🧠", color: "blue"    },
+  { id: "crypto",    label: "Crypto",     icon: "₿",  color: "amber"   },
+  { id: "market",    label: "Marchés",    icon: "📈", color: "emerald" },
+  { id: "ecommerce", label: "E-commerce", icon: "🛍️", color: "pink"    },
+  { id: "deeptech",  label: "DeepTech",   icon: "⚡", color: "violet"  },
+  { id: "lexique",   label: "Lexique",    icon: "📖", color: "cyan"    },
 ] as const
 
 type TabId = typeof TABS[number]["id"]
@@ -135,6 +154,7 @@ const TAB_COLORS: Record<string, { active: string; dot: string; shadow: string }
   emerald: { active: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40", dot: "bg-emerald-400", shadow: "shadow-[0_0_12px_rgba(16,185,129,0.3)]"   },
   violet:  { active: "bg-violet-500/15 text-violet-300 border-violet-500/40",    dot: "bg-violet-400",  shadow: "shadow-[0_0_12px_rgba(168,85,247,0.3)]"   },
   cyan:    { active: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40",          dot: "bg-cyan-400",    shadow: "shadow-[0_0_12px_rgba(6,182,212,0.3)]"    },
+  pink:    { active: "bg-pink-500/15 text-pink-300 border-pink-500/40",          dot: "bg-pink-400",    shadow: "shadow-[0_0_12px_rgba(236,72,153,0.3)]"   },
 }
 
 
@@ -169,6 +189,7 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
 
   if (tab === "crypto") return <CryptoSection crypto={report.crypto} />
   if (tab === "market") return <MarketSection market={report.market} />
+  if (tab === "ecommerce") return <EcommerceSection ecommerce={report.ecommerce} />
 
   if (tab === "deeptech") {
     return (

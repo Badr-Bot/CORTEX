@@ -15,7 +15,8 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # 5 secteurs à analyser (dont e-commerce) : ~6-8 min en pratique
+    timeout-minutes: 25
 
     steps:
       - uses: actions/checkout@v4
