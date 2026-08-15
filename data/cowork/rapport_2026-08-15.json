@@ -1,0 +1,406 @@
+{
+  "ai": {
+    "signals": [
+      {
+        "conviction": 3,
+        "title": "IBM S'ALLIE À OPENAI POUR DÉPLOYER L'IA DANS LES GRANDES ENTREPRISES, RETAIL INCLUS",
+        "en_clair": "IBM et OpenAI (la société qui a créé ChatGPT) s'associent pour aider les grandes entreprises à utiliser l'IA dans leurs opérations, y compris dans le commerce de détail.",
+        "fait": "IBM a annoncé le 13 août un partenariat stratégique avec OpenAI. Concrètement, IBM Consulting (la branche conseil d'IBM, qui aide les grandes entreprises à s'organiser) va intégrer les modèles d'OpenAI, dont GPT-5.6 (la dernière génération de leur intelligence artificielle générative, c'est-à-dire capable de rédiger, coder ou répondre comme un humain), dans sa plateforme IBM Consulting Advantage. Le but : moderniser des tâches comme la finance, les achats, le service client ou les ressources humaines chez ses clients. Le secteur du commerce de détail (retail) est cité explicitement parmi les premières industries visées, aux côtés de la banque et des télécoms. IBM va aussi créer une équipe dédiée de milliers de consultants formés spécifiquement à ces outils OpenAI, avec trois axes : automatiser les anciens processus, moderniser le développement logiciel (avec l'outil Codex d'OpenAI) et renforcer la cybersécurité.",
+        "implication_2": "Concrètement, ça veut dire que les grandes chaînes de retail vont recevoir, via des cabinets de conseil comme IBM, des outils d'IA sur-mesure pour automatiser leurs opérations — ce qui pousse tout le secteur, petites boutiques comprises, à s'habituer à ce niveau d'automatisation dans les mois qui viennent.",
+        "implication_3": "IBM et OpenAI gagnent de nouveaux contrats et de la crédibilité auprès des grandes entreprises. Les gros retailers gagnent en efficacité opérationnelle. Les petites marques qui n'automatisent rien risquent de se retrouver distancées par des concurrents plus gros qui, eux, auront accès à ces outils via leurs propres prestataires.",
+        "these_opposee": "Ce genre de partenariat géant met souvent des années à se traduire en outils concrets et abordables pour une petite marque — il y a un vrai risque de sur-promesse marketing avant tout résultat visible.",
+        "action": "Teste toi-même ChatGPT ou Claude sur 2-3 tâches répétitives de ta boutique (réponse client type, description produit) cette semaine, plutôt que d'attendre qu'un gros progiciel te propose la même chose plus cher.",
+        "sizing": "Faible",
+        "invalide_si": "Si IBM ou OpenAI annoncent l'abandon du partenariat, ou si aucun outil concret n'en sort d'ici 12 mois.",
+        "source_name": "IBM Newsroom",
+        "source_url": "https://newsroom.ibm.com/2026-08-13-ibm-partners-with-openai-to-accelerate-secure-ai-deployment-for-enterprises-across-core-operations"
+      },
+      {
+        "conviction": 3,
+        "title": "GOOGLE LANCE DES MODÈLES D'IA MOINS CHERS, TAILLÉS POUR AUTOMATISER DES TÂCHES EN MASSE",
+        "en_clair": "Google a sorti de nouvelles versions de son IA Gemini, moins chères à faire tourner, spécialement pensées pour automatiser plein de petites tâches à la chaîne.",
+        "fait": "Google a présenté trois nouveaux modèles d'IA Gemini : 3.5 Flash-Lite, 3.6 Flash et 3.5 Flash Cyber. Un 'modèle' d'IA, c'est le programme qui comprend et génère du texte, des images ou du code. Ce qui compte ici, c'est le prix : Gemini facture à l'usage, au 'token' (un token, c'est un petit morceau de mot — l'unité de base que l'IA lit et écrit). Le nouveau Flash-Lite coûte seulement 0,30$ pour un million de tokens lus, contre 2$ pour leur modèle le plus puissant. Il est conçu pour exécuter des millions de petites tâches simples et répétitives à très bas coût — exactement le genre de travail qu'un chatbot de service client ou un outil de tri de commandes doit faire en continu. Le modèle Flash standard, lui, coûte moins cher que la version précédente tout en étant plus précis.",
+        "implication_2": "Concrètement, ça veut dire que le coût de faire tourner un chatbot IA ou un outil qui trie/répond automatiquement à tes clients toute la journée devient nettement plus faible — les logiciels construits sur ces modèles (Shopify apps, plateformes de service client) peuvent baisser leurs prix ou proposer plus de fonctionnalités au même tarif.",
+        "implication_3": "Les petites boutiques qui utilisent beaucoup l'IA pour le support client ou le tri de commandes gagnent en marge grâce à des coûts d'IA en baisse. Les fournisseurs d'outils IA qui ne répercutent pas cette baisse de prix sur leurs abonnements risquent de perdre des clients au profit de concurrents moins chers.",
+        "these_opposee": "Un prix plus bas peut aussi signifier une qualité de réponse un peu moins bonne sur les tâches complexes — il faut tester avant de migrer un outil critique (comme le service client) vers un modèle moins cher.",
+        "action": "Si tu utilises un chatbot IA pour le service client (Tidio, Gorgias ou autre), demande à ton prestataire s'il propose déjà les modèles Gemini Flash récents en option — ça peut réduire ta facture mensuelle sans rien changer côté client.",
+        "sizing": "Moyen",
+        "invalide_si": "Si les nouveaux modèles Gemini se révèlent en pratique plus chers ou moins fiables que prévu dans les tests indépendants d'ici fin 2026.",
+        "source_name": "Axios",
+        "source_url": "https://www.axios.com/2026/07/21/google-gemini-ai-models"
+      },
+      {
+        "conviction": 2,
+        "title": "LES GÉANTS DE L'IA BAISSENT LEURS PRIX (SAUF DEEPSEEK) — LA GUERRE DES COÛTS S'INTENSIFIE",
+        "en_clair": "OpenAI et Anthropic baissent le prix de leurs IA, alors que le laboratoire chinois DeepSeek augmente les siens — une vraie guerre des prix est en cours.",
+        "fait": "Selon un point d'actualité tech du 14 août, OpenAI et Anthropic (les entreprises derrière ChatGPT et Claude) ont baissé le prix facturé aux entreprises qui utilisent leur IA via une API (une API, c'est la porte d'entrée technique qui permet à un logiciel d'utiliser l'IA d'une autre entreprise). Dans le même temps, le laboratoire chinois DeepSeek augmente ses propres prix. On appelle 'inférence' le fait de faire tourner un modèle d'IA déjà entraîné pour répondre à une question — c'est ce coût-là qui baisse. Cette bataille des prix intervient alors que les investissements des géants de la tech dans l'IA (centres de données, puces) approchent les 1 500 milliards de dollars cumulés, un montant qui pousse les entreprises à se battre sur l'efficacité et le coût plutôt que juste sur la puissance des modèles.",
+        "implication_2": "Concrètement, ça veut dire que si un outil que tu utilises (générateur de visuels, assistant de rédaction, chatbot) tourne sur les modèles d'OpenAI ou d'Anthropic, son coût de fonctionnement baisse — ce qui peut se traduire par des abonnements moins chers ou plus de fonctionnalités incluses dans ton forfait actuel.",
+        "implication_3": "Les petites entreprises qui utilisent beaucoup d'IA au quotidien gagnent directement à cette baisse des prix. DeepSeek risque de perdre des parts de marché si sa qualité ne justifie pas des prix plus élevés que ses concurrents américains qui, eux, deviennent moins chers.",
+        "these_opposee": "Une guerre des prix aussi intense peut aussi être un signe de bulle : si les entreprises d'IA perdent trop d'argent à ce rythme, elles pourraient être forcées de remonter brutalement leurs prix plus tard, une fois leurs concurrents plus faibles éliminés.",
+        "action": "Compare une fois par trimestre le prix des outils IA que tu paies (chatbot, générateur de visuels publicitaires) avec les nouveaux tarifs du marché — c'est un poste de coût qui baisse vite en ce moment, ne paie pas plus cher que nécessaire.",
+        "sizing": "Faible",
+        "invalide_si": "Si les prix de l'IA remontent globalement chez OpenAI et Anthropic d'ici la fin de l'année 2026.",
+        "source_name": "Tech Startups",
+        "source_url": "https://techstartups.com/2026/08/14/top-tech-news-today-august-14-2026-apple-anthropic-deepseek-google-ibm-pony-ai-openai-spacex-uber-more/"
+      }
+    ],
+    "watchlist": [
+      "Une startup soutenue par Marc Benioff veut faire de l'IA qui déploie l'IA en entreprise — TechCrunch, 3 août. Trop tôt, pas d'outil concret avant 2027.",
+      "Des chatbots IA résoudraient 76 à 92% des tickets clients sans humain selon une étude sectorielle — à vérifier sur ta propre boutique avant d'y croire."
+    ]
+  },
+  "crypto": {
+    "phase": "Transition",
+    "recommandation": {
+      "verdict": "ACCUMULER",
+      "alts": "ATTENDRE",
+      "horizon": "2-4 semaines",
+      "raisonnement": "Le Bitcoin a glissé sous 63 000 $ alors que la peur domine (indice Fear & Greed à 29/100), mais les ETF Bitcoin US ont capté 850 M$ cette semaine, dont 693 M$ pour BlackRock — signe que les gros investisseurs achètent la baisse pendant que les particuliers paniquent."
+    },
+    "trending_alts": [
+      {
+        "ticker": "SOL",
+        "nom": "Solana",
+        "theme": "adoption institutionnelle",
+        "signal": "MoneyGram va connecter son réseau de transfert d'argent cash à Solana dans plus de 170 pays. Le token a aussi cassé un motif technique baissier, porté par 8,8 M$ d'entrées dans les ETF Solana.",
+        "verdict": "SURVEILLER",
+        "timing": "D'ici 2-3 semaines, confirmer si le partenariat MoneyGram se traduit en volume d'usage réel."
+      },
+      {
+        "ticker": "HYPE",
+        "nom": "Hyperliquid",
+        "theme": "momentum",
+        "signal": "Capitalisation de 13,8 milliards de dollars, en hausse de 3,66% sur la semaine — l'un des tokens qui résiste le mieux malgré la baisse générale du marché crypto.",
+        "verdict": "SURVEILLER",
+        "timing": "Attendre une cassure claire de résistance technique avant d'agir."
+      },
+      {
+        "ticker": "ETH",
+        "nom": "Ethereum",
+        "theme": "flux ETF",
+        "signal": "Les ETF Ethereum ont attiré 365 M$ cette semaine après des sorties nettes en juin, portant le total cumulé investi à plus de 11,2 milliards de dollars — un retour d'appétit institutionnel.",
+        "verdict": "ACCUMULER",
+        "timing": "Sur 4 à 6 semaines, si les entrées dans les ETF Ethereum se confirment."
+      }
+    ],
+    "volume_vs_30d": "Les flux d'échange sont plus faibles que la moyenne du mois (tendance 'faible volume' détectée) — signe que peu d'acteurs veulent bouger massivement dans un sens ou dans l'autre pour l'instant, le marché attend un signal plus clair.",
+    "score": {
+      "onchain": {
+        "value": 1,
+        "note": "Les ETF Bitcoin US ont capté 850 M$ sur la semaine (dont 693 M$ pour IBIT de BlackRock) malgré la chute du prix — un signal d'achat institutionnel qui contredit la panique de surface."
+      },
+      "cycle": {
+        "value": 0,
+        "note": "Phase de transition : ni franche accumulation ni distribution confirmée — le marché cherche une direction depuis plusieurs semaines sans y parvenir."
+      },
+      "macro": {
+        "value": -1,
+        "note": "Le Sénat américain a échoué à faire avancer sa loi de régulation crypto (51 voix sur 60 requises) et la SEC a reporté ses plans sur la tokenisation — incertitude réglementaire qui pèse."
+      },
+      "sentiment": {
+        "value": -1,
+        "note": "L'indice Fear & Greed est à 29 sur 100, en zone de 'peur' — les investisseurs particuliers sont prudents voire vendeurs à ce niveau."
+      },
+      "momentum": {
+        "value": -1,
+        "note": "Le Bitcoin est repassé sous les 63 000 $ après avoir cassé le seuil symbolique des 65 000 $ à la hausse il y a peu — la tendance de court terme est négative."
+      }
+    },
+    "direction": "NEUTRE-BEARISH",
+    "magnitude": "faible",
+    "bear_case": "Si le Congrès américain enterre définitivement son projet de loi sur la régulation crypto et que les entrées dans les ETF Bitcoin s'inversent en sorties nettes pendant plus de deux semaines consécutives, la thèse d'accumulation ne tient plus. Dans ce cas, mieux vaut rester en attente complète plutôt que d'accumuler sur la baisse.",
+    "signals": [
+      {
+        "conviction": 3,
+        "title": "LE BITCOIN PASSE SOUS 63 000 $ MALGRÉ 850 M$ D'ENTRÉES DANS LES ETF",
+        "en_clair": "Le prix du Bitcoin baisse, mais les gros investisseurs institutionnels continuent d'acheter via les ETF, des fonds cotés en bourse qui permettent d'investir en Bitcoin sans en détenir directement.",
+        "fait": "Le Bitcoin a reculé à 62 907 $ dans une baisse lente et régulière. L'indice Fear & Greed (un thermomètre du sentiment du marché crypto, de 0='peur extrême' à 100='avidité extrême') est tombé à 29, en zone de peur. Pourtant, au même moment, les ETF Bitcoin américains — des produits financiers cotés en bourse qui suivent le prix du Bitcoin, permettant d'investir dessus via un compte bourse classique sans gérer soi-même de portefeuille crypto — ont enregistré 850 M$ d'entrées nettes cette semaine, la meilleure performance hebdomadaire depuis avril. Le fonds IBIT de BlackRock (le plus gros gestionnaire d'actifs au monde) a capté à lui seul 693 M$ de ces entrées. Cette divergence entre un prix qui baisse et des institutionnels qui achètent est un signal classique : la panique se lit dans le prix côté investisseurs particuliers, mais pas dans le comportement des gros acteurs.",
+        "implication_2": "Concrètement, ça veut dire que la baisse de prix ne reflète pas un manque de confiance des gros investisseurs, mais plutôt une vente de panique côté particuliers. Historiquement, ce type de divergence précède souvent (pas toujours) une stabilisation du prix.",
+        "implication_3": "Ceux qui achètent maintenant à prix cassé, comme les institutionnels via les ETF, peuvent gagner si cette thèse se confirme dans les semaines qui viennent. Ceux qui vendent dans la panique aujourd'hui vendent probablement trop tôt et trop bas par rapport à ce que font les acteurs les mieux informés du marché.",
+        "these_opposee": "Les entrées dans les ETF peuvent aussi refléter un simple rééquilibrage mécanique de portefeuille plutôt qu'une vraie conviction haussière. La baisse de prix pourrait très bien continuer si le sentiment général se détériore encore dans les prochaines semaines.",
+        "action": "Si tu détiens déjà du Bitcoin, ne vends pas dans la panique sur la base de ce seul recul. Si tu veux investir un petit montant, fais-le en plusieurs achats étalés sur 3-4 semaines plutôt qu'en une seule fois.",
+        "sizing": "Faible",
+        "invalide_si": "Si les ETF Bitcoin américains enregistrent des sorties nettes sur deux semaines consécutives.",
+        "source_name": "CryptoNews",
+        "source_url": "https://cryptonews.net/news/bitcoin/33296042/"
+      },
+      {
+        "conviction": 2,
+        "title": "UNE BOURSE AMÉRICAINE DEMANDE LE FEU VERT POUR DES ETF BITCOIN À EFFET DE LEVIER X3",
+        "en_clair": "La bourse Cboe veut lancer des produits financiers qui multiplient par 3 les mouvements du prix du Bitcoin et de l'Ethereum, à la hausse comme à la baisse.",
+        "fait": "La bourse américaine Cboe (via sa filiale BZX Exchange) a déposé une demande auprès du régulateur boursier américain, la SEC, pour lancer les premiers ETF Bitcoin et Ethereum à effet de levier x3 aux États-Unis. L'effet de levier, c'est un mécanisme qui multiplie artificiellement les mouvements de prix : si le Bitcoin monte de 1%, le produit à levier x3 monte de 3%, mais s'il baisse de 1%, le produit perd 3% aussi. Ces produits fonctionnent grâce à des contrats à terme (futures), des paris financiers sur le prix futur d'un actif, plutôt qu'en détenant le Bitcoin directement. Cette demande s'inscrit dans une vague plus large d'expansion des produits crypto cotés en bourse aux États-Unis, alors même que la SEC a par ailleurs reporté le même jour ses plans sur la tokenisation d'actions (transformer des actions classiques en jetons numériques échangeables).",
+        "implication_2": "Concrètement, ça veut dire que le marché crypto continue de se rapprocher de la finance traditionnelle avec des produits de plus en plus sophistiqués et risqués, disponibles pour n'importe quel investisseur particulier via un compte de courtage classique.",
+        "implication_3": "Les bourses et les courtiers qui touchent des frais sur ces nouveaux produits à levier gagnent un nouveau flux de revenus. Les investisseurs particuliers non avertis qui utilisent un levier x3 sans en comprendre le risque peuvent perdre une grande partie de leur mise très rapidement en cas de mouvement défavorable.",
+        "these_opposee": "La SEC pourrait tout simplement refuser ou retarder cette demande, comme elle l'a fait le même jour pour d'autres projets crypto liés à la tokenisation — l'approbation n'a rien de garanti.",
+        "action": "Ce n'est pas un produit pour toi en tant qu'entrepreneur ecom : évite tout produit à effet de levier x3 sur crypto, le risque de perte totale rapide est réel. Simple point de vigilance à connaître, pas une opportunité à saisir.",
+        "sizing": "Faible",
+        "invalide_si": "Si la SEC rejette formellement la demande de Cboe dans les prochains mois.",
+        "source_name": "The Block",
+        "source_url": "https://www.theblock.co/news/regulation/2026-08-14-cboe-seeks-sec-nod-for-first-us-3x-bitcoin-and-ether-etfs-411879"
+      },
+      {
+        "conviction": 2,
+        "title": "LA RÉGULATION CRYPTO AMÉRICAINE PREND DU RETARD — LE SÉNAT ET LA SEC FREINENT",
+        "en_clair": "Les autorités américaines ralentissent leurs projets de nouvelles règles pour les cryptomonnaies, ce qui crée de l'incertitude sur le marché.",
+        "fait": "Le Sénat américain n'a pas réussi à réunir les 60 voix nécessaires pour faire avancer le 'Digital Asset Market Clarity Act' (une loi censée clarifier les règles du jeu pour les entreprises crypto) avant sa pause estivale d'août — il n'a obtenu qu'environ 51 voix. Au même moment, la SEC (l'autorité américaine des marchés financiers, qui régule aussi une partie de la crypto) a annulé une réunion prévue sur la régulation crypto et a repoussé la publication de ses projets sur la tokenisation d'actions boursières. Elle a toutefois programmé, le 14 août, une réunion séparée pour étudier un nouveau cadre baptisé 'Regulation Crypto Assets', porté par son président Paul Atkins, qui proposerait une exemption pour permettre à des jeunes entreprises crypto de lever des fonds sans passer par un enregistrement complet en tant que valeur mobilière.",
+        "implication_2": "Concrètement, ça veut dire que l'incertitude réglementaire freine les grandes institutions financières (banques, gestionnaires d'actifs) qui attendent des règles claires et stables avant de s'engager encore davantage dans la crypto.",
+        "implication_3": "Les acteurs crypto déjà bien installés, avec une base de clients établie, continuent leur activité sans trop souffrir de ce flou. Les nouveaux projets qui espéraient un cadre légal clair pour se lancer plus vite et plus sereinement voient leurs plans ralentis.",
+        "these_opposee": "Un cadre réglementaire encore flou n'empêche pas le marché crypto de progresser dans l'ensemble, comme le montrent les entrées record dans les ETF Bitcoin — les investisseurs professionnels s'adaptent déjà sans attendre que la loi soit votée.",
+        "action": "Pas d'action directe nécessaire pour ta boutique — ce sujet ne touche pas ton activité e-commerce, sauf si tu envisages d'accepter des paiements en crypto, auquel cas mieux vaut attendre une clarification réglementaire avant de te lancer.",
+        "sizing": "Faible",
+        "invalide_si": "Si le Congrès américain adopte finalement une loi de régulation crypto claire d'ici la fin de l'année 2026.",
+        "source_name": "The Motley Fool",
+        "source_url": "https://www.fool.com/coverage/stock-market-today/2026/08/14/crypto-market-today-aug-14-bitcoin-slips-as-tokenization-regulation-stalls/"
+      }
+    ]
+  },
+  "market": {
+    "recession_indicators": {
+      "courbe_taux": {
+        "status": "green",
+        "note": "Écart entre taux à 10 ans et à 2 ans à +0,45 point — la courbe n'est pas inversée, un signal classique de récession est absent."
+      },
+      "emploi": {
+        "status": "green",
+        "note": "Chômage à 4,2%, les entreprises continuent d'embaucher chaque mois, peu de nouvelles demandes d'allocations chômage."
+      },
+      "ism_manuf": {
+        "status": "green",
+        "note": "Indice PMI manufacturier à 55,6 en juillet, en forte hausse — la plus forte expansion industrielle depuis mai 2022."
+      },
+      "ism_services": {
+        "status": "green",
+        "note": "PMI services à 54,1 en juillet, en légère hausse — le secteur des services continue de croître au-dessus du seuil de 50."
+      },
+      "conso_conf": {
+        "status": "yellow",
+        "note": "La confiance des consommateurs (indice Michigan) a reculé mi-août, l'inflation restant une préoccupation majeure des ménages."
+      },
+      "credit_spread": {
+        "status": "green",
+        "note": "Écart de crédit des obligations à haut rendement à 271 points de base, un niveau bas signe que les marchés ne craignent pas de vague de défauts."
+      },
+      "earnings_rev": {
+        "status": "green",
+        "note": "Bénéfices du S&P 500 en hausse de 24,7% sur un an au T2 2026, la meilleure croissance depuis 2021."
+      },
+      "pmi_composite": {
+        "status": "green",
+        "note": "PMI composite (industrie + services combinés) à 53,6 en juillet, au plus haut depuis novembre 2025."
+      },
+      "retail_sales": {
+        "status": "yellow",
+        "note": "Les ventes au détail ont chuté le plus fortement depuis plus d'un an en juillet — signal à surveiller pour la consommation."
+      },
+      "housing": {
+        "status": "yellow",
+        "note": "Mises en chantier en hausse en juin, mais ventes de logements existants en baisse de 1,7% — marché immobilier mitigé, taux élevés."
+      }
+    },
+    "recession_score": 1.5,
+    "regime": "Risk-on",
+    "regime_justification": "L'économie américaine reste globalement solide : le chômage est bas, les entreprises embauchent, l'industrie et les services sont en expansion, et les bénéfices des grandes entreprises explosent (+24,7% sur un an au T2). La banque centrale américaine (la Fed) a mis ses taux d'intérêt en pause depuis plusieurs réunions, ce qui rassure les marchés financiers. L'argent continue donc de couler vers les actions, qui battent des records. Seul point de vigilance réel : les consommateurs commencent à se serrer la ceinture, avec des ventes au détail et une confiance en recul — un premier signe de fatigue à surveiller dans les prochains mois, en particulier pour les commerçants comme toi.",
+    "signals": [
+      {
+        "conviction": 4,
+        "title": "LES VENTES AU DÉTAIL AMÉRICAINES CHUTENT ET LE MORAL DES CONSOMMATEURS RECULE",
+        "en_clair": "Les Américains ont moins dépensé en magasin et se disent plus inquiets pour l'économie — un signal à surveiller pour qui vend en ligne.",
+        "fait": "Les ventes au détail aux États-Unis (le montant total dépensé par les consommateurs dans les magasins et en ligne) ont chuté le plus fortement depuis plus d'un an en juillet. Au même moment, la première estimation d'août de l'indice de confiance des consommateurs de l'université du Michigan (un sondage qui mesure à quel point les Américains sont optimistes sur leurs finances) a montré un recul du moral, l'inflation restant la principale préoccupation. Résultat en bourse : le S&P 500 (l'indice qui regroupe les 500 plus grandes entreprises américaines cotées) a légèrement reculé de 0,2% ce jour-là, tout en réalisant sa troisième semaine de hausse consécutive. Un point positif isolé dans ce climat mitigé : l'action Reddit a bondi de plus de 10% après l'annonce de son entrée dans l'indice S&P 500 le 18 août.",
+        "implication_2": "Concrètement, ça veut dire que si les consommateurs américains dépensent moins et se disent plus inquiets, c'est un signal souvent visible avant que ça touche vraiment les ventes en ligne — ton taux de conversion ou ton panier moyen pourraient ralentir dans les mois qui viennent, surtout si une bonne partie de tes clients sont américains.",
+        "implication_3": "Les marques qui vendent des produits d'entrée de gamme ou essentiels peuvent résister, voire gagner des parts de marché si les consommateurs arbitrent vers moins cher. Les marques premium ou d'achat impulsif, souvent le cas en dropshipping, sont les plus exposées à un ralentissement de la consommation.",
+        "these_opposee": "Un seul mois de données ne fait pas une tendance — les ventes au détail sont naturellement volatiles d'un mois à l'autre, et le S&P 500 continue par ailleurs de battre des records, ce qui reflète toujours une vraie confiance des investisseurs dans l'économie.",
+        "action": "Vérifie ton taux de conversion et ton panier moyen des deux dernières semaines. S'ils baissent, teste une offre plus accessible (bundle, code promo) cette semaine pour capter les acheteurs devenus plus prudents avant la rentrée.",
+        "sizing": "Moyen",
+        "invalide_si": "Si les ventes au détail et la confiance des consommateurs rebondissent nettement en septembre 2026.",
+        "source_name": "The Motley Fool",
+        "source_url": "https://www.fool.com/coverage/stock-market-today/2026/08/14/stock-market-midday-aug-14-stocks-wobble-as-retail-sales-disappoint-reddit-jumps-14/"
+      },
+      {
+        "conviction": 3,
+        "title": "LES BÉNÉFICES DES GRANDES ENTREPRISES AMÉRICAINES EXPLOSENT (+24,7% SUR UN AN)",
+        "en_clair": "Les grandes entreprises cotées en bourse gagnent beaucoup plus d'argent qu'avant — un signe que l'économie reste solide malgré les inquiétudes sur la consommation.",
+        "fait": "Les bénéfices des entreprises du S&P 500 (l'indice des 500 plus grandes entreprises cotées aux États-Unis) ont progressé de 24,7% sur un an au deuxième trimestre 2026, selon les données consolidées par FactSet — la meilleure croissance des bénéfices depuis 2021. Dix des onze secteurs qui composent l'indice affichent une croissance de leurs bénéfices, dont huit avec une croissance à deux chiffres, portée notamment par l'énergie, les services de communication, la consommation discrétionnaire (les achats non essentiels), la technologie et les matériaux. Les analystes s'attendent à ce que cette dynamique se poursuive, avec une croissance anticipée de 27,4% au troisième trimestre.",
+        "implication_2": "Concrètement, ça veut dire que les niveaux élevés de la bourse ne sont pas seulement de l'optimisme sans fondement : il y a une vraie croissance des profits derrière, ce qui justifie en partie la confiance actuelle des investisseurs.",
+        "implication_3": "Les grandes entreprises technologiques et énergétiques, qui tirent cette croissance, profitent directement à leurs actionnaires. Les secteurs à la traîne, qui ne font pas partie des dix en croissance, risquent d'être délaissés par des investisseurs qui suivent la performance et retirent leur argent des secteurs faibles.",
+        "these_opposee": "Une croissance des bénéfices aussi forte peut aussi refléter un effet de comparaison favorable face à un trimestre plus faible l'année dernière, plutôt qu'une vraie accélération durable de l'activité économique.",
+        "action": "Rien à changer directement dans ta boutique, mais retiens ce climat 'Risk-on' où les investisseurs sont optimistes : ce n'est historiquement pas le moment de réduire ton budget publicitaire par excès de prudence face aux news économiques mitigées ailleurs.",
+        "sizing": "Faible",
+        "invalide_si": "Si la croissance des bénéfices du troisième trimestre 2026 déçoit nettement les attentes de 27,4%.",
+        "source_name": "Benzinga",
+        "source_url": "https://www.benzinga.com/markets/equities/26/08/61075408/sp-500-earnings-growth-q2-2026-factset"
+      },
+      {
+        "conviction": 2,
+        "title": "LE RUSSELL 2000 BAT UN RECORD, 3E SEMAINE DE HAUSSE BOURSIÈRE DE SUITE",
+        "en_clair": "Les actions des petites entreprises américaines montent plus vite que celles des géants en ce moment — signe que les investisseurs élargissent leurs paris au-delà de la tech.",
+        "fait": "L'indice Russell 2000, qui regroupe environ 2000 petites entreprises cotées aux États-Unis (par opposition au S&P 500 qui regroupe les 500 plus grandes), a atteint un nouveau record le 14 août, clôturant une troisième semaine de hausse consécutive pour les marchés américains. Le S&P 500 a de son côté franchi le seuil des 7 800 points cette semaine, porté notamment par les bons résultats des entreprises technologiques et d'intelligence artificielle. Quand les petites capitalisations (les entreprises de taille plus modeste, souvent plus sensibles à l'économie locale) montent autant que les géants technologiques, cela indique généralement que la hausse boursière se diffuse plus largement dans l'économie plutôt que de reposer sur seulement quelques grandes valeurs.",
+        "implication_2": "Concrètement, ça veut dire que la confiance des investisseurs ne se limite plus aux géants de la tech : elle s'étend à des entreprises plus petites et plus diverses, ce qui est généralement interprété comme un signe de marché plus sain et plus durable.",
+        "implication_3": "Les investisseurs diversifiés au-delà des grandes valeurs technologiques profitent de cette rotation vers les petites entreprises. Ceux qui étaient concentrés uniquement sur la tech ratent une partie de ce mouvement de hausse plus large.",
+        "these_opposee": "Les petites entreprises sont aussi plus sensibles à un ralentissement de la consommation, comme le montre le signal sur les ventes au détail en baisse — leur record actuel pourrait s'avérer fragile si les Américains réduisent vraiment leurs achats dans les mois qui viennent.",
+        "action": "Simple élément de contexte pour toi : le climat boursier reste porteur cette semaine, ce n'est donc pas le moment de paniquer sur ton budget publicitaire même si tu croises par ailleurs des news économiques plus mitigées.",
+        "sizing": "Faible",
+        "invalide_si": "Si le Russell 2000 perd plus de 5% en une seule semaine dans les prochaines semaines.",
+        "source_name": "TheStreet",
+        "source_url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-14-2026"
+      }
+    ]
+  },
+  "deeptech": {
+    "signals": [
+      {
+        "conviction": 2,
+        "title": "D-WAVE FRANCHIT UNE ÉTAPE CLÉ VERS DES ORDINATEURS QUANTIQUES FIABLES",
+        "en_clair": "Une entreprise américaine a réussi un test technique qui rapproche les ordinateurs quantiques, des machines qui calculent différemment des ordinateurs classiques, d'un usage fiable en entreprise.",
+        "fait": "D-Wave a publié le 5 août, dans la revue scientifique Nature, une étude démontrant une porte logique à deux qubits (l'unité de base d'un ordinateur quantique, un peu comme un bit classique mais qui peut représenter 0 et 1 en même temps) pour son architecture 'dual-rail', issue du rachat à 550 millions de dollars de la startup Quantum Circuits Inc en janvier 2026. Cette porte logique atteint une fiabilité d'environ 99,9% avec un temps d'exécution très rapide (environ 500 nanosecondes), grâce à une détection d'erreur intégrée directement dans le matériel. Les ordinateurs quantiques actuels souffrent énormément d'erreurs de calcul, ce qui les rend peu fiables pour un usage réel : cette avancée réduit fortement ce taux d'erreur. La feuille de route de D-Wave prévoit 17 qubits physiques en 2026, 49 en 2027, et 100 qubits 'logiques' (des qubits fiables, corrigés des erreurs) d'ici 2032.",
+        "implication_2": "Concrètement, ça veut dire que la technologie quantique progresse vers une utilisation réelle en entreprise, par exemple pour simuler des molécules en pharma ou optimiser des trajets logistiques complexes, mais reste encore lointaine — la feuille de route parle de 2032 pour une puissance de calcul vraiment utile commercialement.",
+        "implication_3": "D-Wave et ses investisseurs (l'action cotée en bourse sous le symbole QBTS) gagnent en crédibilité scientifique sur le long terme si cette feuille de route se confirme. Les architectures quantiques concurrentes perdraient du terrain si l'approche 'dual-rail' de D-Wave s'avère être la bonne stratégie technique face aux autres méthodes.",
+        "these_opposee": "L'histoire de l'informatique quantique est jalonnée d'annonces techniques impressionnantes qui mettent ensuite des années, voire ne débouchent jamais, sur une véritable utilité commerciale à grande échelle.",
+        "action": "Aucune action directe pour ta boutique — c'est un sujet à horizon de 10 ans et plus, à connaître pour la culture générale tech, pas pour investir ou changer quoi que ce soit dans ton activité maintenant.",
+        "sizing": "Faible",
+        "invalide_si": "Si D-Wave ne tient pas son objectif annoncé de 49 qubits physiques en 2027.",
+        "source_name": "The Quantum Insider",
+        "source_url": "https://thequantuminsider.com/2026/08/05/d-wave-hardware-breakthrough-quantum-error-correction-fault-tolerant-computing/",
+        "horizon": "10+",
+        "credibilite_score": 3,
+        "peer_reviewed": true,
+        "peer_reviewed_detail": "Publié dans Nature le 5 août 2026 — étude relue par des experts scientifiques indépendants avant publication.",
+        "financement": true,
+        "financement_detail": "D-Wave a investi 550 M$ pour acquérir Quantum Circuits Inc en janvier 2026, à l'origine de cette architecture 'dual-rail'.",
+        "prototype": true,
+        "prototype_detail": "Porte logique à deux qubits démontrée avec 99,9% de fidélité, résultats publiés et reproductibles par d'autres équipes.",
+        "adoption": false,
+        "adoption_detail": "",
+        "investissement_cotes": [
+          "QBTS"
+        ],
+        "investissement_etf": [],
+        "investissement_early": []
+      },
+      {
+        "conviction": 2,
+        "title": "DES CHERCHEURS FONT VOYAGER DE L'INFORMATION QUANTIQUE SUR UN CÂBLE INTERNET CLASSIQUE",
+        "en_clair": "Des scientifiques ont transmis de l'information quantique, la brique de base d'un futur internet ultra-sécurisé, sur un câble à fibre optique classique déjà installé dans les rues.",
+        "fait": "Le NIST (l'agence fédérale américaine de standards scientifiques), l'université du Maryland et la startup Qunnect ont réussi à transmettre des photons intriqués sur 62 km de fibre optique commerciale déjà existante, entre les villes de Gaithersburg et College Park dans le Maryland. L'intrication quantique, c'est un phénomène où deux particules restent liées entre elles à distance : mesurer l'une affecte instantanément l'autre, un principe de base des futures technologies de communication quantique ultra-sécurisée. L'équipe a maintenu un débit de 1 500 paires de photons intriqués par seconde, avec 92,8% des paires encore correctement liées après 24 heures d'affilée. La difficulté principale venait du fait que cette fibre est suspendue en aérien sur des poteaux électriques, donc exposée au vent, aux vibrations du trafic et aux variations de température — un compensateur de polarisation automatique développé par Qunnect a permis de corriger ces perturbations en temps réel.",
+        "implication_2": "Concrètement, ça veut dire qu'un futur 'internet quantique', utilisé notamment pour une cybersécurité quasiment impossible à pirater, pourrait s'appuyer sur les câbles à fibre optique déjà installés dans les villes plutôt que de nécessiter la construction d'un tout nouveau réseau dédié, ce qui réduirait fortement le coût de déploiement.",
+        "implication_3": "Les opérateurs télécoms qui possèdent déjà des réseaux de fibre optique urbains pourraient gagner en louant leur infrastructure existante à ce nouvel usage. Les entreprises qui auraient misé sur des solutions nécessitant une toute nouvelle infrastructure dédiée, plus coûteuse à construire, perdent un avantage compétitif face à cette approche plus économique.",
+        "these_opposee": "Transmettre des photons intriqués sur 62 km reste très loin de constituer un 'internet quantique' fonctionnel à l'échelle d'un pays entier — il s'agit d'une preuve de concept en laboratoire élargi, pas d'un déploiement commercial prêt à l'emploi.",
+        "action": "Aucune action pour ta boutique — sujet à horizon de 10 ans et plus, à connaître mais sans impact sur ton activité e-commerce actuelle.",
+        "sizing": "Faible",
+        "invalide_si": "Si les tentatives de réplication de cette expérience sur d'autres tronçons de fibre urbaine échouent d'ici 2027.",
+        "source_name": "NIST",
+        "source_url": "https://www.nist.gov/news-events/news/2026/08/spooky-particles-transit-dc-suburbs-step-toward-quantum-network",
+        "horizon": "10+",
+        "credibilite_score": 4,
+        "peer_reviewed": true,
+        "peer_reviewed_detail": "Résultats publiés par le NIST, agence scientifique fédérale américaine, en collaboration avec l'université du Maryland.",
+        "financement": false,
+        "financement_detail": "",
+        "prototype": true,
+        "prototype_detail": "Démonstration réelle sur 62 km de fibre commerciale existante, maintenue plus de 24h avec 92,8% de fidélité de transmission.",
+        "adoption": false,
+        "adoption_detail": "",
+        "investissement_cotes": [],
+        "investissement_etf": [],
+        "investissement_early": [
+          "Qunnect — startup spécialisée dans les réseaux quantiques, à surveiller si elle lève des fonds ou signe un accord avec un opérateur télécom."
+        ]
+      }
+    ]
+  },
+  "ecommerce": {
+    "tendance_globale": "Cette semaine, l'automatisation devient très concrète : Meta pousse ses pubs vers l'IA par défaut et réécrit même tes textes, un outil gratuit (n8n) permet d'automatiser tes tests de pub sans coder, et Shopify généralise un paiement en une seule page à toutes les boutiques. Le fil rouge : de moins en moins de tâches manuelles chaque semaine.",
+    "nouveautes": [
+      {
+        "theme": "creatives",
+        "titre": "Meta Ads réécrit automatiquement le texte de tes visuels publicitaires",
+        "quoi": "La fonction Advantage+ de Meta modifie désormais elle-même les titres écrits directement sur tes images de pub, sans validation préalable.",
+        "pourquoi": "Ça peut améliorer tes taux de clic automatiquement, mais surveille bien que le nouveau texte reste fidèle à ta marque et à tes promesses produit.",
+        "source_name": "AdMake AI Blog",
+        "source_url": "https://admakeai.com/blog/meta-ads-updates-august-2026"
+      },
+      {
+        "theme": "automation",
+        "titre": "Un modèle gratuit n8n automatise tes tests de créas et le lancement de campagnes Meta Ads",
+        "quoi": "Un workflow prêt à l'emploi sur n8n, un outil d'automatisation gratuit, teste plusieurs visuels de pub et lance seul les campagnes gagnantes.",
+        "pourquoi": "Tu peux tester 5 à 10 visuels par semaine sans y passer des heures, ce qui augmente tes chances de trouver la pub gagnante plus vite que tes concurrents.",
+        "source_name": "n8n.io",
+        "source_url": "https://n8n.io/workflows/6038-automation-of-creative-testing-and-campaign-launching-for-meta-ads/"
+      },
+      {
+        "theme": "operations",
+        "titre": "Shopify rend le tunnel d'achat en une seule page par défaut pour tous les marchands",
+        "quoi": "Le nouveau parcours de paiement Shopify regroupe contact, livraison et paiement sur un seul écran, avec pré-remplissage automatique des champs.",
+        "pourquoi": "Shopify annonce jusqu'à 0,5 point de conversion en plus rien qu'avec ce changement automatique, sans aucune action de ta part sur ta boutique.",
+        "source_name": "Shopify Changelog",
+        "source_url": "https://changelog.shopify.com/posts/one-page-checkout-is-now-the-default-shopify-checkout"
+      },
+      {
+        "theme": "automation",
+        "titre": "Un outil gratuit sur GitHub automatise les commandes et réponses clients Shopify",
+        "quoi": "Un programme en libre accès traite les commandes Shopify, répond aux emails clients et programme des relances de rendez-vous automatiquement.",
+        "pourquoi": "Bonne base si tu es à l'aise avec un peu de technique et veux automatiser une partie du service client sans payer d'abonnement mensuel.",
+        "source_name": "GitHub (jarif87)",
+        "source_url": "https://github.com/jarif87/shopify-ai-agent"
+      },
+      {
+        "theme": "automation",
+        "titre": "Les chatbots IA gèrent désormais 76 à 92% des tickets de service client sans humain",
+        "quoi": "Des outils comme Tidio automatisent le suivi de commande, les remboursements et la relance de panier abandonné pour les petites boutiques en ligne.",
+        "pourquoi": "Tu peux réduire fortement le temps passé au support client, un poste qui prend souvent plusieurs heures chaque semaine pour un solo-entrepreneur.",
+        "source_name": "Ringly.io",
+        "source_url": "https://www.ringly.io/blog/best-ai-customer-service-tools-ecommerce"
+      }
+    ],
+    "signals": [
+      {
+        "theme": "automation",
+        "conviction": 4,
+        "title": "UN WORKFLOW GRATUIT AUTOMATISE TES TESTS DE PUB META ET LES CAMPAGNES GAGNANTES",
+        "en_clair": "Un outil gratuit permet de tester plusieurs visuels de pub Meta automatiquement et de lancer tout seul la campagne qui marche le mieux.",
+        "fait": "n8n est un outil d'automatisation gratuit et open-source (le code est public et modifiable), une alternative à Zapier ou Make, qui permet de connecter différentes applications entre elles via une interface visuelle, sans avoir besoin de coder. Un template (un modèle prêt à l'emploi que tu peux copier) baptisé 'Automation of creative testing and campaign launching for Meta ads' est disponible sur n8n.io. Il est pensé pour les marketeurs et les marques e-commerce qui veulent industrialiser leur test de créas — c'est-à-dire tester plusieurs visuels de publicité différents pour voir lequel convertit le mieux avant de miser dessus. Concrètement, ce workflow prend en charge le travail manuel et répétitif d'upload des visuels, de surveillance des performances, et de mise en pause des mauvaises pubs au profit des meilleures, tâches que tu ferais normalement toi-même à la main dans Meta Ads Manager.",
+        "implication_2": "Concrètement, ça veut dire que tu peux tester beaucoup plus de visuels de pub par semaine sans y passer des heures toi-même, ce qui augmente statistiquement tes chances de trouver une pub qui convertit bien avant que tes concurrents ne le fassent.",
+        "implication_3": "Les petites marques qui adoptent tôt ce genre d'automatisation gagnent du temps et un avantage de vitesse sur leurs concurrents qui testent encore leurs pubs à la main. Les agences qui facturaient cher ce travail manuel de test créatif risquent de voir leur valeur ajoutée diminuer face à ces outils gratuits.",
+        "these_opposee": "Un workflow automatisé mal réglé peut aussi dépenser du budget publicitaire sur des visuels médiocres plus vite qu'un humain prudent ne l'aurait fait — il faut bien fixer des règles d'arrêt claires, comme un budget maximum ou un seuil de performance minimum.",
+        "action": "Va sur n8n.io, crée un compte gratuit, importe le template 'Automation of creative testing and campaign launching for Meta ads' et connecte-le à ton compte Meta Ads Manager cette semaine avec un petit budget de 20-30€ par jour avant de généraliser.",
+        "sizing": "Moyen",
+        "invalide_si": "Si après un mois d'utilisation, le coût par résultat de tes pubs ne s'améliore pas par rapport à ta gestion manuelle habituelle.",
+        "source_name": "n8n.io",
+        "source_url": "https://n8n.io/workflows/6038-automation-of-creative-testing-and-campaign-launching-for-meta-ads/"
+      },
+      {
+        "theme": "operations",
+        "conviction": 4,
+        "title": "SHOPIFY IMPOSE UN TUNNEL D'ACHAT EN UNE SEULE PAGE À TOUS LES MARCHANDS",
+        "en_clair": "Shopify a changé automatiquement la page de paiement de toutes les boutiques pour regrouper livraison, contact et paiement en un seul écran.",
+        "fait": "Depuis les Shopify Editions du printemps 2026 (17 juin), le nouveau tunnel de paiement hébergé par Shopify fusionne le contact, la livraison et le paiement en une seule page, avec une mise en page plus resserrée, un bouton de paiement plus visible et moins de défilement sur mobile. Le taux de conversion, c'est le pourcentage de visiteurs de ta boutique qui finissent par acheter — Shopify affirme que ce changement apporte jusqu'à 0,5 point de conversion en plus grâce à un pré-remplissage automatique des champs (via les données du navigateur, de Shop Pay ou de l'historique de commandes) et un ordre des moyens de paiement optimisé selon l'appareil, la localisation et l'historique du client. Point important à connaître : l'ancien système Shopify Scripts, qui permettait de personnaliser remises, frais de livraison ou règles de paiement avec du code, a été totalement retiré le 30 juin 2026 — toute personnalisation encore basée dessus a cessé de fonctionner depuis le 1er juillet.",
+        "implication_2": "Concrètement, ça veut dire que si tu utilisais des scripts personnalisés pour des remises spéciales ou des règles de livraison sur-mesure via l'ancien système Shopify Scripts, ils ne fonctionnent plus depuis le 1er juillet 2026 sans que tu t'en sois forcément rendu compte.",
+        "implication_3": "Les marchands qui n'avaient pas de personnalisation avancée gagnent gratuitement en taux de conversion grâce à ce nouveau tunnel. Ceux qui avaient des remises ou des règles de livraison complexes configurées via Shopify Scripts perdent temporairement ces réglages et doivent migrer vers le nouveau système, appelé Shopify Functions.",
+        "these_opposee": "Le gain de conversion de 0,5 point annoncé vient de Shopify lui-même, pas d'un audit indépendant — l'effet réel sur ta boutique en particulier peut être plus faible, nul, ou même négatif selon ton produit et ta clientèle.",
+        "action": "Va vérifier immédiatement dans ton admin Shopify si tu avais des remises, frais de livraison ou règles de paiement configurés via Shopify Scripts — si oui, migre-les vers Shopify Functions cette semaine pour ne pas perdre de ventes silencieusement.",
+        "sizing": "Fort",
+        "invalide_si": "Si Shopify permet de revenir à l'ancien tunnel de paiement ou recule sur ce changement.",
+        "source_name": "Shopify Changelog",
+        "source_url": "https://changelog.shopify.com/posts/one-page-checkout-is-now-the-default-shopify-checkout"
+      },
+      {
+        "theme": "creatives",
+        "conviction": 3,
+        "title": "META RÉÉCRIT AUTOMATIQUEMENT LE TEXTE DE TES PUBS AVEC L'IA, SANS TE PRÉVENIR",
+        "en_clair": "L'outil publicitaire de Meta (Facebook/Instagram) modifie maintenant tout seul les titres écrits directement sur tes images de pub, en plus de son texte habituel.",
+        "fait": "Advantage+ est la suite d'outils publicitaires automatisés par IA de Meta, qui devient l'option par défaut pour toute nouvelle campagne créée dans Ads Manager. Une nouvelle fonctionnalité repérée en test le 27 juillet réécrit désormais automatiquement le texte des titres qui sont directement intégrés (incrustés) dans tes images de publicité, et pas seulement la légende habituelle qui accompagne la photo. Cette fonction s'inscrit dans une poussée plus large de Meta vers l'automatisation créative, avec aussi de la génération d'image en vidéo par IA et des assistants IA pour répondre aux clients. Meta prévoit par ailleurs de supprimer l'année prochaine son ancienne fonctionnalité 'Automated Ads' au profit exclusif d'Advantage+, et les campagnes Advantage+ Leads (génération de prospects automatisée) sont désormais disponibles partout dans le monde.",
+        "implication_2": "Concrètement, ça veut dire que si tu utilises Advantage+, ou quand Meta l'imposera par défaut, le texte que tu as toi-même écrit et designé sur tes visuels de pub peut être modifié automatiquement par l'IA de Meta sans que tu valides chaque changement au préalable.",
+        "implication_3": "Les marques qui manquent de temps pour optimiser elles-mêmes leurs textes publicitaires peuvent gagner en performance grâce à des variantes testées automatiquement par l'IA. Les marques avec une identité visuelle très travaillée risquent de voir leur cohérence de marque abîmée par des réécritures automatiques non désirées.",
+        "these_opposee": "Meta affirme que ces réécritures automatiques améliorent la performance publicitaire, mais sans contrôle qualité humain systématique, certaines variantes générées par l'IA peuvent être hors-sujet, maladroites ou contenir des promesses non vérifiées juridiquement risquées.",
+        "action": "Va dans Meta Ads Manager, ouvre les paramètres Advantage+ de ta prochaine campagne et désactive l'option de réécriture automatique du texte si tu veux garder le contrôle total sur le message de tes visuels publicitaires.",
+        "sizing": "Moyen",
+        "invalide_si": "Si Meta ajoute une option de validation manuelle obligatoire avant chaque réécriture automatique de texte.",
+        "source_name": "AdMake AI Blog",
+        "source_url": "https://admakeai.com/blog/meta-ads-updates-august-2026"
+      }
+    ],
+    "actions_semaine": [
+      "Importe le template n8n 'creative testing Meta ads' et connecte-le à ton compte Meta Ads avec un budget test de 20-30€/jour.",
+      "Vérifie si des remises ou règles de livraison tournaient sur Shopify Scripts dans ton admin — migre-les vers Shopify Functions avant de perdre des ventes."
+    ]
+  }
+}
