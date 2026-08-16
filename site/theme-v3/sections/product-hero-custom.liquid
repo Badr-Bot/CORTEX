@@ -926,7 +926,9 @@
       addBtn.disabled = true;
       addBtn.textContent = 'Un instant…';
 
-      fetch('{{ routes.cart_add_url }}', {
+      /* /cart/add n'accepte qu'un seul article ; le format { items: [...] }
+         utilisé ici (1 à 3 lignes) exige l'API JSON /cart/add.js. */
+      fetch('{{ routes.cart_add_url }}.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items: lignes })
