@@ -448,6 +448,8 @@
     {%- form 'product', product, id: 'ep-product-form' -%}
       <input type="hidden" name="id" data-ep-variant-id value="{{ v.id }}">
       <input type="hidden" name="quantity" data-ep-quantity value="1">
+      {%- comment -%} Sans JavaScript, Shopify redirige lui aussi vers le panier. {%- endcomment -%}
+      <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
       <div class="ep-buy">
         <button type="submit" class="ep-btn ep-btn--primary" data-ep-add {% unless v.available %}disabled{% endunless %}>
           {%- if v.available -%}Ajouter au panier{%- else -%}Rupture de stock{%- endif -%}
@@ -886,28 +888,33 @@
   var formEl = document.getElementById('ep-product-form');
   if (formEl) {
     formEl.addEventListener('submit', function (e) {
+      /* Quel que soit le lot, on ajoute par appel réseau puis on redirige
+         explicitement vers la page panier : la cliente atterrit toujours
+         au même endroit, prête à payer. */
+      e.preventDefault();
+
       var opt = q('[data-ep-qty].is-selected');
       var qty = opt ? parseInt(opt.getAttribute('data-ep-qty'), 10) : 1;
       var pieces = opt ? opt.querySelectorAll('[data-ep-piece]') : [];
 
-      /* Une seule pièce et aucun choix par pièce : le formulaire natif suffit. */
-      if (qty < 2 || !pieces.length) return;
-
-      e.preventDefault();
-
       var lignes = [];
       var manquant = null;
-      Array.prototype.forEach.call(pieces, function (piece) {
-        var essai = selected.slice();
-        var selC = piece.querySelector('[data-ep-piece-couleur]');
-        var selT = piece.querySelector('[data-ep-piece-taille]');
-        if (selC && idxCouleur > -1) essai[idxCouleur] = selC.getAttribute('data-ep-couleur') || selC.value;
-        if (selT && idxTaille  > -1) essai[idxTaille]  = selT.value;
 
-        var vr = findVariant(essai);
-        if (!vr) { manquant = essai.join(' / '); return; }
-        lignes.push({ id: vr.id, quantity: 1 });
-      });
+      if (qty >= 2 && pieces.length) {
+        Array.prototype.forEach.call(pieces, function (piece) {
+          var essai = selected.slice();
+          var selC = piece.querySelector('[data-ep-piece-couleur]');
+          var selT = piece.querySelector('[data-ep-piece-taille]');
+          if (selC && idxCouleur > -1) essai[idxCouleur] = selC.getAttribute('data-ep-couleur') || selC.value;
+          if (selT && idxTaille  > -1) essai[idxTaille]  = selT.value;
+
+          var vr = findVariant(essai);
+          if (!vr) { manquant = essai.join(' / '); return; }
+          lignes.push({ id: vr.id, quantity: 1 });
+        });
+      } else {
+        lignes.push({ id: parseInt(variantInput.value, 10), quantity: qty || 1 });
+      }
 
       if (manquant) {
         addBtn.textContent = 'Indisponible : ' + manquant;
@@ -928,7 +935,8 @@
         .then(function () { window.location.href = '{{ routes.cart_url }}'; })
         .catch(function () {
           addBtn.disabled = false;
-          addBtn.textContent = libelle;
+          addBtn.textContent = 'Une erreur est survenue — réessayez';
+          setTimeout(function () { addBtn.textContent = libelle; }, 2600);
         });
     });
   }
