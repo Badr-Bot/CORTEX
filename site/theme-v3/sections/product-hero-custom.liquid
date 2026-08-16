@@ -5,6 +5,41 @@
     background: {{ section.settings.bg_color }};
     color: {{ section.settings.text_color }};
   }
+
+  /* Pastilles de couleur dans les lignes « pièce » des lots */
+  #shopify-section-{{ section.id }} .ep-piece { flex-wrap: wrap; }
+  #shopify-section-{{ section.id }} .ep-piece__couleur {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1 1 160px;
+    min-width: 0;
+  }
+  #shopify-section-{{ section.id }} .ep-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(80, 56, 42, .28);
+    padding: 0;
+    cursor: pointer;
+    flex: none;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  #shopify-section-{{ section.id }} .ep-dot:hover { transform: scale(1.12); }
+  #shopify-section-{{ section.id }} .ep-dot.is-selected {
+    box-shadow: 0 0 0 2px {{ section.settings.text_color | default: '#50382A' }};
+    transform: scale(1.1);
+  }
+  #shopify-section-{{ section.id }} .ep-piece__nom {
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: {{ section.settings.text_color | default: '#50382A' }};
+    opacity: .75;
+    white-space: nowrap;
+    margin-left: 2px;
+  }
 {%- endstyle -%}
 
 {%- comment -%}
@@ -629,6 +664,18 @@
   var choixCouleurs = idxCouleur > -1 ? valeursDe(idxCouleur) : [];
   var choixTailles  = idxTaille  > -1 ? valeursDe(idxTaille)  : [];
 
+  /* Reprend l'apparence exacte des grandes pastilles de la fiche
+     (aplat de couleur ou photo) pour les mini-pastilles des lots. */
+  var dotStyles = {};
+  qa('[data-ep-is-color]').forEach(function (b) {
+    var d = b.querySelector('.ep-swatch__dot');
+    if (d) dotStyles[b.getAttribute('data-ep-value')] = d.getAttribute('style') || '';
+  });
+
+  function escAttr(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  }
+
   function optionsHtml(liste, choisi) {
     return liste.map(function (val) {
       return '<option value="' + val.replace(/"/g, '&quot;') + '"' +
@@ -656,9 +703,15 @@
       html += '<div class="ep-piece" data-ep-piece="' + n + '">' +
               '<span class="ep-piece__num">#' + n + '</span>';
       if (idxCouleur > -1) {
-        html += '<label class="visually-hidden" for="ep-p' + n + 'c">Couleur pièce ' + n + '</label>' +
-                '<select id="ep-p' + n + 'c" class="ep-piece__select" data-ep-piece-couleur>' +
-                optionsHtml(choixCouleurs, couleurDefaut) + '</select>';
+        html += '<div class="ep-piece__couleur" data-ep-piece-couleur data-ep-couleur="' + escAttr(couleurDefaut) + '" role="radiogroup" aria-label="Couleur pièce ' + n + '">';
+        choixCouleurs.forEach(function (c) {
+          var on = c === couleurDefaut;
+          html += '<button type="button" class="ep-dot' + (on ? ' is-selected' : '') + '"' +
+                  ' data-ep-dot="' + escAttr(c) + '" title="' + escAttr(c) + '"' +
+                  ' aria-label="' + escAttr(c) + '" aria-pressed="' + (on ? 'true' : 'false') + '"' +
+                  ' style="' + escAttr(dotStyles[c] || 'background:#D8D2C6;') + '"></button>';
+        });
+        html += '<span class="ep-piece__nom" data-ep-piece-nom>' + escAttr(couleurDefaut) + '</span></div>';
       }
       if (idxTaille > -1) {
         html += '<label class="visually-hidden" for="ep-p' + n + 't">Taille pièce ' + n + '</label>' +
@@ -796,12 +849,31 @@
 
   bundleOpts.forEach(function (opt) {
     opt.addEventListener('click', function (e) {
-      /* Un clic dans un menu déroulant ne doit pas resélectionner le lot. */
-      if (e.target.closest('.ep-piece__select')) return;
+      /* Un clic dans les lignes « pièce » (pastille, menu taille…) ne doit
+         pas resélectionner le lot : cela effacerait les choix déjà faits. */
+      if (e.target.closest('[data-ep-pieces]')) return;
       choisirLot(opt);
     });
     opt.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choisirLot(opt); }
+    });
+  });
+
+  /* La couleur de chaque pièce se choisit sur une pastille, pas un menu. */
+  qa('[data-ep-pieces]').forEach(function (zone) {
+    zone.addEventListener('click', function (e) {
+      var dot = e.target.closest('[data-ep-dot]');
+      if (!dot) return;
+      var grp = dot.closest('[data-ep-piece-couleur]');
+      if (!grp) return;
+      grp.setAttribute('data-ep-couleur', dot.getAttribute('data-ep-dot'));
+      Array.prototype.forEach.call(grp.querySelectorAll('[data-ep-dot]'), function (b) {
+        var on = b === dot;
+        b.classList.toggle('is-selected', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      var nom = grp.querySelector('[data-ep-piece-nom]');
+      if (nom) nom.textContent = dot.getAttribute('data-ep-dot');
     });
   });
 
@@ -829,7 +901,7 @@
         var essai = selected.slice();
         var selC = piece.querySelector('[data-ep-piece-couleur]');
         var selT = piece.querySelector('[data-ep-piece-taille]');
-        if (selC && idxCouleur > -1) essai[idxCouleur] = selC.value;
+        if (selC && idxCouleur > -1) essai[idxCouleur] = selC.getAttribute('data-ep-couleur') || selC.value;
         if (selT && idxTaille  > -1) essai[idxTaille]  = selT.value;
 
         var vr = findVariant(essai);

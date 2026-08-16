@@ -24,8 +24,10 @@
 
   .product-trust-accordion {
     max-width: 1200px;
-    margin: -20px auto 0;
-    padding: 0 20px 40px 20px;
+    /* plus de marge négative : elle faisait passer le texte sous le
+       bandeau citation qui précède désormais cette section */
+    margin: 0 auto;
+    padding: 28px 20px 40px 20px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 40px;
