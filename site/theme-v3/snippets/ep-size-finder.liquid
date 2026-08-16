@@ -4,8 +4,9 @@
   La cliente ne saisit rien : elle fait glisser deux curseurs (poids, taille)
   et choisit sa silhouette. La taille se met à jour en direct.
 
-  Le calcul intègre la coupe asiatique de nos ateliers : une cliente qui porte
-  du M en France ressort en L ici. C'est volontaire, pas une erreur.
+  Le calcul intègre la coupe sculptante volontairement ajustée de nos leggings :
+  une cliente qui porte du M en France ressort en L ici. C'est un choix de
+  conception, pas une erreur.
 {% endcomment %}
 
 <div class="ep-sf" data-ep-sizefinder>
@@ -135,9 +136,9 @@
   </details>
 
   <p class="ep-sf__foot">
-    Nos ateliers taillent à l'asiatique : nous remontons systématiquement d'une taille
-    par rapport à votre taille française habituelle. Une maille trop tendue gaine moins
-    bien et perd de son opacité.
+    La coupe sculptante Elarie est volontairement très ajustée. Pour un galbe parfait,
+    nous recommandons systématiquement la taille au-dessus de votre taille française
+    habituelle : une maille trop tendue gaine moins bien et perd de son opacité.
   </p>
 </div>
 
@@ -311,14 +312,14 @@
 
   /* Bornes hautes de poids, en kilos, pour la TAILLE FRANCAISE habituelle
      d'une morphologie normale mesurant 165 cm. La remontee d'une taille pour
-     la coupe asiatique est appliquee ensuite, separement. */
+     la coupe sculptante ajustee est appliquee ensuite, separement. */
   var SEUILS = [55, 63, 72, 81, 92, 104, 116, 128];
 
   var MORPHO = {
-    fine:    { decalage: -1, texte: 'silhouette fine' },
-    normale: { decalage:  0, texte: 'silhouette normale' },
-    hanches: { decalage: +1, texte: 'hanches larges' },
-    ronde:   { decalage: +1, texte: 'silhouette généreuse' }
+    fine:    { decalage: -1, texte: 'votre silhouette fine' },
+    normale: { decalage:  0, texte: 'votre silhouette' },
+    hanches: { decalage: +1, texte: 'vos hanches' },
+    ronde:   { decalage: +1, texte: 'vos jolies courbes' }
   };
 
   function indiceDepuisPoids(poids) {
@@ -333,21 +334,21 @@
     var raisons = [];
 
     /* Le même poids ne se répartit pas pareil selon la taille. */
-    if (taille >= 176) { i -= 1; raisons.push('votre taille répartit le volume'); }
-    else if (taille <= 157) { i += 1; raisons.push('votre taille concentre le volume'); }
+    if (taille >= 176) { i -= 1; raisons.push('votre grande taille'); }
+    else if (taille <= 157) { i += 1; raisons.push('votre petite taille'); }
 
     var m = MORPHO[forme] || MORPHO.normale;
     if (m.decalage !== 0) raisons.push(m.texte);
     i += m.decalage;
 
-    /* Coupe asiatique de l'atelier : on remonte toujours d'une taille. */
+    /* Coupe sculptante volontairement ajustée : on remonte toujours d'une taille. */
     i += 1;
 
     if (i < 0) i = 0;
     if (i > TAILLES.length - 1) i = TAILLES.length - 1;
 
-    var phrase = 'Nos leggings taillent petit : nous remontons d’une taille par rapport à votre taille française habituelle';
-    if (raisons.length) phrase += ', et nous tenons compte de ' + raisons.join(' et de ');
+    var phrase = 'Notre coupe sculptante est volontairement ajustée : pour un galbe parfait sans comprimer, nous recommandons la taille au-dessus de votre taille française habituelle';
+    if (raisons.length) phrase += ', en tenant compte de ' + raisons.join(' et de ');
     return { taille: TAILLES[i], phrase: phrase + '.' };
   }
 
