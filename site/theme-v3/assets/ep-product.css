@@ -1,0 +1,909 @@
+/* ==========================================================================
+   ELARIE PARIS — Fiche produit
+   ========================================================================== */
+
+.ep-product {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 56px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 48px 20px 44px;
+  box-sizing: border-box;
+}
+
+.ep-product *,
+.ep-product *::before,
+.ep-product *::after { box-sizing: border-box; }
+
+/* ---------- Galerie ---------- */
+
+.ep-gallery { display: flex; flex-direction: column; gap: 12px; }
+
+/* Le cadre garde une hauteur stable d'une photo à l'autre (pas de saut de
+   mise en page), mais l'image n'est JAMAIS rognée : `contain` la fait entrer
+   en entier, quel que soit son format. Les photos du catalogue vont du carré
+   (3375×3375) au portrait (1536×2730) — une hauteur fixe en `cover` en
+   coupait jusqu'à 40 %. */
+.ep-gallery__stage {
+  position: relative;
+  background: var(--ep-bg-alt, #EFE8DA);
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+}
+
+.ep-gallery__stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.ep-gallery__arrow,
+.ep-gallery__zoom {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.94);
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  color: var(--ep-ink, #50382A);
+  box-shadow: 0 2px 10px rgba(17, 17, 17, 0.12);
+  transition: background-color .2s ease, transform .2s ease;
+}
+
+.ep-gallery__arrow:hover,
+.ep-gallery__zoom:hover { background: #fff; transform: scale(1.06); }
+
+.ep-gallery__arrow { top: 50%; transform: translateY(-50%); font-size: 20px; line-height: 1; }
+.ep-gallery__arrow:hover { transform: translateY(-50%) scale(1.06); }
+.ep-gallery__arrow--prev { left: 14px; }
+.ep-gallery__arrow--next { right: 14px; }
+.ep-gallery__zoom { top: 14px; right: 14px; }
+.ep-gallery__zoom svg { width: 18px; height: 18px; }
+
+.ep-gallery__thumbs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.ep-gallery__thumbs img {
+  width: 74px;
+  height: 74px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--ep-line, #E4DACA);
+  opacity: 0.62;
+  flex: none;
+  transition: opacity .2s ease, border-color .2s ease;
+}
+
+.ep-gallery__thumbs img.is-active,
+.ep-gallery__thumbs img:hover {
+  opacity: 1;
+  border-color: var(--ep-ink, #50382A);
+}
+
+/* ---------- Colonne info ---------- */
+
+.ep-info { display: flex; flex-direction: column; gap: 18px; }
+
+.ep-info__badges { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.ep-badge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 7px 14px;
+  border-radius: 2px;
+  background: var(--ep-ink, #50382A);
+  color: var(--ep-bg, #F8F5EC);
+}
+
+.ep-badge--gold { background: var(--ep-gold, #B08D57); color: var(--ep-ink, #50382A); }
+
+.ep-info__title {
+  margin: 0;
+  font-size: 3.4rem;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+.ep-info__tagline {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ep-gold-deep, #8A6A3C);
+  margin: -6px 0 0;
+}
+
+.ep-rating { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--ep-ink-soft, #7A6553); }
+.ep-rating__stars { color: var(--ep-gold, #B08D57); font-size: 17px; letter-spacing: 2px; }
+
+.ep-price { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.ep-price__now { font-size: 26px; font-weight: 500; color: var(--ep-ink, #50382A); }
+.ep-price__was { font-size: 17px; color: #A29A8D; text-decoration: line-through; }
+.ep-price__save {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ep-promo, #8A2E2E);
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  padding: 3px 8px;
+}
+
+.ep-divider { height: 1px; background: var(--ep-line, #E4DACA); border: 0; margin: 4px 0; }
+
+/* ---------- Options / variantes ---------- */
+
+.ep-options { display: flex; flex-direction: column; gap: 22px; }
+
+.ep-option__label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 11px;
+  color: var(--ep-ink, #50382A);
+}
+
+.ep-option__value {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 13.5px;
+  color: var(--ep-ink-soft, #7A6553);
+}
+
+/* Pastilles de couleur nommées */
+.ep-swatches { display: flex; flex-wrap: wrap; gap: 18px; }
+
+.ep-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  width: 58px;
+}
+
+.ep-swatch__dot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--ep-line, #E4DACA);
+  box-shadow: inset 0 0 0 3px #fff;
+  transition: box-shadow .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.ep-swatch:hover .ep-swatch__dot { transform: scale(1.06); }
+
+.ep-swatch.is-selected .ep-swatch__dot {
+  border-color: var(--ep-ink, #50382A);
+  box-shadow: inset 0 0 0 3px #fff, 0 0 0 1px var(--ep-ink, #50382A);
+}
+
+.ep-swatch__name {
+  font-size: 11.5px;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--ep-ink-soft, #7A6553);
+  letter-spacing: 0.02em;
+}
+
+.ep-swatch.is-selected .ep-swatch__name { color: var(--ep-ink, #50382A); font-weight: 600; }
+
+.ep-swatch.is-unavailable { opacity: 0.35; cursor: not-allowed; }
+.ep-swatch.is-unavailable .ep-swatch__dot { position: relative; }
+
+/* Pastilles texte (tailles, longueurs) */
+.ep-pills { display: flex; flex-wrap: wrap; gap: 9px; }
+
+.ep-pill {
+  min-width: 52px;
+  padding: 11px 16px;
+  border: 1px solid var(--ep-line, #E4DACA);
+  background: #fff;
+  color: var(--ep-ink, #50382A);
+  border-radius: 2px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color .18s ease, background-color .18s ease, color .18s ease;
+}
+
+.ep-pill:hover { border-color: var(--ep-ink, #50382A); }
+
+.ep-pill.is-selected {
+  background: var(--ep-ink, #50382A);
+  border-color: var(--ep-ink, #50382A);
+  color: var(--ep-bg, #F8F5EC);
+}
+
+.ep-pill.is-unavailable {
+  opacity: 0.32;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.ep-size-link {
+  align-self: flex-start;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: var(--ep-ink-soft, #7A6553);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.ep-size-link:hover { color: var(--ep-ink, #50382A); }
+
+/* ---------- Lots / bundle ---------- */
+
+.ep-bundle__label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 12px;
+}
+
+.ep-bundle__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+.ep-bundle__opt {
+  position: relative;
+  border: 1px solid var(--ep-line, #E4DACA);
+  border-radius: 3px;
+  padding: 18px 8px 14px;
+  text-align: center;
+  cursor: pointer;
+  background: #fff;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.ep-bundle__opt:hover { border-color: var(--ep-gold, #B08D57); }
+
+.ep-bundle__opt.is-selected {
+  border-color: var(--ep-gold, #B08D57);
+  box-shadow: 0 0 0 1px var(--ep-gold, #B08D57);
+  background: var(--ep-bg, #F8F5EC);
+}
+
+.ep-bundle__tag {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ep-gold, #B08D57);
+  color: var(--ep-ink, #50382A);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 3px 9px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.ep-bundle__qty { display: block; font-size: 15px; font-weight: 600; }
+.ep-bundle__off { display: block; font-size: 11px; font-weight: 600; color: var(--ep-promo, #8A2E2E); margin-top: 3px; letter-spacing: 0.06em; }
+.ep-bundle__sum { display: block; font-size: 12px; color: var(--ep-ink-soft, #7A6553); margin-top: 5px; }
+
+/* ---------- Bénéfices ---------- */
+
+.ep-benefits { display: flex; flex-direction: column; gap: 12px; margin: 2px 0; }
+
+.ep-benefit { display: flex; align-items: center; gap: 13px; font-size: 14px; }
+.ep-benefit svg { width: 20px; height: 20px; flex: none; stroke: var(--ep-gold-deep, #8A6A3C); }
+.ep-benefit img { width: 24px; height: 24px; flex: none; object-fit: contain; }
+
+/* ---------- Boutons d'achat ---------- */
+
+.ep-buy { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+
+.ep-btn {
+  width: 100%;
+  padding: 17px 24px;
+  border-radius: 2px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.ep-btn--primary {
+  background: var(--ep-ink, #50382A);
+  color: var(--ep-bg, #F8F5EC);
+  border: 1px solid var(--ep-ink, #50382A);
+}
+.ep-btn--primary:hover:not([disabled]) { background: #63472F; border-color: var(--ep-gold, #B08D57); }
+
+.ep-btn--gold {
+  background: var(--ep-gold, #B08D57);
+  color: var(--ep-ink, #50382A);
+  border: 1px solid var(--ep-gold, #B08D57);
+}
+.ep-btn--gold:hover:not([disabled]) { background: var(--ep-gold-deep, #8A6A3C); border-color: var(--ep-gold-deep, #8A6A3C); }
+
+.ep-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* ---------- Réassurance sous le CTA ---------- */
+
+.ep-assur {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 6px;
+  padding-top: 18px;
+  border-top: 1px solid var(--ep-line, #E4DACA);
+}
+
+.ep-assur__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  font-size: 10.5px;
+  line-height: 1.35;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ep-ink-soft, #7A6553);
+}
+
+.ep-assur__item svg { width: 20px; height: 20px; stroke: var(--ep-gold-deep, #8A6A3C); fill: none; }
+
+/* ---------- Avis mis en avant ---------- */
+
+.ep-quote {
+  display: flex;
+  gap: 14px;
+  background: var(--ep-bg-alt, #EFE8DA);
+  border-left: 2px solid var(--ep-gold, #B08D57);
+  padding: 16px 18px;
+  align-items: flex-start;
+}
+
+.ep-quote img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
+.ep-quote__name { font-weight: 600; font-size: 13.5px; }
+.ep-quote__stars { color: var(--ep-gold, #B08D57); font-size: 12px; margin-left: 6px; }
+.ep-quote__text { font-size: 13px; line-height: 1.5; color: #3C3730; margin-top: 4px; font-style: italic; }
+
+/* ---------- Modales ---------- */
+
+.ep-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.55);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ep-modal.is-open { display: flex; }
+
+.ep-modal__box {
+  background: var(--ep-bg, #F8F5EC);
+  border-radius: 4px;
+  padding: 34px 30px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.ep-modal__box h2 { margin: 0 0 6px; font-size: 2.2rem; }
+.ep-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: 0;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ep-ink, #50382A);
+}
+
+.ep-sizes { width: 100%; border-collapse: collapse; margin-top: 18px; }
+.ep-sizes th, .ep-sizes td {
+  border-bottom: 1px solid var(--ep-line, #E4DACA);
+  padding: 11px 8px;
+  text-align: center;
+  font-size: 13.5px;
+}
+.ep-sizes th {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ep-gold-deep, #8A6A3C);
+}
+
+.ep-zoom { background: rgba(17, 17, 17, 0.92); cursor: zoom-out; }
+.ep-zoom img { max-width: 92%; max-height: 88vh; object-fit: contain; }
+.ep-zoom .ep-modal__close { color: #fff; top: 22px; right: 28px; font-size: 32px; }
+
+/* ---------- Barre d'achat mobile ---------- */
+
+.ep-sticky {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 150;
+  background: var(--ep-ink, #50382A);
+  color: var(--ep-bg, #F8F5EC);
+  padding: 10px 14px;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(100%);
+  transition: transform .3s cubic-bezier(.2,.6,.2,1);
+  box-shadow: 0 -6px 24px rgba(0,0,0,0.22);
+}
+
+.ep-sticky.is-visible { transform: translateY(0); }
+.ep-sticky { max-width: 100%; box-sizing: border-box; }
+.ep-sticky__img { width: 44px; height: 44px; border-radius: 3px; object-fit: cover; flex: none; }
+.ep-sticky__info { flex: 1; min-width: 0; }
+.ep-sticky__title { font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .8; }
+.ep-sticky__price { font-size: 14px; font-weight: 600; color: var(--ep-gold, #B08D57); }
+.ep-sticky__btn {
+  background: var(--ep-gold, #B08D57);
+  color: var(--ep-ink, #50382A);
+  border: 0;
+  border-radius: 2px;
+  padding: 13px 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  flex: none;
+}
+
+/* ---------- Responsive ---------- */
+
+@media screen and (max-width: 1100px) {
+  .ep-product { gap: 40px; }
+}
+
+@media screen and (max-width: 989px) {
+  /* `minmax(0, 1fr)` et non `1fr` : `1fr` garde un plancher égal à la largeur
+     minimale du contenu, ce qui empêchait la colonne de descendre sous 494 px
+     — d'où une fiche produit plus large que l'écran, et le dézoom d'iOS. */
+  .ep-product {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+    padding: 28px 18px 32px;
+  }
+  .ep-gallery,
+  .ep-info { min-width: 0; }
+  .ep-info__title { font-size: 2.6rem; }
+  .ep-sticky { display: flex; }
+}
+
+@media screen and (max-width: 480px) {
+  .ep-assur { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .ep-assur__item { font-size: 9.5px; letter-spacing: 0.05em; }
+  .ep-swatch { width: 52px; }
+  .ep-swatch__dot { width: 34px; height: 34px; }
+}
+
+/* =========================================================================
+   BLOC D'ACCROCHE — récompense, note, promesses, avis mis en avant
+   Repris de la fiche produit de référence, version Elarie Paris.
+   ========================================================================= */
+
+.ep-info__tagline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ep-ink-soft, #7A6553);
+  margin: 6px 0 12px;
+}
+.ep-info__tagline-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: var(--ep-gold-deep, #8A6A3C);
+  stroke-width: 1.7;
+}
+
+.ep-rating { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+.ep-rating__stars { display: inline-flex; gap: 2px; line-height: 0; }
+.ep-rating__stars svg { width: 17px; height: 17px; fill: var(--ep-gold, #B08D57); }
+.ep-rating__text { font-size: 14px; color: var(--ep-ink-soft, #7A6553); }
+
+/* ---------- Les 4 promesses ---------- */
+
+.ep-benefits {
+  list-style: none;
+  margin: 20px 0 22px;
+  padding: 0;
+  display: grid;
+  gap: 13px;
+}
+
+.ep-benefit { display: flex; align-items: center; gap: 13px; }
+
+.ep-benefit__icon {
+  width: 38px;
+  height: 38px;
+  flex: none;
+  display: grid;
+  place-items: center;
+}
+.ep-benefit__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--ep-ink, #50382A);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+.ep-benefit__icon .ep-ic-soft { stroke: var(--ep-gold-deep, #8A6A3C); stroke-width: 1.4; }
+.ep-benefit__icon .ep-ic-strike { stroke: var(--ep-gold-deep, #8A6A3C); stroke-width: 1.8; }
+.ep-benefit__icon img { width: 28px; height: 28px; object-fit: contain; }
+
+.ep-benefit__text {
+  font-size: 15.5px;
+  line-height: 1.4;
+  color: var(--ep-ink, #50382A);
+}
+
+/* ---------- Avis mis en avant ---------- */
+
+.ep-hero-review {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  background: var(--ep-bg-alt, #EFE8DA);
+  border: 1px solid var(--ep-line, #E4DACA);
+  border-radius: 8px;
+}
+
+.ep-hero-review__photo {
+  width: 60px;
+  height: 60px;
+  flex: none;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.ep-hero-review__body { min-width: 0; }
+
+.ep-hero-review__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.ep-hero-review__name { font-weight: 700; font-size: 14.5px; }
+
+.ep-hero-review__stars { display: inline-flex; gap: 1px; line-height: 0; }
+.ep-hero-review__stars svg { width: 14px; height: 14px; fill: var(--ep-gold, #B08D57); }
+
+.ep-hero-review__quote {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ep-ink-soft, #7A6553);
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .ep-benefit__icon { width: 32px; height: 32px; }
+  .ep-benefit__text { font-size: 14.5px; }
+  .ep-hero-review__photo { width: 48px; height: 48px; }
+}
+
+/* =========================================================================
+   MOYENS DE PAIEMENT — sous les boutons d'achat
+   Les logos viennent de Shopify : seuls ceux réellement activés s'affichent.
+   ========================================================================= */
+
+.ep-paiement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  margin: 14px 0 4px;
+  padding: 13px 12px;
+  background: var(--ep-bg-alt, #EFE8DA);
+  border: 1px solid var(--ep-line, #E4DACA);
+  border-radius: 8px;
+}
+
+.ep-paiement__texte {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ep-ink-soft, #7A6553);
+}
+
+.ep-paiement__cadenas {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  fill: none;
+  stroke: var(--ep-gold-deep, #8A6A3C);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+
+.ep-paiement__logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+}
+
+/* Les SVG de Shopify arrivent en 38x24 : on les cadre proprement. */
+.ep-paiement__icone {
+  width: 40px;
+  height: 26px;
+  border-radius: 3px;
+  background: #fff;
+  border: 1px solid rgba(80, 56, 42, .12);
+  padding: 1px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .ep-paiement__icone { width: 36px; height: 23px; }
+  .ep-paiement__texte { font-size: 11.5px; }
+}
+
+/* =========================================================================
+   LOTS — cartes, lignes par pièce, urgence
+   ========================================================================= */
+
+.ep-urgence {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+}
+.ep-urgence__trait { flex: 1; height: 1px; background: var(--ep-line, #E4DACA); }
+.ep-urgence__texte {
+  font-family: var(--font-heading-family, inherit);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ep-promo, #8A2E2E);
+  text-align: center;
+}
+
+/* Les lots s'empilent verticalement, comme sur la fiche de référence.
+   L'ancienne maquette les mettait sur trois colonnes : ce reste de
+   `repeat(3, 1fr)` forçait chaque carte à dépasser sur mobile. */
+.ep-bundle__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+
+.ep-bundle__opt {
+  position: relative;
+  border: 1.5px solid var(--ep-line, #E4DACA);
+  border-radius: 8px;
+  background: #fff;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.ep-bundle__opt:hover { border-color: var(--ep-gold, #B08D57); }
+.ep-bundle__opt.is-selected {
+  border-color: var(--ep-ink, #50382A);
+  box-shadow: 0 0 0 1px var(--ep-ink, #50382A);
+}
+
+.ep-bundle__tete { display: flex; align-items: center; gap: 11px; }
+
+.ep-bundle__radio {
+  width: 19px; height: 19px; flex: none;
+  border: 1.5px solid var(--ep-line, #E4DACA);
+  border-radius: 50%;
+  position: relative;
+}
+.ep-bundle__opt.is-selected .ep-bundle__radio { border-color: var(--ep-ink, #50382A); }
+.ep-bundle__opt.is-selected .ep-bundle__radio::after {
+  content: '';
+  position: absolute; inset: 3px;
+  border-radius: 50%;
+  background: var(--ep-ink, #50382A);
+}
+
+.ep-bundle__qty { font-weight: 700; font-size: 15.5px; }
+
+.ep-bundle__off {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--ep-promo, #8A2E2E);
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+.ep-bundle__prix { margin-left: auto; text-align: right; line-height: 1.25; }
+.ep-bundle__sum { display: block; font-weight: 700; font-size: 17px; }
+.ep-bundle__barre { display: block; font-size: 13px; color: var(--ep-ink-soft, #7A6553); }
+
+/* L'étiquette était centrée sur la carte dans l'ancienne maquette, avec un
+   `translateX(-50%)`. Elle est passée en haut à gauche, mais la translation
+   n'avait jamais été annulée : elle sortait donc de l'écran par la gauche et
+   se lisait « EURE VALEUR ». */
+.ep-bundle__tag {
+  position: absolute;
+  top: -10px; left: 14px;
+  transform: none;
+  background: var(--ep-gold, #B08D57);
+  color: #2A1C12;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+}
+
+.ep-bundle__chrono {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ep-promo, #8A2E2E);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Lignes par pièce ---------- */
+
+.ep-bundle__pieces {
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px solid var(--ep-line, #E4DACA);
+  display: grid;
+  gap: 8px;
+}
+
+.ep-pieces__titre {
+  margin: 0 0 2px;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ep-ink-soft, #7A6553);
+}
+
+.ep-piece { display: flex; align-items: center; gap: 8px; }
+
+.ep-piece__num {
+  flex: none;
+  width: 26px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ep-ink-soft, #7A6553);
+}
+
+.ep-piece__select {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid var(--ep-line, #E4DACA);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ep-ink, #50382A);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.ep-piece__select:focus { outline: 2px solid var(--ep-gold, #B08D57); outline-offset: -1px; }
+.ep-piece__select--court { flex: 0 0 96px; }
+
+@media (max-width: 480px) {
+  .ep-bundle__qty { font-size: 14.5px; }
+  .ep-urgence__texte { font-size: 14px; }
+}
+
+/* =========================================================================
+   TENUE MOBILE — fiche produit
+   Placé en fin de fichier : à spécificité égale, c'est la dernière règle
+   lue qui l'emporte, et ce fichier se charge après ep-mobile.css.
+
+   Objectif : sur un écran étroit, chaque bloc dense se replie proprement
+   au lieu de pousser la page vers la droite (ce qui faisait dézoomer tout
+   le site sur iPhone).
+   ========================================================================= */
+
+@media screen and (max-width: 749px) {
+
+  /* On récupère de la largeur utile. */
+  .ep-product { padding-left: 14px; padding-right: 14px; }
+
+  /* En-tête d'une carte de lot : pastille + quantité + remise + prix.
+     La ligne se replie plutôt que de forcer la carte à s'élargir. */
+  .ep-bundle__tete { flex-wrap: wrap; row-gap: 6px; }
+  .ep-bundle__prix { margin-left: auto; white-space: nowrap; }
+  .ep-bundle__opt { padding: 14px 12px; }
+
+  /* L'étiquette « MEILLEURE VALEUR » est en position absolue : elle ne pousse
+     rien, mais elle pouvait déborder du bord de la carte. */
+  .ep-bundle__tag {
+    left: 10px;
+    width: max-content;
+    max-width: calc(100% - 20px);
+    font-size: 10px;
+    letter-spacing: .05em;
+  }
+
+  /* Ligne « pièce n° X » : couleur + taille côte à côte. `min-width: 0`
+     autorise le menu à passer sous sa largeur de contenu — sans cela, un
+     nom de coloris long élargissait toute la colonne. */
+  .ep-piece { gap: 6px; }
+  .ep-piece__num { width: 20px; font-size: 12px; }
+  .ep-piece__select { min-width: 0; padding: 9px 6px; font-size: 13px; }
+  .ep-piece__select--court { flex: 0 1 84px; }
+
+  /* Réassurance sous le bouton d'achat. */
+  .ep-assur { gap: 6px; }
+  .ep-assur__item { hyphens: auto; }
+
+  .ep-swatches { gap: 12px; }
+  .ep-info__title { overflow-wrap: break-word; }
+  .ep-price { row-gap: 4px; }
+
+  /* Le guide des tailles vit dans une fenêtre : elle doit tenir dans l'écran. */
+  .ep-modal { padding: 12px; }
+  .ep-modal__box { padding: 26px 18px; max-height: 88vh; }
+  .ep-sf__table { min-width: 0; }
+  .ep-sf__table th,
+  .ep-sf__table td { padding: 9px 7px; font-size: 12.5px; }
+}
+
+@media screen and (max-width: 380px) {
+  .ep-piece__select--court { flex: 0 1 74px; }
+  .ep-bundle__off { font-size: 11.5px; padding: 2px 6px; }
+  .ep-bundle__sum { font-size: 15.5px; }
+
+  /* Barre d'achat collante : sur les très petits écrans, le bouton et le prix
+     se disputaient les derniers pixels. */
+  .ep-sticky { gap: 8px; padding: 10px 10px; }
+  .ep-sticky__img { width: 38px; height: 38px; }
+  .ep-sticky__btn { padding: 12px 14px; font-size: 11px; letter-spacing: .06em; }
+  .ep-sticky__price { white-space: nowrap; }
+}
+
+/* La barre d'achat collante masquait la fin de page. On rend la hauteur
+   qu'elle occupe, uniquement sur les pages qui la portent. */
+@media screen and (max-width: 989px) {
+  body:has(.ep-sticky) { padding-bottom: 74px; }
+}

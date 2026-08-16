@@ -1,0 +1,190 @@
+<style>
+  /* ===== COULEURS CONFIGURABLES DANS L'EDITEUR ===== */
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .product-faq__heading,
+  #shopify-section-{{ section.id }} .product-faq__question,
+  #shopify-section-{{ section.id }} .product-faq__answer,
+  #shopify-section-{{ section.id }} .product-faq__answer-inner {
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .product-faq__question svg {
+    stroke: {{ section.settings.text_color }};
+  }
+  /* ================================================= */
+
+  .product-faq, .product-faq * {
+    font-family: var(--font-body-family, inherit);
+  }
+
+  .product-faq {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .product-faq__heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0 0 20px;
+  }
+
+  .product-faq__list {
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .product-faq__item {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .product-faq__question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 18px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .product-faq__question svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .product-faq__item.open .product-faq__question svg {
+    transform: rotate(180deg);
+  }
+
+  .product-faq__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .product-faq__answer-inner {
+    padding: 0 4px 18px;
+  }
+</style>
+
+<div class="product-faq">
+  <h2 class="product-faq__heading">{{ section.settings.heading }}</h2>
+  <div class="product-faq__list" id="faq-accordion">
+    {% for block in section.blocks %}
+      <div class="product-faq__item" {{ block.shopify_attributes }}>
+        <button class="product-faq__question">
+          {{ block.settings.question }}
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="product-faq__answer">
+          <div class="product-faq__answer-inner">
+            {{ block.settings.answer }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var items = document.querySelectorAll('#faq-accordion .product-faq__item');
+
+    items.forEach(function(item) {
+      var question = item.querySelector('.product-faq__question');
+      var answer = item.querySelector('.product-faq__answer');
+
+      question.addEventListener('click', function() {
+        var isOpen = item.classList.contains('open');
+
+        items.forEach(function(other) {
+          other.classList.remove('open');
+          other.querySelector('.product-faq__answer').style.maxHeight = null;
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product FAQ",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Couleurs de la section"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#F8F5EC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#50382A"
+    },
+    {
+      "type": "header",
+      "content": "Contenu"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "FAQ"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Comment choisir ma taille ?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Réponse",
+          "default": "Consultez notre guide des tailles pour trouver la taille idéale selon vos mensurations."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product FAQ",
+      "blocks": [
+        { "type": "faq_item" },
+        { "type": "faq_item" },
+        { "type": "faq_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,401 @@
+{% comment %}
+  Section: Avis Clients — adaptée du site US (SILIX), palette Elarie Paris
+{% endcomment %}
+
+{{ 'ep-avis-clients.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign reviews = section.blocks
+  assign total = 0
+  assign sum = 0
+  assign c5 = 0
+  assign c4 = 0
+  assign c3 = 0
+  assign c2 = 0
+  assign c1 = 0
+
+  for block in reviews
+    if block.type == 'review'
+      assign total = total | plus: 1
+      assign r = block.settings.rating | times: 1
+      assign sum = sum | plus: r
+      if r == 5
+        assign c5 = c5 | plus: 1
+      elsif r == 4
+        assign c4 = c4 | plus: 1
+      elsif r == 3
+        assign c3 = c3 | plus: 1
+      elsif r == 2
+        assign c2 = c2 | plus: 1
+      else
+        assign c1 = c1 | plus: 1
+      endif
+    endif
+  endfor
+
+  if total > 0
+    assign avg = sum | times: 1.0 | divided_by: total
+    assign avg_display = avg | round: 1
+  else
+    assign avg_display = 0
+  endif
+
+  assign display_c5 = c5
+  assign display_c4 = c4
+  assign display_c3 = c3
+  assign display_c2 = c2
+  assign display_c1 = c1
+  assign any_star_override = 0
+
+  if section.settings.c5_override > 0
+    assign display_c5 = section.settings.c5_override
+    assign any_star_override = 1
+  endif
+  if section.settings.c4_override > 0
+    assign display_c4 = section.settings.c4_override
+    assign any_star_override = 1
+  endif
+  if section.settings.c3_override > 0
+    assign display_c3 = section.settings.c3_override
+    assign any_star_override = 1
+  endif
+  if section.settings.c2_override > 0
+    assign display_c2 = section.settings.c2_override
+    assign any_star_override = 1
+  endif
+  if section.settings.c1_override > 0
+    assign display_c1 = section.settings.c1_override
+    assign any_star_override = 1
+  endif
+
+  assign display_total = total
+  if section.settings.total_override > 0
+    assign display_total = section.settings.total_override
+  elsif any_star_override == 1
+    assign display_total = display_c5 | plus: display_c4 | plus: display_c3 | plus: display_c2 | plus: display_c1
+  endif
+
+  if display_total > 0
+    assign dp5 = display_c5 | times: 100 | divided_by: display_total
+    assign dp4 = display_c4 | times: 100 | divided_by: display_total
+    assign dp3 = display_c3 | times: 100 | divided_by: display_total
+    assign dp2 = display_c2 | times: 100 | divided_by: display_total
+    assign dp1 = display_c1 | times: 100 | divided_by: display_total
+  else
+    assign dp5 = 0
+    assign dp4 = 0
+    assign dp3 = 0
+    assign dp2 = 0
+    assign dp1 = 0
+  endif
+
+  assign display_avg = avg_display
+  if section.settings.rating_override > 0
+    assign display_avg = section.settings.rating_override
+  endif
+%}
+
+{%- comment -%} Formatage des milliers à la française : 2341 -> 2 341 {%- endcomment -%}
+{% capture fmt_total %}{% if display_total >= 1000 %}{{ display_total | divided_by: 1000 }} {{ display_total | modulo: 1000 | prepend: '000' | slice: -3, 3 }}{% else %}{{ display_total }}{% endif %}{% endcapture %}
+
+{% capture star_svg %}<svg viewBox="0 0 24 24" class="avis-star-svg" aria-hidden="true"><path d="M12 2.2l2.95 6.15 6.75.92-4.9 4.68 1.22 6.73L12 17.42 5.98 20.68l1.22-6.73-4.9-4.68 6.75-.92z"/></svg>{% endcapture %}
+
+<div class="avis-clients"
+     style="--avis-star-color:{{ section.settings.color_star }};
+            --avis-text-color:{{ section.settings.color_text }};
+            --avis-section-bg:{{ section.settings.color_section_bg }};
+            max-width:none;">
+
+  {% if section.settings.title != blank %}
+    <h2 class="avis-clients__title">{{ section.settings.title }}</h2>
+  {% endif %}
+  {% if section.settings.subtitle != blank %}
+    <p class="avis-clients__subtitle">{{ section.settings.subtitle }}</p>
+  {% endif %}
+
+  <div class="avis-clients__summary">
+
+    <div class="avis-clients__score-col">
+      <div class="avis-clients__score-badge">
+        <span class="avis-clients__badge-icon">{{ star_svg }}</span>
+        <span class="avis-clients__badge-num">{{ display_avg }}</span>
+      </div>
+      <p class="avis-clients__count-label">{{ fmt_total }} {{ section.settings.reviews_word }}</p>
+    </div>
+
+    <div class="avis-clients__bars" data-avis-bars>
+      {% for i in (1..5) reversed %}
+        {% liquid
+          case i
+            when 5
+              assign pct = dp5
+              assign cnt = display_c5
+            when 4
+              assign pct = dp4
+              assign cnt = display_c4
+            when 3
+              assign pct = dp3
+              assign cnt = display_c3
+            when 2
+              assign pct = dp2
+              assign cnt = display_c2
+            when 1
+              assign pct = dp1
+              assign cnt = display_c1
+          endcase
+        %}
+        <button type="button"
+                class="avis-clients__bar-row"
+                data-avis-filter="{{ i }}"
+                aria-pressed="false"
+                aria-label="Filtrer les avis {{ i }} étoiles">
+          <span class="avis-clients__bar-stars" aria-hidden="true">
+            {% for s in (1..5) %}
+              <span class="avis-clients__ministar{% if s > i %} is-off{% endif %}">{{ star_svg }}</span>
+            {% endfor %}
+          </span>
+          <span class="avis-clients__bar-track">
+            <span class="avis-clients__bar-fill" style="width:{{ pct }}%;"></span>
+          </span>
+          <span class="avis-clients__bar-count">({{ cnt }})</span>
+        </button>
+      {% endfor %}
+    </div>
+
+    <div class="avis-clients__actions">
+      {% if section.settings.review_link != blank %}
+        <a href="{{ section.settings.review_link }}" class="avis-clients__write-btn">{{ section.settings.button_text }}</a>
+      {% else %}
+        <span class="avis-clients__write-btn avis-clients__write-btn--static">{{ section.settings.button_text }}</span>
+      {% endif %}
+      <div class="avis-clients__sort-wrap">
+        <button type="button" class="avis-clients__filter-icon" aria-label="Trier / filtrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2" fill="currentColor" stroke="none"/>
+            <line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2" fill="currentColor" stroke="none"/>
+            <line x1="4" y1="17" x2="20" y2="17"/><circle cx="11" cy="17" r="2" fill="currentColor" stroke="none"/>
+          </svg>
+        </button>
+        <label for="avis-sort-{{ section.id }}" class="visually-hidden">Trier les avis</label>
+        <select id="avis-sort-{{ section.id }}" class="avis-clients__sort" data-avis-sort>
+          <option value="recent">Plus récents</option>
+          <option value="rating-desc">Notes les plus hautes</option>
+          <option value="rating-asc">Notes les plus basses</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="avis-clients__reset" data-avis-reset hidden>Tout afficher</button>
+
+  <div class="avis-clients__list" data-avis-list>
+    {% assign shown = 0 %}
+    {% for block in reviews %}
+      {% if block.type == 'review' %}
+        {% assign shown = shown | plus: 1 %}
+        <div class="avis-clients__card"
+             {{ block.shopify_attributes }}
+             data-rating="{{ block.settings.rating }}"
+             data-order="{{ forloop.index0 }}"
+             {% if shown > section.settings.initial_count %}hidden{% endif %}>
+
+          <div class="avis-clients__card-header">
+            <span class="avis-clients__author">{{ block.settings.author }}</span>
+            {% if block.settings.verified %}
+              <span class="avis-clients__verified">
+                <svg viewBox="0 0 24 24" class="avis-check-svg" aria-hidden="true">
+                  <circle cx="12" cy="12" r="11"/>
+                  <path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#F8F5EC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {{ section.settings.verified_word }}
+              </span>
+            {% endif %}
+          </div>
+
+          <div class="avis-clients__card-stars" aria-hidden="true">
+            {% for i in (1..5) %}
+              <span class="avis-clients__ministar{% if i > block.settings.rating %} is-off{% endif %}">{{ star_svg }}</span>
+            {% endfor %}
+          </div>
+
+          <p class="avis-clients__body">{{ block.settings.body }}</p>
+
+          {%- if block.settings.photo or block.settings.photo_2 -%}
+            <div class="avis-clients__photos">
+              {%- if block.settings.photo -%}
+                <img
+                  class="avis-clients__photo"
+                  src="{{ block.settings.photo | image_url: width: 400 }}"
+                  alt="Photo de {{ block.settings.author | escape }}"
+                  loading="lazy"
+                  width="150"
+                  height="150"
+                >
+              {%- endif -%}
+              {%- if block.settings.photo_2 -%}
+                <img
+                  class="avis-clients__photo"
+                  src="{{ block.settings.photo_2 | image_url: width: 400 }}"
+                  alt="Photo de {{ block.settings.author | escape }}"
+                  loading="lazy"
+                  width="150"
+                  height="150"
+                >
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {% if block.settings.variant != blank %}
+            <p class="avis-clients__variant"><span>Type d'article :</span> {{ block.settings.variant }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% if total > section.settings.initial_count %}
+    <button type="button" class="avis-clients__more" data-avis-more>Voir plus d'avis</button>
+  {% endif %}
+</div>
+
+<script>
+(function () {
+  var el = document.currentScript.previousElementSibling;
+  if (!el || !el.classList.contains('avis-clients')) {
+    el = document.querySelectorAll('.avis-clients')[document.querySelectorAll('.avis-clients').length - 1];
+  }
+  if (!el) return;
+
+  var list = el.querySelector('[data-avis-list]');
+  var sortSelect = el.querySelector('[data-avis-sort]');
+  var moreBtn = el.querySelector('[data-avis-more]');
+  var resetBtn = el.querySelector('[data-avis-reset]');
+  var filterIconBtn = el.querySelector('.avis-clients__filter-icon');
+  var barButtons = el.querySelectorAll('[data-avis-filter]');
+  var initialCount = {{ section.settings.initial_count }};
+  var visibleCount = initialCount;
+  var activeFilter = null;
+
+  if (filterIconBtn && sortSelect) {
+    filterIconBtn.addEventListener('click', function () {
+      if (sortSelect.showPicker) { try { sortSelect.showPicker(); } catch (e) { sortSelect.focus(); } }
+      else { sortSelect.focus(); }
+    });
+  }
+
+  function applyFilterAndVisibility() {
+    var cards = Array.prototype.slice.call(list.children);
+    var matching = cards.filter(function (card) {
+      return !activeFilter || card.dataset.rating === activeFilter;
+    });
+    cards.forEach(function (card) { card.hidden = true; });
+    matching.slice(0, visibleCount).forEach(function (card) { card.hidden = false; });
+    if (moreBtn) moreBtn.style.display = matching.length > visibleCount ? '' : 'none';
+    if (resetBtn) resetBtn.hidden = !activeFilter;
+  }
+
+  function applySort() {
+    var cards = Array.prototype.slice.call(list.children);
+    var mode = sortSelect ? sortSelect.value : 'recent';
+    cards.sort(function (a, b) {
+      if (mode === 'rating-desc') return b.dataset.rating - a.dataset.rating;
+      if (mode === 'rating-asc') return a.dataset.rating - b.dataset.rating;
+      return a.dataset.order - b.dataset.order;
+    });
+    cards.forEach(function (card) { list.appendChild(card); });
+    applyFilterAndVisibility();
+  }
+
+  if (sortSelect) sortSelect.addEventListener('change', applySort);
+
+  if (moreBtn) moreBtn.addEventListener('click', function () {
+    visibleCount += initialCount;
+    applyFilterAndVisibility();
+  });
+
+  barButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var val = btn.dataset.avisFilter;
+      activeFilter = activeFilter === val ? null : val;
+      barButtons.forEach(function (b) {
+        b.setAttribute('aria-pressed', b.dataset.avisFilter === activeFilter ? 'true' : 'false');
+      });
+      visibleCount = initialCount;
+      applyFilterAndVisibility();
+    });
+  });
+
+  if (resetBtn) resetBtn.addEventListener('click', function () {
+    activeFilter = null;
+    barButtons.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    visibleCount = initialCount;
+    applyFilterAndVisibility();
+  });
+
+  /* Agrandissement des photos d'avis */
+  el.addEventListener('click', function (e) {
+    var img = e.target.closest('.avis-clients__photo');
+    if (!img) return;
+
+    var box = document.createElement('div');
+    box.className = 'avis-photo-zoom';
+    box.innerHTML = '<img src="' + img.getAttribute('src').replace(/width=\d+/, 'width=1200') + '" alt="">';
+    box.addEventListener('click', function () { box.remove(); });
+    document.addEventListener('keydown', function esc(ev) {
+      if (ev.key !== 'Escape') return;
+      box.remove();
+      document.removeEventListener('keydown', esc);
+    });
+    document.body.appendChild(box);
+  });
+
+  applySort();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "EP Avis Clients",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "Elles ont adopté Elarie Paris" },
+    { "type": "text", "id": "subtitle", "label": "Sous-titre" },
+    { "type": "url", "id": "review_link", "label": "Lien du bouton" },
+    { "type": "text", "id": "button_text", "label": "Texte du bouton", "default": "Écrire un avis" },
+    { "type": "text", "id": "reviews_word", "label": "Mot après le nombre", "default": "avis" },
+    { "type": "text", "id": "verified_word", "label": "Mot du badge vérifié", "default": "Achat vérifié" },
+    { "type": "range", "id": "initial_count", "label": "Avis affichés au départ", "min": 3, "max": 30, "step": 1, "default": 9 },
+    { "type": "header", "content": "Compteur affiché" },
+    { "type": "paragraph", "content": "Laisser à 0 pour utiliser les vrais avis saisis ci-dessous." },
+    { "type": "number", "id": "total_override", "label": "Total affiché (0 = auto)", "default": 0 },
+    { "type": "range", "id": "rating_override", "label": "Note affichée (0 = auto)", "min": 0, "max": 5, "step": 0.1, "default": 0 },
+    { "type": "number", "id": "c5_override", "label": "Avis 5 étoiles (0 = auto)", "default": 0 },
+    { "type": "number", "id": "c4_override", "label": "Avis 4 étoiles (0 = auto)", "default": 0 },
+    { "type": "number", "id": "c3_override", "label": "Avis 3 étoiles (0 = auto)", "default": 0 },
+    { "type": "number", "id": "c2_override", "label": "Avis 2 étoiles (0 = auto)", "default": 0 },
+    { "type": "number", "id": "c1_override", "label": "Avis 1 étoile (0 = auto)", "default": 0 },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "color_star", "label": "Couleur des étoiles", "default": "#B08D57" },
+    { "type": "color", "id": "color_text", "label": "Texte", "default": "#50382A" },
+    { "type": "color", "id": "color_section_bg", "label": "Fond de la section", "default": "#F8F5EC" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Avis",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Note", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "author", "label": "Nom du client", "default": "Camille D." },
+        { "type": "checkbox", "id": "verified", "label": "Achat vérifié", "default": true },
+        { "type": "text", "id": "variant", "label": "Type d'article (ex: Noir / M)" },
+        { "type": "textarea", "id": "body", "label": "Texte de l'avis" },
+        { "type": "header", "content": "Photos de la cliente" },
+        { "type": "image_picker", "id": "photo", "label": "Photo 1" },
+        { "type": "image_picker", "id": "photo_2", "label": "Photo 2" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "EP Avis Clients", "blocks": [ { "type": "review" }, { "type": "review" }, { "type": "review" } ] }
+  ]
+}
+{% endschema %}

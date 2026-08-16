@@ -1,0 +1,359 @@
+<style>
+  /* ===== COULEURS CONFIGURABLES DANS L'EDITEUR ===== */
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .product-trust-accordion__trust-item,
+  #shopify-section-{{ section.id }} .product-trust-accordion__question,
+  #shopify-section-{{ section.id }} .product-trust-accordion__answer,
+  #shopify-section-{{ section.id }} .product-trust-accordion__answer-inner {
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .product-trust-accordion__trust-item svg,
+  #shopify-section-{{ section.id }} .product-trust-accordion__question svg {
+    stroke: {{ section.settings.text_color }};
+  }
+  /* ================================================= */
+
+  .product-trust-accordion, .product-trust-accordion * {
+    font-family: var(--font-body-family, inherit);
+  }
+
+  .product-trust-accordion {
+    max-width: 1200px;
+    margin: -20px auto 0;
+    padding: 0 20px 40px 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .product-trust-accordion__spacer {
+    display: block;
+  }
+
+  .product-trust-accordion__content {
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .product-trust-accordion__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 0;
+  }
+
+  .product-trust-accordion__trust-item svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .product-trust-accordion__trust-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4A6B57;
+    flex-shrink: 0;
+  }
+
+  .product-trust-accordion__flag {
+    width: 20px;
+    height: auto;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .product-trust-accordion__accordion {
+    border-top: 1px solid #e5e5e5;
+    margin-top: 16px;
+  }
+
+  .product-trust-accordion__item {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .product-trust-accordion__question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .product-trust-accordion__question svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .product-trust-accordion__item.open .product-trust-accordion__question svg {
+    transform: rotate(180deg);
+  }
+
+  .product-trust-accordion__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .product-trust-accordion__answer-inner {
+    padding-bottom: 16px;
+  }
+
+  .product-trust-accordion__answer-inner ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .product-trust-accordion__answer-inner li {
+    margin-bottom: 6px;
+  }
+
+  .product-trust-accordion__care-line {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .product-trust-accordion {
+      grid-template-columns: 1fr;
+    }
+    .product-trust-accordion__content {
+      grid-column: 1;
+    }
+    .product-trust-accordion__spacer {
+      display: none;
+    }
+  }
+</style>
+
+<div class="product-trust-accordion">
+  <div class="product-trust-accordion__spacer"></div>
+  <div class="product-trust-accordion__content">
+    <div class="product-trust-accordion__trust-item">
+      <span class="product-trust-accordion__trust-dot"></span>
+      {{ section.settings.stock_text }}
+    </div>
+    <div class="product-trust-accordion__trust-item">
+      <img class="product-trust-accordion__flag" src="{{ section.settings.flag_image | default: 'https://flagcdn.com/w20/fr.png' }}" alt="Drapeau">
+      {{ section.settings.delivery_text }}
+    </div>
+    <div class="product-trust-accordion__trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V6a1 1 0 011-1h10v11M3 16h11m0-11h3l4 4v7h-2M3 16a2 2 0 104 0 2 2 0 00-4 0zm11 0a2 2 0 104 0 2 2 0 00-4 0z"/></svg>
+      {{ section.settings.shipping_text }}
+    </div>
+    <div class="product-trust-accordion__trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14l-4-4 4-4M5 10h11a4 4 0 010 8h-1"/></svg>
+      {{ section.settings.returns_text }}
+    </div>
+
+    <div class="product-trust-accordion__accordion" id="accordion">
+      <div class="product-trust-accordion__item">
+        <button class="product-trust-accordion__question">
+          Description
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="product-trust-accordion__answer">
+          <div class="product-trust-accordion__answer-inner">
+            {{ product.description }}
+          </div>
+        </div>
+      </div>
+
+      <div class="product-trust-accordion__item">
+        <button class="product-trust-accordion__question">
+          {{ section.settings.guarantee_title }}
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="product-trust-accordion__answer">
+          <div class="product-trust-accordion__answer-inner">
+            <ul>
+              <li>{{ section.settings.guarantee_point1 }}</li>
+              <li>{{ section.settings.guarantee_point2 }}</li>
+              <li>{{ section.settings.guarantee_point3 }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-trust-accordion__item">
+        <button class="product-trust-accordion__question">
+          {{ section.settings.care_title }}
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="product-trust-accordion__answer">
+          <div class="product-trust-accordion__answer-inner">
+            <span class="product-trust-accordion__care-line"><strong>Composition</strong> : {{ section.settings.care_composition }}</span>
+            <span class="product-trust-accordion__care-line">– {{ section.settings.care_point1 }}</span>
+            <span class="product-trust-accordion__care-line">– {{ section.settings.care_point2 }}</span>
+            <span class="product-trust-accordion__care-line">– {{ section.settings.care_point3 }}</span>
+            <span class="product-trust-accordion__care-line">– {{ section.settings.care_point4 }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var items = document.querySelectorAll('#accordion .product-trust-accordion__item');
+
+    items.forEach(function(item) {
+      var question = item.querySelector('.product-trust-accordion__question');
+      var answer = item.querySelector('.product-trust-accordion__answer');
+
+      if (item.classList.contains('open')) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+
+      question.addEventListener('click', function() {
+        var isOpen = item.classList.contains('open');
+
+        items.forEach(function(other) {
+          other.classList.remove('open');
+          other.querySelector('.product-trust-accordion__answer').style.maxHeight = null;
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Trust & Accordion",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Couleurs de la section"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#F8F5EC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#50382A"
+    },
+    {
+      "type": "header",
+      "content": "Contenu"
+    },
+    {
+      "type": "text",
+      "id": "stock_text",
+      "label": "Texte stock",
+      "default": "En stock, expédié dans le monde entier"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_image",
+      "label": "Drapeau (optionnel, France par défaut)"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text",
+      "label": "Texte délai livraison",
+      "default": "Livraison estimée entre 3 et 7 jours"
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Texte livraison gratuite",
+      "default": "Livraison gratuite dès 49€ d'achat"
+    },
+    {
+      "type": "text",
+      "id": "returns_text",
+      "label": "Texte retours",
+      "default": "Retours faciles sous 30 jours"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_title",
+      "label": "Titre garantie",
+      "default": "Garantie satisfait ou remboursé 30 jours"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_point1",
+      "label": "Point garantie 1",
+      "default": "Si le produit ne vous convient pas, vous avez 30 jours pour le retourner."
+    },
+    {
+      "type": "text",
+      "id": "guarantee_point2",
+      "label": "Point garantie 2",
+      "default": "Échanges sans tracas ou remboursement rapide."
+    },
+    {
+      "type": "text",
+      "id": "guarantee_point3",
+      "label": "Point garantie 3",
+      "default": "Consultez notre politique de retours pour plus de détails."
+    },
+    {
+      "type": "text",
+      "id": "care_title",
+      "label": "Titre entretien",
+      "default": "Matières & conseils d'entretien"
+    },
+    {
+      "type": "text",
+      "id": "care_composition",
+      "label": "Composition",
+      "default": "70% polyamide, 30% élasthanne"
+    },
+    {
+      "type": "text",
+      "id": "care_point1",
+      "label": "Conseil entretien 1",
+      "default": "Laver en dessous de 40°C"
+    },
+    {
+      "type": "text",
+      "id": "care_point2",
+      "label": "Conseil entretien 2",
+      "default": "Ne pas utiliser d'eau de javel"
+    },
+    {
+      "type": "text",
+      "id": "care_point3",
+      "label": "Conseil entretien 3",
+      "default": "Ne pas repasser"
+    },
+    {
+      "type": "text",
+      "id": "care_point4",
+      "label": "Conseil entretien 4",
+      "default": "Ne pas nettoyer à sec"
+    }
+  ]
+}
+{% endschema %}

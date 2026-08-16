@@ -1,0 +1,301 @@
+{
+  "sections": {
+    "mon-hero": {
+      "type": "product-hero-custom",
+      "settings": {
+        "bg_color": "#f8f5ec",
+        "text_color": "#50382a",
+        "badge1_text": "Best-seller",
+        "badge2_text": "Anti-cellulite",
+        "tagline_text": "Technologie drainage 3D — Maison Elarie Paris",
+        "rating_text": "4,8 · 2 341 avis vérifiés",
+        "bundle_label": "Choisissez votre lot",
+        "benefit1_text": "Atténue visiblement la cellulite dès trois semaines",
+        "benefit2_text": "Galbe les fesses et affine les cuisses",
+        "benefit3_text": "Opacité garantie, même accroupie",
+        "benefit4_text": "Coutures plates : aucun frottement aux cuisses",
+        "review_name": "Camille D.",
+        "review_text": "Après trois semaines, ma peau est visiblement plus lisse et l'effet galbant sur les fesses est bluffant.",
+        "swatch_style": "uni"
+      }
+    },
+    "citation": {
+      "type": "ep-bandeau-citation",
+      "blocks": {
+        "c1": {
+          "type": "citation",
+          "settings": {
+            "text": "La cellulite n'est pas un défaut à corriger. C'est une peau que l'on sublime.",
+            "author": "Maison Elarie Paris"
+          }
+        },
+        "c2": {
+          "type": "citation",
+          "settings": {
+            "text": "Un legging qui lisse ce que l'on veut lisser, et galbe ce que l'on aime montrer.",
+            "author": ""
+          }
+        },
+        "c3": {
+          "type": "citation",
+          "settings": {
+            "text": "Le confort est la vraie élégance — tout le reste n'est que couture.",
+            "author": ""
+          }
+        }
+      },
+      "block_order": ["c1", "c2", "c3"],
+      "settings": {
+        "bg_color": "#50382A",
+        "text_color": "#F8F5EC",
+        "accent_color": "#B08D57",
+        "font_size": 26,
+        "padding_block": 26,
+        "speed": 45,
+        "show_mark": true,
+        "mark_char": "✦"
+      }
+    },
+    "trust": {
+      "type": "product-trust-accordion",
+      "settings": {
+        "bg_color": "#f8f5ec",
+        "text_color": "#50382a",
+        "stock_text": "En stock — expédié sous 24 h ouvrées",
+        "delivery_text": "Livraison estimée en 5 à 8 jours ouvrés",
+        "shipping_text": "Livraison offerte, sans minimum d'achat",
+        "returns_text": "Retours et échanges sous 30 jours",
+        "guarantee_title": "Garantie satisfaite ou remboursée 30 jours",
+        "guarantee_point1": "Si l'article ne vous convient pas, vous disposez de 30 jours pour nous le retourner.",
+        "guarantee_point2": "Échange ou remboursement, sans justification à fournir.",
+        "guarantee_point3": "Notre service client vous répond en français sous 24 h.",
+        "care_title": "Matière & conseils d'entretien",
+        "care_composition": "78 % polyamide, 22 % élasthanne",
+        "care_point1": "Lavage en machine à 30 °C, à l'envers",
+        "care_point2": "Ni javel ni adoucissant, qui abîment l'élasthanne",
+        "care_point3": "Séchage à l'air libre, à plat",
+        "care_point4": "Ne pas repasser, ne pas nettoyer à sec"
+      }
+    },
+    "showcase": {
+      "type": "product-showcase",
+      "blocks": {
+        "showcase-1": {
+          "type": "showcase_item",
+          "settings": {
+            "image": "shopify://shop_images/Design_sans_titre_1.png",
+            "title": "Boost de circulation 3D, peau lissée",
+            "point1": "Compression avancée qui tonifie les jambes et affine la silhouette",
+            "point2": "Lisse en douceur la cellulite pour un rendu impeccable",
+            "point3": "Stimule la circulation sanguine à chaque mouvement"
+          }
+        },
+        "showcase_item_JKLV8r": {
+          "type": "showcase_item",
+          "settings": {
+            "image": "shopify://shop_images/Design_sans_titre_2.png",
+            "title": "Adieu Cellulite, Bonjour Confiance",
+            "point1": "Sculpte vos courbes à chaque pas",
+            "point2": "Restaure une peau lisse et ferme, retrouvez confiance",
+            "point3": "Enfilez votre legging sculptant et dites adieu à la cellulite"
+          }
+        },
+        "showcase_item_3kRcaC": {
+          "type": "showcase_item",
+          "settings": {
+            "image": "shopify://shop_images/Design_sans_titre_3.png",
+            "title": "Taille Haute, Contrôle du Ventre",
+            "point1": "Ceinture haute qui maintient fermement le centre du corps",
+            "point2": "Lisse et sublime votre silhouette naturelle",
+            "point3": "Design anti-roulement, reste bien en place"
+          }
+        }
+      },
+      "block_order": [
+        "showcase-1",
+        "showcase_item_JKLV8r",
+        "showcase_item_3kRcaC"
+      ],
+      "settings": {
+        "bg_color": "#f8f5ec",
+        "text_color": "#50382a"
+      }
+    },
+    "avis": {
+      "type": "ep-avis-clients",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "author": "Camille D.",
+            "verified": true,
+            "variant": "Noir / M",
+            "body": "Bluffée par le résultat. Dès la première semaine ma cellulite était moins marquée, et l'effet galbant sur les fesses se voit vraiment sous un vêtement moulant.",
+            "photo": "shopify://shop_images/hEEguJpmWx_mid.jpg"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "author": "Sophie M.",
+            "verified": true,
+            "variant": "Noir / L",
+            "body": "Le tissu est incroyablement doux, une vraie seconde peau. Aucune marque à la taille en fin de journée, ce qui ne m'était jamais arrivé avec un legging taille haute.",
+            "photo": "shopify://shop_images/A73f51bd2074944b0b816075b001c4d17C_jpg_960x960q75_jpg.jpg"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "author": "Nadia B.",
+            "verified": true,
+            "variant": "Gris / S",
+            "body": "Le maintien du ventre est parfait, sans jamais donner cette sensation d'étouffement. Je le garde du réveil au soir sans y penser une seule fois.",
+            "photo": "shopify://shop_images/dE11lCMm12_mid.jpg"
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "author": "Laura P.",
+            "verified": true,
+            "variant": "Marine / XL",
+            "body": "Très joli galbe et confortable toute la journée. Je retire une étoile pour la livraison, un peu plus longue que prévu, mais le legging vaut vraiment son prix.",
+            "photo": "shopify://shop_images/TvS8ob7JJG_mid_1.jpg"
+          }
+        },
+        "r5": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "author": "Émilie R.",
+            "verified": true,
+            "variant": "Bleu Bleuet / M",
+            "body": "La matière ne devient jamais transparente, même en squat : c'était mon inquiétude principale. J'ai reçu plusieurs compliments à la salle.",
+            "photo": "shopify://shop_images/lJalPzeIJ_mid.jpg"
+          }
+        },
+        "r6": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "author": "Manon T.",
+            "verified": true,
+            "variant": "Noir / XXL",
+            "body": "Deuxième exemplaire commandé, c'est tout dire. Mes jambes sont nettement moins lourdes après une longue journée debout.",
+            "photo": "shopify://shop_images/Ab5580f0c36ad48d28877471daf3cb998p_jpg_960x960q75_jpg.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6"
+      ],
+      "settings": {
+        "title": "Elles ont adopté le Legging Sculptant",
+        "subtitle": "",
+        "review_link": "",
+        "button_text": "Écrire un avis",
+        "reviews_word": "avis",
+        "verified_word": "Achat vérifié",
+        "initial_count": 6,
+        "total_override": 2341,
+        "rating_override": 4.8,
+        "c5_override": 0,
+        "c4_override": 0,
+        "c3_override": 0,
+        "c2_override": 0,
+        "c1_override": 0,
+        "color_star": "#b08d57",
+        "color_text": "#50382a",
+        "color_section_bg": "#efe8da"
+      }
+    },
+    "faq": {
+      "type": "product-faq",
+      "blocks": {
+        "q1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Comment choisir ma taille ?",
+            "answer": "Fiez-vous à votre tour de taille et de hanches dans le guide des tailles. Entre deux tailles, prenez la plus grande : la maille est très extensible et le maintien reste sculptant."
+          }
+        },
+        "q2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "La ceinture roule-t-elle ou descend-elle en mouvement ?",
+            "answer": "Non. La ceinture large est doublée et conçue pour rester en place : ni roulement sur le ventre, ni glissement, que vous soyez assise, en squat ou en course."
+          }
+        },
+        "q3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Le legging est-il transparent lorsque je m'accroupis ?",
+            "answer": "Non. La maille double épaisseur a été sélectionnée pour rester parfaitement opaque, y compris en squat ou en fente."
+          }
+        },
+        "q4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "En quelle matière est-il fabriqué ?",
+            "answer": "78 % polyamide et 22 % élasthanne : une maille respirante, à séchage rapide, qui garde sa forme lavage après lavage."
+          }
+        },
+        "q5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Quels sont les délais de livraison ?",
+            "answer": "Votre commande est expédiée sous 24 h ouvrées et vous parvient en 5 à 8 jours ouvrés. La livraison est offerte, sans minimum d'achat."
+          }
+        },
+        "q6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Puis-je le retourner s'il ne me va pas ?",
+            "answer": "Oui, vous disposez de 30 jours pour un échange ou un remboursement, sans avoir à vous justifier."
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "bg_color": "#f8f5ec",
+        "text_color": "#50382a",
+        "heading": "Questions fréquentes"
+      }
+    },
+    "reco": {
+      "type": "product-recommendations-custom",
+      "settings": {
+        "bg_color": "#f8f5ec",
+        "text_color": "#50382a",
+        "heading": "Vous aimerez aussi",
+        "products_to_show": 4
+      }
+    }
+  },
+  "order": [
+    "mon-hero",
+    "citation",
+    "trust",
+    "showcase",
+    "avis",
+    "faq",
+    "reco"
+  ]
+}

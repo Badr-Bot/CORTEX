@@ -1,0 +1,668 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "mon-hero-custom": {
+      "type": "product-hero-custom",
+      "settings": {
+        "bg_color": "#F8F5EC",
+        "text_color": "#50382A",
+        "badge1_text": "Best Seller",
+        "badge2_text": "Anti-Cellulite",
+        "tagline_text": "Innovation Primée 2025 — Anti-Cellulite",
+        "rating_text": "4,8 (2 341 avis) · 7000+ clientes satisfaites",
+        "benefit1_text": "Réduit la cellulite plus vite",
+        "benefit2_text": "Galbe les jambes sans effort",
+        "benefit3_text": "Effet lift instantané",
+        "benefit4_text": "Silhouette affinée",
+        "review_name": "Sarah",
+        "review_text": "Après quelques semaines, ma peau est visiblement plus lisse et plus ferme."
+      }
+    },
+    "mon-trust": {
+      "type": "product-trust-accordion",
+      "settings": {
+        "bg_color": "#F8F5EC",
+        "text_color": "#50382A",
+        "stock_text": "En stock, expédié dans le monde entier",
+        "delivery_text": "Expédié sous 24h, livraison estimée entre 5 et 8 jours ouvrés",
+        "shipping_text": "Livraison gratuite, sans minimum d'achat",
+        "returns_text": "Retours faciles sous 30 jours",
+        "guarantee_title": "Garantie satisfait ou remboursé 30 jours",
+        "guarantee_point1": "Si le produit ne vous convient pas, vous avez 30 jours pour le retourner.",
+        "guarantee_point2": "Échanges sans tracas ou remboursement rapide.",
+        "guarantee_point3": "Consultez notre politique de retours pour plus de détails.",
+        "care_title": "Matières & conseils d'entretien",
+        "care_composition": "70% polyamide, 30% élasthanne",
+        "care_point1": "Laver en dessous de 40°C",
+        "care_point2": "Ne pas utiliser d'eau de javel",
+        "care_point3": "Ne pas repasser",
+        "care_point4": "Ne pas nettoyer à sec"
+      }
+    },
+    "mon-recommendations": {
+      "type": "product-recommendations-custom",
+      "settings": {
+        "bg_color": "#F8F5EC",
+        "text_color": "#50382A",
+        "heading": "Vous pourriez aussi aimer",
+        "products_to_show": 4
+      }
+    },
+    "featured_collection_4K4Trr": {
+      "type": "featured-collection",
+      "disabled": true,
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "vous-pourriez-aussi-aimer",
+        "products_to_show": 2,
+        "title": "<strong>Vous pourriez aussi aimer</strong>",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 2,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-2",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "mon-showcase": {
+      "type": "product-showcase",
+      "blocks": {
+        "showcase-1": {
+          "type": "showcase_item",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_mrw41pmrw41pmrw4.png",
+            "title": "Boost de circulation 3D, peau lissée",
+            "point1": "Compression avancée qui tonifie les jambes et affine la silhouette",
+            "point2": "Lisse en douceur la cellulite pour un rendu impeccable",
+            "point3": "Stimule la circulation sanguine à chaque mouvement"
+          }
+        },
+        "showcase_item_JKLV8r": {
+          "type": "showcase_item",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_godx62godx62godx.png",
+            "title": "Adieu Cellulite, Bonjour Confiance",
+            "point1": "Sculpte vos courbes à chaque pas",
+            "point2": "Restaure une peau lisse et ferme, retrouvez confiance",
+            "point3": "Enfilez votre legging sculptant et dites adieu à la cellulite"
+          }
+        },
+        "showcase_item_3kRcaC": {
+          "type": "showcase_item",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_8z7rl68z7rl68z7r.png",
+            "title": "Taille Haute, Contrôle du Ventre",
+            "point1": "Ceinture haute qui maintient fermement le centre du corps",
+            "point2": "Lisse et sublime votre silhouette naturelle",
+            "point3": "Design anti-roulement, reste bien en place"
+          }
+        }
+      },
+      "block_order": [
+        "showcase-1",
+        "showcase_item_JKLV8r",
+        "showcase_item_3kRcaC"
+      ],
+      "settings": {
+        "bg_color": "#F8F5EC",
+        "text_color": "#50382A"
+      }
+    },
+    "ep_avis_clients_product": {
+      "type": "ep-avis-clients",
+      "blocks": {
+  "review_01": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Camille D.",
+      "verified": true,
+      "variant": "Noir / M",
+      "body": "Bluffée par le résultat. Dès la première semaine je voyais déjà ma cellulite moins marquée, et l'effet galbant sur les fesses est bluffant. Je le porte même en dehors du sport maintenant."
+    }
+  },
+  "review_02": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Sophie M.",
+      "verified": true,
+      "variant": "Noir / L",
+      "body": "Le tissu est incroyablement doux, on dirait une seconde peau. Aucune marque à la taille en fin de journée, ce qui ne m'était jamais arrivé avec un legging taille haute."
+    }
+  },
+  "review_03": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Nadia B.",
+      "verified": true,
+      "variant": "Abricot / S",
+      "body": "Les poches sont un vrai plus, je peux mettre mon téléphone sans qu'il tombe pendant mes séances. Et niveau maintien du ventre, rien à dire, c'est parfait."
+    }
+  },
+  "review_04": {
+    "type": "review",
+    "settings": {
+      "rating": 4,
+      "author": "Laura P.",
+      "verified": true,
+      "variant": "Noir / XL",
+      "body": "Très joli galbe et confortable toute la journée. Je mets un 4 étoiles juste parce que la livraison a pris un peu plus longtemps que prévu, sinon le produit est top."
+    }
+  },
+  "review_05": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Émilie R.",
+      "verified": true,
+      "variant": "Gris / M / 1/2 Length",
+      "body": "J'ai reçu plein de compliments au sport, tout le monde me demande la marque ! La matière ne devient pas transparente même en squat, c'était mon inquiétude principale."
+    }
+  },
+  "review_06": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Manon T.",
+      "verified": true,
+      "variant": "Noir / S",
+      "body": "Deuxième paire commandée, c'est tout dire. Le drainage 3D n'est pas un argument marketing, je sens vraiment la différence sur mes jambes après une longue journée debout."
+    }
+  },
+  "review_07": {
+    "type": "review",
+    "settings": {
+      "rating": 3,
+      "author": "Chloé V.",
+      "verified": true,
+      "variant": "Noir / M",
+      "body": "Le produit est agréable mais je le trouve un peu petit pour la taille indiquée, j'aurais dû prendre une taille au-dessus. La qualité reste au rendez-vous."
+    }
+  },
+  "review_08": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Julie F.",
+      "verified": true,
+      "variant": "Abricot / L",
+      "body": "Ma peau est visiblement plus lisse depuis que je le porte régulièrement. Le tissu ne roule pas à la taille, ce qui change tout comparé à mes anciens leggings."
+    }
+  },
+  "review_09": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Aurélie G.",
+      "verified": true,
+      "variant": "Noir / XXL",
+      "body": "Enfin un legging taille haute qui tient vraiment en place. Je cours 5 fois par semaine et il ne bouge pas d'un millimètre, aucune irritation non plus."
+    }
+  },
+  "review_10": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Marion L.",
+      "verified": true,
+      "variant": "Gris / L / Full Length",
+      "body": "Coup de cœur total. La coupe sculpte vraiment la silhouette sans donner une sensation de compression excessive. Je le recommande à toutes mes amies."
+    }
+  },
+  "review_11": {
+    "type": "review",
+    "settings": {
+      "rating": 4,
+      "author": "Sarah K.",
+      "verified": true,
+      "variant": "Noir / M",
+      "body": "Très bon maintien et jolie coupe. Le seul bémol c'est le prix un peu élevé, mais la qualité du tissu justifie l'investissement sur la durée."
+    }
+  },
+  "review_12": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Céline H.",
+      "verified": true,
+      "variant": "Abricot / M",
+      "body": "Depuis que je le porte au quotidien, j'ai remarqué une vraie différence sur l'aspect de ma cellulite. En plus il est ultra confortable, je pourrais dormir avec."
+    }
+  },
+  "review_13": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Léa D.",
+      "verified": true,
+      "variant": "Noir / S",
+      "body": "La couture au niveau des fesses fait vraiment son effet, on sent que c'est pensé pour sculpter. Je ne porte plus que celui-là pour aller à la salle."
+    }
+  },
+  "review_14": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Pauline S.",
+      "verified": true,
+      "variant": "Gris / M / Full Length",
+      "body": "Rapport qualité prix excellent. Le tissu est épais sans être étouffant, parfait pour l'été comme pour l'hiver sous un legging plus léger."
+    }
+  },
+  "review_15": {
+    "type": "review",
+    "settings": {
+      "rating": 4,
+      "author": "Amandine R.",
+      "verified": true,
+      "variant": "Noir / L",
+      "body": "Très satisfaite du maintien et du confort. Petit bémol sur le choix des couleurs, j'aimerais bien plus de teintes disponibles."
+    }
+  },
+  "review_16": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Ines M.",
+      "verified": true,
+      "variant": "Abricot / XL",
+      "body": "Mon ventre est bien maintenu sans que ce soit désagréable, et la taille haute ne roule vraiment jamais. Je recommande à 100%."
+    }
+  },
+  "review_17": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Charlotte B.",
+      "verified": true,
+      "variant": "Noir / M",
+      "body": "J'étais sceptique sur l'effet anti-cellulite mais après un mois de port régulier je vois clairement une différence. La matière est douce et de très bonne qualité."
+    }
+  },
+  "review_18": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Justine A.",
+      "verified": true,
+      "variant": "Gris / S / 1/2 Length",
+      "body": "Parfait pour le yoga comme pour la course. Aucune transparence même dans les postures les plus exigeantes, et le confort est incomparable."
+    }
+  },
+  "review_19": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Élodie N.",
+      "verified": true,
+      "variant": "Noir / XXL",
+      "body": "Commandé pour ma salle de sport, je ne regrette absolument pas. Le tissu sèche vite après l'effort et ne garde pas les odeurs."
+    }
+  },
+  "review_20": {
+    "type": "review",
+    "settings": {
+      "rating": 3,
+      "author": "Victoria C.",
+      "verified": true,
+      "variant": "Noir / S",
+      "body": "Bonne matière et joli rendu mais j'ai dû échanger pour une taille au-dessus, il taille vraiment petit. Le service client a été rapide pour l'échange."
+    }
+  },
+  "review_21": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Margaux P.",
+      "verified": true,
+      "variant": "Abricot / M",
+      "body": "Meilleur achat legging de l'année pour moi. Le maintien est parfait, ni trop serré ni trop lâche, et l'effet sculptant se voit vraiment sous les vêtements."
+    }
+  },
+  "review_22": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Océane T.",
+      "verified": true,
+      "variant": "Noir / L",
+      "body": "Je porte ce legging presque tous les jours maintenant. Ma cellulite est clairement atténuée et le confort au quotidien est juste incroyable."
+    }
+  },
+  "review_23": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Anaïs V.",
+      "verified": true,
+      "variant": "Gris / L / Full Length",
+      "body": "Superbe qualité, coutures nickel, et surtout aucune gêne après plusieurs heures de port. Les poches sont profondes, rien ne tombe pendant le sport."
+    }
+  },
+  "review_24": {
+    "type": "review",
+    "settings": {
+      "rating": 4,
+      "author": "Fanny L.",
+      "verified": true,
+      "variant": "Noir / M",
+      "body": "Très bon produit, confortable et joli. J'enlève une étoile car j'aurais aimé un packaging un peu plus soigné à la livraison, mais le legging en lui-même est top."
+    }
+  },
+  "review_25": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Clémence D.",
+      "verified": true,
+      "variant": "Abricot / S",
+      "body": "Le rendu est magnifique, on voit vraiment la différence sur la silhouette. Je l'ai porté pour un mariage sous une robe et j'étais hyper à l'aise toute la soirée."
+    }
+  },
+  "review_26": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Mathilde G.",
+      "verified": true,
+      "variant": "Noir / XL",
+      "body": "Achat clairement validé. La technologie 3D dont ils parlent n'est pas qu'un argument, mes jambes sont moins lourdes en fin de journée depuis que je le porte."
+    }
+  },
+  "review_27": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Alizée F.",
+      "verified": true,
+      "variant": "Gris / M / Full Length",
+      "body": "Je recommande à 200%. Le tissu est doux, épais juste ce qu'il faut, et l'effet galbant sur les fesses est bluffant dès le premier port."
+    }
+  },
+  "review_28": {
+    "type": "review",
+    "settings": {
+      "rating": 4,
+      "author": "Camille R.",
+      "verified": true,
+      "variant": "Noir / S",
+      "body": "Très content de mon achat, confortable et bien coupé. Juste un peu long pour ma taille (1m58) mais rien de gênant au quotidien."
+    }
+  },
+  "review_29": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Solène M.",
+      "verified": true,
+      "variant": "Abricot / L",
+      "body": "Depuis que je le porte, plusieurs collègues de sport m'ont demandé où je l'avais acheté. La matière est vraiment premium, on sent la différence avec mes anciens leggings."
+    }
+  },
+  "review_30": {
+    "type": "review",
+    "settings": {
+      "rating": 5,
+      "author": "Jade B.",
+      "verified": true,
+      "variant": "Noir / M",
+      "body": "Parfait du début à la fin : commande rapide, livraison soignée, et le produit est encore mieux que sur les photos. Le maintien ventre plat est top sans être inconfortable."
+    }
+  }
+},
+      "block_order": [
+  "review_01",
+  "review_02",
+  "review_03",
+  "review_04",
+  "review_05",
+  "review_06",
+  "review_07",
+  "review_08",
+  "review_09",
+  "review_10",
+  "review_11",
+  "review_12",
+  "review_13",
+  "review_14",
+  "review_15",
+  "review_16",
+  "review_17",
+  "review_18",
+  "review_19",
+  "review_20",
+  "review_21",
+  "review_22",
+  "review_23",
+  "review_24",
+  "review_25",
+  "review_26",
+  "review_27",
+  "review_28",
+  "review_29",
+  "review_30"
+],
+      "settings": {
+        "title": "Elles ont adopté le legging Elarie Paris",
+        "subtitle": "Des milliers de clientes conquises par le maintien et le confort au quotidien",
+        "button_text": "Écrire un avis",
+        "reviews_word": "avis",
+        "verified_word": "Achat vérifié",
+        "initial_count": 9,
+        "total_override": 2341,
+        "rating_override": 4.8,
+        "color_star": "#B08D57",
+        "color_text": "#50382A",
+        "color_section_bg": "#F8F5EC"
+      }
+    },
+    "mon-faq": {
+      "type": "product-faq",
+      "blocks": {
+        "faq-1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Comment choisir ma taille ?",
+            "answer": "Consultez notre guide des tailles, accessible sur cette page. Mesurez votre tour de taille et \nvotre tour de hanches, puis reportez-vous au tableau. En cas d'hésitation entre deux tailles, \nnous recommandons de prendre la plus grande pour un confort optimal."
+          }
+        },
+        "faq-2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Comment fonctionne la technologie de drainage 3D ?",
+            "answer": "Les coutures 3D exercent une légère compression ciblée qui stimule la circulation sanguine et lymphatique à chaque mouvement."
+          }
+        },
+        "faq-3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Puis-je les porter toute la journée ?",
+            "answer": "Oui, le tissu est conçu pour un confort longue durée, même en position assise prolongée."
+          }
+        },
+        "faq-4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Le legging est-il transparent ?",
+            "answer": "Non, le tissu est opaque même en position accroupie ou en extension, grâce à sa technologie anti-transparence."
+          }
+        },
+        "faq-5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Puis-je retourner le produit si je ne suis pas satisfaite ?",
+            "answer": "Oui, vous disposez de 30 jours pour un retour ou un échange."
+          }
+        },
+        "faq-6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Quel est le délai de livraison ?",
+            "answer": "Comptez entre 5 et 8 jours ouvrés pour la livraison en France métropolitaine, avec une expédition sous 24h et la livraison offerte."
+          }
+        }
+      },
+      "block_order": [
+        "faq-1",
+        "faq-2",
+        "faq-3",
+        "faq-4",
+        "faq-5",
+        "faq-6"
+      ],
+      "settings": {
+        "bg_color": "#F8F5EC",
+        "text_color": "#50382A",
+        "heading": "FAQ"
+      }
+    },
+    "mon-benefits": {
+      "type": "product-benefits",
+      "disabled": true,
+      "settings": {}
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "share"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "disclosures": {
+      "type": "disclosures",
+      "settings": {
+        "heading": "Divulgations",
+        "heading_size": "h2",
+        "open_by_default": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "17844977266fbcb77c": {
+      "type": "apps",
+      "disabled": true,
+      "blocks": {
+        "judge_me_reviews_review_widget_KDPTBf": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_KDPTBf"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "mon-hero-custom",
+    "mon-trust",
+    "mon-recommendations",
+    "featured_collection_4K4Trr",
+    "mon-showcase",
+    "ep_avis_clients_product",
+    "mon-faq",
+    "mon-benefits",
+    "main",
+    "disclosures",
+    "17844977266fbcb77c"
+  ]
+}

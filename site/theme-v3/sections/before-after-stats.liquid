@@ -1,0 +1,345 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .before-after-section {
+    padding: {{ section.settings.padding_top }}px 2rem {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+  }
+
+  #shopify-section-{{ section.id }} .before-after__heading {
+    text-align: center;
+    max-width: 60rem;
+    margin: 0 auto 4rem;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__title {
+    font-size: 3.2rem;
+    margin: 0 0 1.5rem;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .before-after__subtitle {
+    font-size: 1.6rem;
+    color: {{ section.settings.text_color }};
+    opacity: 0.75;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 120rem;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} .before-after__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .before-after__images {
+    display: flex;
+    background: #f2f2f2;
+    border-radius: 1.2rem;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__image-col {
+    flex: 1 1 50%;
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__image-col:first-child {
+    border-right: 2px solid #fff;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__image-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__label {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.4rem 1.2rem;
+    border-radius: 2rem;
+    color: #50382A;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__stat-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  #shopify-section-{{ section.id }} .before-after__stat-number {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: {{ section.settings.accent_color }};
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__stat-heading {
+    font-size: 1.6rem;
+    margin: 0 0 0.5rem;
+    color: #50382A;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__stat-text {
+    font-size: 1.3rem;
+    color: #6b6b6b;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__cta {
+    margin-top: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .before-after__button {
+    display: inline-block;
+    background: {{ section.settings.accent_color }};
+    color: #fff;
+    padding: 1.4rem 3rem;
+    border-radius: 3rem;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-align: center;
+  }
+{%- endstyle -%}
+
+<div class="before-after-section">
+  <div class="before-after__heading">
+    {%- if section.settings.title != blank -%}
+      <h2 class="before-after__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <p class="before-after__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="before-after__grid">
+    <div class="before-after__images">
+      <div class="before-after__image-col">
+        {%- if section.settings.image_before != blank -%}
+          <img
+            src="{{ section.settings.image_before | image_url: width: 800 }}"
+            alt="{{ section.settings.label_before | escape }}"
+            width="{{ section.settings.image_before.width }}"
+            height="{{ section.settings.image_before.height }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'before-after__placeholder' }}
+        {%- endif -%}
+        {%- if section.settings.label_before != blank -%}
+          <span class="before-after__label">{{ section.settings.label_before }}</span>
+        {%- endif -%}
+      </div>
+      <div class="before-after__image-col">
+        {%- if section.settings.image_after != blank -%}
+          <img
+            src="{{ section.settings.image_after | image_url: width: 800 }}"
+            alt="{{ section.settings.label_after | escape }}"
+            width="{{ section.settings.image_after.width }}"
+            height="{{ section.settings.image_after.height }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'before-after__placeholder' }}
+        {%- endif -%}
+        {%- if section.settings.label_after != blank -%}
+          <span class="before-after__label">{{ section.settings.label_after }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="before-after__stats">
+      {%- for block in section.blocks -%}
+        <div class="before-after__stat-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.number != blank -%}
+            <div class="before-after__stat-number">{{ block.settings.number }}</div>
+          {%- endif -%}
+          <div>
+            {%- if block.settings.heading != blank -%}
+              <h3 class="before-after__stat-heading">{{ block.settings.heading }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="before-after__stat-text">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="before-after__cta">
+          <a href="{{ section.settings.button_link | default: '#' }}" class="before-after__button">
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Before After Stats",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Des résultats visibles"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Découvrez la différence Elarie au quotidien"
+    },
+    {
+      "type": "header",
+      "content": "Images avant / après"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_before",
+      "label": "Image \"avant\""
+    },
+    {
+      "type": "text",
+      "id": "label_before",
+      "label": "Légende \"avant\"",
+      "default": "Avant"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_after",
+      "label": "Image \"après\""
+    },
+    {
+      "type": "text",
+      "id": "label_after",
+      "label": "Légende \"après\"",
+      "default": "Avec Elarie"
+    },
+    {
+      "type": "header",
+      "content": "Bouton"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texte du bouton",
+      "default": "Découvrir la collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Lien du bouton"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte (titre/sous-titre)",
+      "default": "#50382A"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur d'accent (chiffres, bouton)",
+      "default": "#50382A"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge haute",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge basse",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Carte statistique",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Chiffre / %",
+          "default": "96%"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Titre",
+          "default": "Clientes satisfaites"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Décrivez ici la donnée réelle qui justifie ce chiffre."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Before After Stats",
+      "blocks": [
+        { "type": "stat" },
+        { "type": "stat" }
+      ]
+    }
+  ]
+}
+{% endschema %}

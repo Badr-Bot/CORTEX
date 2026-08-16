@@ -1,0 +1,408 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .feature-showcase {
+    padding: {{ section.settings.padding_top }}px 2rem {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__header {
+    text-align: center;
+    max-width: 60rem;
+    margin: 0 auto 5rem;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__eyebrow {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ section.settings.accent_color }};
+    margin-bottom: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__title {
+    font-size: 3.6rem;
+    line-height: 1.15;
+    margin: 0;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 120rem;
+    margin: 0 auto 6rem;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__row:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} .feature-showcase__row {
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+    }
+
+    #shopify-section-{{ section.id }} .feature-showcase__row--reverse .feature-showcase__media {
+      order: 2;
+    }
+
+    #shopify-section-{{ section.id }} .feature-showcase__row--reverse .feature-showcase__content {
+      order: 1;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__media {
+    position: relative;
+    background: #fff;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.8rem;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__zoom-circle {
+    position: absolute;
+    border: 2px dashed #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__zoom-caption {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__index {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__index-line {
+    width: 3rem;
+    height: 1px;
+    background: {{ section.settings.accent_color }};
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__index-number {
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    color: {{ section.settings.accent_color }};
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__heading {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin: 0 0 1.5rem;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__description {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #6b6b6b;
+    margin: 0 0 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__bullets li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.9rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: {{ section.settings.accent_color }};
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__link svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    transition: transform 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .feature-showcase__link:hover svg {
+    transform: translateX(4px);
+  }
+{%- endstyle -%}
+
+<div class="feature-showcase">
+  {%- if section.settings.eyebrow != blank or section.settings.title != blank -%}
+    <div class="feature-showcase__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="feature-showcase__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="feature-showcase__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- for block in section.blocks -%}
+    {%- assign row_remainder = forloop.index0 | modulo: 2 -%}
+    <div
+      class="feature-showcase__row{% if row_remainder == 1 %} feature-showcase__row--reverse{% endif %}"
+      {{ block.shopify_attributes }}
+    >
+      <div class="feature-showcase__media">
+        {%- if block.settings.image != blank -%}
+          <img
+            src="{{ block.settings.image | image_url: width: 1000 }}"
+            alt="{{ block.settings.heading | escape }}"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'feature-showcase__placeholder' }}
+        {%- endif -%}
+
+        {%- if block.settings.show_zoom -%}
+          <div
+            class="feature-showcase__zoom-circle"
+            style="left: {{ block.settings.zoom_x }}%; top: {{ block.settings.zoom_y }}%; width: {{ block.settings.zoom_size }}px; height: {{ block.settings.zoom_size }}px;"
+          ></div>
+        {%- endif -%}
+
+        {%- if block.settings.zoom_caption != blank -%}
+          <span class="feature-showcase__zoom-caption">{{ block.settings.zoom_caption }}</span>
+        {%- endif -%}
+      </div>
+
+      <div class="feature-showcase__content">
+        <div class="feature-showcase__index">
+          <span class="feature-showcase__index-line"></span>
+          <span class="feature-showcase__index-number">0{{ forloop.index }}</span>
+        </div>
+
+        {%- if block.settings.heading != blank -%}
+          <h3 class="feature-showcase__heading">{{ block.settings.heading }}</h3>
+        {%- endif -%}
+
+        {%- if block.settings.description != blank -%}
+          <p class="feature-showcase__description">{{ block.settings.description }}</p>
+        {%- endif -%}
+
+        {%- if block.settings.bullets != blank -%}
+          <ul class="feature-showcase__bullets">
+            {%- assign bullet_lines = block.settings.bullets | newline_to_br | split: '<br />' -%}
+            {%- for line in bullet_lines -%}
+              {%- assign trimmed = line | strip -%}
+              {%- if trimmed != blank -%}
+                <li>{{ trimmed }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if block.settings.link_label != blank -%}
+          <a href="{{ block.settings.link_url | default: '#' }}" class="feature-showcase__link">
+            {{ block.settings.link_label }}
+            {{- 'icon-arrow.svg' | inline_asset_content -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Feature Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow (petit texte au-dessus du titre)",
+      "default": "La science du sculptant"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre principal",
+      "default": "Pensé pour votre corps"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#F8F5EC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#50382A"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur d'accent",
+      "default": "#50382A"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge haute",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge basse",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Bloc feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_zoom",
+          "label": "Afficher le cercle zoom",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "zoom_x",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Position horizontale du cercle",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "zoom_y",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Position verticale du cercle",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "zoom_size",
+          "min": 60,
+          "max": 300,
+          "step": 10,
+          "unit": "px",
+          "label": "Taille du cercle",
+          "default": 180
+        },
+        {
+          "type": "text",
+          "id": "zoom_caption",
+          "label": "Légende (badge sur l'image)",
+          "default": "Détail technique"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Titre du bloc",
+          "default": "Nom du produit ou de la technologie"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Décrivez ici la technologie ou le bénéfice mis en avant."
+        },
+        {
+          "type": "textarea",
+          "id": "bullets",
+          "label": "Liste à puces (une par ligne)",
+          "default": "Premier bénéfice\nDeuxième bénéfice\nTroisième bénéfice"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Texte du lien",
+          "default": "En savoir plus"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Lien"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature Showcase",
+      "blocks": [
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,151 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .press-marquee {
+    background: {{ section.settings.bg_color }};
+    overflow: hidden;
+    padding: {{ section.settings.padding_block }}px 0;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .press-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: press-marquee-scroll {{ section.settings.speed }}s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .press-marquee:hover .press-marquee__track {
+    animation-play-state: {% if section.settings.pause_on_hover %}paused{% else %}running{% endif %};
+  }
+
+  #shopify-section-{{ section.id }} .press-marquee__item {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 0 {{ section.settings.gap }}px;
+    font-size: {{ section.settings.font_size }}px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+  }
+
+  @keyframes press-marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .press-marquee__track {
+      animation: none;
+    }
+  }
+{%- endstyle -%}
+
+<div class="press-marquee">
+  <div class="press-marquee__track">
+    {%- for i in (1..2) -%}
+      {%- for block in section.blocks -%}
+        <div class="press-marquee__item" {{ block.shopify_attributes }}>
+          {{ block.settings.text }}
+        </div>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Press Marquee",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#50382A"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#F8F5EC"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille du texte",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace entre les éléments",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Marge verticale de la bande",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "unit": "s",
+      "label": "Vitesse de défilement (plus petit = plus rapide)",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Mettre en pause au survol de la souris",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Texte",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte",
+          "default": "GLAMOUR"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Press Marquee",
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

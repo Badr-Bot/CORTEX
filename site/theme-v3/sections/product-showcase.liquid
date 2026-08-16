@@ -1,0 +1,203 @@
+<style>
+  /* ===== COULEURS CONFIGURABLES DANS L'EDITEUR ===== */
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .product-showcase__title,
+  #shopify-section-{{ section.id }} .product-showcase__list li {
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .product-showcase__dot {
+    background: {{ section.settings.text_color }};
+  }
+  /* ================================================= */
+
+  .product-showcase, .product-showcase * {
+    font-family: var(--font-body-family, inherit);
+  }
+
+  .product-showcase {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .product-showcase__block {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 50px;
+    align-items: center;
+    padding: 40px 0;
+  }
+
+  .product-showcase__block:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+
+  .product-showcase__block--reverse .product-showcase__image {
+    order: 2;
+  }
+
+  .product-showcase__block--reverse .product-showcase__text {
+    order: 1;
+  }
+
+  .product-showcase__image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .product-showcase__text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .product-showcase__title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .product-showcase__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .product-showcase__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .product-showcase__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .product-showcase__block,
+    .product-showcase__block--reverse {
+      grid-template-columns: 1fr;
+    }
+    .product-showcase__block--reverse .product-showcase__image,
+    .product-showcase__block--reverse .product-showcase__text {
+      order: initial;
+    }
+    .product-showcase__title {
+      font-size: 22px;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="product-showcase">
+  {% for block in section.blocks %}
+    {% assign is_odd = forloop.index0 | modulo: 2 %}
+    <div class="product-showcase__block {% if is_odd == 1 %}product-showcase__block--reverse{% endif %}" {{ block.shopify_attributes }}>
+      <div class="product-showcase__image">
+        {% if block.settings.image %}
+          <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+        {% endif %}
+      </div>
+      <div class="product-showcase__text">
+        <h2 class="product-showcase__title">{{ block.settings.title }}</h2>
+        <ul class="product-showcase__list">
+          {% if block.settings.point1 != blank %}
+            <li><span class="product-showcase__dot"></span>{{ block.settings.point1 }}</li>
+          {% endif %}
+          {% if block.settings.point2 != blank %}
+            <li><span class="product-showcase__dot"></span>{{ block.settings.point2 }}</li>
+          {% endif %}
+          {% if block.settings.point3 != blank %}
+            <li><span class="product-showcase__dot"></span>{{ block.settings.point3 }}</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Product Showcase",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Couleurs de la section"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#F8F5EC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#50382A"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "showcase_item",
+      "name": "Bloc showcase",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Boost de circulation 3D, peau lissée"
+        },
+        {
+          "type": "text",
+          "id": "point1",
+          "label": "Point 1",
+          "default": "Compression avancée qui tonifie les jambes et affine la silhouette"
+        },
+        {
+          "type": "text",
+          "id": "point2",
+          "label": "Point 2",
+          "default": "Lisse en douceur la cellulite pour un rendu impeccable"
+        },
+        {
+          "type": "text",
+          "id": "point3",
+          "label": "Point 3",
+          "default": "Stimule la circulation sanguine à chaque mouvement"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Showcase",
+      "blocks": [
+        { "type": "showcase_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

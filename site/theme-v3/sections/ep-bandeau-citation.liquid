@@ -1,0 +1,217 @@
+{% comment %}
+  Bandeau défilant — Elarie Paris
+
+  Une phrase de marque qui traverse l'écran en continu. Le défilement est
+  pur CSS : la piste est dupliquée deux fois et translatée de -50 %, ce qui
+  donne une boucle sans saut ni JavaScript.
+
+  Le mouvement s'arrête pour les personnes qui ont demandé à leur système
+  de réduire les animations.
+{% endcomment %}
+
+{%- liquid
+  assign vitesse = section.settings.speed
+  if vitesse < 10
+    assign vitesse = 10
+  endif
+-%}
+
+<div class="ep-bandeau" style="
+  --bandeau-fond: {{ section.settings.bg_color }};
+  --bandeau-encre: {{ section.settings.text_color }};
+  --bandeau-accent: {{ section.settings.accent_color }};
+  --bandeau-taille: {{ section.settings.font_size }}px;
+  --bandeau-vitesse: {{ vitesse }}s;
+  --bandeau-marge: {{ section.settings.padding_block }}px;
+">
+  <div class="ep-bandeau__piste" aria-hidden="true">
+    {%- comment -%} Deux passes identiques : c'est ce qui rend la boucle continue. {%- endcomment -%}
+    {%- for passe in (1..2) -%}
+      <div class="ep-bandeau__groupe">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.text != blank -%}
+            <span class="ep-bandeau__item" {{ block.shopify_attributes }}>
+              {%- if section.settings.show_mark -%}
+                <span class="ep-bandeau__marque">{{ section.settings.mark_char }}</span>
+              {%- endif -%}
+              <span class="ep-bandeau__texte">{{ block.settings.text }}</span>
+              {%- if block.settings.author != blank -%}
+                <span class="ep-bandeau__auteur">— {{ block.settings.author }}</span>
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- comment -%}
+    Le texte lu par les lecteurs d'écran : une seule fois, sans la duplication
+    visuelle qui n'a aucun sens à l'oreille.
+  {%- endcomment -%}
+  <p class="visually-hidden">
+    {%- for block in section.blocks -%}
+      {{ block.settings.text }}{% if block.settings.author != blank %} — {{ block.settings.author }}{% endif %}.
+    {%- endfor -%}
+  </p>
+</div>
+
+<style>
+  .ep-bandeau {
+    background: var(--bandeau-fond);
+    color: var(--bandeau-encre);
+    padding: var(--bandeau-marge) 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Un léger dégradé sur les bords : le texte entre et sort en douceur
+     au lieu d'être tranché net par le bord de l'écran. */
+  .ep-bandeau::before,
+  .ep-bandeau::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 12%;
+    max-width: 140px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .ep-bandeau::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bandeau-fond), transparent);
+  }
+  .ep-bandeau::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bandeau-fond), transparent);
+  }
+
+  .ep-bandeau__piste {
+    display: flex;
+    width: max-content;
+    animation: ep-bandeau-defile var(--bandeau-vitesse) linear infinite;
+  }
+
+  .ep-bandeau:hover .ep-bandeau__piste {
+    animation-play-state: paused;
+  }
+
+  .ep-bandeau__groupe {
+    display: flex;
+    flex: none;
+  }
+
+  .ep-bandeau__item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 0 32px;
+    white-space: nowrap;
+    font-family: var(--font-heading-family, inherit);
+    font-size: var(--bandeau-taille);
+    line-height: 1.3;
+    letter-spacing: 0.005em;
+  }
+
+  /* La phrase en italique, comme une citation manuscrite de la maison ;
+     la signature reste droite, en petites capitales, pour le contraste. */
+  .ep-bandeau__texte {
+    font-style: italic;
+  }
+
+  .ep-bandeau__marque {
+    color: var(--bandeau-accent);
+    font-size: 0.8em;
+    transform: translateY(-0.05em);
+  }
+
+  .ep-bandeau__auteur {
+    font-family: var(--font-body-family, inherit);
+    font-size: 0.52em;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--bandeau-accent);
+  }
+
+  @keyframes ep-bandeau-defile {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Respect du réglage système : on fige le bandeau et on le recentre. */
+  @media (prefers-reduced-motion: reduce) {
+    .ep-bandeau__piste {
+      animation: none;
+      width: 100%;
+      justify-content: center;
+    }
+    .ep-bandeau__groupe:last-child { display: none; }
+    .ep-bandeau__item { white-space: normal; text-align: center; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ep-bandeau__item { padding: 0 20px; gap: 9px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "EP Bandeau défilant",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Apparence" },
+    { "type": "color", "id": "bg_color", "label": "Fond", "default": "#50382A" },
+    { "type": "color", "id": "text_color", "label": "Texte", "default": "#F8F5EC" },
+    { "type": "color", "id": "accent_color", "label": "Accent (séparateur et signature)", "default": "#B08D57" },
+    { "type": "range", "id": "font_size", "label": "Taille du texte", "min": 14, "max": 42, "step": 1, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_block", "label": "Hauteur du bandeau", "min": 8, "max": 60, "step": 2, "unit": "px", "default": 22 },
+    { "type": "header", "content": "Défilement" },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Durée d'un tour",
+      "min": 10,
+      "max": 90,
+      "step": 5,
+      "unit": "s",
+      "default": 40,
+      "info": "Plus la durée est longue, plus le défilement est lent. Le bandeau se met en pause au survol."
+    },
+    { "type": "checkbox", "id": "show_mark", "label": "Afficher un séparateur avant chaque phrase", "default": true },
+    { "type": "text", "id": "mark_char", "label": "Caractère du séparateur", "default": "✦" }
+  ],
+  "blocks": [
+    {
+      "type": "citation",
+      "name": "Phrase",
+      "settings": [
+        { "type": "textarea", "id": "text", "label": "Phrase" },
+        { "type": "text", "id": "author", "label": "Signature (facultatif)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "EP Bandeau défilant",
+      "blocks": [
+        {
+          "type": "citation",
+          "settings": {
+            "text": "La cellulite n'est pas un défaut à corriger. C'est une peau qu'on accompagne.",
+            "author": "Maison Elarie Paris"
+          }
+        },
+        {
+          "type": "citation",
+          "settings": { "text": "Se sentir belle ne devrait jamais demander d'être inconfortable." }
+        },
+        {
+          "type": "citation",
+          "settings": { "text": "Le maintien qui sculpte, la maille qui respire." }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

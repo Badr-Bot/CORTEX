@@ -1,0 +1,424 @@
+{% comment %}
+  Trouveur de taille dynamique — Elarie Paris
+
+  La cliente ne saisit rien : elle fait glisser deux curseurs (poids, taille)
+  et choisit sa silhouette. La taille se met à jour en direct.
+
+  Le calcul intègre la coupe asiatique de nos ateliers : une cliente qui porte
+  du M en France ressort en L ici. C'est volontaire, pas une erreur.
+{% endcomment %}
+
+<div class="ep-sf" data-ep-sizefinder>
+
+  <div class="ep-sf__panel">
+
+    {%- comment -%} ---------- Curseur poids ---------- {%- endcomment -%}
+    <div class="ep-sf__row">
+      <label class="ep-sf__label" for="ep-sf-poids-{{ section.id }}">
+        <span>Votre poids</span>
+        <output class="ep-sf__val" data-ep-sf-poids-out>62 kg</output>
+      </label>
+      <input class="ep-sf__range" type="range" id="ep-sf-poids-{{ section.id }}"
+             min="40" max="130" step="1" value="62" data-ep-sf-poids>
+      <div class="ep-sf__scale"><span>40 kg</span><span>130 kg</span></div>
+    </div>
+
+    {%- comment -%} ---------- Curseur taille ---------- {%- endcomment -%}
+    <div class="ep-sf__row">
+      <label class="ep-sf__label" for="ep-sf-taille-{{ section.id }}">
+        <span>Votre taille</span>
+        <output class="ep-sf__val" data-ep-sf-taille-out>165 cm</output>
+      </label>
+      <input class="ep-sf__range" type="range" id="ep-sf-taille-{{ section.id }}"
+             min="145" max="195" step="1" value="165" data-ep-sf-taille>
+      <div class="ep-sf__scale"><span>145 cm</span><span>195 cm</span></div>
+    </div>
+
+    {%- comment -%} ---------- Silhouettes ---------- {%- endcomment -%}
+    <div class="ep-sf__row">
+      <span class="ep-sf__label"><span>Votre silhouette</span></span>
+      <div class="ep-sf__shapes" role="radiogroup" aria-label="Votre silhouette">
+
+        <button type="button" class="ep-sf__shape" data-ep-sf-shape="fine" role="radio" aria-checked="false">
+          <svg viewBox="0 0 60 110" aria-hidden="true">
+            <circle cx="30" cy="13" r="9"/>
+            <path d="M30 22c-6 0-10 4-10 9l-2 16 3 1 1 12c0 0-2 22-2 30h8l2-26 2 26h8c0-8-2-30-2-30l1-12 3-1-2-16c0-5-4-9-10-9z"/>
+          </svg>
+          <span>Fine</span>
+        </button>
+
+        <button type="button" class="ep-sf__shape is-on" data-ep-sf-shape="normale" role="radio" aria-checked="true">
+          <svg viewBox="0 0 60 110" aria-hidden="true">
+            <circle cx="30" cy="13" r="9"/>
+            <path d="M30 22c-7 0-12 4-12 10l-2 15 3 1 2 13c0 0-3 21-3 31h9l3-27 3 27h9c0-10-3-31-3-31l2-13 3-1-2-15c0-6-5-10-12-10z"/>
+          </svg>
+          <span>Normale</span>
+        </button>
+
+        <button type="button" class="ep-sf__shape" data-ep-sf-shape="hanches" role="radio" aria-checked="false">
+          <svg viewBox="0 0 60 110" aria-hidden="true">
+            <circle cx="30" cy="13" r="9"/>
+            <path d="M30 22c-7 0-11 4-11 10l-2 13 3 2c-5 3-8 8-8 14 0 0 3 25 3 31h10l3-25 3 25h10c0-6 3-31 3-31 0-6-3-11-8-14l3-2-2-13c0-6-4-10-11-10z"/>
+          </svg>
+          <span>Hanches larges</span>
+        </button>
+
+        <button type="button" class="ep-sf__shape" data-ep-sf-shape="ronde" role="radio" aria-checked="false">
+          <svg viewBox="0 0 60 110" aria-hidden="true">
+            <circle cx="30" cy="13" r="9"/>
+            <path d="M30 22c-9 0-15 5-15 12 0 5 2 9 2 13-6 4-9 9-9 16 0 0 3 22 3 30h11l3-24 3 24h11c0-8 3-30 3-30 0-7-3-12-9-16 0-4 2-8 2-13 0-7-6-12-15-12z"/>
+          </svg>
+          <span>Généreuse</span>
+        </button>
+
+      </div>
+    </div>
+
+    {%- comment -%} ---------- Résultat ---------- {%- endcomment -%}
+    <div class="ep-sf__result">
+      <div class="ep-sf__result-main">
+        <span class="ep-sf__result-label">Votre taille</span>
+        <strong data-ep-sf-size>L</strong>
+      </div>
+      <p class="ep-sf__result-why" data-ep-sf-why></p>
+    </div>
+
+  </div>
+
+  {%- comment -%} ---------- Tableau de correspondance ---------- {%- endcomment -%}
+  <details class="ep-sf__details">
+    <summary>Voir le tableau des mesures</summary>
+
+    <div class="ep-sf__tabs">
+      <button type="button" class="ep-sf__tab is-on" data-ep-sf-tab="body">Mesures du corps</button>
+      <button type="button" class="ep-sf__tab" data-ep-sf-tab="garment">Le vêtement à plat</button>
+    </div>
+
+    <div class="ep-sf__pane" data-ep-sf-pane="body">
+      <div class="ep-sf__scroll">
+        <table class="ep-sf__table">
+          <thead><tr><th>Taille</th><th>Tour de taille</th><th>Tour de hanches</th></tr></thead>
+          <tbody>
+            <tr data-size="S"><td>S</td><td>60–68 cm</td><td>85–93 cm</td></tr>
+            <tr data-size="M"><td>M</td><td>69–77 cm</td><td>94–102 cm</td></tr>
+            <tr data-size="L"><td>L</td><td>78–86 cm</td><td>103–111 cm</td></tr>
+            <tr data-size="XL"><td>XL</td><td>87–95 cm</td><td>112–120 cm</td></tr>
+            <tr data-size="XXL"><td>XXL</td><td>96–104 cm</td><td>121–129 cm</td></tr>
+            <tr data-size="3XL"><td>3XL</td><td>105–113 cm</td><td>130–138 cm</td></tr>
+            <tr data-size="4XL"><td>4XL</td><td>114–122 cm</td><td>139–147 cm</td></tr>
+            <tr data-size="5XL"><td>5XL</td><td>123–131 cm</td><td>148–156 cm</td></tr>
+            <tr data-size="6XL"><td>6XL</td><td>132–140 cm</td><td>157–165 cm</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="ep-sf__pane" data-ep-sf-pane="garment" hidden>
+      <p class="ep-sf__cap">
+        Mesures du vêtement <strong>non étiré</strong>, telles que fournies par l'atelier.
+        La maille s'étire fortement au port : ne les comparez pas à votre tour de taille.
+      </p>
+      <div class="ep-sf__scroll">
+        <table class="ep-sf__table">
+          <thead><tr><th>Taille</th><th>Taille à plat</th><th>Hanches à plat</th><th>Longueur</th></tr></thead>
+          <tbody>
+            <tr><td>S</td><td>58 cm</td><td>68 cm</td><td>79 cm</td></tr>
+            <tr><td>M</td><td>62 cm</td><td>72 cm</td><td>81 cm</td></tr>
+            <tr><td>L</td><td>66 cm</td><td>76 cm</td><td>83 cm</td></tr>
+            <tr><td>XL</td><td>70 cm</td><td>80 cm</td><td>85 cm</td></tr>
+            <tr><td>XXL</td><td>74 cm</td><td>84 cm</td><td>86 cm</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="ep-sf__cap">Au-delà du XXL, chaque taille ajoute environ 4 cm.</p>
+    </div>
+  </details>
+
+  <p class="ep-sf__foot">
+    Nos ateliers taillent à l'asiatique : nous remontons systématiquement d'une taille
+    par rapport à votre taille française habituelle. Une maille trop tendue gaine moins
+    bien et perd de son opacité.
+  </p>
+</div>
+
+<style>
+  .ep-sf {
+    --sf-ink: #50382A;
+    --sf-soft: #7A6553;
+    --sf-line: #E4DACA;
+    --sf-bg: #F8F5EC;
+    --sf-alt: #EFE8DA;
+    --sf-gold: #B08D57;
+    color: var(--sf-ink);
+    font-family: var(--font-body-family, inherit);
+  }
+
+  .ep-sf__panel {
+    background: var(--sf-alt);
+    border: 1px solid var(--sf-line);
+    border-radius: 10px;
+    padding: 22px;
+  }
+
+  .ep-sf__row { margin-bottom: 22px; }
+  .ep-sf__row:last-child { margin-bottom: 0; }
+
+  .ep-sf__label {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--sf-soft);
+    margin-bottom: 10px;
+  }
+  .ep-sf__val {
+    font-family: var(--font-heading-family, inherit);
+    font-size: 21px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--sf-ink);
+    font-weight: 700;
+  }
+
+  /* ---------- Curseurs ---------- */
+  .ep-sf__range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, var(--sf-gold) 0%, var(--sf-gold) var(--pct, 30%), #DED2BF var(--pct, 30%), #DED2BF 100%);
+    outline: none;
+    margin: 0;
+  }
+  .ep-sf__range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--sf-ink);
+    border: 4px solid #fff;
+    box-shadow: 0 2px 8px rgba(80,56,42,.35);
+    cursor: grab;
+  }
+  .ep-sf__range::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.08); }
+  .ep-sf__range::-moz-range-thumb {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--sf-ink);
+    border: 4px solid #fff;
+    box-shadow: 0 2px 8px rgba(80,56,42,.35);
+    cursor: grab;
+  }
+
+  .ep-sf__scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--sf-soft);
+    margin-top: 6px;
+  }
+
+  /* ---------- Silhouettes ---------- */
+  .ep-sf__shapes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+
+  .ep-sf__shape {
+    border: 1.5px solid var(--sf-line);
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 4px 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11.5px;
+    line-height: 1.25;
+    color: var(--sf-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: border-color .18s ease, background-color .18s ease, transform .18s ease;
+  }
+  .ep-sf__shape svg { width: 34px; height: 62px; fill: #C9BCA8; transition: fill .18s ease; }
+  .ep-sf__shape:hover { border-color: var(--sf-gold); transform: translateY(-2px); }
+  .ep-sf__shape.is-on { border-color: var(--sf-ink); background: var(--sf-bg); color: var(--sf-ink); font-weight: 600; }
+  .ep-sf__shape.is-on svg { fill: var(--sf-ink); }
+
+  /* ---------- Résultat ---------- */
+  .ep-sf__result {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--sf-line);
+  }
+  .ep-sf__result-main { display: flex; align-items: baseline; gap: 14px; }
+  .ep-sf__result-label { font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--sf-soft); }
+  .ep-sf__result-main strong {
+    font-family: var(--font-heading-family, inherit);
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--sf-ink);
+  }
+  .ep-sf__result-why { margin: 8px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--sf-soft); }
+
+  /* ---------- Tableau ---------- */
+  .ep-sf__details { margin-top: 18px; }
+  .ep-sf__details summary {
+    cursor: pointer;
+    font-size: 13.5px;
+    color: var(--sf-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: 6px 0;
+  }
+  .ep-sf__tabs { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+  .ep-sf__tab {
+    border: 1px solid var(--sf-line);
+    background: #fff;
+    color: var(--sf-soft);
+    border-radius: 40px;
+    padding: 7px 15px;
+    font-family: inherit;
+    font-size: 12.5px;
+    cursor: pointer;
+  }
+  .ep-sf__tab.is-on { background: var(--sf-ink); border-color: var(--sf-ink); color: var(--sf-bg); }
+  .ep-sf__cap { font-size: 12.5px; color: var(--sf-soft); margin: 0 0 10px; }
+  .ep-sf__scroll { overflow-x: auto; }
+  .ep-sf__table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 340px; }
+  .ep-sf__table th, .ep-sf__table td {
+    padding: 10px 11px; border-bottom: 1px solid var(--sf-line); text-align: left; white-space: nowrap;
+  }
+  .ep-sf__table th {
+    font-weight: 500; font-size: 11.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--sf-soft); background: var(--sf-alt);
+  }
+  .ep-sf__table td:first-child { font-weight: 700; }
+  .ep-sf__table tr.is-match td { background: rgba(176,141,87,.2); }
+
+  .ep-sf__foot { margin: 16px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--sf-soft); }
+
+  @media (max-width: 560px) {
+    .ep-sf__shapes { grid-template-columns: repeat(2, 1fr); }
+    .ep-sf__result-main strong { font-size: 38px; }
+  }
+</style>
+
+<script>
+(function () {
+  var TAILLES = ['S','M','L','XL','XXL','3XL','4XL','5XL','6XL'];
+
+  /* Bornes hautes de poids, en kilos, pour la TAILLE FRANCAISE habituelle
+     d'une morphologie normale mesurant 165 cm. La remontee d'une taille pour
+     la coupe asiatique est appliquee ensuite, separement. */
+  var SEUILS = [55, 63, 72, 81, 92, 104, 116, 128];
+
+  var MORPHO = {
+    fine:    { decalage: -1, texte: 'silhouette fine' },
+    normale: { decalage:  0, texte: 'silhouette normale' },
+    hanches: { decalage: +1, texte: 'hanches larges' },
+    ronde:   { decalage: +1, texte: 'silhouette généreuse' }
+  };
+
+  function indiceDepuisPoids(poids) {
+    for (var i = 0; i < SEUILS.length; i++) {
+      if (poids <= SEUILS[i]) return i;
+    }
+    return SEUILS.length;
+  }
+
+  function calcule(poids, taille, forme) {
+    var i = indiceDepuisPoids(poids);
+    var raisons = [];
+
+    /* Le même poids ne se répartit pas pareil selon la taille. */
+    if (taille >= 176) { i -= 1; raisons.push('votre taille répartit le volume'); }
+    else if (taille <= 157) { i += 1; raisons.push('votre taille concentre le volume'); }
+
+    var m = MORPHO[forme] || MORPHO.normale;
+    if (m.decalage !== 0) raisons.push(m.texte);
+    i += m.decalage;
+
+    /* Coupe asiatique de l'atelier : on remonte toujours d'une taille. */
+    i += 1;
+
+    if (i < 0) i = 0;
+    if (i > TAILLES.length - 1) i = TAILLES.length - 1;
+
+    var phrase = 'Nos leggings taillent petit : nous remontons d’une taille par rapport à votre taille française habituelle';
+    if (raisons.length) phrase += ', et nous tenons compte de ' + raisons.join(' et de ');
+    return { taille: TAILLES[i], phrase: phrase + '.' };
+  }
+
+  function init(root) {
+    if (root.dataset.epSfReady) return;
+    root.dataset.epSfReady = '1';
+
+    var poidsEl = root.querySelector('[data-ep-sf-poids]');
+    var tailleEl = root.querySelector('[data-ep-sf-taille]');
+    var poidsOut = root.querySelector('[data-ep-sf-poids-out]');
+    var tailleOut = root.querySelector('[data-ep-sf-taille-out]');
+    var sizeEl = root.querySelector('[data-ep-sf-size]');
+    var whyEl = root.querySelector('[data-ep-sf-why]');
+    var forme = 'normale';
+
+    function remplir(el) {
+      var pct = (el.value - el.min) / (el.max - el.min) * 100;
+      el.style.setProperty('--pct', pct + '%');
+    }
+
+    function maj() {
+      var p = parseInt(poidsEl.value, 10);
+      var t = parseInt(tailleEl.value, 10);
+      poidsOut.textContent = p + ' kg';
+      tailleOut.textContent = t + ' cm';
+      remplir(poidsEl); remplir(tailleEl);
+
+      var r = calcule(p, t, forme);
+      sizeEl.textContent = r.taille;
+      whyEl.textContent = r.phrase;
+
+      root.querySelectorAll('[data-ep-sf-pane="body"] tbody tr').forEach(function (tr) {
+        tr.classList.toggle('is-match', tr.getAttribute('data-size') === r.taille);
+      });
+    }
+
+    [poidsEl, tailleEl].forEach(function (el) {
+      el.addEventListener('input', maj);
+      el.addEventListener('change', maj);
+    });
+
+    root.querySelectorAll('[data-ep-sf-shape]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        forme = btn.getAttribute('data-ep-sf-shape');
+        root.querySelectorAll('[data-ep-sf-shape]').forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-checked', on ? 'true' : 'false');
+        });
+        maj();
+      });
+    });
+
+    root.querySelectorAll('[data-ep-sf-tab]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var cible = btn.getAttribute('data-ep-sf-tab');
+        root.querySelectorAll('[data-ep-sf-tab]').forEach(function (b) {
+          b.classList.toggle('is-on', b === btn);
+        });
+        root.querySelectorAll('[data-ep-sf-pane]').forEach(function (p) {
+          p.hidden = p.getAttribute('data-ep-sf-pane') !== cible;
+        });
+      });
+    });
+
+    maj();
+  }
+
+  function boot() { document.querySelectorAll('[data-ep-sizefinder]').forEach(init); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+  document.addEventListener('shopify:section:load', boot);
+})();
+</script>

@@ -1,0 +1,360 @@
+<style>
+  /* ===== COULEURS CONFIGURABLES DANS L'EDITEUR ===== */
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .prc__heading,
+  #shopify-section-{{ section.id }} .prc__title,
+  #shopify-section-{{ section.id }} .prc__swatch-more {
+    color: {{ section.settings.text_color }};
+  }
+  /* ================================================= */
+
+  .prc, .prc * {
+    font-family: var(--font-body-family, inherit);
+  }
+
+  .prc {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .prc__heading {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 20px;
+  }
+
+  .prc__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .prc__card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .prc__image-wrap {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f5f5f5;
+    aspect-ratio: 1;
+  }
+
+  .prc__image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .prc__actions {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .prc__card:hover .prc__actions {
+    opacity: 1;
+  }
+
+  .prc__action-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .prc__action-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: #3E2A1E;
+  }
+
+  .prc__action-btn.active svg {
+    fill: #e63946;
+    stroke: #e63946;
+  }
+
+  .prc__title {
+    font-size: 14px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .prc__price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .prc__price-current {
+    color: #e63946;
+    font-weight: 700;
+  }
+
+  .prc__price-old {
+    color: #999;
+    text-decoration: line-through;
+  }
+
+  .prc__swatches {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .prc__swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    flex-shrink: 0;
+  }
+
+  .prc__swatch-more {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .prc__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<div class="prc">
+  <h2 class="prc__heading">{{ section.settings.heading }}</h2>
+  <div class="prc__grid" id="prc-grid" data-product-id="{{ product.id }}" data-limit="{{ section.settings.products_to_show }}"></div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var grid = document.getElementById('prc-grid');
+    var productId = grid.getAttribute('data-product-id');
+    var limit = grid.getAttribute('data-limit');
+
+    var colorMap = {
+      'noir': '#3E2A1E', 'black': '#3E2A1E',
+      'blanc': '#ffffff', 'white': '#ffffff',
+      'gris': '#9e9e9e', 'grey': '#9e9e9e', 'gray': '#9e9e9e',
+      'marine': '#1e2a4a', 'navy': '#1e2a4a',
+      'rose': '#f4c2c2', 'pink': '#f4c2c2',
+      'rouge': '#e63946', 'red': '#e63946',
+      'bleu': '#4a7fc1', 'blue': '#4a7fc1',
+      'café': '#6f4e37', 'coffee': '#6f4e37', 'brown': '#6f4e37',
+      'abricot': '#fbceb1', 'nude': '#e3bc9a',
+      'beige': '#e8dcc4'
+    };
+
+    function getSwatchColor(name) {
+      var key = name.toLowerCase().trim();
+      for (var k in colorMap) {
+        if (key.indexOf(k) !== -1) return colorMap[k];
+      }
+      return '#cccccc';
+    }
+
+    fetch('/recommendations/products.json?product_id=' + productId + '&limit=' + limit + '&intent=related')
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (!data.products || data.products.length === 0) {
+          return fetch('/products.json?limit=' + (parseInt(limit) + 1))
+            .then(function(res) { return res.json(); })
+            .then(function(fallbackData) {
+              var filtered = fallbackData.products
+                .filter(function(p) { return p.id != productId; })
+                .slice(0, parseInt(limit))
+                .map(function(p) {
+                  return {
+                    id: p.id,
+                    title: p.title,
+                    url: '/products/' + p.handle,
+                    featured_image: p.images && p.images.length ? p.images[0].src : '',
+                    options: p.options,
+                    variants: p.variants.map(function(v) {
+                      var opts = [v.option1, v.option2, v.option3].filter(function(o) { return o; });
+                      return {
+                        id: v.id,
+                        price: v.price,
+                        compare_at_price: v.compare_at_price,
+                        options: opts
+                      };
+                    })
+                  };
+                });
+              return { products: filtered };
+            });
+        }
+        return data;
+      })
+      .then(function(data) {
+        if (!data.products || data.products.length === 0) {
+          grid.parentElement.style.display = 'none';
+          return;
+        }
+
+        data.products.forEach(function(p) {
+          var colorOptionIndex = -1;
+          p.options.forEach(function(o, idx) {
+            if (o.name.toLowerCase().indexOf('couleur') !== -1 || o.name.toLowerCase().indexOf('color') !== -1) {
+              colorOptionIndex = idx;
+            }
+          });
+
+          var uniqueColors = [];
+          if (colorOptionIndex !== -1) {
+            p.variants.forEach(function(v) {
+              var colorVal = v.options[colorOptionIndex];
+              if (colorVal && uniqueColors.indexOf(colorVal) === -1) {
+                uniqueColors.push(colorVal);
+              }
+            });
+          }
+
+          var firstVariant = p.variants[0];
+          var priceHtml = '<span class="prc__price-current">' + formatMoney(firstVariant.price) + '</span>';
+          if (firstVariant.compare_at_price && toEuros(firstVariant.compare_at_price) > toEuros(firstVariant.price)) {
+            priceHtml += '<span class="prc__price-old">' + formatMoney(firstVariant.compare_at_price) + '</span>';
+          }
+
+          var swatchesHtml = '';
+          var maxSwatches = 4;
+          uniqueColors.slice(0, maxSwatches).forEach(function(c) {
+            swatchesHtml += '<span class="prc__swatch" style="background:' + getSwatchColor(c) + '" title="' + c + '"></span>';
+          });
+          if (uniqueColors.length > maxSwatches) {
+            swatchesHtml += '<span class="prc__swatch-more">+' + (uniqueColors.length - maxSwatches) + '</span>';
+          }
+
+          var card = document.createElement('div');
+          card.className = 'prc__card';
+          card.innerHTML =
+            '<a href="' + p.url + '" class="prc__image-wrap">' +
+              '<img src="' + p.featured_image + '" alt="' + p.title + '" loading="lazy">' +
+            '</a>' +
+            '<div class="prc__actions">' +
+              '<button class="prc__action-btn prc-add-btn" data-variant-id="' + firstVariant.id + '" title="Ajouter au panier">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>' +
+              '</button>' +
+              '<button class="prc__action-btn prc-wish-btn" title="Ajouter aux favoris">' +
+                '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.4 2 5 5.5 5c2 0 3.5 1 4.5 2.5C11 6 12.5 5 14.5 5 18 5 19.5 8.4 22 11.8 19.5 16.4 12 21 12 21z"/></svg>' +
+              '</button>' +
+              '<a class="prc__action-btn" href="' + p.url + '" title="Voir le produit">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>' +
+              '</a>' +
+            '</div>' +
+            '<a href="' + p.url + '" class="prc__title">' + p.title + '</a>' +
+            '<div class="prc__price">' + priceHtml + '</div>' +
+            (swatchesHtml ? '<div class="prc__swatches">' + swatchesHtml + '</div>' : '');
+
+          grid.appendChild(card);
+        });
+
+        grid.querySelectorAll('.prc-add-btn').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var variantId = btn.getAttribute('data-variant-id');
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+            }).then(function() {
+              btn.innerHTML = '✓';
+              setTimeout(function() {
+                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>';
+              }, 1500);
+            });
+          });
+        });
+
+        grid.querySelectorAll('.prc-wish-btn').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            btn.classList.toggle('active');
+          });
+        });
+      });
+
+    /* Les deux sources de données ne donnent pas le prix dans la même unité :
+         /recommendations/products.json  ->  centiemes, en nombre entier (2999)
+         /products.json                  ->  euros, en chaîne décimale ("29.99")
+       On ramène tout en euros avant d'afficher, sinon 29,99 € s'affiche
+       en 2999,00 €. */
+    function toEuros(valeur) {
+      if (valeur === null || valeur === undefined || valeur === '') return null;
+      if (typeof valeur === 'number') return valeur / 100;
+      var texte = String(valeur);
+      return texte.indexOf('.') === -1 ? parseFloat(texte) / 100 : parseFloat(texte);
+    }
+
+    function formatMoney(valeur) {
+      var euros = toEuros(valeur);
+      if (euros === null || isNaN(euros)) return '';
+      return euros.toFixed(2).replace('.', ',') + ' €';
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Recommendations",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Couleurs de la section"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#F8F5EC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#50382A"
+    },
+    {
+      "type": "header",
+      "content": "Contenu"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Vous pourriez aussi aimer"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Nombre de produits",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

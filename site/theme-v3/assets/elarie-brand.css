@@ -1,0 +1,356 @@
+/* ==========================================================================
+   ELARIE PARIS — Charte de marque
+   Chargé après base.css. Impose la typographie et la palette de la maison
+   sur l'ensemble du thème, y compris les sections héritées qui avaient
+   des couleurs codées en dur (marron, vert, rouge).
+   ========================================================================== */
+
+:root {
+  --ep-bg:        #F8F5EC;
+  --ep-bg-alt:    #EFE8DA;
+  --ep-card:      #FFFFFF;
+  --ep-ink:       #50382A;
+  --ep-ink-soft:  #7A6553;
+  --ep-line:      #E4DACA;
+  --ep-gold:      #B08D57;
+  --ep-gold-deep: #8A6A3C;
+  --ep-promo:     #8A2E2E;
+}
+
+/* ---------- Typographie de marque ---------- */
+
+h1, h2, h3, h4, h5,
+.h0, .h1, .h2, .h3, .h4, .h5 {
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+}
+
+h1, .h1, .h0 { letter-spacing: -0.025em; }
+
+/* Titre de fiche produit : c'est lui qui porte la marque, il doit peser. */
+.ep-info__title {
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 4.2vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  margin: 0 0 2px;
+}
+
+/* Corps de texte : on remonte la taille de base, 14 px c'était trop petit. */
+body,
+.rte,
+.product__description {
+  font-size: 1.55rem;
+  line-height: 1.65;
+}
+
+/* Sur-titres et libellés : capitales espacées, signature "maison" */
+.ep-eyebrow,
+.caption-with-letter-spacing {
+  font-family: var(--font-body-family);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 1.1rem;
+  color: var(--ep-gold-deep);
+}
+
+/* Le logo texte du header */
+.header__heading-link .h2 {
+  font-family: var(--font-heading-family);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 749px) {
+  .header__heading-link .h2 { font-size: 1.5rem; letter-spacing: 0.24em; }
+}
+
+/* Les sections héritées imposaient la police système : on rend la main
+   à la typographie de la marque. */
+.product-hero-custom,
+.product-hero-custom *,
+.product-showcase,
+.product-showcase *,
+.product-trust-accordion,
+.product-trust-accordion *,
+.product-recommendations-custom,
+.product-recommendations-custom * {
+  font-family: var(--font-body-family) !important;
+}
+
+.product-hero-custom h1,
+.product-hero-custom h2,
+.product-showcase h2,
+.product-showcase h3,
+.product-trust-accordion h2,
+.product-recommendations-custom h2,
+.comparison-table__title,
+.before-after__title,
+.feature-showcase__title,
+.feature-showcase__heading,
+.product-faq__heading {
+  font-family: var(--font-heading-family) !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- Nettoyage des couleurs héritées ---------- */
+/* Anciens bruns disparates de l'ancien thème → le brun exact du logo */
+[style*="#2b221a"], [style*="#4f3728"], [style*="#3d2620"], [style*="#8b6d56"] {
+  color: var(--ep-ink);
+}
+
+.before-after__label,
+.before-after__stat-heading,
+.comparison-table__table td {
+  color: var(--ep-ink) !important;
+}
+
+.comparison-table__table th {
+  color: var(--ep-gold-deep) !important;
+  background: var(--ep-bg-alt) !important;
+  letter-spacing: 0.14em !important;
+}
+
+/* Vert "disponibilité" → vert sombre désaturé, cohérent avec la charte */
+.product-trust-accordion__trust-dot {
+  background: #4A6B57 !important;
+}
+
+/* Rouge criard des recommandations → bordeaux discret / or */
+.product-recommendations-custom .price,
+.product-recommendations-custom [class*="price"] {
+  color: var(--ep-ink) !important;
+}
+
+.product-recommendations-custom svg[fill="#e63946"],
+.product-recommendations-custom .wishlist-btn.active svg {
+  fill: var(--ep-promo) !important;
+  stroke: var(--ep-promo) !important;
+}
+
+/* ---------- Boutons ---------- */
+
+.button,
+.shopify-challenge__button,
+.customer button {
+  font-family: var(--font-body-family);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  font-weight: 600;
+  min-height: 5rem;
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+/* ---------- Lisibilité du petit texte ----------
+   Les mentions légales et notes de panier étaient trop pâles pour être
+   lues confortablement. On les remonte au-dessus du seuil de contraste. */
+
+.cart__note,
+.tax-note,
+.cart-item__details .product-option,
+.totals__subtotal-value + p,
+.product__tax,
+.caption,
+small {
+  color: var(--ep-ink-soft) !important;
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+
+/* ---------- Panier ---------- */
+
+.cart__contents .title-wrapper h1,
+.cart__empty-text {
+  font-family: var(--font-heading-family);
+  font-weight: 400;
+}
+
+.cart-item__name {
+  font-family: var(--font-body-family);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.cart-item__price-wrapper .price,
+.totals__subtotal-value {
+  font-weight: 600;
+}
+
+.totals__subtotal {
+  font-family: var(--font-heading-family);
+  font-size: 1.7rem;
+}
+
+/* Les libellés de colonne du panier : capitales espacées, discrètes mais nettes */
+.cart-items thead th {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ep-ink-soft);
+  font-weight: 500;
+}
+
+.button:not([disabled]):hover::after {
+  box-shadow: 0 0 0 1px var(--ep-gold);
+}
+
+/* ---------- Cartes produit ---------- */
+
+.card__heading a,
+.card-information .card__heading {
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.card--standard .card__media,
+.card__inner {
+  overflow: hidden;
+}
+
+.card__media img,
+.card .media img {
+  transition: transform .55s cubic-bezier(.2, .6, .2, 1);
+}
+
+.card:hover .card__media img,
+.card__inner:hover img {
+  transform: scale(1.035);
+}
+
+/* ---------- Filets dorés de section ---------- */
+
+.ep-rule {
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--ep-gold);
+  margin: 0 auto 2.4rem;
+  border: 0;
+}
+
+/* ---------- Apparition au scroll (premium subtil) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .ep-reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .7s cubic-bezier(.2, .6, .2, 1), transform .7s cubic-bezier(.2, .6, .2, 1);
+  }
+  .ep-reveal.ep-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ep-reveal { opacity: 1; transform: none; }
+  .card__media img, .card .media img { transition: none; }
+}
+
+/* =========================================================================
+   EN-TÊTE — lisibilité
+   Le texte de la barre d'annonce était rogné : le carrousel de Dawn calcule
+   une hauteur qui ne tenait pas compte de la police agrandie. On rend la
+   hauteur libre et on donne au texte l'espace qu'il lui faut.
+   ========================================================================= */
+
+.announcement-bar,
+.announcement-bar__announcement,
+.utility-bar,
+.utility-bar__grid {
+  min-height: 0;
+  height: auto;
+  overflow: visible;
+}
+
+.announcement-bar__message,
+.announcement-bar__link,
+.announcement-bar p {
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  line-height: 1.5;
+  letter-spacing: 0.09em;
+  padding: 11px 12px;
+  margin: 0;
+  text-transform: none;
+  overflow: visible;
+  white-space: normal;
+}
+
+/* Le carrousel d'annonces ne doit pas écrêter ses diapositives. */
+.announcement-bar slideshow-component,
+.announcement-bar .slider,
+.announcement-bar .slideshow__slide {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* ---------- Menu principal ---------- */
+
+.header__menu-item,
+.header__menu-item span,
+.header__submenu .header__menu-item {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ep-ink);
+}
+
+.header__menu-item:hover span,
+.header__menu-item:focus span {
+  color: var(--ep-gold-deep);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+/* Icônes recherche, compte, panier : même encre que le reste */
+.header__icon,
+.header__icon svg,
+.header__icon--cart .icon,
+.header__iconItem svg {
+  color: var(--ep-ink);
+}
+
+/* Pastille du panier : doré sur encre, lisible */
+.cart-count-bubble {
+  background: var(--ep-ink);
+  color: var(--ep-bg);
+  font-family: var(--font-body-family);
+  font-weight: 600;
+}
+
+/* ---------- Titres de section ---------- */
+/* Ils doivent porter l'encre de la marque, quelle que soit la section. */
+
+.section-header h2,
+.title-wrapper h2,
+.collection__title h2,
+.rich-text__heading,
+.blog__title {
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: inherit;
+}
+
+@media screen and (max-width: 749px) {
+  .announcement-bar__message,
+  .announcement-bar__link {
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+    padding: 10px 10px;
+  }
+  .header__menu-item { font-size: 1.5rem; }
+}

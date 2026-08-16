@@ -1,0 +1,906 @@
+{{ 'ep-product.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+{%- endstyle -%}
+
+{%- comment -%}
+  ===========================================================================
+  VOS COULEURS — modifiable ici, une ligne par coloris
+  ===========================================================================
+
+    nom du coloris | code couleur de la pastille
+
+  Pour ajouter une couleur : copiez une ligne, changez le nom et le code.
+  Le nom doit être écrit exactement comme dans l'option du produit.
+  Les accents et les majuscules n'ont pas d'importance.
+
+  LA PHOTO DU MANNEQUIN se règle sans toucher au code, de deux façons :
+    1. dans l'éditeur de thème, bloc « Couleur » → Photo affichée au clic
+    2. ou en nommant la photo du produit avec le coloris dans son texte
+       alternatif (ex. « Noir ») — elle sera trouvée automatiquement
+  ===========================================================================
+{%- endcomment -%}
+
+{%- capture ep_colors -%}
+  Gris foncé   | #525251
+  Noir         | #1F1F1F
+  Marine       | #2C3C55
+  Café         | #4E3D2F
+  Crème        | #F8ECD4
+  Bleu Bleuet  | #499FDE
+  Rose fuchsia | #DB4270
+  Lavande      | #BCB8D9
+  Bleu givré   | #9DC5D4
+  Rose poudré  | #EABCC2
+  Gris clair   | #BAB9B7
+  Gris perle   | #C6C8C2
+  Blanc        | #FFFFFF
+  Ivoire       | #F4EFE4
+  Beige        | #E3CDB6
+  Nude         | #E3CDB6
+  Abricot      | #E5B294
+  Gris         | #9A9A9A
+  Anthracite   | #4A4A4A
+  Taupe        | #8B7D6B
+  Camel        | #B98B56
+  Marron       | #5C4033
+  Chocolat     | #5C4033
+  Bordeaux     | #6E2233
+  Rouge        | #A3242F
+  Rose         | #E8A9B8
+  Rose Perle   | #F0DCD5
+  Rose Ballerine | #F4C2C2
+  Violet       | #9A85B8
+  Lilas        | #9A85B8
+  Bleu         | #3E6BA8
+  Vert         | #3F6B52
+  Kaki         | #6E7053
+  Sauge        | #9CAB94
+  Jaune        | #E3C15A
+  Orange       | #DE8B4A
+{%- endcapture -%}
+
+{%- liquid
+  assign color_words = 'couleur,coloris,color,colour'
+  assign v = product.selected_or_first_available_variant
+  assign default_hex = '#D8D2C6'
+-%}
+
+<div class="ep-product" data-ep-product>
+
+  <div class="ep-gallery">
+    <div class="ep-gallery__stage">
+      <button type="button" class="ep-gallery__arrow ep-gallery__arrow--prev" data-ep-prev aria-label="Image précédente">‹</button>
+      <img data-ep-main src="{{ product.featured_media | image_url: width: 1200 }}" alt="{{ product.title | escape }}" width="600" height="660">
+      <button type="button" class="ep-gallery__arrow ep-gallery__arrow--next" data-ep-next aria-label="Image suivante">›</button>
+      <button type="button" class="ep-gallery__zoom" data-ep-zoom aria-label="Agrandir l'image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
+      </button>
+    </div>
+
+    <div class="ep-gallery__thumbs" data-ep-thumbs>
+      {%- for media in product.media -%}
+        <img
+          src="{{ media | image_url: width: 160 }}"
+          data-full="{{ media | image_url: width: 1200 }}"
+          alt="{{ media.alt | escape }}"
+          class="{% if forloop.first %}is-active{% endif %}"
+          loading="lazy"
+          width="74"
+          height="74"
+        >
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="ep-info">
+
+    <div class="ep-info__badges">
+      {%- if section.settings.badge1_text != blank -%}
+        <span class="ep-badge">{{ section.settings.badge1_text }}</span>
+      {%- endif -%}
+      {%- if section.settings.badge2_text != blank -%}
+        <span class="ep-badge ep-badge--gold">{{ section.settings.badge2_text }}</span>
+      {%- endif -%}
+    </div>
+
+    <h1 class="ep-info__title">{{ product.title }}</h1>
+
+    {%- if section.settings.tagline_text != blank -%}
+      <p class="ep-info__tagline">
+        <svg class="ep-info__tagline-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.4"/>
+          <g stroke-linecap="round">
+            <path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/>
+          </g>
+        </svg>
+        {{ section.settings.tagline_text }}
+      </p>
+    {%- endif -%}
+
+    <div class="ep-rating">
+      <span class="ep-rating__stars" aria-hidden="true">
+        {%- for s in (1..5) -%}
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2l2.95 6.15 6.75.92-4.9 4.68 1.22 6.73L12 17.42 5.98 20.68l1.22-6.73-4.9-4.68 6.75-.92z"/></svg>
+        {%- endfor -%}
+      </span>
+      <span class="ep-rating__text">{{ section.settings.rating_text }}</span>
+    </div>
+
+    <div class="ep-price">
+      <span class="ep-price__now" data-ep-price>{{ v.price | money }}</span>
+      <span class="ep-price__was" data-ep-compare {% unless v.compare_at_price > v.price %}hidden{% endunless %}>
+        {%- if v.compare_at_price > v.price %}{{ v.compare_at_price | money }}{% endif -%}
+      </span>
+      <span class="ep-price__save" data-ep-save {% unless v.compare_at_price > v.price %}hidden{% endunless %}>
+        {%- if v.compare_at_price > v.price -%}
+          {%- assign off = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round -%}
+          -{{ off }}%
+        {%- endif -%}
+      </span>
+    </div>
+
+    {%- comment -%} Les 4 promesses, avec pictogrammes dessinés {%- endcomment -%}
+    <ul class="ep-benefits">
+      {%- for i in (1..4) -%}
+        {%- liquid
+          case i
+            when 1
+              assign btext = section.settings.benefit1_text
+              assign bicon = section.settings.benefit1_icon
+            when 2
+              assign btext = section.settings.benefit2_text
+              assign bicon = section.settings.benefit2_icon
+            when 3
+              assign btext = section.settings.benefit3_text
+              assign bicon = section.settings.benefit3_icon
+            when 4
+              assign btext = section.settings.benefit4_text
+              assign bicon = section.settings.benefit4_icon
+          endcase
+        -%}
+        {%- if btext != blank -%}
+          <li class="ep-benefit">
+            <span class="ep-benefit__icon" aria-hidden="true">
+              {%- if bicon != blank -%}
+                <img src="{{ bicon | image_url: width: 72 }}" alt="" width="28" height="28" loading="lazy">
+              {%- else -%}
+                {%- case i -%}
+                  {%- when 1 -%}
+                    {%- comment -%} Jambe lissée : ondes qui s'apaisent {%- endcomment -%}
+                    <svg viewBox="0 0 32 32" aria-hidden="true">
+                      <path d="M13 3h6l-1 8 2 7-2 11h-5l-1-11 2-7z"/>
+                      <path d="M11.5 12c1.6.9 3.4.9 5 0M11.8 16c1.6.9 3.4.9 5 0M12.2 20c1.4.8 3 .8 4.4 0" class="ep-ic-soft"/>
+                    </svg>
+                  {%- when 2 -%}
+                    {%- comment -%} Silhouette galbée + flèches de tonification {%- endcomment -%}
+                    <svg viewBox="0 0 32 32" aria-hidden="true">
+                      <path d="M16 4c3 0 5 2 5 5 0 3-2 4-2 7l1 12h-8l1-12c0-3-2-4-2-7 0-3 2-5 5-5z"/>
+                      <path d="M6 14l2.5-2.5L11 14M26 14l-2.5-2.5L21 14" class="ep-ic-soft"/>
+                    </svg>
+                  {%- when 3 -%}
+                    {%- comment -%} Œil barré : opacité garantie {%- endcomment -%}
+                    <svg viewBox="0 0 32 32" aria-hidden="true">
+                      <path d="M3 16s5-7 13-7 13 7 13 7-5 7-13 7S3 16 3 16z"/>
+                      <circle cx="16" cy="16" r="3.4"/>
+                      <path d="M5 27L27 5" class="ep-ic-strike"/>
+                    </svg>
+                  {%- when 4 -%}
+                    {%- comment -%} Ceinture taille haute {%- endcomment -%}
+                    <svg viewBox="0 0 32 32" aria-hidden="true">
+                      <path d="M9 6h14v6H9z"/>
+                      <path d="M9 12l1 14h4l2-9 2 9h4l1-14"/>
+                      <path d="M14 9h4" class="ep-ic-soft"/>
+                    </svg>
+                {%- endcase -%}
+              {%- endif -%}
+            </span>
+            <span class="ep-benefit__text">{{ btext }}</span>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+
+    {%- comment -%} Avis mis en avant, avec photo de la cliente {%- endcomment -%}
+    {%- if section.settings.review_text != blank -%}
+      <figure class="ep-hero-review">
+        {%- if section.settings.review_avatar != blank -%}
+          <img class="ep-hero-review__photo"
+               src="{{ section.settings.review_avatar | image_url: width: 160 }}"
+               alt="{{ section.settings.review_name | escape }}"
+               width="60" height="60" loading="lazy">
+        {%- endif -%}
+        <div class="ep-hero-review__body">
+          <figcaption class="ep-hero-review__head">
+            <span class="ep-hero-review__name">{{ section.settings.review_name }}</span>
+            <span class="ep-hero-review__stars" aria-label="Note 5 sur 5">
+              {%- for s in (1..5) -%}
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2l2.95 6.15 6.75.92-4.9 4.68 1.22 6.73L12 17.42 5.98 20.68l1.22-6.73-4.9-4.68 6.75-.92z"/></svg>
+              {%- endfor -%}
+            </span>
+          </figcaption>
+          <blockquote class="ep-hero-review__quote">« {{ section.settings.review_text }} »</blockquote>
+        </div>
+      </figure>
+    {%- endif -%}
+
+    <hr class="ep-divider">
+
+    {%- unless product.has_only_default_variant -%}
+      <div class="ep-options">
+        {%- for option in product.options_with_values -%}
+          {%- liquid
+            assign is_color = false
+            assign oname = option.name | downcase
+            assign words = color_words | split: ','
+            for w in words
+              if oname contains w
+                assign is_color = true
+              endif
+            endfor
+          -%}
+
+          <div class="ep-option" data-ep-option="{{ forloop.index0 }}">
+            <div class="ep-option__label">
+              <span>{{ option.name }}</span>
+              <span class="ep-option__value" data-ep-option-value>{{ option.selected_value }}</span>
+            </div>
+
+            {%- if is_color -%}
+              <div class="ep-swatches">
+                {%- for value in option.values -%}
+                  {%- liquid
+                    assign key = value | downcase | strip
+                    assign hex = ''
+                    assign color_photo = ''
+
+                    # 1. Un bloc « Couleur » de l'éditeur l'emporte sur tout.
+                    for block in section.blocks
+                      if block.type != 'couleur'
+                        continue
+                      endif
+                      assign block_key = block.settings.name | downcase | strip
+                      if block_key == key
+                        if block.settings.swatch != blank
+                          assign hex = block.settings.swatch
+                        endif
+                        assign color_photo = block.settings.image
+                      endif
+                    endfor
+
+                    # 2. Sinon, on lit la liste de couleurs en haut de ce fichier.
+                    if hex == ''
+                      assign lignes = ep_colors | newline_to_br | split: '<br />'
+                      for ligne in lignes
+                        assign paire = ligne | strip | split: '|'
+                        if paire.size < 2
+                          continue
+                        endif
+                        assign nom = paire[0] | downcase | strip
+                        if nom == key
+                          assign hex = paire[1] | strip
+                        endif
+                      endfor
+                    endif
+
+                    if hex == ''
+                      assign hex = default_hex
+                    endif
+
+                    # 3. Photo du mannequin : à défaut de bloc, on cherche une image
+                    #    du produit dont le texte alternatif mentionne le coloris.
+                    if color_photo == ''
+                      for media in product.media
+                        assign alt = media.alt | downcase
+                        if alt contains key
+                          assign color_photo = media
+                          break
+                        endif
+                      endfor
+                    endif
+                  -%}
+                  <button
+                    type="button"
+                    class="ep-swatch{% if value == option.selected_value %} is-selected{% endif %}"
+                    data-ep-value="{{ value | escape }}"
+                    data-ep-index="{{ forloop.parentloop.index0 }}"
+                    data-ep-is-color
+                    {% if color_photo != blank %}
+                      data-ep-color-image="{{ color_photo | image_url: width: 1200 }}"
+                      data-ep-color-thumb="{{ color_photo | image_url: width: 160 }}"
+                    {% endif %}
+                    aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"
+                  >
+                    <span class="ep-swatch__dot"
+                      {% if color_photo != blank and section.settings.swatch_style == 'photo' %}
+                        style="background-image:url({{ color_photo | image_url: width: 120 }});background-size:cover;background-position:center;"
+                      {% else %}
+                        style="background:{{ hex }};"
+                      {% endif %}
+                    ></span>
+                    <span class="ep-swatch__name">{{ value }}</span>
+                  </button>
+                {%- endfor -%}
+              </div>
+            {%- else -%}
+              <div class="ep-pills">
+                {%- for value in option.values -%}
+                  <button
+                    type="button"
+                    class="ep-pill{% if value == option.selected_value %} is-selected{% endif %}"
+                    data-ep-value="{{ value | escape }}"
+                    data-ep-index="{{ forloop.parentloop.index0 }}"
+                    aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"
+                  >{{ value }}</button>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+
+        <button type="button" class="ep-size-link" data-ep-sizes>Guide des tailles</button>
+      </div>
+    {%- endunless -%}
+
+    {%- comment -%}
+      LOT — reprend la mécanique du site de référence.
+      Chaque palier ouvre autant de lignes couleur + taille qu'il y a de
+      pièces, et l'ajout au panier envoie N articles DISTINCTS.
+      data-ep-cut = remise en centimes, identique aux remises automatiques
+      de la boutique : un pourcentage ne tomberait pas sur ,99.
+    {%- endcomment -%}
+    <div class="ep-bundle" data-ep-bundle>
+
+      {%- if section.settings.urgence_text != blank -%}
+        <div class="ep-urgence">
+          <span class="ep-urgence__trait"></span>
+          <span class="ep-urgence__texte">{{ section.settings.urgence_text }}</span>
+          <span class="ep-urgence__trait"></span>
+        </div>
+      {%- endif -%}
+
+      <p class="ep-bundle__label">{{ section.settings.bundle_label }}</p>
+
+      <div class="ep-bundle__grid">
+        {%- for n in (1..3) -%}
+          {%- liquid
+            case n
+              when 1
+                assign cut = 0
+                assign etiquette = ''
+              when 2
+                assign cut = section.settings.bundle2_cut
+                assign etiquette = section.settings.bundle2_tag
+              when 3
+                assign cut = section.settings.bundle3_cut
+                assign etiquette = section.settings.bundle3_tag
+            endcase
+          -%}
+          <div class="ep-bundle__opt{% if n == 1 %} is-selected{% endif %}"
+               data-ep-qty="{{ n }}" data-ep-cut="{{ cut }}"
+               role="radio" tabindex="0"
+               aria-checked="{% if n == 1 %}true{% else %}false{% endif %}">
+
+            <div class="ep-bundle__tete">
+              <span class="ep-bundle__radio" aria-hidden="true"></span>
+              <span class="ep-bundle__qty">{{ n }} article{% if n > 1 %}s{% endif %}</span>
+              <span class="ep-bundle__off" data-ep-bundle-off hidden></span>
+              <span class="ep-bundle__prix">
+                <span class="ep-bundle__sum" data-ep-bundle-sum></span>
+                <s class="ep-bundle__barre" data-ep-bundle-barre></s>
+              </span>
+            </div>
+
+            {%- if etiquette != blank -%}
+              <span class="ep-bundle__tag">{{ etiquette }}</span>
+            {%- endif -%}
+
+            {%- if section.settings.compteur_minutes > 0 and n == 2 -%}
+              <span class="ep-bundle__chrono" data-ep-chrono hidden></span>
+            {%- endif -%}
+
+            {%- comment -%} Les lignes de choix, une par pièce du lot. {%- endcomment -%}
+            <div class="ep-bundle__pieces" data-ep-pieces hidden></div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    </div>
+
+
+    {%- form 'product', product, id: 'ep-product-form' -%}
+      <input type="hidden" name="id" data-ep-variant-id value="{{ v.id }}">
+      <input type="hidden" name="quantity" data-ep-quantity value="1">
+      <div class="ep-buy">
+        <button type="submit" class="ep-btn ep-btn--primary" data-ep-add {% unless v.available %}disabled{% endunless %}>
+          {%- if v.available -%}Ajouter au panier{%- else -%}Rupture de stock{%- endif -%}
+        </button>
+      </div>
+    {%- endform -%}
+
+    {%- comment -%}
+      Moyens de paiement. On n'écrit aucun logo en dur : Shopify ne rend que
+      ceux réellement activés dans Paramètres → Paiements. Si un moyen est
+      coupé, son logo disparaît tout seul — jamais de Klarna fantôme ni de
+      PayPal affiché sans PayPal actif.
+    {%- endcomment -%}
+    {%- if shop.enabled_payment_types.size > 0 -%}
+      <div class="ep-paiement">
+        <span class="ep-paiement__texte">
+          <svg class="ep-paiement__cadenas" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="5" y="10.5" width="14" height="10" rx="2"/>
+            <path d="M8.5 10.5V7.8a3.5 3.5 0 017 0v2.7"/>
+          </svg>
+          Paiement 100 % sécurisé
+        </span>
+        <span class="ep-paiement__logos">
+          {%- for type in shop.enabled_payment_types -%}
+            {{ type | payment_type_svg_tag: class: 'ep-paiement__icone' }}
+          {%- endfor -%}
+        </span>
+      </div>
+    {%- endif -%}
+
+    <div class="ep-assur">
+      <span class="ep-assur__item">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="14" height="12" rx="1"/><path d="M15 8h4l4 4v4h-8z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+        Livraison offerte
+      </span>
+      <span class="ep-assur__item">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10a9 9 0 1 1 2 5.6"/><path d="M3 5v5h5"/></svg>
+        Retours 30 jours
+      </span>
+      <span class="ep-assur__item">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        Paiement sécurisé
+      </span>
+    </div>
+
+    {%- comment -%}
+      L'avis mis en avant est rendu plus haut, sous le prix (.ep-hero-review).
+      L'ancien bloc .ep-quote faisait doublon : il a été retiré.
+    {%- endcomment -%}
+
+  </div>
+</div>
+
+<div class="ep-sticky" data-ep-sticky>
+  <img class="ep-sticky__img" src="{{ product.featured_media | image_url: width: 120 }}" alt="" width="44" height="44">
+  <div class="ep-sticky__info">
+    <div class="ep-sticky__title">{{ product.title }}</div>
+    <div class="ep-sticky__price" data-ep-sticky-price>{{ v.price | money }}</div>
+  </div>
+  <button type="button" class="ep-sticky__btn" data-ep-sticky-add>Ajouter</button>
+</div>
+
+<div class="ep-modal" data-ep-sizes-modal>
+  <div class="ep-modal__box">
+    <button type="button" class="ep-modal__close" data-ep-close aria-label="Fermer">×</button>
+    <h2>Guide des tailles</h2>
+    {%- render 'ep-size-finder' -%}
+  </div>
+</div>
+
+<div class="ep-modal ep-zoom" data-ep-zoom-modal>
+  <button type="button" class="ep-modal__close" data-ep-close aria-label="Fermer">×</button>
+  <img data-ep-zoom-img src="" alt="">
+</div>
+
+<script type="application/json" data-ep-variants>{{ product.variants | json }}</script>
+
+<script>
+(function () {
+  var root = document.querySelector('[data-ep-product]');
+  if (!root) return;
+
+  var section = root.closest('.shopify-section') || document;
+  var variants = JSON.parse(document.querySelector('[data-ep-variants]').textContent);
+  var moneyFormat = {{ shop.money_format | json }};
+
+  function money(cents) {
+    var amount = (cents / 100).toFixed(2).replace('.', ',');
+    return moneyFormat.replace(/\{\{\s*amount(_with_comma_separator)?\s*\}\}/, amount);
+  }
+
+  var q = function (sel) { return section.querySelector(sel); };
+  var qa = function (sel) { return Array.prototype.slice.call(section.querySelectorAll(sel)); };
+
+  var mainImg      = q('[data-ep-main]');
+  var thumbs       = qa('[data-ep-thumbs] img');
+  var priceEl      = q('[data-ep-price]');
+  var compareEl    = q('[data-ep-compare]');
+  var saveEl       = q('[data-ep-save]');
+  var variantInput = q('[data-ep-variant-id]');
+  var qtyInput     = q('[data-ep-quantity]');
+  var addBtn       = q('[data-ep-add]');
+  var buyBtn       = q('[data-ep-buynow]');
+  var stickyBar    = q('[data-ep-sticky]');
+  var stickyPrice  = q('[data-ep-sticky-price]');
+
+  /* ---- Galerie ---- */
+  var index = 0;
+  function show(i) {
+    if (!thumbs.length) return;
+    index = (i + thumbs.length) % thumbs.length;
+    mainImg.src = thumbs[index].getAttribute('data-full');
+    thumbs.forEach(function (t) { t.classList.remove('is-active'); });
+    thumbs[index].classList.add('is-active');
+  }
+  thumbs.forEach(function (t, i) { t.addEventListener('click', function () { show(i); }); });
+  var prev = q('[data-ep-prev]'); if (prev) prev.addEventListener('click', function () { show(index - 1); });
+  var next = q('[data-ep-next]'); if (next) next.addEventListener('click', function () { show(index + 1); });
+
+  /* ---- Modales ---- */
+  function bindModal(modal, openers) {
+    if (!modal) return;
+    openers.forEach(function (btn) {
+      btn.addEventListener('click', function () { modal.classList.add('is-open'); });
+    });
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal || e.target.hasAttribute('data-ep-close')) modal.classList.remove('is-open');
+    });
+  }
+  bindModal(q('[data-ep-sizes-modal]'), qa('[data-ep-sizes]'));
+
+  var zoomModal = q('[data-ep-zoom-modal]');
+  var zoomImg = q('[data-ep-zoom-img]');
+  bindModal(zoomModal, qa('[data-ep-zoom]'));
+  var zoomBtn = q('[data-ep-zoom]');
+  if (zoomBtn && zoomImg) zoomBtn.addEventListener('click', function () { zoomImg.src = mainImg.src; });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    qa('.ep-modal.is-open').forEach(function (m) { m.classList.remove('is-open'); });
+  });
+
+  /* ---- Variantes ---- */
+  /* Photo associée à la couleur actuellement sélectionnée, si l'éditeur en définit une. */
+  var colorImage = null;
+  var compareUnit = 0;   /* prix barré de la variante courante, en centimes */
+  var initialSwatch = q('[data-ep-is-color].is-selected');
+  if (initialSwatch) colorImage = initialSwatch.getAttribute('data-ep-color-image') || null;
+  if (colorImage) mainImg.src = colorImage;
+
+  var selected = [];
+  {%- for option in product.options_with_values %}
+  selected.push({{ option.selected_value | json }});
+  {%- endfor %}
+
+  function findVariant(opts) {
+    for (var i = 0; i < variants.length; i++) {
+      var ok = true;
+      for (var j = 0; j < opts.length; j++) {
+        if (variants[i]['option' + (j + 1)] !== opts[j]) { ok = false; break; }
+      }
+      if (ok) return variants[i];
+    }
+    return null;
+  }
+
+  /* Grise les valeurs qui ne mènent à aucune variante disponible */
+  function refreshAvailability() {
+    qa('[data-ep-value]').forEach(function (btn) {
+      var idx = parseInt(btn.getAttribute('data-ep-index'), 10);
+      var trial = selected.slice();
+      trial[idx] = btn.getAttribute('data-ep-value');
+      var match = findVariant(trial);
+      var usable = !!(match && match.available);
+      btn.classList.toggle('is-unavailable', !usable);
+    });
+  }
+
+  /* =====================================================================
+     LOTS
+     Le prix affiché doit être exactement celui facturé au panier. Les
+     remises de la boutique sont des MONTANTS FIXES, pas des pourcentages :
+     on applique donc ici la même soustraction, et le pourcentage montré
+     est déduit du montant, jamais l'inverse.
+     ===================================================================== */
+
+  var idxCouleur = -1, idxTaille = -1;
+  {%- for option in product.options_with_values %}
+  (function (nom, i) {
+    nom = nom.toLowerCase();
+    if (idxCouleur === -1 && (nom.indexOf('couleur') > -1 || nom.indexOf('coloris') > -1 || nom.indexOf('color') > -1)) idxCouleur = i;
+    else if (idxTaille === -1 && (nom.indexOf('taille') > -1 || nom.indexOf('size') > -1)) idxTaille = i;
+  })({{ option.name | json }}, {{ forloop.index0 }});
+  {%- endfor %}
+
+  /* Valeurs distinctes réellement disponibles, dans l'ordre du produit. */
+  function valeursDe(idx) {
+    var vues = [], liste = [];
+    variants.forEach(function (vr) {
+      var val = vr['option' + (idx + 1)];
+      if (val && vues.indexOf(val) === -1) { vues.push(val); liste.push(val); }
+    });
+    return liste;
+  }
+
+  var choixCouleurs = idxCouleur > -1 ? valeursDe(idxCouleur) : [];
+  var choixTailles  = idxTaille  > -1 ? valeursDe(idxTaille)  : [];
+
+  function optionsHtml(liste, choisi) {
+    return liste.map(function (val) {
+      return '<option value="' + val.replace(/"/g, '&quot;') + '"' +
+             (val === choisi ? ' selected' : '') + '>' + val + '</option>';
+    }).join('');
+  }
+
+  /* Construit les lignes « pièce n° X » du lot sélectionné. */
+  function rendrePieces(opt, qty) {
+    var zone = opt.querySelector('[data-ep-pieces]');
+    if (!zone) return;
+
+    if (qty < 2 || (!choixCouleurs.length && !choixTailles.length)) {
+      zone.hidden = true;
+      zone.innerHTML = '';
+      return;
+    }
+
+    /* On repart des choix déjà faits plus haut dans la fiche. */
+    var couleurDefaut = idxCouleur > -1 ? selected[idxCouleur] : null;
+    var tailleDefaut  = idxTaille  > -1 ? selected[idxTaille]  : null;
+
+    var html = '<p class="ep-pieces__titre">Choisissez chaque pièce</p>';
+    for (var n = 1; n <= qty; n++) {
+      html += '<div class="ep-piece" data-ep-piece="' + n + '">' +
+              '<span class="ep-piece__num">#' + n + '</span>';
+      if (idxCouleur > -1) {
+        html += '<label class="visually-hidden" for="ep-p' + n + 'c">Couleur pièce ' + n + '</label>' +
+                '<select id="ep-p' + n + 'c" class="ep-piece__select" data-ep-piece-couleur>' +
+                optionsHtml(choixCouleurs, couleurDefaut) + '</select>';
+      }
+      if (idxTaille > -1) {
+        html += '<label class="visually-hidden" for="ep-p' + n + 't">Taille pièce ' + n + '</label>' +
+                '<select id="ep-p' + n + 't" class="ep-piece__select ep-piece__select--court" data-ep-piece-taille>' +
+                optionsHtml(choixTailles, tailleDefaut) + '</select>';
+      }
+      html += '</div>';
+    }
+    zone.innerHTML = html;
+    zone.hidden = false;
+  }
+
+  function updateBundle(unit) {
+    qa('[data-ep-qty]').forEach(function (opt) {
+      var qty = parseInt(opt.getAttribute('data-ep-qty'), 10);
+      var cut = parseInt(opt.getAttribute('data-ep-cut'), 10) || 0;
+      var plein = unit * qty;
+      var total = Math.max(0, plein - cut);
+
+      var sum = opt.querySelector('[data-ep-bundle-sum]');
+      if (sum) sum.textContent = money(total);
+
+      /* Le barré du lot : le prix public multiplié par la quantité. */
+      var barre = opt.querySelector('[data-ep-bundle-barre]');
+      if (barre) {
+        var ref = (compareUnit && compareUnit > unit) ? compareUnit : 0;
+        if (ref) { barre.textContent = money(ref * qty); barre.hidden = false; }
+        else { barre.textContent = ''; barre.hidden = true; }
+      }
+
+      var off = opt.querySelector('[data-ep-bundle-off]');
+      if (off) {
+        var base = (compareUnit && compareUnit > unit) ? compareUnit * qty : plein;
+        var remise = base - total;
+        if (remise > 0 && base > 0) {
+          off.textContent = '−' + Math.round(remise * 100 / base) + ' %';
+          off.hidden = false;
+        } else { off.textContent = ''; off.hidden = true; }
+      }
+    });
+  }
+
+  /* ---- Compte à rebours ---- */
+  var chronoEl = q('[data-ep-chrono]');
+  var chronoMin = {{ section.settings.compteur_minutes | default: 0 }};
+  if (chronoEl && chronoMin > 0) {
+    var cle = 'ep-chrono-{{ product.id }}';
+    var fin = parseInt(sessionStorage.getItem(cle) || '0', 10);
+    if (!fin || fin < Date.now()) {
+      fin = Date.now() + chronoMin * 60000;
+      try { sessionStorage.setItem(cle, String(fin)); } catch (e) {}
+    }
+    chronoEl.hidden = false;
+    (function tic() {
+      var reste = Math.max(0, fin - Date.now());
+      var m = Math.floor(reste / 60000);
+      var sec = Math.floor(reste % 60000 / 1000);
+      chronoEl.textContent = 'Offre réservée ' + m + ' : ' + (sec < 10 ? '0' : '') + sec;
+      if (reste > 0) setTimeout(tic, 1000);
+    })();
+  }
+
+  /* ---- Sélection d'un lot ---- */
+  var bundleOpts = qa('[data-ep-qty]');
+  function choisirLot(opt) {
+    bundleOpts.forEach(function (o) {
+      var on = o === opt;
+      o.classList.toggle('is-selected', on);
+      o.setAttribute('aria-checked', on ? 'true' : 'false');
+      var z = o.querySelector('[data-ep-pieces]');
+      if (z && !on) { z.hidden = true; z.innerHTML = ''; }
+    });
+    var qty = parseInt(opt.getAttribute('data-ep-qty'), 10);
+    qtyInput.value = qty;
+    rendrePieces(opt, qty);
+  }
+
+  bundleOpts.forEach(function (opt) {
+    opt.addEventListener('click', function (e) {
+      /* Un clic dans un menu déroulant ne doit pas resélectionner le lot. */
+      if (e.target.closest('.ep-piece__select')) return;
+      choisirLot(opt);
+    });
+    opt.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choisirLot(opt); }
+    });
+  });
+  });
+
+  /* ---- Achat immédiat ---- */
+  /* Le bouton « Acheter maintenant » a été retiré pour ne laisser qu'un
+     seul appel à l'action. Le gestionnaire ne s'attache que s'il existe. */
+  if (buyBtn) {
+  buyBtn.addEventListener('click', function () {
+      buyBtn.disabled = true;
+      var label = buyBtn.textContent;
+      buyBtn.textContent = 'Un instant…';
+      fetch('{{ routes.cart_add_url }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: [{ id: variantInput.value, quantity: parseInt(qtyInput.value, 10) || 1 }] })
+      })
+        .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+        .then(function () { window.location.href = '/checkout'; })
+        .catch(function () {
+          buyBtn.disabled = false;
+          buyBtn.textContent = label;
+        });
+  }
+  });
+
+  /* ---- Barre mobile ---- */
+  /* =====================================================================
+     AJOUT AU PANIER
+     Pour un lot, chaque pièce est une ligne à part avec sa propre variante.
+     On intercepte donc l'envoi du formulaire et on poste toutes les lignes
+     en un seul appel, sinon Shopify n'enregistrerait qu'une seule variante.
+     ===================================================================== */
+  var formEl = document.getElementById('ep-product-form');
+  if (formEl) {
+    formEl.addEventListener('submit', function (e) {
+      var opt = q('[data-ep-qty].is-selected');
+      var qty = opt ? parseInt(opt.getAttribute('data-ep-qty'), 10) : 1;
+      var pieces = opt ? opt.querySelectorAll('[data-ep-piece]') : [];
+
+      /* Une seule pièce et aucun choix par pièce : le formulaire natif suffit. */
+      if (qty < 2 || !pieces.length) return;
+
+      e.preventDefault();
+
+      var lignes = [];
+      var manquant = null;
+      Array.prototype.forEach.call(pieces, function (piece) {
+        var essai = selected.slice();
+        var selC = piece.querySelector('[data-ep-piece-couleur]');
+        var selT = piece.querySelector('[data-ep-piece-taille]');
+        if (selC && idxCouleur > -1) essai[idxCouleur] = selC.value;
+        if (selT && idxTaille  > -1) essai[idxTaille]  = selT.value;
+
+        var vr = findVariant(essai);
+        if (!vr) { manquant = essai.join(' / '); return; }
+        lignes.push({ id: vr.id, quantity: 1 });
+      });
+
+      if (manquant) {
+        addBtn.textContent = 'Indisponible : ' + manquant;
+        setTimeout(function () { addBtn.textContent = 'Ajouter au panier'; }, 2600);
+        return;
+      }
+
+      var libelle = addBtn.textContent;
+      addBtn.disabled = true;
+      addBtn.textContent = 'Un instant…';
+
+      fetch('{{ routes.cart_add_url }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: lignes })
+      })
+        .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+        .then(function () { window.location.href = '{{ routes.cart_url }}'; })
+        .catch(function () {
+          addBtn.disabled = false;
+          addBtn.textContent = libelle;
+        });
+    });
+  }
+
+  var stickyAdd = q('[data-ep-sticky-add]');
+  if (stickyAdd) stickyAdd.addEventListener('click', function () { addBtn.click(); });
+
+  var stage = q('.ep-gallery__stage');
+  if (stickyBar && stage && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { stickyBar.classList.toggle('is-visible', !e.isIntersecting); });
+    }, { threshold: 0 }).observe(stage);
+  }
+
+  /* ---- Init ---- */
+  var initial = findVariant(selected);
+  if (initial) updateBundle(initial.price);
+  refreshAvailability();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Fiche produit Elarie",
+  "settings": [
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "bg_color", "label": "Fond", "default": "#F8F5EC" },
+    { "type": "color", "id": "text_color", "label": "Texte", "default": "#50382A" },
+    { "type": "header", "content": "En-tête" },
+    { "type": "text", "id": "badge1_text", "label": "Badge 1", "default": "Best-seller" },
+    { "type": "text", "id": "badge2_text", "label": "Badge 2", "default": "Anti-cellulite" },
+    { "type": "text", "id": "tagline_text", "label": "Accroche", "default": "Technologie drainage 3D — Maison Elarie Paris" },
+    { "type": "text", "id": "rating_text", "label": "Ligne d'avis", "default": "4,8 · 2 341 avis vérifiés" },
+    { "type": "text", "id": "bundle_label", "label": "Titre du bloc lots", "default": "Choisissez votre lot" },
+    {
+      "type": "paragraph",
+      "content": "Remises des lots, en CENTIMES. Elles doivent correspondre exactement aux remises automatiques de la boutique (Réductions), sinon le prix affiché ici ne sera pas celui facturé au panier. 999 = 9,99 €."
+    },
+    { "type": "number", "id": "bundle2_cut", "label": "Remise lot de 2 (centimes)", "default": 999 },
+    { "type": "number", "id": "bundle3_cut", "label": "Remise lot de 3 (centimes)", "default": 1998 },
+    { "type": "text", "id": "bundle2_tag", "label": "Étiquette du lot de 2", "default": "Le plus choisi" },
+    { "type": "text", "id": "bundle3_tag", "label": "Étiquette du lot de 3", "default": "Meilleure valeur" },
+    { "type": "text", "id": "urgence_text", "label": "Bandeau d'urgence", "default": "L'offre de la rentrée se termine ce soir" },
+    { "type": "range", "id": "compteur_minutes", "label": "Compte à rebours", "min": 0, "max": 120, "step": 5, "unit": "min", "default": 30, "info": "0 pour ne pas l'afficher. Le minuteur repart à chaque nouvelle visite." },
+    { "type": "header", "content": "Bénéfices" },
+    { "type": "image_picker", "id": "benefit1_icon", "label": "Icône 1" },
+    { "type": "text", "id": "benefit1_text", "label": "Bénéfice 1", "default": "Atténue visiblement la cellulite" },
+    { "type": "image_picker", "id": "benefit2_icon", "label": "Icône 2" },
+    { "type": "text", "id": "benefit2_text", "label": "Bénéfice 2", "default": "Galbe et sculpte sans comprimer" },
+    { "type": "image_picker", "id": "benefit3_icon", "label": "Icône 3" },
+    { "type": "text", "id": "benefit3_text", "label": "Bénéfice 3", "default": "Opacité garantie, même accroupie" },
+    { "type": "image_picker", "id": "benefit4_icon", "label": "Icône 4" },
+    { "type": "text", "id": "benefit4_text", "label": "Bénéfice 4", "default": "Taille haute qui ne roule jamais" },
+    { "type": "header", "content": "Avis mis en avant" },
+    { "type": "image_picker", "id": "review_avatar", "label": "Photo cliente" },
+    { "type": "text", "id": "review_name", "label": "Prénom", "default": "Camille D." },
+    { "type": "textarea", "id": "review_text", "label": "Extrait d'avis", "default": "Après trois semaines, ma peau est visiblement plus lisse et plus ferme." },
+    { "type": "header", "content": "Pastilles de couleur" },
+    {
+      "type": "select",
+      "id": "swatch_style",
+      "label": "Apparence des pastilles",
+      "options": [
+        { "value": "uni", "label": "Aplat de couleur" },
+        { "value": "photo", "label": "Photo du produit" }
+      ],
+      "default": "uni",
+      "info": "« Photo du produit » n'affiche la photo que sur les couleurs auxquelles vous en avez associé une."
+    },
+    {
+      "type": "paragraph",
+      "content": "Ajoutez un bloc Couleur par coloris. Le nom doit être écrit exactement comme la valeur de l'option du produit (Noir, Abricot…). Sans bloc, la couleur est devinée d'après son nom."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "couleur",
+      "name": "Couleur",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nom du coloris", "info": "Doit correspondre à l'option du produit, ex : Noir" },
+        { "type": "color", "id": "swatch", "label": "Couleur de la pastille", "default": "#141414" },
+        { "type": "image_picker", "id": "image", "label": "Photo affichée au clic" }
+      ]
+    }
+  ]
+}
+{% endschema %}

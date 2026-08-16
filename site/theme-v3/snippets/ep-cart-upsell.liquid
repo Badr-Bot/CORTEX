@@ -1,0 +1,151 @@
+{%- comment -%}
+  Upsell affiché dans le tiroir panier : réassurance livraison + produits complémentaires.
+  N'affiche un produit que s'il est ACTIF et disponible à l'achat (les produits en brouillon
+  ne sont pas vendables tant que la cliente ne les active pas dans l'admin Shopify).
+{%- endcomment -%}
+
+<div class="ep-cart-upsell">
+  <div class="ep-cart-upsell__shipping">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+    </svg>
+    <span>Livraison gratuite incluse sur cette commande</span>
+  </div>
+
+  {%- assign ep_upsell_1 = all_products['elarie-paris-chaussettes-compression-3d'] -%}
+  {%- assign ep_upsell_2 = all_products['elarie-paris-manchons-compression-3d-genoux'] -%}
+  {%- assign ep_has_upsell = false -%}
+  {%- if ep_upsell_1.available or ep_upsell_2.available -%}
+    {%- assign ep_has_upsell = true -%}
+  {%- endif -%}
+
+  {%- if ep_has_upsell -%}
+    <p class="ep-cart-upsell__title">Complétez votre commande</p>
+    <div class="ep-cart-upsell__grid">
+      {%- if ep_upsell_1 and ep_upsell_1.available -%}
+        <div class="ep-cart-upsell__card">
+          <img
+            class="ep-cart-upsell__img"
+            src="{{ ep_upsell_1.featured_image | image_url: width: 120 }}"
+            alt="{{ ep_upsell_1.title | escape }}"
+            loading="lazy"
+            width="52"
+            height="52"
+          >
+          <div class="ep-cart-upsell__info">
+            <span class="ep-cart-upsell__name">{{ ep_upsell_1.title }}</span>
+            <span class="ep-cart-upsell__price">{{ ep_upsell_1.price | money }}</span>
+          </div>
+          <button
+            type="button"
+            class="ep-cart-upsell__add"
+            data-ep-upsell-add
+            data-variant-id="{{ ep_upsell_1.selected_or_first_available_variant.id }}"
+            aria-label="Ajouter {{ ep_upsell_1.title | escape }} au panier"
+          >+</button>
+        </div>
+      {%- endif -%}
+      {%- if ep_upsell_2 and ep_upsell_2.available -%}
+        <div class="ep-cart-upsell__card">
+          <img
+            class="ep-cart-upsell__img"
+            src="{{ ep_upsell_2.featured_image | image_url: width: 120 }}"
+            alt="{{ ep_upsell_2.title | escape }}"
+            loading="lazy"
+            width="52"
+            height="52"
+          >
+          <div class="ep-cart-upsell__info">
+            <span class="ep-cart-upsell__name">{{ ep_upsell_2.title }}</span>
+            <span class="ep-cart-upsell__price">{{ ep_upsell_2.price | money }}</span>
+          </div>
+          <button
+            type="button"
+            class="ep-cart-upsell__add"
+            data-ep-upsell-add
+            data-variant-id="{{ ep_upsell_2.selected_or_first_available_variant.id }}"
+            aria-label="Ajouter {{ ep_upsell_2.title | escape }} au panier"
+          >+</button>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+
+<style>
+  .ep-cart-upsell {
+    padding: 14px 20px;
+    border-top: 1px solid #E4DACA;
+    border-bottom: 1px solid #E4DACA;
+  }
+  .ep-cart-upsell__shipping {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    color: #50382A;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .ep-cart-upsell__shipping svg { width: 18px; height: 18px; flex-shrink: 0; color: #B08D57; }
+  .ep-cart-upsell__title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #7A6553;
+    margin: 0 0 8px;
+  }
+  .ep-cart-upsell__grid { display: flex; flex-direction: column; gap: 8px; }
+  .ep-cart-upsell__card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border: 1px solid #E4DACA;
+    border-radius: 6px;
+  }
+  .ep-cart-upsell__img { width: 44px; height: 44px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+  .ep-cart-upsell__info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .ep-cart-upsell__name { font-size: 12.5px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ep-cart-upsell__price { font-size: 12px; color: #7A6553; }
+  .ep-cart-upsell__add {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #50382A;
+    background: #fff;
+    color: #50382A;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color .15s ease, color .15s ease;
+  }
+  .ep-cart-upsell__add:hover { background: #50382A; color: #F8F5EC; }
+  .ep-cart-upsell__add:disabled { opacity: 0.5; cursor: not-allowed; }
+</style>
+
+<script>
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-ep-upsell-add]');
+    if (!btn) return;
+    var variantId = btn.getAttribute('data-variant-id');
+    if (!variantId) return;
+    btn.disabled = true;
+    fetch('{{ routes.cart_add_url }}', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function () {
+        document.dispatchEvent(new CustomEvent('cart:refresh'));
+        if (window.location.pathname.indexOf('/cart') === -1) {
+          window.location.reload();
+        }
+      })
+      .catch(function () {
+        btn.disabled = false;
+      });
+  });
+</script>

@@ -1,0 +1,206 @@
+{%- comment -%}
+  Pop-up de bienvenue -10% : capture email via le formulaire client natif Shopify
+  (tag "newsletter"), apparition différée, mémorisée 7 jours via cookie.
+{%- endcomment -%}
+
+<div id="ep-welcome-popup" class="ep-welcome-popup" hidden aria-hidden="true">
+  <div class="ep-welcome-popup__overlay" data-ep-popup-close></div>
+  <div class="ep-welcome-popup__modal" role="dialog" aria-modal="true" aria-labelledby="ep-welcome-popup-title">
+    <button type="button" class="ep-welcome-popup__close" data-ep-popup-close aria-label="Fermer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <p class="ep-welcome-popup__eyebrow">Bienvenue chez Elarie Paris</p>
+    <h2 id="ep-welcome-popup-title" class="ep-welcome-popup__title">-10% sur votre première commande</h2>
+    <p class="ep-welcome-popup__text">Inscrivez-vous à notre newsletter et recevez votre code de bienvenue par email.</p>
+
+    <div class="ep-welcome-popup__form-wrap" data-ep-popup-form-wrap>
+      {%- form 'customer', id: 'ep-welcome-popup-form', class: 'ep-welcome-popup__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,popup-bienvenue">
+        <label class="visually-hidden" for="ep-welcome-popup-email">Adresse email</label>
+        <input
+          type="email"
+          name="contact[email]"
+          id="ep-welcome-popup-email"
+          class="ep-welcome-popup__input"
+          placeholder="Votre adresse email"
+          required
+        >
+        <button type="submit" class="ep-welcome-popup__submit">Je m'inscris</button>
+
+        {%- if form.posted_successfully? -%}
+          <script>document.getElementById('ep-welcome-popup') && document.getElementById('ep-welcome-popup').setAttribute('data-ep-popup-success', 'true');</script>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <div class="ep-welcome-popup__success" data-ep-popup-success-message hidden>
+      <p>Merci ! Utilisez le code</p>
+      <p class="ep-welcome-popup__code">BIENVENUE10</p>
+      <p>à l'étape du paiement pour profiter de votre -10%.</p>
+    </div>
+
+    <p class="ep-welcome-popup__fineprint">Offre valable une fois par cliente, non cumulable avec une autre promotion.</p>
+  </div>
+</div>
+
+<style>
+  .ep-welcome-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ep-welcome-popup[hidden] { display: none; }
+  .ep-welcome-popup__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 17, 17, 0.55);
+  }
+  .ep-welcome-popup__modal {
+    position: relative;
+    background: #F8F5EC;
+    color: #50382A;
+    max-width: 420px;
+    width: 90%;
+    padding: 40px 32px 28px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .ep-welcome-popup__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #50382A;
+    padding: 4px;
+  }
+  .ep-welcome-popup__close svg { width: 18px; height: 18px; }
+  .ep-welcome-popup__eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #B08D57;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .ep-welcome-popup__title {
+    font-family: var(--font-heading-family, inherit);
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+  }
+  .ep-welcome-popup__text {
+    font-size: 14px;
+    color: #4a4540;
+    margin: 0 0 20px;
+    line-height: 1.5;
+  }
+  .ep-welcome-popup__form { display: flex; flex-direction: column; gap: 10px; }
+  .ep-welcome-popup__input {
+    padding: 13px 16px;
+    border: 1px solid #DED2BF;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fff;
+    color: #50382A;
+  }
+  .ep-welcome-popup__submit {
+    padding: 13px 16px;
+    border: 1px solid #50382A;
+    border-radius: 4px;
+    background: #50382A;
+    color: #F8F5EC;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color .2s ease, border-color .2s ease;
+  }
+  .ep-welcome-popup__submit:hover { background: #63472F; border-color: #B08D57; }
+  .ep-welcome-popup__success { display: none; }
+  .ep-welcome-popup__success p { margin: 0 0 4px; font-size: 14px; }
+  .ep-welcome-popup__code {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #50382A;
+    background: #EFE8DA;
+    border: 1px dashed #B08D57;
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: inline-block;
+    margin: 8px 0 !important;
+  }
+  .ep-welcome-popup__fineprint {
+    font-size: 11px;
+    color: #A08A73;
+    margin: 18px 0 0;
+  }
+  .ep-welcome-popup[data-ep-popup-success="true"] [data-ep-popup-form-wrap] { display: none; }
+  .ep-welcome-popup[data-ep-popup-success="true"] [data-ep-popup-success-message] { display: block; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ep-welcome-popup__modal { animation: ep-popup-in 0.3s ease; }
+  }
+  @keyframes ep-popup-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+</style>
+
+<script>
+(function () {
+  var COOKIE_NAME = 'ep_welcome_popup_dismissed';
+  var DELAY_MS = 6000;
+
+  function getCookie(name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  }
+  function setCookie(name, value, days) {
+    var expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + value + '; expires=' + expires + '; path=/';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var popup = document.getElementById('ep-welcome-popup');
+    if (!popup) return;
+
+    if (popup.getAttribute('data-ep-popup-success') === 'true') {
+      var successMsg = popup.querySelector('[data-ep-popup-success-message]');
+      if (successMsg) successMsg.hidden = false;
+      popup.hidden = false;
+      popup.setAttribute('aria-hidden', 'false');
+      return;
+    }
+
+    if (getCookie(COOKIE_NAME)) return;
+    if (window.Shopify && Shopify.designMode) return;
+
+    setTimeout(function () {
+      popup.hidden = false;
+      popup.setAttribute('aria-hidden', 'false');
+    }, DELAY_MS);
+
+    popup.querySelectorAll('[data-ep-popup-close]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        popup.hidden = true;
+        popup.setAttribute('aria-hidden', 'true');
+        setCookie(COOKIE_NAME, '1', 7);
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !popup.hidden) {
+        popup.hidden = true;
+        setCookie(COOKIE_NAME, '1', 7);
+      }
+    });
+  });
+})();
+</script>

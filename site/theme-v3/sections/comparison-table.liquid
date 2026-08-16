@@ -1,0 +1,302 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .comparison-table-section {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__heading {
+    text-align: center;
+    max-width: 60rem;
+    margin: 0 auto 4rem;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__title {
+    font-size: 3.2rem;
+    margin: 0 0 1.5rem;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__subtitle {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: {{ section.settings.text_color }};
+    opacity: 0.75;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} .comparison-table__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__media {
+    border-radius: 1.2rem;
+    overflow: hidden;
+    background: #fff;
+    padding: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.8rem;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__table-wrapper {
+    background: #fff;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  #shopify-section-{{ section.id }} table.comparison-table__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__table th {
+    text-align: left;
+    padding: 1.6rem 2rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #8b6d56;
+    background: #F8F5EC;
+    border-bottom: 1px solid #eee;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__table th:not(:first-child),
+  #shopify-section-{{ section.id }} .comparison-table__table td:not(:first-child) {
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__table td {
+    padding: 1.6rem 2rem;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1.4rem;
+    color: #50382A;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__table tr:last-child td {
+    border-bottom: none;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__check,
+  #shopify-section-{{ section.id }} .comparison-table__cross {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    font-size: 1.4rem;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__check {
+    background: #2e7d32;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .comparison-table__cross {
+    background: #f0f0f0;
+    color: #999;
+  }
+{%- endstyle -%}
+
+<div class="comparison-table-section">
+  <div class="comparison-table__heading">
+    {%- if section.settings.title != blank -%}
+      <h2 class="comparison-table__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <div class="comparison-table__subtitle">{{ section.settings.subtitle }}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="comparison-table__grid">
+    <div class="comparison-table__media">
+      {%- if section.settings.media != blank -%}
+        <img
+          src="{{ section.settings.media | image_url: width: 1200 }}"
+          alt="{{ section.settings.media.alt | default: section.settings.title | escape }}"
+          width="{{ section.settings.media.width }}"
+          height="{{ section.settings.media.height }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'comparison-table__placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="comparison-table__table-wrapper">
+      <table class="comparison-table__table">
+        <thead>
+          <tr>
+            <th>{{ section.settings.col_feature_label }}</th>
+            <th>{{ section.settings.col_brand_label }}</th>
+            <th>{{ section.settings.col_typical_label }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <td>{{ block.settings.feature }}</td>
+              <td>
+                {%- if block.settings.brand_check -%}
+                  <span class="comparison-table__check">✓</span>
+                {%- else -%}
+                  <span class="comparison-table__cross">✕</span>
+                {%- endif -%}
+              </td>
+              <td>
+                {%- if block.settings.typical_check -%}
+                  <span class="comparison-table__check">✓</span>
+                {%- else -%}
+                  <span class="comparison-table__cross">✕</span>
+                {%- endif -%}
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "La différence Elarie"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "<p>Contrairement aux leggings classiques, nos matières premium offrent un maintien sculptant et un confort au quotidien.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "media",
+      "label": "Visuel (image ou GIF)",
+      "info": "Les fichiers GIF animés sont acceptés et conservent leur animation."
+    },
+    {
+      "type": "header",
+      "content": "Colonnes du tableau"
+    },
+    {
+      "type": "text",
+      "id": "col_feature_label",
+      "label": "Libellé colonne 1",
+      "default": "Caractéristique"
+    },
+    {
+      "type": "text",
+      "id": "col_brand_label",
+      "label": "Libellé colonne 2 (marque)",
+      "default": "Elarie"
+    },
+    {
+      "type": "text",
+      "id": "col_typical_label",
+      "label": "Libellé colonne 3 (concurrence)",
+      "default": "Classique"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#F8F5EC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte (titre/sous-titre)",
+      "default": "#50382A"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge haute",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge basse",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Ligne de tableau",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Caractéristique",
+          "default": "Maintien sculptant"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand_check",
+          "label": "Coché pour Elarie",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "typical_check",
+          "label": "Coché pour Classique",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table",
+      "blocks": [
+        { "type": "row", "settings": { "feature": "Maintien sculptant", "brand_check": true, "typical_check": false } },
+        { "type": "row", "settings": { "feature": "Tissu sans coutures apparentes", "brand_check": true, "typical_check": false } },
+        { "type": "row", "settings": { "feature": "Ceinture qui ne roule pas", "brand_check": true, "typical_check": false } },
+        { "type": "row", "settings": { "feature": "Opacité garantie même en squat", "brand_check": true, "typical_check": false } },
+        { "type": "row", "settings": { "feature": "Respirant, évacuation de l'humidité", "brand_check": true, "typical_check": false } },
+        { "type": "row", "settings": { "feature": "Toucher seconde peau", "brand_check": true, "typical_check": false } }
+      ]
+    }
+  ]
+}
+{% endschema %}
