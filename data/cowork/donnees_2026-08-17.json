@@ -1,11 +1,11 @@
 {
   "date": "2026-08-17",
   "crypto_dashboard": {
-    "btc_price": 0,
-    "btc_change_24h": 0,
-    "btc_price_source": "N/A",
-    "fear_greed_score": null,
-    "fear_greed_label": "N/A",
+    "btc_price": 62912,
+    "btc_change_24h": 0.08,
+    "btc_price_source": "CoinDesk (recherche manuelle, 16/08 19h11 EDT — collecte automatique en panne)",
+    "fear_greed_score": 36,
+    "fear_greed_label": "Fear",
     "fear_greed_trend": "N/A",
     "fear_greed_avg_7d": null,
     "liq_longs_24h_usd": 0,
@@ -27,78 +27,101 @@
   },
   "market_dashboard": {
     "sp500": {
-      "price": "N/A",
-      "change_pct": 0.0,
-      "raw_price": 0
+      "price": "7 785,76",
+      "change_pct": -0.17,
+      "raw_price": 7785.76
     },
     "nasdaq": {
-      "price": "N/A",
-      "change_pct": 0.0,
-      "raw_price": 0
+      "price": "26 729,16",
+      "change_pct": -0.28,
+      "raw_price": 26729.16
     },
     "gold": {
-      "price": "N/A",
-      "change_pct": 0.0,
-      "raw_price": 0
+      "price": "4 375,50",
+      "change_pct": 0.60,
+      "raw_price": 4375.50
     },
     "oil": {
-      "price": "N/A",
+      "price": "83,00",
       "change_pct": 0.0,
-      "raw_price": 0
+      "raw_price": 83.00
     },
     "dxy": {
-      "price": "N/A",
-      "change_pct": 0.0,
-      "raw_price": 0
+      "price": "99,64",
+      "change_pct": -0.33,
+      "raw_price": 99.636
     },
     "vix": {
-      "price": "N/A",
-      "change_pct": 0.0,
-      "raw_price": 0,
-      "interpretation": "Complaisance extrême"
+      "price": "14,25",
+      "change_pct": -2.60,
+      "raw_price": 14.25,
+      "interpretation": "Calme — faible perception de risque"
     },
     "us_10y": {
-      "price": "N/A",
+      "price": "4,70",
       "change_pct": 0.0,
-      "raw_price": 0,
-      "change_bps": "+0bps"
+      "raw_price": 4.70,
+      "change_bps": "N/A"
     },
     "earnings_week": [],
     "insider_buys": [],
     "sectors": {},
     "fred": {},
     "fed_watch": {
-      "fed_hold_prob": null,
+      "fed_hold_prob": 0.62,
       "fed_cut_prob": null
     }
   },
   "market_hot_stocks": [],
   "market_crash": {
-    "crash_score": 0.0,
+    "crash_score": 1.0,
     "color": "🟢",
     "interpretation": "Risque systémique faible",
     "factors": [
       {
         "indicator": "VIX",
-        "value": "0.0",
+        "value": "14.25",
         "points": 0.0,
-        "label": "VIX 0 — calme"
+        "label": "VIX 14,25 — calme, bien sous la moyenne historique"
+      },
+      {
+        "indicator": "Courbe des taux",
+        "value": "+0.51%",
+        "points": 0.0,
+        "label": "Spread 10Y-2Y positif — pas d'inversion"
+      },
+      {
+        "indicator": "Spread crédit high yield",
+        "value": "271bps",
+        "points": 0.0,
+        "label": "Spread historiquement serré — faible stress crédit"
+      },
+      {
+        "indicator": "Emploi",
+        "value": "-23k",
+        "points": 1.0,
+        "label": "Pertes d'emploi inattendues en juillet — signal à surveiller"
       }
     ],
-    "yield_curve": null,
-    "hy_spread": null,
-    "vix": 0,
-    "updated_at": "2026-08-17T02:07:21.561375+00:00"
+    "yield_curve": 0.51,
+    "hy_spread": 271,
+    "vix": 14.25,
+    "updated_at": "2026-08-17T02:32:32+00:00"
   },
   "ecommerce_dashboard": {
     "stocks": []
   },
-  "ecommerce_themes": {},
+  "ecommerce_themes": {
+    "automation": 2,
+    "creatives": 2,
+    "operations": 1,
+    "marketplace": 1
+  },
   "compte_news": {
-    "ai": 0,
-    "crypto": 0,
-    "market": 0,
-    "deeptech": 0,
-    "ecommerce": 0
+    "ai": 7,
+    "crypto": 4,
+    "market": 4,
+    "deeptech": 5,
+    "ecommerce": 13
   }
 }
