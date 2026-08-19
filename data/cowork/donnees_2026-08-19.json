@@ -1,0 +1,104 @@
+{
+  "date": "2026-08-19",
+  "crypto_dashboard": {
+    "btc_price": 0,
+    "btc_change_24h": 0,
+    "btc_price_source": "N/A",
+    "fear_greed_score": null,
+    "fear_greed_label": "N/A",
+    "fear_greed_trend": "N/A",
+    "fear_greed_avg_7d": null,
+    "liq_longs_24h_usd": 0,
+    "liq_shorts_24h_usd": 0,
+    "liq_dominance": "N/A",
+    "funding_description": "N/A",
+    "exchange_flows": {
+      "binance_vol_24h_usd": 0,
+      "top5_exchanges_vol_btc": 0.0,
+      "trend": "faible_volume",
+      "pression": "neutre"
+    },
+    "cycle": {
+      "phase": "Transition",
+      "emoji": "🟡",
+      "conseil": "Phase indécise — attendre confirmation de direction",
+      "cycle_score": 0
+    }
+  },
+  "market_dashboard": {
+    "sp500": {
+      "price": "N/A",
+      "change_pct": 0.0,
+      "raw_price": 0
+    },
+    "nasdaq": {
+      "price": "N/A",
+      "change_pct": 0.0,
+      "raw_price": 0
+    },
+    "gold": {
+      "price": "N/A",
+      "change_pct": 0.0,
+      "raw_price": 0
+    },
+    "oil": {
+      "price": "N/A",
+      "change_pct": 0.0,
+      "raw_price": 0
+    },
+    "dxy": {
+      "price": "N/A",
+      "change_pct": 0.0,
+      "raw_price": 0
+    },
+    "vix": {
+      "price": "N/A",
+      "change_pct": 0.0,
+      "raw_price": 0,
+      "interpretation": "Complaisance extrême"
+    },
+    "us_10y": {
+      "price": "N/A",
+      "change_pct": 0.0,
+      "raw_price": 0,
+      "change_bps": "+0bps"
+    },
+    "earnings_week": [],
+    "insider_buys": [],
+    "sectors": {},
+    "fred": {},
+    "fed_watch": {
+      "fed_hold_prob": null,
+      "fed_cut_prob": null
+    }
+  },
+  "market_hot_stocks": [],
+  "market_crash": {
+    "crash_score": 0.0,
+    "color": "🟢",
+    "interpretation": "Risque systémique faible",
+    "factors": [
+      {
+        "indicator": "VIX",
+        "value": "0.0",
+        "points": 0.0,
+        "label": "VIX 0 — calme"
+      }
+    ],
+    "yield_curve": null,
+    "hy_spread": null,
+    "vix": 0,
+    "updated_at": "2026-08-19T02:05:28.924164+00:00"
+  },
+  "ecommerce_dashboard": {
+    "stocks": []
+  },
+  "ecommerce_themes": {},
+  "compte_news": {
+    "ai": 0,
+    "crypto": 0,
+    "market": 0,
+    "deeptech": 0,
+    "ecommerce": 0
+  }
+}
