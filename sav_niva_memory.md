@@ -603,3 +603,46 @@ C'est l'audience la plus sûre du compte. Total combiné : **1 434**.
 badr.saraj@gmail.com — tous les trois SUBSCRIBED,
 can_receive_email_marketing=true, aucune suppression. À inclure dans
 l'audience de chaque campagne pour que Badr reçoive le mail comme un client.
+
+### ⚠️ Découverte importante — comment les campagnes NIVA sont réellement envoyées
+
+Analyse des 4 dernières campagnes **envoyées** (05/08, 09/08, 12/08, 16/08) :
+
+- **Audience incluse : `Unupju` (Engaged 30D) uniquement.**
+- **Audiences exclues : `QVfVnm`, `R9zpNf` (bounces/désabo/spams) et
+  `UAvFHw` (Exclusion Gmail et Orange, 4 308 personnes).**
+- Expéditeur : `Niva <contact@mynivashop.com>`
+- Envoi : `static`, `is_local: true` (fuseau du destinataire), à **09h30 ou
+  09h45** systématiquement. `use_smart_sending: false`.
+
+Autrement dit : le consultant délivrabilité (||JT||) **exclut volontairement
+toutes les adresses Gmail et Orange** depuis le début. Le domaine
+`envoi.mynivashop.com` n'a qu'un mois (créé le 20/07/2026) — c'est une
+stratégie de warm-up classique, Gmail et Orange étant les plus stricts.
+
+Conséquence : envoyer aux 5 500 signifie inclure Gmail + Orange pour la
+première fois, en volume, sur un domaine jeune. C'est un changement de
+stratégie majeur, pas un simple élargissement.
+
+L'horaire 09h30–09h45 est confirmé comme le créneau retenu par le consultant.
+
+### Campagne créée (BROUILLON — rien n'est envoyé)
+
+`01M0TX2RJFQTSSQ5YCR4RB2VMZ` — « Rentrée 2026 — Blanc Ivoire — RENTREE20
+(base complète) », statut **Draft**, `scheduled_at: null`.
+- Inclus : liste `Wgu7Z3` (base e-mail) + `ViZeWG` (équipe NIVA)
+- Exclu : `R9zpNf`
+- Envoi : **throttled 10 %/heure**, départ 25/08 09h30 Paris (07h30 UTC)
+  → étalé sur ~10 h au lieu d'un pic unique. Protège un domaine jeune.
+- Objet : « 1 acheté = 1 offert, et −20% en plus — jusqu'à mercredi »
+- Preview : « Le Blanc Ivoire vient d'arriver. Après mercredi 23h59, tout
+  repasse au prix normal. »
+- Expéditeur : Niva <contact@mynivashop.com>, reply-to identique
+- Tracking : ouvertures + clics + UTM (`utm_source=klaviyo`,
+  `utm_medium=email`, `utm_campaign=rentree20-blanc-ivoire`,
+  `utm_content=campaign_name_id`)
+- Message `01M0TX2RJTMG63S55A578NBGZ5`, template cloné `YhbXmW` (clone
+  automatique de `YcCXtc` par Klaviyo à l'assignation — normal).
+
+**Pour envoyer il faut appeler `send_campaign` — non fait, en attente de la
+validation explicite de Badr.**
