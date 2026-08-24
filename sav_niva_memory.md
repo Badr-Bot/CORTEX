@@ -424,3 +424,39 @@ Restent valables : Options 1/2 uniquement après réception du colis par le
 client ; colis marqué « livré » = problème client/transporteur local, pas
 NIVA ; rétractations = retour du colis avec un mot indiquant le numéro de
 commande, remboursement à réception.
+
+### Vidage du dossier Brouillons — 24/08/2026, 21h15
+
+15 brouillons trouvés → **0 restant**. 13 envoyés, 2 supprimés (doublons).
+
+Envoyés : Vialette #5932 (pas de double prélèvement + suivi) · Cardi #3601
+(retour reçu ? vérification entrepôt) · Guglielmi #3881 (option 1, XXL
+offert) · Pardo #1156 ES (opción 1, 4XL azul marino) · Bastille #5368
+(garde les polos) · Verhellen #3489/#4983 (2e remboursement relancé) ·
+Bezanger (demande n° de commande) · Pabois (mode de dépôt = transporteur) ·
+Charreau #5919 (rétractation : adresse retour + mot avec n° de commande) ·
+Keane #4377 (retour impossible depuis son pays, on attend) · Bernard #2349
+(adresse de retour unique + enquête colis du 7 août) · Jourdan #5204
+(l'article offert = e-book envoyé par mail séparé) · Sallenave #4203
+(2 options proposées, pas d'étiquette retour).
+
+Supprimés : doublon Vialette (même réponse sur 2 fils) et doublon Bernard
+(version « Fwd: » identique).
+
+**Correctif appliqué** : le brouillon Vialette contenait un lien de suivi
+enrobé par Gmail (`google.com/url?q=`) qui aurait affiché un « Redirect
+Notice » au client. Remplacé par l'URL directe
+`https://mynivashop.com/apps/parcelpanel?nums=YT2622400706542194`.
+**À vérifier systématiquement avant tout envoi.**
+
+### Actions que Badr doit exécuter lui-même dans Shopify
+- Fuzfa #2126 — remboursement 89,99 € (menace DGCCRF).
+- Verhellen #3489 / #4983 — 2e remboursement de 59,98 € (un seul des deux
+  a été effectué, les 2 colis sont revenus dans le même envoi).
+- Arnoult #6410 et Charreau #5919 — remboursement à réception du retour.
+- Bernard #2349 — retrouver le colis expédié le 7 août à l'ancienne adresse
+  (Résidence Bel Ébat, La Celle-Saint-Cloud). Réponse envoyée promettant un
+  retour d'information : il faut trancher.
+- Keane #4377 (Irlande ?) — dit ne plus pouvoir expédier de colis vers la
+  France depuis le 07/07/2026, seulement des lettres. Question ouverte :
+  rembourse-t-on sans retour, ou attend-on ?
