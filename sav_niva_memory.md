@@ -334,3 +334,69 @@ euwiderrufsbutton.com) et non par un simple e-mail client — je n'ai pas
 d'outil pour les traiter/clôturer dans cette app, ni pour initier le
 remboursement dans Shopify. Lien direct vers chaque dossier dans le mail
 original (déjà en Label_8, juste laissé non-lu retiré).
+
+---
+
+## Campagne marketing « Blanc Ivoire — Rentrée 2026 » (24/08/2026)
+
+**Objectif Badr** : mailer les clients Shopify pour annoncer le nouveau
+coloris Blanc Ivoire du Polo Marceau, avec code promo **RENTREE20** (−20%
+tout le site, cumulable avec le 2 achetés = 2 offerts), expiration
+**mercredi 26 août 23h59**, tracking des clics, sans finir en spam.
+
+### Assets
+
+- Photo mannequin d'origine (Shopify) :
+  `https://cdn.shopify.com/s/files/1/0977/0867/1350/files/Polo_blanc_1.png?v=1787077693` (1760×2352)
+- Upscale 4K (Higgsfield, bytedance) sur CDN Shopify :
+  `.../hf_20260824_164215_2534687f-8616-4035-a8c6-e793bd069500.png` (3072×4096)
+- **Version servie dans le mail — CDN Klaviyo** :
+  `https://d3k81ch9hvuctc.cloudfront.net/company/SWVS8q/images/c7e26db2-eecf-491a-9679-5f2153c4d4a7.jpeg`
+  (JPEG 170 601 o, image ID Klaviyo `362029703`)
+- URL produit / CTA :
+  `https://mynivashop.com/products/nivafit-polo-ultra-confortable-pour-homme?variant=58483484230006`
+  (⚠️ Shopify exige l'ID numérique de variante, pas le nom du coloris)
+
+### Template Klaviyo
+
+`YcCXtc` — « NIVA — Ivoire (Rentrée 2026) — RENTREE20 », editor_type `CODE`,
+version texte incluse, désabonnement via `{% unsubscribe 'Se désabonner' %}`.
+Édition : https://www.klaviyo.com/email-editor/YcCXtc/edit
+
+Charte respectée : Noir `#151515`, Ivoire `#FAF9F6`, Beige sable `#E8E1D4`
+(le blanc pur est banni). Logo `— ◆ —` / `NIVA` / `PARIS`. Sans-serif
+géométrique light (Jost/Century Gothic/Futura), graisses 200–300.
+Tout le contenu commercial est en **texte HTML vivant**, rien n'est cuit
+dans l'image : le mail reste lisible même images bloquées.
+
+### Leçons / pièges rencontrés
+
+1. **Héberger les images sur le CDN Klaviyo**, pas Shopify. C'était la
+   cause de la non-apparition des images. Outil : `upload_image_from_url`.
+2. **« Redirect Notice » Google** = Gmail qui enrobe les liens des mails de
+   test (`google.com/url?q=`). N'existe pas en campagne Klaviyo, qui passe
+   par `klclick.com` (et qui fournit le tracking des clics demandé).
+3. Le Gmail de Badr **bloque les images externes** (réglage client). Valider
+   le rendu dans l'éditeur Klaviyo, pas dans sa boîte.
+4. Les images collées dans le chat **n'arrivent jamais sur le disque** —
+   passer par Shopify > Contenu > Fichiers puis transmettre l'URL.
+5. Egress local bloqué vers `cdn.shopify.com` et `mynivashop.com` (403 sur
+   CONNECT via le proxy). Contourner par des outils côté serveur
+   (Higgsfield `media_import_url`, Shopify GraphQL, Klaviyo
+   `upload_image_from_url`), jamais en désactivant TLS.
+6. **« Stock limité » refusé** : Shopify affiche ~10 000 unités par taille
+   en Blanc Ivoire. Ce serait une fausse rareté / pratique commerciale
+   trompeuse, d'autant plus risquée après la menace DGCCRF reçue le matin
+   même (dossier Fuzfa #2126). L'urgence du mail repose uniquement sur la
+   vraie date limite.
+7. **Ciblage** : segment ayant consenti au marketing, PAS la totalité des
+   e-mails Shopify — sinon plaintes spam et délivrabilité du domaine
+   dégradée, y compris pour les confirmations de commande.
+
+### En attente de Badr
+
+- [ ] Validation du rendu (éditeur Klaviyo).
+- [ ] URL de la photo à plat des polos pliés (optionnelle) → à insérer sous
+      le bloc 01/02/03.
+- [ ] **Heure d'envoi** : immédiat ou programmé (mardi 10h ou 18h).
+- [ ] Puis : `create_campaign` + `assign_template_to_campaign_message`.
