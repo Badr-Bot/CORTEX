@@ -107,6 +107,38 @@ Pour toute commande en retard / non reçue, AVANT de répondre :
      Client informé que l'annulation n'est plus possible, droit de
      rétractation maintenu via retour + remboursement après réception.
 
+## Nettoyage massif Escalade/Réexpédition/Brouillon (24/08/2026, en cours)
+
+Badr a validé "option 1" pour la simplification des dossiers : on arrête
+d'utiliser les sous-libellés (Escalade/Brouillon/Remboursement/Réexpédition/
+Withdrawal/Ignoré) au quotidien — tout ce qui est traité va dans Label_3
+"Traité" — mais on NE SUPPRIME PAS les libellés existants (l'automatisation
+stockée ailleurs s'appuie encore dessus).
+
+Méthode de balayage utilisée (le filtre `label:` de search_threads est peu
+fiable) : `search_threads` avec `newer_than:60d -in:sent -in:chat is:unread
+-in:inbox`, paginé, pour retrouver les fils avec un message client non
+répondu même si Gmail ne les a pas remis en boîte de réception.
+
+Cas traités dans cette passe (liste non exhaustive, voir l'historique Gmail
+pour le détail) :
+- Cordier/Coquard (delivered-disputed) : offre retirée, conforme à la
+  nouvelle règle "livré confirmé = problème transporteur, pas nous".
+- Schneider/eurocomfrance #2664 : déjà résolu (remboursement en cours,
+  client patiente), juste archivé.
+- Gouillart #5127, Paradis #3690, Bergeret, Grondin #5471, Lemaire #4685,
+  Biver/Delamarne, Dissenykim/Sangenís #1152 : confirmations d'articles
+  gratuits déjà négociés, envoyées et closes.
+- Steenkiste : caleçon offert EST disponible à la vente sur le site
+  (`nivafit-calecon-ultra-extensible`, 11,99€) — lien envoyé.
+- Beaucoup de bruit (Facebook Ads, Google Ads, judge.me, alertes Google
+  Workspace) archivé directement en Traité.
+
+**Reste à traiter** : le solde du balayage 60 jours (~150+ fils sur cette
+seule page), les fils Label_7 antérieurs à 60 jours (196 fils au total dans
+ce libellé), et le reste de Label_4/6/9. Travail en cours, repris par
+itérations.
+
 ## Colis non livrés — réclamation fournisseur (24/08/2026)
 
 Vérification élargie (`graphql_query` sur `order.fulfillments.events`) sur les
