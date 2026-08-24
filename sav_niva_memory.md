@@ -646,3 +646,29 @@ L'horaire 09h30–09h45 est confirmé comme le créneau retenu par le consultant
 
 **Pour envoyer il faut appeler `send_campaign` — non fait, en attente de la
 validation explicite de Badr.**
+
+### ✅ CAMPAGNE PROGRAMMÉE — validée par Badr le 24/08 à 00h15
+
+Campagne `01M0TX2RJFQTSSQ5YCR4RB2VMZ` — « Rentrée 2026 — Blanc Ivoire —
+RENTREE20 (base complète) ».
+
+- Statut : **Queued** (programmée), `scheduled_at` 24/08 22h15 UTC
+- **Départ : 25/08 à 07h30 UTC = 09h30 Paris**, throttled **10 %/heure**
+  (fin vers 19h30, avant la deadline du 26/08 23h59)
+- Inclus : `Wgu7Z3` (base e-mail complète) + `ViZeWG` (équipe NIVA)
+- Exclus : `QVfVnm`, `R9zpNf`
+- Objet : « 1 acheté = 1 offert, et −20% en plus — jusqu'à mercredi »
+
+**Décision assumée par Badr** : envoyer à toute la base (~5 500), Gmail et
+Orange inclus, alors que les 4 campagnes précédentes les excluaient
+volontairement (warm-up d'un domaine créé le 20/07). Risque signalé, Badr a
+tranché. Le throttling à 10 %/h est la mesure de compensation appliquée.
+
+**Pour annuler avant/pendant l'envoi** : `cancel_campaign_send` sur cet ID.
+
+**À surveiller le 25/08** : taux de bounce et plaintes spam, surtout côté
+Gmail et Orange. Si les bounces dépassent ~2 % ou les plaintes ~0,1 %,
+annuler l'envoi en cours et repasser aux segments « safe send ».
+
+**Relance proposée (pas encore créée)** : mercredi 26/08 vers 18h, aux
+non-ouvreurs uniquement, objet type « Il reste 6 heures ».
