@@ -400,3 +400,27 @@ dans l'image : le mail reste lisible même images bloquées.
       le bloc 01/02/03.
 - [ ] **Heure d'envoi** : immédiat ou programmé (mardi 10h ou 18h).
 - [ ] Puis : `create_campaign` + `assign_template_to_campaign_message`.
+
+---
+
+## ⚠️ RÈGLES SAV MISES À JOUR — 24/08/2026 (Badr, en direct)
+
+Ces règles **remplacent** toutes les consignes SAV antérieures.
+
+1. **PLUS AUCUN BROUILLON.** Interdiction de créer des drafts, quel que soit
+   le cas (y compris les retards J+15, les litiges, les rétractations).
+   Si un cas est ambigu → **poser la question à Badr dans le chat**, obtenir
+   sa réponse, puis **envoyer directement**. Le dossier Brouillons doit
+   rester vide en permanence.
+2. **PLUS DE TRI PAR DOSSIER / LIBELLÉ.** Ne plus appliquer Label_3 à
+   Label_9 (Traité, Escalade, Ignoré, Remboursement, Réexpédition,
+   Withdrawal, Brouillon). On répond et on archive, point.
+3. Conséquence : l'ancienne règle « les cas de retard critique J+15 doivent
+   TOUJOURS rester en brouillon, jamais envoyés automatiquement » est
+   **annulée par Badr**. Il assume le risque ; on demande d'abord, on envoie
+   ensuite.
+
+Restent valables : Options 1/2 uniquement après réception du colis par le
+client ; colis marqué « livré » = problème client/transporteur local, pas
+NIVA ; rétractations = retour du colis avec un mot indiquant le numéro de
+commande, remboursement à réception.
