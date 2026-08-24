@@ -14,9 +14,11 @@ Pour toute commande en retard / non reçue, AVANT de répondre :
    champs `displayStatus`, `deliveredAt`, `events`) — pas seulement le statut
    Shopify "FULFILLED" qui ne prouve pas la livraison.
 2. **Si marqué livré** (`deliveredAt` rempli ou event "DELIVERED") mais le client
-   dit ne rien avoir reçu → c'est un litige transporteur : suivre la procédure
-   normale (attestation, réclamation transporteur), PAS de remboursement direct
-   automatique.
+   dit ne rien avoir reçu → c'est un litige transporteur : **c'est le problème
+   du client, il doit voir directement avec le transporteur local** (ex : Colis
+   Privé). PAS de compensation (ni Option 1, ni Option 2, ni remboursement) de
+   la part de NIVA dans ce cas — rediriger le client vers le transporteur.
+   (Règle précisée par Badr le 24/08/2026, suite au cas Jullien #5395 ci-dessous.)
 3. **Si PAS marqué livré** :
    - Statut normal (en transit, < 30j) → informer le client du statut réel +
      lien de suivi, ne rien promettre de plus, rester en brouillon si J+15.
@@ -93,9 +95,19 @@ cohérente avec l'API Shopify. À clarifier avec le fournisseur.
 
 Cas différent, PAS à inclure dans la réclamation : **#5395 (David Jullien)**
 — celui-ci est bien `displayStatus: DELIVERED`, `deliveredAt: 2026-08-12`
-confirmé par le transporteur ; le client conteste ne rien avoir reçu = litige
-transporteur classique (attestation à demander), pas un cas de "jamais
-expédié/livré".
+confirmé par le transporteur (Colis Privé) ; le client conteste ne rien avoir
+reçu, a fourni une attestation sur l'honneur, réclamation Colis Privé fermée
+sans solution = litige transporteur classique. Règle Badr (24/08) : dans ce
+cas, le client doit voir directement avec le transporteur local, pas de
+compensation NIVA.
+
+⚠️ **Point en attente de décision Badr (24/08/2026)** : AVANT cette règle,
+un envoi automatique du 22/08 avait déjà proposé Option 1/Option 2 à
+Jullien pour ce même dossier #5395, et il a déjà répondu qu'il choisissait
+l'Option 1 (article gratuit + code -20%) et demande le renvoi de sa
+commande d'origine. Rien n'a été envoyé depuis — décision à prendre :
+honorer l'engagement déjà pris, ou revenir vers lui pour le rediriger vers
+Colis Privé.
 
 **#6072 (Damien Robin)** — FULFILLED, pas d'event, mais seulement 10 jours
 (expédié 15/08) : pas encore critique, à resurveiller si toujours rien sous
