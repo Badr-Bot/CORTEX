@@ -528,3 +528,45 @@ apparaît dans ce fichier.
 - #3601 Cardi — chemises 3XL
 - #2349 Bernard — chemise blanche manche courte 3XL
 Les deux clients attendent le numéro de suivi, promis par mail.
+
+### Campagne v5 — validée sur le fond, test envoyé (24/08, 23h46)
+
+Retour de Badr sur la v4 : « pas mal, ça manque de FOMO, 1 acheté 1 offert,
+deadline en grand ». Corrections appliquées dans la v5 :
+
+- **Bloc deadline géant** au milieu du mail : « IL NE VOUS RESTE QUE » +
+  **2 JOURS** en 104px + « MERCREDI 26 AOÛT · 23H59 » + « Passé cette heure,
+  le code ne fonctionne plus et tout repasse au prix normal. »
+- **« 1 ACHETÉ / 1 OFFERT »** en 56px comme titre d'offre (remplace
+  « 2 achetés = 2 offerts »). Le −20% devient un bonus secondaire.
+- FOMO ajouté : bandeau haut, CTA « J'EN PROFITE AVANT MERCREDI », et bloc
+  de clôture « Mercredi 23h59, c'est terminé. » en 38px.
+
+**Règle promo confirmée par Badr (24/08)** : le 1 acheté = 1 offert permet de
+choisir **n'importe quel article de la boutique** en cadeau (pas seulement un
+article identique), **et** les −20% s'appliquent en plus. Formulation retenue
+dans le mail : « L'article offert est libre : la taille et le coloris de votre
+choix. » — contredit l'explication donnée à Gicquel, à garder en tête si ce
+dossier revient.
+
+Template Klaviyo `YcCXtc` mis à jour (« NIVA — Ivoire (Rentrée 2026) —
+RENTREE20 — v5 FOMO »), version texte incluse.
+Aperçu image v5 :
+`https://d3k81ch9hvuctc.cloudfront.net/company/SWVS8q/images/e89e4964-1e28-48f3-a935-6a2b51c59520.png`
+Sources locales : `scratchpad/niva_v5_src.html` (avec placeholders __F__ /
+__U__ / __UNSUB__) et `scratchpad/klaviyo_v5.html` (version finale).
+
+Test envoyé via Klaviyo à serraj146@gmail.com (job
+`d6fe3c0859f04ae085bab5550d2105e3`). Reste à obtenir : validation finale +
+heure d'envoi, puis `create_campaign` + `assign_template_to_campaign_message`
+sur le segment consenti marketing.
+
+### Méthode pour montrer un rendu de mail à Badr (à réutiliser)
+Son Gmail bloque les images externes → ne jamais valider un design par mail.
+Pipeline qui marche : construire le HTML → le rendre en PNG pleine page dans
+le sandbox Higgsfield (`node` + `playwright` via
+`NODE_PATH=/usr/local/lib/node_modules`, viewport 640, deviceScaleFactor 2,
+`fullPage:true`) → `media_upload` + PUT + `media_confirm` → puis
+`Klaviyo upload_image_from_url` pour un lien stable → envoyer le lien dans le
+chat. Attention : l'egress local est bloqué vers cdn.shopify.com,
+mynivashop.com et les CloudFront ; tout passe par le sandbox.
