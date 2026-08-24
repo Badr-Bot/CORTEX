@@ -570,3 +570,36 @@ le sandbox Higgsfield (`node` + `playwright` via
 `Klaviyo upload_image_from_url` pour un lien stable → envoyer le lien dans le
 chat. Attention : l'egress local est bloqué vers cdn.shopify.com,
 mynivashop.com et les CloudFront ; tout passe par le sandbox.
+
+### Audience Klaviyo & délivrabilité — état au 24/08/2026
+
+**Domaine d'envoi** : `envoi.mynivashop.com` — statut **active**, purpose
+marketing, DKIM selector `km1`, créé le 20/07/2026. Authentifié (SPF/DKIM).
+Compte : `SWVS8q`, fuseau **Europe/Paris**, locale fr-FR, EUR.
+Expéditeur par défaut : Niva <contact@mynivashop.com>.
+
+**Tailles des segments (relevé du 24/08)** :
+| Segment | ID | Membres |
+|---|---|---|
+| Safe send hors Gmail \|\|JT\|\| | Rf97Dp | 1 083 |
+| safe send Gmail actif \|\|JT\|\| | QXAktB | 351 |
+| Engaged 30D \|\|JT\|\| | Unupju | 1 759 |
+| Post achat 20j \|\|JT\|\| | XSmhmZ | 729 |
+| Exclusion Gmail \|\|JT\|\| | VYstuW | 3 327 |
+| Exclusion Gmail et Orange \|\|JT\|\| | UAvFHw | 4 308 |
+| Bounce-Unsubscribe-Spams CLEAN \|\|JT\|\| | R9zpNf | 96 |
+| Unengaged 90 Days (Sunset) | WwBNif | 0 |
+
+Listes : `Wgu7Z3` Liste d'adresses e-mail (single opt-in) · `SFCkY5` SMS ·
+`WbQRDD` Prévisualiser.
+
+**Définition des segments « safe send »** (les deux) : consentement email
+SUBSCRIBED + au moins une ouverture/clic dans les 30 derniers jours +
+0 bounce sur 30 jours + 0 plainte spam / désabonnement sur 180 jours.
+C'est l'audience la plus sûre du compte. Total combiné : **1 434**.
+
+**Nouvelle liste interne** : `ViZeWG` « Équipe NIVA — réception campagnes »
+(single opt-in) avec adnane.vtr@hotmail.com, serraj146@gmail.com,
+badr.saraj@gmail.com — tous les trois SUBSCRIBED,
+can_receive_email_marketing=true, aucune suppression. À inclure dans
+l'audience de chaque campagne pour que Badr reçoive le mail comme un client.
