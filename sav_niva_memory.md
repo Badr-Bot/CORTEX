@@ -70,6 +70,43 @@ Pour toute commande en retard / non reçue, AVANT de répondre :
 - **ACTION BADR REQUISE : vérifier si le colis est récupérable à l'ancienne
   adresse (La Celle-Saint-Cloud), puis relancer le client.**
 
+## ⚠️ Corrections majeures suite au retour du fournisseur (24/08/2026, plus tard)
+
+1. **L'agent fournisseur expédie ~2h après la commande, indépendamment du
+   statut Shopify.** Une commande peut rester `UNFULFILLED` dans Shopify
+   alors qu'elle est déjà physiquement partie chez le fournisseur. Donc pour
+   une demande d'annulation/rétractation : NE PAS se fier uniquement au
+   fulfillmentStatus Shopify pour dire "pas encore expédié, on annule" — au
+   -delà de 2h après la commande, considérer que c'est déjà expédié et
+   irréversible (cas Arnoult #6410 : Shopify montrait UNFULFILLED, mais
+   Badr confirme que l'agent avait déjà expédié).
+2. **Les events de tracking Shopify (`order.fulfillments.events`) ne sont
+   PAS fiables pour ce fournisseur — un fulfillment sans event ni
+   `deliveredAt` n'est PAS une preuve fiable de non-livraison.** Le
+   fournisseur a confirmé que 3 des 4 commandes signalées "jamais livrées"
+   (#4863, #5588, #5749) avaient en fait bien été livrées (7, 20 et 15 août
+   respectivement), alors que Shopify ne montrait aucune preuve. Seule #4610
+   était un vrai cas (retournée pour erreur ville/code postal, puis
+   réexpédiée). **Avant toute promesse de remboursement pour non-livraison,
+   il faut maintenant vérifier auprès du fournisseur/transporteur, pas
+   seulement via GraphQL Shopify.**
+3. Corrections envoyées aux clients suite à ces infos :
+   - **#4610 Depoortere** : le colis était en fait retourné (erreur
+     ville/CP), puis réexpédié le 24/08 avec un nouveau tracking
+     (YT2623600710498510). Le remboursement annoncé la veille a été annulé,
+     client informée qu'elle va bien recevoir sa commande.
+   - **#4863 Behier** : livrée le 7 août confirmé par le transporteur. Le
+     remboursement promis a dû être annulé/corrigé — client redirigée vers
+     le transporteur en cas de contestation (feux de Gironde compliquent la
+     situation mais ne changent pas la politique : livré confirmé = litige
+     transporteur, pas de compensation NIVA).
+   - **#5588 Fouet et #5749 Saurine** : livrées (20/08 et 15/08). Aucun
+     message erroné n'avait été envoyé à ces deux clients dans ce dossier,
+     rien à corriger.
+   - **#6410 Arnoult** : déjà expédié par l'agent malgré le statut Shopify.
+     Client informé que l'annulation n'est plus possible, droit de
+     rétractation maintenu via retour + remboursement après réception.
+
 ## Colis non livrés — réclamation fournisseur (24/08/2026)
 
 Vérification élargie (`graphql_query` sur `order.fulfillments.events`) sur les
