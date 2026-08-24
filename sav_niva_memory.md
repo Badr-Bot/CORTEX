@@ -266,3 +266,45 @@ les remettre en INBOX, ce qui explique aussi pourquoi Badr voit des
 réponses clients "disparaître" sans revenir en boîte de réception. Aucun
 outil d'inspection des filtres Gmail disponible pour diagnostiquer plus
 avant.
+
+### CORRECTIF IMPORTANT — le "bruit" n'était pas que du bruit
+
+En continuant le sondage `is:unread` page par page (pages 4-5, remontant
+jusqu'au 11-13/08), découverte d'un **vrai backlog de ~30 mails clients
+jamais étiquetés du tout** (aucun label, ni Label_3 ni Label_4 ni rien) —
+des demandes de retour, problèmes de livraison, articles manquants,
+questions produit, restées sans réponse pendant 10+ jours. Ce n'était donc
+pas que des flags non-lus résiduels sur de vieux fils déjà traités : il y a
+un vrai angle mort dans le tri automatique quelque part avant le 13/08.
+
+Cas les plus notables traités dans cette passe :
+- **Fuzfa (#2126, commande du 23/06, jamais reçue, 2 mois)** : menaçait de
+  signaler à la DGCCRF faute de réponse. Remboursement intégral (89,99€)
+  confirmé par mail. **⚠️ Badr doit exécuter le remboursement réel dans
+  Shopify — aucun outil de remboursement automatique disponible.**
+- Richer #5997 : pensait son adresse erronée, en fait l'adresse Shopify
+  correspondait déjà à ce qu'il demandait — juste rassuré + lien de suivi.
+- ~10 demandes de retour simples (Lassalle, Capron, Collardeau, Bastille,
+  Guglielmi, Dissenykim ES) → adresse de retour standard envoyée.
+- Jourdan #5204 et Collin #5553 : e-book manquant → renvoyé vers
+  vérification spam, proposé renvoi du lien si besoin.
+- Steve (Niva-UK #1038) : remplacement XXXXL promis le 14/07, jamais
+  parti — relancé en interne, excuses envoyées.
+- Soriano #5362 : simple statut/lien de suivi (pas encore 30j).
+- Juanferparca (Niva-ES #1156... en fait un autre client, Chabot,
+  commande différente trouvée sous le même numéro dans Shopify —
+  attention, la numérotation des sous-boutiques UK/ES ne correspond PAS à
+  la même base de commandes que le store principal, les lookups via
+  `get-order #XXXX` pour ces sous-boutiques peuvent remonter la mauvaise
+  commande. À vérifier manuellement avant de se fier au résultat.) :
+  options standard proposées en espagnol.
+- modolbec et pruneole11 : messages trop courts/sans contexte → demande de
+  numéro de commande envoyée, en attente de réponse.
+
+**Action recommandée pour Badr** : il est probable que ce même angle mort
+(mails jamais étiquetés) existe aussi sur des pages antérieures au 11/08 —
+à sonder au prochain passage. Le nombre total de non-lus dans la boîte
+(`is:unread` hors Sent/Chat/Trash) reste affiché à 201 par l'API Gmail
+même après traitement, l'estimate ne semble pas se rafraîchir en temps
+réel — ne pas se fier à ce chiffre pour mesurer la progression, mieux vaut
+sonder page par page.
