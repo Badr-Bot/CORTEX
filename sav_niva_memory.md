@@ -460,3 +460,34 @@ Notice » au client. Remplacé par l'URL directe
 - Keane #4377 (Irlande ?) — dit ne plus pouvoir expédier de colis vers la
   France depuis le 07/07/2026, seulement des lettres. Question ouverte :
   rembourse-t-on sans retour, ou attend-on ?
+
+### Source de vérité pour les retours/réexpéditions : le Drive
+
+Fichier : **`NIVA_Reshipment_Tracker V1.xlsx`**
+(Drive ID `1IFMeQphR1epPbioZHN83YsTPSoEsNFLP`, propriétaire contact.myniva@gmail.com)
+
+Colonnes : Order Number · Shop · Customer · Email · Country · Reason ·
+Item(s) to Send · **Status** (Shipped / Not Shipped / Pending / Cancelled) ·
+Reshipping Address · New Tracking Number · Notes.
+
+**Règle Badr (24/08/2026)** : on cherche la commande dans ce fichier. Si elle
+n'y est pas notée « Shipped » ou « Not Shipped », c'est qu'on n'a rien reçu.
+C'est ce fichier qu'on consulte pour répondre aux clients qui demandent où en
+est leur retour / leur réexpédition.
+
+### Suites du 24/08 au soir
+
+- **Cardi #3601** → tracker = `Not Shipped`, aucune réception enregistrée.
+  Réponse envoyée : rien reçu à ce jour, demande du numéro de suivi et de la
+  date de dépôt du retour pour faire tracer le colis.
+- **Keane #4377** → Badr : « on n'y peut rien pour lui, propose-lui les deux
+  options ». Envoyé : pas de remboursement sans retour, mais choix entre
+  Option 1 (il garde tout + 2 polos offerts à la bonne taille + code -20%,
+  rien à renvoyer) et Option 2 (retour quand il pourra, puis remboursement,
+  sans délai imposé).
+- **Bernard #2349** → EN ATTENTE DE DÉCISION DE BADR. Le tracker le note
+  `Not Shipped` avec la mention « this order does not include this product ».
+  Mais le client a expédié son retour le 07/08 à *SARAJ-NIVA, 6 rue du Bel
+  Ébat, 78170 La Celle St Cloud* — **une adresse que NIVA lui avait
+  elle-même donnée** — et le colis ne lui est jamais revenu, donc il a bien
+  été livré là-bas. Dossier ouvert depuis 2 mois, client très remonté.
