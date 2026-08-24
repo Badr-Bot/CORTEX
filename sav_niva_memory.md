@@ -491,3 +491,40 @@ est leur retour / leur réexpédition.
   Ébat, 78170 La Celle St Cloud* — **une adresse que NIVA lui avait
   elle-même donnée** — et le colis ne lui est jamais revenu, donc il a bien
   été livré là-bas. Dossier ouvert depuis 2 mois, client très remonté.
+
+### ⚠️ CORRECTIF — sens réel du statut « Not Shipped » dans le tracker
+
+**Je m'étais trompé.** Badr a corrigé le 24/08 :
+
+> « not shipped ça veut dire que l'agent a enregistré l'expédition et le
+> colis est prêt pour shipping »
+
+Donc dans `NIVA_Reshipment_Tracker V1.xlsx` :
+- **La commande figure dans le fichier** = le retour du client **a bien été
+  réceptionné** et la réexpédition est **enregistrée et préparée**.
+- **`Not Shipped`** = colis prêt, **en attente de départ** — ce n'est PAS
+  « on n'a rien reçu ».
+- **`Shipped`** = parti, avec numéro de suivi dans la colonne dédiée.
+- **`Pending`** = en attente d'une information (souvent la taille/couleur).
+- **Absent du fichier** = là seulement, on n'a rien reçu.
+
+Ne jamais dire à un client « nous n'avons rien reçu » si sa commande
+apparaît dans ce fichier.
+
+### Correctifs envoyés dans la foulée
+- **Cardi #3601** : j'avais envoyé à tort « nous n'avons rien reçu » et lui
+  avais demandé son numéro de suivi. Mail de rectification envoyé : retour
+  bien réceptionné, chemise 3XL préparée, en attente d'expédition, aucune
+  démarche de sa part.
+- **Bernard #2349** : son retour du 07/08 à l'ancienne adresse (Bel Ébat) a
+  bien été réceptionné. Chemise blanche manche courte 3XL préparée, en
+  attente d'expédition. Excuses formelles pour les 2 mois et les adresses
+  contradictoires. Dossier clos côté client.
+- **Verhellen #3489/#4983** : questions envoyées à la cliente à la demande
+  de Badr — date d'expédition du colis retour (+ n° de suivi si conservé)
+  et origine des deux commandes séparées.
+
+### À expédier concrètement (Badr / l'agent d'expédition)
+- #3601 Cardi — chemises 3XL
+- #2349 Bernard — chemise blanche manche courte 3XL
+Les deux clients attendent le numéro de suivi, promis par mail.
