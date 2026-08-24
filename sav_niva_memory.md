@@ -38,6 +38,9 @@ Pour toute commande en retard / non reçue, AVANT de répondre :
   aucune option proposée.
 - **ACTION BADR REQUISE : exécuter le remboursement intégral dans Shopify
   admin (commande #4610).**
+- Décision Badr : le remboursement client n'est pas à la charge de NIVA mais
+  du fournisseur (réclamation transporteur/fournisseur en cours, voir
+  section "Colis non livrés — réclamation fournisseur" ci-dessous).
 
 ### Commande #5496 — Maxime Pabois (pabois.maxime@orange.fr)
 - Commandée 02/08, expédiée 03/08 (YunExpress YT2621500706682972).
@@ -49,7 +52,9 @@ Pour toute commande en retard / non reçue, AVANT de répondre :
 - Mail correctif envoyé le 24/08 : statut "en cours" expliqué, demande de
   reconfirmation d'adresse complète, aucune compensation proposée (colis pas
   reçu).
-- **À SUIVRE : si le client renvoie son adresse complète, relancer le
+- Mail complémentaire envoyé le 24/08 : demande aussi son numéro de téléphone
+  (absent de la commande, nécessaire pour que le livreur le recontacte).
+- **À SUIVRE : si le client renvoie adresse complète + téléphone, relancer le
   transporteur / mettre à jour l'adresse de livraison.**
 
 ### Commande #3611 — Romain Babu (romainbabu83@gmail.com)
@@ -62,6 +67,39 @@ Pour toute commande en retard / non reçue, AVANT de répondre :
 - Client informé qu'on se renseigne en interne.
 - **ACTION BADR REQUISE : vérifier si le colis est récupérable à l'ancienne
   adresse (La Celle-Saint-Cloud), puis relancer le client.**
+
+## Colis non livrés — réclamation fournisseur (24/08/2026)
+
+Vérification élargie (`graphql_query` sur `order.fulfillments.events`) sur les
+commandes en litige de retard connues : 4 commandes ont un `displayStatus`
+FULFILLED mais **aucun event de tracking et `deliveredAt: null`**, malgré des
+délais très dépassés — aucune preuve de dépôt/tentative/livraison remontée
+par le transporteur. Message rédigé pour le fournisseur (à envoyer par Badr,
+contact fournisseur non détenu par l'IA) demandant réexpédition ou
+remboursement à NIVA :
+
+| Commande | Client | Expédié le | Jours écoulés (au 24/08) | Tracking |
+|---|---|---|---|---|
+| #4610 | Marie-Line Depoortere | 16/07 | 39 j | YT2619700706149543 |
+| #4863 | Sabine Behier | 20/07 | 36 j | YT2620100709380111 |
+| #5588 | Michel Fouet | 05/08 | 20 j | YT2621700702859307 |
+| #5749 | Xavier Saurine | 07/08 | 18 j | YT2621900703349858 |
+
+Remarque #5749 (Saurine) : on lui avait dit le 13/08 que son colis était
+"marqué comme livré par le transporteur", mais la vérification GraphQL du
+24/08 ne montre AUCUN event ni `deliveredAt` — l'info donnée précédemment était
+donc probablement erronée ou basée sur une autre source (ParcelPanel ?) non
+cohérente avec l'API Shopify. À clarifier avec le fournisseur.
+
+Cas différent, PAS à inclure dans la réclamation : **#5395 (David Jullien)**
+— celui-ci est bien `displayStatus: DELIVERED`, `deliveredAt: 2026-08-12`
+confirmé par le transporteur ; le client conteste ne rien avoir reçu = litige
+transporteur classique (attestation à demander), pas un cas de "jamais
+expédié/livré".
+
+**#6072 (Damien Robin)** — FULFILLED, pas d'event, mais seulement 10 jours
+(expédié 15/08) : pas encore critique, à resurveiller si toujours rien sous
+peu.
 
 ## Adresses en attente — vérifié le 24/08/2026
 
