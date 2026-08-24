@@ -101,13 +101,11 @@ sans solution = litige transporteur classique. Règle Badr (24/08) : dans ce
 cas, le client doit voir directement avec le transporteur local, pas de
 compensation NIVA.
 
-⚠️ **Point en attente de décision Badr (24/08/2026)** : AVANT cette règle,
-un envoi automatique du 22/08 avait déjà proposé Option 1/Option 2 à
-Jullien pour ce même dossier #5395, et il a déjà répondu qu'il choisissait
-l'Option 1 (article gratuit + code -20%) et demande le renvoi de sa
-commande d'origine. Rien n'a été envoyé depuis — décision à prendre :
-honorer l'engagement déjà pris, ou revenir vers lui pour le rediriger vers
-Colis Privé.
+Décision Badr (24/08) : revenir vers lui pour retirer l'offre et le
+rediriger vers Colis Privé. Fait le 24/08 — mail envoyé expliquant que le
+problème relève du transporteur local, excuses pour la confusion causée par
+le précédent message, aucune compensation. Dossier considéré clos côté NIVA
+sauf nouvelle relance du client.
 
 **#6072 (Damien Robin)** — FULFILLED, pas d'event, mais seulement 10 jours
 (expédié 15/08) : pas encore critique, à resurveiller si toujours rien sous
