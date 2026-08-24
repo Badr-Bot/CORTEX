@@ -208,3 +208,61 @@ attend sa confirmation d'adresse complète).
    brouillon existant. Le 23/08/2026, deux mails J+15 (Depoortere #4610 et
    Pabois #5496) ont été envoyés par erreur au lieu de rester en brouillon
    pour validation humaine — corrigé le 24/08 avec l'aide de Badr.
+
+## Nettoyage massif — session du 24/08/2026 (suite)
+
+Boîte de réception (INBOX) entièrement vidée à nouveau après le pic de
+messages en fin de matinée : tous les fils traités et déplacés vers
+Label_3 (Traité), plus aucun `in:inbox` non lu ni lu restant à ce
+checkpoint.
+
+Cas traités dans cette passe :
+- **Fouet #5588** : a confirmé réception + demandé le polo Rouge Merlot XL
+  promis en dédommagement → confirmé, envoi programmé.
+- **Grondin #5471** : a précisé couleur/taille (Rouge Merlot 3XL) pour
+  l'option 3 → confirmé, envoi + remboursement 30% programmés.
+- **Cordier** : a réitéré son mécontentement + menace d'avis négatif après
+  la rétractation de l'offre (colis marqué livré) → réponse ferme mais
+  empathique, aucune compensation, dossier clos conformément à la décision
+  de Badr du 24/08.
+- **Rolland #6367** : a demandé à modifier/annuler sa commande (mix
+  couleurs erroné) → trop tard, déjà expédiée ; retour gratuit + échange
+  proposé à réception.
+- **Sannwald #4456** (ex-Escalade) : a confirmé vouloir retourner l'article
+  taille incorrecte → adresse de retour + remboursement à réception
+  envoyés.
+- **claude_bragoni@yahoo.fr / commande #5945** : 5 messages en double sur
+  4 fils différents en ~40 min, dont un contenant un lien de "notification
+  de livraison" suspect (`Notice1185n.m186886414.pro`, PAS un domaine
+  transporteur légitime — probable tentative de phishing). Vérifié dans
+  Shopify : commande réelle #5945, expédiée 12/08 via YunExpress
+  (YT2622400706738917), actuellement en transit (12 jours). Réponse
+  unique envoyée avec le vrai lien de suivi + avertissement explicite de
+  ne pas cliquer sur le lien suspect. Les 4 fils doublons archivés sans
+  réponse individuelle (pour éviter de spammer le client).
+- **Jullien #5395** : déjà clos par Badr le 24/08 (rétractation de
+  l'offre suite à statut "livré" confirmé par le transporteur) — fil
+  archivé.
+- **Nalbandyan #3191** : a envoyé des photos/justificatifs du retour
+  (option 3, retour choisi le 20/08) sans texte d'accompagnement → accusé
+  réception, remboursement confirmé dès réception du colis.
+
+### État des lieux du backlog restant (vérifié par sondage, pas exhaustif)
+
+Un balayage `is:unread` sur l'ensemble de la boîte (hors Sent/Chat/Trash)
+remonte encore ~201 fils non lus au total, mais l'immense majorité sont de
+vieux messages **déjà traités** (Label_3 ou Label_5) dont un message
+individuel est resté marqué non-lu sans qu'il y ait de nouvelle action
+requise — pas un vrai backlog actif. Un sondage ciblé sur Label_7
+(Réexpédition) n'a remonté que les 2 cas ci-dessus (Jullien, Nalbandyan),
+tous deux maintenant traités. Label_4 (Escalade) et Label_6
+(Remboursement) n'ont pas encore été sondés spécifiquement dans cette
+passe — à vérifier au prochain check-in.
+
+**Piste à investiguer avec Badr** : pourquoi autant de messages restent
+"non lus" dans des fils déjà archivés en Label_3 — possible qu'un filtre
+Gmail marque certains messages entrants comme lus automatiquement sans
+les remettre en INBOX, ce qui explique aussi pourquoi Badr voit des
+réponses clients "disparaître" sans revenir en boîte de réception. Aucun
+outil d'inspection des filtres Gmail disponible pour diagnostiquer plus
+avant.
