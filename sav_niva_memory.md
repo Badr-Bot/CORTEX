@@ -308,3 +308,29 @@ Cas les plus notables traités dans cette passe :
 même après traitement, l'estimate ne semble pas se rafraîchir en temps
 réel — ne pas se fier à ce chiffre pour mesurer la progression, mieux vaut
 sonder page par page.
+
+### Suite du sondage (page 6) — 24/08/2026
+
+Nouvelle passe sur une page suivante du sondage `is:unread`, avec cette
+fois filtrage sur "dernier message du fil vient du client" plutôt que sur
+l'absence totale de label (les fils de cette page avaient déjà un Label_3
+résiduel mais un nouveau message client non traité par-dessus). ~10 fils
+réels traités : Ferme #5765 (adresse de retour), Gicquel (pas d'erreur,
+offre 1+1 ne s'applique qu'à 2 articles identiques, réponse de clôture
+envoyée), Coutisse/Godfrind/Babu (déjà résolus, juste nettoyage de labels).
+
+**⚠️ 2 déclarations de rétractation légale (Label_8/Withdrawal) trouvées,
+non closes, remboursement à exécuter par Badr dans Shopify :**
+- **Arnoult #6410** (wil.5550@hotmail.fr) — même client que le cas
+  d'annulation refusée plus tôt (commande déjà expédiée par l'agent). Il a
+  maintenant soumis une rétractation légale formelle via le widget EU —
+  ceci doit être honoré indépendamment du fait que la commande soit déjà
+  partie (droit de rétractation légal, pas une simple demande d'annulation).
+- **Charreau #5919** (fernand.charreau@gmail.com) — rétractation formelle,
+  aucune interaction email préalable trouvée dans la boîte.
+
+Ces déclarations passent par un service externe (widerruf-service /
+euwiderrufsbutton.com) et non par un simple e-mail client — je n'ai pas
+d'outil pour les traiter/clôturer dans cette app, ni pour initier le
+remboursement dans Shopify. Lien direct vers chaque dossier dans le mail
+original (déjà en Label_8, juste laissé non-lu retiré).
