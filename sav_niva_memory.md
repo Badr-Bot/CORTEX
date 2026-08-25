@@ -1291,20 +1291,27 @@ Les 13 templates marketing ont été envoyés en preview avec contexte simulé
 ligne que lorsque **Badr dit explicitement « c'est traité »**. Pas avant, même
 si le dossier a l'air résolu côté Shopify.
 
-### A. Adresse corrigée par le client mais JAMAIS saisie dans Shopify
+### A. Adresses — CORRIGÉES dans Shopify le 25/08, reste la réexpédition
 
-Motif récurrent : le client répond avec sa bonne adresse, on lui confirme, et
-personne ne la reporte dans Shopify. La commande reste inlivrable.
+Badr a ressaisi les 4 adresses le 25/08. Vérification faite : 2 étaient encore
+fausses (le **premier chiffre du numéro de rue avait sauté** dans les deux cas).
+Corrigées par API le 25/08, valeurs relues et confirmées :
 
-| Cmd | Client | Adresse dans Shopify | Adresse donnée par le client | Depuis |
-|---|---|---|---|---|
-| **#3207** | marie jose breton · am.breton@orange.fr | `address1` / `city` / `00080` | 327 chemin des Cancabeaux, 84210 Althen-des-Paluds · 06 24 60 32 29 | 24/08 |
-| **#6323** | Robert Langlet · robertlanglet.trinacri@gmail.com | `59127` (le CP dans le champ rue) | 16 rue Charles Cattelain, 59127 Walincourt-Selvigny | 22/08 |
-| **#4610** | Marie-Line Depoortere · marie-line.depoortere@wanadoo.fr | CP **33500** (= Libourne) | Leers = **59115** | 24/08 |
+| Cmd | Adresse finale dans Shopify | Tél. | État colis |
+|---|---|---|---|
+| **#3207** breton | 327 Chemin des Cancabeaux, 84210 Althen-des-Paluds | +33624603229 | ⚠️ à réexpédier |
+| **#6323** langlet | 16 Rue Charles Cattelain, 59127 Walincourt-Selvigny | +33771623264 | ⚠️ **UNFULFILLED**, jamais partie |
+| **#4610** DEPOORTERE | 21 Rue Montesquieu, 59115 Leers | +33660822855 | ⚠️ à réexpédier |
+| **#5496** Pabois | 71 Route de saint-révérend, 85800 Le Fenouiller | +33617983834 | ⚠️ relance transporteur |
 
-#3207 : commande du 04/07, 59,98 €, marquée expédiée avec tracking — n'a jamais
-pu être livrée. #6323 : commande du 20/08, 79,98 €, **UNFULFILLED**, jamais
-partie. #4610 : commande du 15/07, 59,98 €, premier colis retourné.
+Erreurs qui avaient été rattrapées : #3207 saisie « 27 » au lieu de « 327 » ·
+#6323 saisie « 6 » au lieu de « 16 » · #4610 le champ rue contenait le CP et la
+ville en doublon (nettoyé).
+
+**IL RESTE À FAIRE (Badr) : les 4 colis doivent être réexpédiés / relancés
+auprès du transporteur. L'adresse corrigée ne fait rien partir toute seule.**
+#3207 : commande du 04/07, 59,98 €. #6323 : 20/08, 79,98 €, jamais expédiée.
+#4610 : 15/07, 59,98 €, premier colis retourné. #5496 : 02/08, 59,98 €.
 
 ### B. Adresse OK mais colis bloqué — relance transporteur à faire
 
