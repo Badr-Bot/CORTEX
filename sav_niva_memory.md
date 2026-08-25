@@ -968,3 +968,78 @@ maintenant** :
 Seul le n°5 attend vraiment. Mais Badr a dit « attend que je branche parcel
 panel » puis « viens on configure parcel panel d'abord » → **on ne démarre
 pas sans son feu vert.**
+
+### ✅ CORRECTION 25/08 17h — ParcelPanel FONCTIONNE
+
+Badr a montré l'écran « CWILL Tracking événements » : les deux interrupteurs
+principaux étaient **déjà activés**. Ma conclusion précédente (« l'envoi des
+événements n'est pas activé ») était fausse — **je surveillais les mauvaises
+métriques**.
+
+ParcelPanel n'alimente PAS les anciennes métriques « Package … » (`UnSGtA`,
+`SeyDCy`, `XBQi9Z`… créées le 21/03, vestiges d'un connecteur mort). Il crée
+les siennes :
+
+| Métrique | ID | Créée |
+|---|---|---|
+| **ParcelWILL - Shipment status update** | `UjhQfQ` | 25/08 15:12 UTC |
+| **ParcelWILL - Shipment sub-status update** | `W7HHLj` | 25/08 15:12 UTC |
+
+➡️ **C'est `UjhQfQ` qu'il faut surveiller et utiliser comme déclencheur**, pas
+`UnSGtA` ni `TuLCRC`.
+
+#### Payload disponible (événement réel, commande #6025)
+
+```
+order_number            #6025
+shipment_status         In transit
+shipment_substatus      In transit
+last_check_point        Arrived at sorting center
+last_checkpoint_time    24 août 2026 18:22
+tracking_number         YT2622600703095290
+tracking_link           https://mynivashop.com/apps/parcelpanel?nums=<num>
+carrier_name            YunExpress
+carrier_url             https://www.yuntrack.com/parcelTracking?id=<num>
+last_mile_carrier_name  GOFO France          ← débloque le mail n°5
+last_mile_tracking_number / last_mile_carrier_url
+expected_delivery_date  (vide sur cet événement)
+transit_time / residence_time
+order_created_at        13 août 2026 12:22
+fulfillment_created_at  14 août 2026 07:17
+pickup_date             24 août 2026 18:22
+first_name / last_name / customer_email / customer_phone
+shipping_address1 / city / zip / province / country
+lineitems[]  → product_name, variant_name, price, handle, variant_image
+store_name / store_url
+```
+
+`tracking_link` pointe sur **mynivashop.com** — bon domaine, pas de redirect.
+`lineitems[].variant_image` permet d'afficher les produits dans le mail.
+
+#### 🔴 Découverte majeure : le mail « expédié » part 10 jours trop tôt
+
+Sur #6025 : commande **13/08**, `Fulfilled Order` **14/08**, mais
+`pickup_date` réel **24/08**. **Dix jours** entre le « colis expédié » de
+Shopify et la prise en charge transporteur.
+
+➡️ Le mail « votre colis est expédié » déclenche exactement l'angoisse qu'il
+est censé calmer. **Il doit annoncer la préparation, pas l'acheminement.**
+À revérifier sur plusieurs commandes quand le volume sera là.
+
+#### Réglages restant à faire (demandés à Badr)
+
+| Réglage | État | Recommandation |
+|---|---|---|
+| Mise à jour du statut | ✅ ON | garder |
+| Mise à jour du sous-statut | ✅ ON | garder |
+| Date d'expiration estimée dépassée | ❌ OFF | **activer** |
+| Retard dans le transit (règle `EMK6HSDK`) | ❌ OFF, **20 j** | **activer + passer à 10 j** |
+| Expédition bloquée (règle `5JXJQ9MF`) | ❌ OFF, 5 j | **activer**, garder 5 j |
+
+Ces trois-là sont précisément ceux qui vident le SAV.
+
+#### Volume à date
+1 seul événement (17h11) : ils ne se déclenchent qu'au **changement** de
+statut. Montée attendue sous 24-48 h au fil des scans transporteurs.
+
+➡️ **Le flow Suivi de commande est constructible en entier, les 5 mails.**
