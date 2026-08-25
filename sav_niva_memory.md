@@ -897,3 +897,74 @@ de 4 et 6 à plusieurs centaines → OK. Sinon → connexion ratée.
 4. Puis **Panier abandonné**, puis le reste selon le plan.
 
 Badr a validé le plan complet et l'a trouvé « super clair, classe ».
+
+---
+
+## 📍 CONTRÔLE AUTOMATIQUE — 25/08/2026, fin de journée
+
+### 1. Campagne Blanc Ivoire — SAINE, aucune alerte
+
+Chiffres consolidés `01M0TX2RJFQTSSQ5YCR4RB2VMZ` (statut toujours `Sending`,
+throttle 10 %/h) :
+
+| Indicateur | Valeur | Seuil d'alerte | État |
+|---|---|---|---|
+| Destinataires | 2 059 | — | — |
+| Délivrés | 2 055 — **99,81 %** | — | ✅ |
+| Bounces | 4 — **0,19 %** | 2 % | ✅ |
+| Plaintes spam | **0 — 0,00 %** | 0,1 % | ✅ |
+| Désabonnements | 11 — 0,53 % | — | normal 1er envoi large |
+| Ouvertures uniques | 437 — **21,3 %** | — | ✅ |
+| Clics uniques | 48 — **2,34 %** | — | ✅ |
+| Commandes | **5 — 251,98 €** (panier moyen 50,40 €) | — | 0,12 €/destinataire |
+
+➡️ La délivrabilité tient sur ~2 000 envois. **Pas d'alerte à déclencher.**
+
+### 2. ParcelPanel — CONNECTÉ MAIS N'ENVOIE RIEN ⛔
+
+Badr a annoncé « c'est bon parcelpanel est connecté à klaviyo » et la tuile
+Klaviyo dans ParcelPanel affiche bien **« Actif » / « Déconnexion »**.
+**Mais aucun événement n'est arrivé côté Klaviyo.**
+
+Vérification sur 8 jours (18 → 25/08, fuseau Paris) :
+
+| Métrique | ID | Source | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Package in transit | `UnSGtA` | Klaviyo | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Package picked up | `SeyDCy` | Klaviyo | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Confirmed Shipment | `TuLCRC` | Shopify | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Marked Out for Delivery | `T7TB8y` | Shopify | 10 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **Package delivered** | `XBQi9Z` | Klaviyo | 15 | 3 | 2 | 2 | 22 | 4 | 5 | **12** |
+| **Delivered Shipment** | `U9WCYK` | Shopify | 15 | 3 | 2 | 2 | 23 | 4 | 5 | **12** |
+
+Contrôle complémentaire : `get_metrics` — **aucune nouvelle métrique créée**
+depuis le branchement. La plus récente reste `click.shopifyInstallNow`
+(05/08). Si ParcelPanel poussait quoi que ce soit, une métrique aurait été
+créée ou alimentée aujourd'hui.
+
+**Conclusion : la connexion existe, mais l'envoi des événements n'est pas
+activé.** C'est un réglage séparé de la connexion elle-même.
+
+➡️ Action pour Badr : dans l'admin Shopify → **CWILL (Parcel Panel)** →
+**Intégration** → bouton engrenage en haut à droite **« CWILL Tracking
+événements »**. C'est le seul écran de réglages qu'on n'a pas ouvert. Y
+activer les statuts (*In transit / Picked up / Out for delivery / Exception /
+Delay*). Puis me le dire — je revérifie `UnSGtA` et `TuLCRC` immédiatement.
+
+### 3. Bonne nouvelle : on n'est pas totalement bloqué
+
+`Delivered Shipment` (`U9WCYK`) **fonctionne** (~65 événements sur 8 jours).
+Avec `Placed Order` (`Yrs33B`) et `Fulfilled Order` (`Udzdq2`) qui marchent
+déjà, **4 des 5 mails du flow Suivi de commande sont constructibles dès
+maintenant** :
+
+1. Commande confirmée → `Placed Order` ✅
+2. Colis expédié → `Fulfilled Order` ✅
+3. Retard → `Fulfilled Order` + attente 10 j + split conditionnel
+   « pas de `Delivered Shipment` » ✅
+4. Colis livré → `Delivered Shipment` ✅
+5. Remis au transporteur local → **nécessite ParcelPanel** ⛔
+
+Seul le n°5 attend vraiment. Mais Badr a dit « attend que je branche parcel
+panel » puis « viens on configure parcel panel d'abord » → **on ne démarre
+pas sans son feu vert.**
