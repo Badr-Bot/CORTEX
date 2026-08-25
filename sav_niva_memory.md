@@ -851,3 +851,49 @@ Ces mails sont **transactionnels** : audience = tous les acheteurs, y compris
 les désabonnés du marketing ; aucune offre, aucune promo dedans.
 
 Section ajoutée à l'artefact du plan (« Priorité 0 »).
+
+## 📍 POINT D'ÉTAPE — 25/08/2026, ~10h Paris
+
+### Campagne Blanc Ivoire : EN COURS D'ENVOI
+`01M0TX2RJFQTSSQ5YCR4RB2VMZ` — statut **`Sending`**, partie à 07h30 UTC
+(09h30 Paris), throttled 10 %/h → fin vers 19h30 Paris.
+
+Premiers chiffres (766 envoyés sur ~5 500) :
+- Délivrés 765 — **99,87 %**
+- Bounces 1 — **0,13 %** (seuil d'alerte : 2 %)
+- Plaintes spam **0** (seuil d'alerte : 0,1 %)
+- Ouvertures 119 — 15,6 % · Clics 10
+- **1 commande, 59,99 €**
+
+➡️ La délivrabilité tient malgré l'ouverture à Gmail + Orange. Continuer à
+surveiller jusqu'à la fin de l'envoi.
+
+⚠️ Les 3 adresses de l'équipe (`ViZeWG`) n'avaient rien reçu à 10h : normal,
+14 % de la base envoyée, Klaviyo tire dans un ordre non contrôlable.
+
+📌 Découverte : le segment exclu `QVfVnm` s'appelle **« Reputation Repair
+Audience »** — le domaine a déjà connu un incident de réputation.
+
+### Décision de séquencement (Badr, 25/08)
+**On attend qu'il branche ParcelPanel → Klaviyo avant de commencer les
+flows.** Ensuite on attaque **flow par flow**, un seul à la fois.
+
+Marche à suivre transmise à Badr :
+1. Klaviyo → Settings → API Keys → *Create Private API Key* (droits
+   d'écriture sur les Events).
+2. App ParcelPanel dans l'admin Shopify → Integrations / Notifications →
+   Klaviyo → coller la clé, activer les statuts d'expédition.
+   (⚠️ souvent réservé aux plans payants ; noms de menus variables.)
+
+**Ma vérification une fois branché** : relancer `query_metric_aggregates` sur
+`UnSGtA` (Package in transit) et `TuLCRC` (Confirmed Shipment). Si ça passe
+de 4 et 6 à plusieurs centaines → OK. Sinon → connexion ratée.
+
+### Ordre de travail convenu ensuite
+1. Flow **Suivi de commande** (4 mails constructibles) — visuels générés sur
+   Higgsfield dans la charte, montrés à Badr avant intégration.
+2. Envoi de chaque mail à Badr via Klaviyo pour validation.
+3. Activation du nouveau + coupure de l'ancien, mesure 14 jours.
+4. Puis **Panier abandonné**, puis le reste selon le plan.
+
+Badr a validé le plan complet et l'a trouvé « super clair, classe ».
