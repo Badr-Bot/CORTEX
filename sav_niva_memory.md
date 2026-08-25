@@ -1281,3 +1281,58 @@ Les 13 templates marketing ont été envoyés en preview avec contexte simulé
 6. Remboursements : Fuzfa #2126 (89,99 €), Verhellen (59,98 €), #6410 et #5919
    à réception du retour.
 7. Expédier #3601 Cardi et #2349 Bernard le 26/08 + envoyer les numéros de suivi.
+
+---
+
+## 🔴 DOSSIERS OUVERTS — À RAPPELER À BADR À CHAQUE SESSION
+
+**RÈGLE (posée par Badr le 25/08/2026) :** ces dossiers doivent être
+**rappelés à chaque échange**, sans qu'il ait à le demander. On ne retire une
+ligne que lorsque **Badr dit explicitement « c'est traité »**. Pas avant, même
+si le dossier a l'air résolu côté Shopify.
+
+### A. Adresse corrigée par le client mais JAMAIS saisie dans Shopify
+
+Motif récurrent : le client répond avec sa bonne adresse, on lui confirme, et
+personne ne la reporte dans Shopify. La commande reste inlivrable.
+
+| Cmd | Client | Adresse dans Shopify | Adresse donnée par le client | Depuis |
+|---|---|---|---|---|
+| **#3207** | marie jose breton · am.breton@orange.fr | `address1` / `city` / `00080` | 327 chemin des Cancabeaux, 84210 Althen-des-Paluds · 06 24 60 32 29 | 24/08 |
+| **#6323** | Robert Langlet · robertlanglet.trinacri@gmail.com | `59127` (le CP dans le champ rue) | 16 rue Charles Cattelain, 59127 Walincourt-Selvigny | 22/08 |
+| **#4610** | Marie-Line Depoortere · marie-line.depoortere@wanadoo.fr | CP **33500** (= Libourne) | Leers = **59115** | 24/08 |
+
+#3207 : commande du 04/07, 59,98 €, marquée expédiée avec tracking — n'a jamais
+pu être livrée. #6323 : commande du 20/08, 79,98 €, **UNFULFILLED**, jamais
+partie. #4610 : commande du 15/07, 59,98 €, premier colis retourné.
+
+### B. Adresse OK mais colis bloqué — relance transporteur à faire
+
+| Cmd | Client | État |
+|---|---|---|
+| **#5496** | Maxime Pabois · pabois.maxime@orange.fr | Adresse corrigée ✅ (71 route de Saint-Révérend, 85800 Le Fenouiller · 0617983834) mais seul tracking = l'ancien colis bloqué du 03/08. Réexpédition à déclencher. |
+
+### C. Relancés plusieurs fois, ZÉRO réponse (vérifié : aucun mail entrant)
+
+| Cmd | Client | Manque | Relances |
+|---|---|---|---|
+| **#5455** | Berseth · guy.berse@gmail.com | n° de rue (« Route de Longirod ») | 3 — 08/08, 18/08, 20/08 |
+| **#5842** | Ponseele · rita.ponseele@icloud.com | n° de rue (« Rue d'Hastière ») | 3 — 12/08, 18/08, 20/08 |
+| **#6201** | Janssen · janssa2103@icloud.com | adresse + téléphone | 2 — 18/08, 20/08 |
+| **#3161** | Williquet-Thone · gilbertwilliquet@skynet.be | adresse après échec de livraison | 1 — 21/08 |
+
+Proposition en attente de validation Badr : dernier mail avec échéance
+(« sans réponse sous 7 jours, remboursement et annulation »).
+
+### D. Traités correctement — ne pas relancer
+
+#6213 De Muynck (corrigée + expédiée 20/08) · #5915 Hublet (corrigée +
+expédiée 14/08) · #5610 Barez (réexpédiée 17/08) · #5425 Mertens (en transit)
+· #2349 Bernard (colis retrouvé, mail du 24/08).
+
+### Vérification faite le 25/08
+
+Scan des 50 dernières commandes (25/08) et de 50 commandes du début juillet :
+**aucune autre adresse placeholder**. Ce n'est pas un bug de checkout qui
+tourne en fond, c'est un défaut de suivi manuel. Volume : 50 commandes sur la
+seule journée du 25/08.
