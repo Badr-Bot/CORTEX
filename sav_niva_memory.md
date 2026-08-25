@@ -1043,3 +1043,62 @@ Ces trois-là sont précisément ceux qui vident le SAV.
 statut. Montée attendue sous 24-48 h au fil des scans transporteurs.
 
 ➡️ **Le flow Suivi de commande est constructible en entier, les 5 mails.**
+
+---
+
+## 🏗️ FLOW 1 « SUIVI DE COMMANDE » — CONSTRUIT EN BROUILLON (25/08 ~17h35)
+
+### Décisions Badr validées
+- Retard ParcelPanel réglé sur **15 j** par Badr (règle EMK6HSDK). Compensé par
+  le flow Rassurance à J+10 côté Klaviyo — les deux se complètent.
+- Promesse incident : réexpédition si le colis ne repart pas sous **24 h** (Badr).
+- Promesse J+10 : délai 10-20 j assumé + **30 j → remboursement ou réexpédition
+  au choix** (Badr).
+- Mail « Livré » : **100 % service, zéro vente** (le flow est transactionnel ;
+  CTA marketing chez des désabonnés = risque CNIL). La vente post-livraison
+  ira dans le flow Post-achat.
+
+### Templates créés (CODE, charte NIVA, barre de progression 4 étapes sur A/B/C)
+| Mail | Template | Statut déclencheur |
+|---|---|---|
+| A En route | `UpdQrR` | In transit |
+| B En livraison | `RzP8Ev` | Out for delivery |
+| C Livré | `W6Mdzv` | Delivered |
+| D Incident | `YhwSK9` | Exception |
+| D2 Passage manqué | `SAjsSu` | Failed attempt |
+| E Rassurance J+10 | `RkSBFA` | (Fulfilled Order + 10 j) |
+
+### Flows créés (statut DRAFT, ne rien activer sans validation Badr)
+**`TWLyAc` — NIVA — Suivi de commande (Claude v1)**
+Trigger `UjhQfQ` (ParcelWILL Shipment status update) → multi-branches sur
+`shipment_status` : In transit→A · Out for delivery→B · Delivered→C ·
+Failed attempt→alerte interne+D2 · Exception→alerte interne+D ·
+Expired→alerte interne seule · else→rien.
+Alertes internes → serraj146@gmail.com avec n° commande + checkpoint + tracking.
+From/reply-to : contact@mynivashop.com. Smart sending OFF.
+
+**`Ukv6cZ` — NIVA — Rassurance J+10 (Claude v1)**
+Trigger `Udzdq2` (Fulfilled Order) → attente 10 j (envoi à 10h, fuseau profil)
+→ mail E avec filtre « 0 événement ParcelWILL shipment_status=Delivered depuis
+l'entrée dans le flow ». Réentrée : 30 j.
+
+### ⚠️ À faire avant activation
+1. **`transactional` est retombé à `false`** sur tous les mails (l'API
+   l'ignore à la création). À cocher dans l'UI Klaviyo par mail (« Mark as
+   transactional ») sinon les désabonnés ne reçoivent pas leur suivi.
+2. **Vérifier les valeurs réelles de `shipment_status`** sur les événements
+   des prochaines 48 h (un seul observé : "In transit"). Si ParcelPanel envoie
+   d'autres libellés, corriger les branches.
+3. Doublon Shopify : la notif Shopify « expédié » part à J0, le mail A au
+   premier scan (~J+10 observé sur #6025) → complémentaires, pas de coupure
+   nécessaire a priori.
+
+### Tests envoyés à Badr (17h35)
+6 previews (serraj146@gmail.com + badr.saraj@gmail.com) remplis avec les
+données réelles de #6025. Attente de sa validation avant toute activation.
+
+### Plan global re-confirmé par Badr (méthode par flow)
+Construire en brouillon → tests par mail → validation Badr → désactiver
+l'ancien + activer le nouveau → mesurer 14 j → flow suivant.
+Ordre : 1 Suivi (ici) · 2 Panier abandonné · 3 Checkout abandonné ·
+4 Post-achat · 5 Bienvenue · 6 Navigation+Site fusionnés · 7 Winback+Sunset.
