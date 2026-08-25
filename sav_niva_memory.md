@@ -1343,3 +1343,56 @@ Scan des 50 dernières commandes (25/08) et de 50 commandes du début juillet :
 **aucune autre adresse placeholder**. Ce n'est pas un bug de checkout qui
 tourne en fond, c'est un défaut de suivi manuel. Volume : 50 commandes sur la
 seule journée du 25/08.
+
+---
+
+## 📌 RÈGLES PERMANENTES — posées par Badr le 25/08/2026
+
+### 1. Prévenir Badr dès qu'une donnée de commande change
+Toute modification d'adresse, de téléphone ou de destinataire doit lui être
+signalée **au moment où elle est faite**, avec l'ancienne et la nouvelle valeur.
+Il ne doit jamais découvrir un changement après coup.
+
+### 2. Une adresse corrigée dans Shopify ne fait RIEN partir
+C'est la leçon la plus coûteuse de la session du 25/08 : quatre commandes
+payées (≈ 260 €, la plus vieille du 04/07) étaient bloquées parce que le client
+avait envoyé sa bonne adresse, qu'on la lui avait confirmée par mail… et que
+personne n'avait ni saisi l'adresse ni relancé l'expédition.
+
+**Donc, à chaque correction d'adresse, la sortie n'est pas « c'est corrigé »
+mais « c'est corrigé + le sous-traitant a été relancé avec la nouvelle
+adresse ».** Systématiquement rappeler à Badr que la réexpédition ou la relance
+transporteur reste à faire, et lui proposer le mail au sous-traitant. Un dossier
+n'est clos que quand le colis est reparti.
+
+### 3. Toujours vérifier une ressaisie d'adresse
+Ne jamais faire confiance à une adresse retapée à la main, y compris par Badr.
+Relire la valeur en base et la comparer **caractère par caractère** à ce que le
+client a écrit dans son mail.
+
+Erreur observée deux fois sur quatre le 25/08 : **le premier chiffre du numéro
+de rue disparaît** (327 → 27, 16 → 6). Probablement un copier-coller qui mange
+le premier caractère. Vérifier ce chiffre en priorité.
+
+### 4. Rappeler les dossiers ouverts à chaque session
+Voir « DOSSIERS OUVERTS ». On les ressort **spontanément**, sans que Badr
+demande. Une ligne ne disparaît que quand **Badr dit explicitement « c'est
+traité »**, dossier par dossier — jamais parce que Shopify a l'air en ordre.
+
+### 5. Ne jamais annoncer une vérification qu'on n'a pas faite
+Toujours relire la valeur en base après écriture. Sur les API de cette stack, un
+`200 OK` ne prouve rien : Klaviyo renvoie 200 en ignorant silencieusement
+`transactional: true` et l'activation des alertes internes. Lire la réponse.
+
+### Notes techniques apprises le 25/08
+
+- **Shopify `orderUpdate`** : `shippingAddress` **écrase** l'adresse entière.
+  Toujours renvoyer *tous* les champs (prénom, nom, rue, ville, CP, pays, tél.),
+  sinon on efface ce qu'on n'a pas renvoyé.
+- **Téléphones** : les passer en E.164 (`+33…`). Les transporteurs ignorent
+  souvent un `06…` national, et c'est le téléphone qui débloque la plupart des
+  tentatives de livraison ratées.
+- **Notifications client Shopify** : absentes de l'Admin API, réglage 100 % UI.
+- **Klaviyo** : `update_flow` n'accepte que `status` (renommage = UI) ·
+  `update_flow_action` exige l'`id` dans `definition` **et** le renvoi de
+  `links` à l'identique · pas d'endpoint `update_form`.
