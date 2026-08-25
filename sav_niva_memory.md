@@ -1102,3 +1102,45 @@ Construire en brouillon → tests par mail → validation Badr → désactiver
 l'ancien + activer le nouveau → mesurer 14 j → flow suivant.
 Ordre : 1 Suivi (ici) · 2 Panier abandonné · 3 Checkout abandonné ·
 4 Post-achat · 5 Bienvenue · 6 Navigation+Site fusionnés · 7 Winback+Sunset.
+
+---
+
+## 🏗️ TOUS LES FLOWS CONSTRUITS EN BROUILLON (25/08 ~17h55)
+
+Badr a validé les 6 mails du flow Suivi (« niquel ») et demandé de préparer
+tous les flows. **Variables vérifiées sur événements réels avant construction** :
+- Added to Cart : `Product Name`/`Variant Name`/`ImageURL`/`Price`/`VariantID`/
+  `Quantity` OK ; `URL` = myshopify (jamais utilisée). Lien panier =
+  `mynivashop.com/cart/{{ VariantID }}:{{ Quantity }}`.
+- Checkout Started : `event.extra.checkout_url` = mynivashop.com/recover ✅,
+  `extra.line_items[]` avec images.
+- Viewed Product : `URL` déjà sur mynivashop.com ✅, `Name`/`ImageURL`/`Price`.
+
+### Les 8 flows Claude v1 (tous DRAFT)
+| Flow | ID | Trigger | Séquence |
+|---|---|---|---|
+| Suivi de commande | `TWLyAc` | ParcelWILL status (UjhQfQ) | 6 branches, 5 mails + 3 alertes internes |
+| Rassurance J+10 | `Ukv6cZ` | Fulfilled Order | J+10 si non livré |
+| Panier abandonné | `WF5ZSe` | Added to Cart | 4h P1 (`RrCRXV`) → +20h P2 (`WWKh5Z`) ; filtres PO=0 & CS=0 ; réentrée 7 j |
+| Checkout abandonné | `TvXLCA` | Checkout Started | 1h C1 (`SWvYiC`) → +23h C2 (`RQiDDZ`) → +24h C3 (`SphFXA`) ; PO=0 ; réentrée 7 j |
+| Post-achat | `STxY4j` | Placed Order | J+2 PA1 (`WPCwxc`) → J+23 PA2 (`Ytp9pf`, si Delivered≥1) ; réentrée 30 j |
+| Bienvenue | `Yq5983` | Liste Wgu7Z3 | B1 immédiat (`XizyxK`) → J+2 B2 (`RFZp2u`) → J+4 B3 (`RcP6Yu`) ; B2/B3 si PO=0 ; pas de réentrée |
+| Navigation | `TT74d3` | Viewed Product | 20h N1 (`Rkb7yJ`) ; ATC=0 & CS=0 & PO=0 ; réentrée 7 j |
+| Winback | `Xsx57Q` | Placed Order | J+60 W1 (`X95MPw`) → J+75 W2 (`VJnrVQ`) ; PO=0 depuis entrée |
+
+Tous les envois marketing : smart sending ON, à 10h heure du profil pour les
+délais en jours, UTM par flow (panier-abandonne / checkout-abandonne /
+post-achat / bienvenue / navigation / winback / suivi-colis).
+Templates clonés par Klaviyo dans chaque flow (IDs locaux ≠ IDs bibliothèque).
+
+### 13 mails test envoyés (17h53, serraj146 + badr.saraj)
+Panier×2 · Checkout×3 · Post-achat×2 · Bienvenue×3 · Navigation×1 · Winback×2,
+remplis avec données réelles (polo Noir Espresso 3XL, checkout #hWNFji3...).
+
+### Choix éditoriaux à savoir
+- **Aucun code promo inventé** : pas de code bienvenue ni d'incitation
+  checkout C3 — décision Badr en attente (voir tâches).
+- Anciens Winback/Sunset (0 envoi) remplacés par un seul Winback J+60/J+75,
+  W2 = demande de feedback + désabo assumé (sunset doux).
+- Navigation absorbe Browse+Site abandonment (un seul mail, honnête,
+  « on ne relance pas dix fois »).
