@@ -807,3 +807,47 @@ envoyé → flow suivant. **Un seul flow refondu à la fois.**
 
 **Prochaine étape** : attendre la validation du plan par Badr, puis
 construire le flow Panier abandonné (priorité 1) en brouillon.
+
+## 🚨 CAUSE RACINE DE LA SURCHARGE SAV « où est mon colis » (25/08)
+
+Badr a proposé d'ajouter des mails transactionnels (commande / expédié /
+pris en charge transporteur / livré) pour désengorger le SAV. Vérification
+des volumes d'événements Klaviyo sur **août 2026** :
+
+| Métrique | ID | Août | Verdict |
+|---|---|---|---|
+| Placed Order | Yrs33B | **1 070** | ✅ utilisable |
+| Fulfilled Order | Udzdq2 | **1 092** | ✅ utilisable (= expédié) |
+| Delivered Shipment | U9WCYK | **669** | ✅ utilisable |
+| Confirmed Shipment | TuLCRC | **6** | ❌ la donnée n'arrive pas |
+| Package in transit | UnSGtA | **4** | ❌ la donnée n'arrive pas |
+| Package delayed | RBxAZV | **0** | ❌ aucun événement, jamais |
+
+**1 070 commandes pour 6 événements de prise en charge transporteur.**
+L'application de suivi (ParcelPanel — cf. `mynivashop.com/apps/parcelpanel`)
+n'est pas connectée à Klaviyo. C'est LA cause du volume de « où est mon
+colis » au SAV : les mails de suivi ne peuvent tout simplement pas partir.
+
+### Ce qui est constructible tout de suite
+1. **Commande enregistrée** (Placed Order) — adresse affichée en grand pour
+   rattraper les erreurs de saisie (cf. dossiers #3207, #4610).
+2. **Colis parti** (Fulfilled Order) — n° de suivi + **délai réaliste**.
+3. **Retard** — ⚠️ astuce clé : pas besoin de la métrique « Package delayed ».
+   Déclencher sur Fulfilled Order → attendre 10 jours → split conditionnel
+   « pas de Delivered Shipment depuis le début du flow » → envoyer.
+   C'est le mail le plus rentable en heures de SAV économisées.
+4. **Colis livré** (Delivered Shipment) — confirmation + conseil d'essayage.
+
+### Bloqué en attendant
+5. « Pris en charge par le transporteur local » — nécessite de connecter
+   l'appli de suivi à Klaviyo. **Action à faire par Badr.**
+
+### ⚠️ Piège doublons
+Shopify envoie déjà nativement sa confirmation de commande et sa
+confirmation d'expédition. Si Klaviyo les envoie aussi, le client en reçoit
+deux. Il faudra couper l'un des deux côtés — ne jamais laisser partir les deux.
+
+Ces mails sont **transactionnels** : audience = tous les acheteurs, y compris
+les désabonnés du marketing ; aucune offre, aucune promo dedans.
+
+Section ajoutée à l'artefact du plan (« Priorité 0 »).
