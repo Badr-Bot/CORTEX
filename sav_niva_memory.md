@@ -458,8 +458,25 @@ Notice » au client. Remplacé par l'URL directe
   (Résidence Bel Ébat, La Celle-Saint-Cloud). Réponse envoyée promettant un
   retour d'information : il faut trancher.
 - Keane #4377 (Irlande ?) — dit ne plus pouvoir expédier de colis vers la
-  France depuis le 07/07/2026, seulement des lettres. Question ouverte :
-  rembourse-t-on sans retour, ou attend-on ?
+  France depuis le 07/07/2026, seulement des lettres. **Tranché par Badr le
+  25/08 : on attend le retour, pas de remboursement sans colis reçu.**
+
+### RÈGLE REMBOURSEMENT (tranchée par Badr le 25/08/2026) — PRIORITAIRE
+
+**Aucun remboursement sans retour du produit.** Le client doit renvoyer
+l'article ; le remboursement est exécuté à réception du colis chez NIVA.
+
+- Client qui n'a **rien reçu** : on n'ouvre pas de remboursement. Il attend
+  de recevoir le colis, puis il nous le renvoie, et c'est à ce moment-là
+  qu'on rembourse. Pas d'exception « il n'a rien reçu donc on rembourse
+  direct » — cette formulation antérieure dans ce fichier est **caduque**.
+- Cette règle prime sur toute rédaction plus ancienne du présent document.
+
+### Expéditions en cours (état au 25/08/2026)
+- **Cardi #3601** (chemises 3XL) et **Bernard #2349** (chemise blanche
+  manche courte 3XL) : préparation en cours côté Badr, **expédition prévue
+  le 26/08**. Numéro de suivi promis aux deux clients — à transmettre dès
+  qu'il existe.
 
 ### Source de vérité pour les retours/réexpéditions : le Drive
 
