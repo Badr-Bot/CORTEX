@@ -754,3 +754,56 @@ ou passer par des templates clonés.
 nouveaux flows à neuf, avec mes préconisations et les audiences que je
 conseille. Validation par mail, puis activation du nouveau et désactivation
 de l'ancien.
+
+## 📐 PLAN DE REFONTE DES FLOWS — validé comme document de travail (25/08)
+
+**Artefact publié** :
+https://claude.ai/code/artifact/962cca72-052f-43cd-b093-8b7873138895
+Source : `scratchpad/plan_flows.html` (republier le même chemin pour mettre à jour).
+
+Badr a demandé de tout réorganiser et de faire un plan commun avant de
+construire, en s'inspirant d'**Alex Garcia (Marketing Examined)**.
+
+### Principes éditoriaux retenus
+1. L'histoire avant l'offre — le récit d'origine (« aucun polo n'était pensé
+   pour les gars qui ont pris quelques kilos ») remonte dans le Bienvenue.
+2. Un seul plain-text « voix du fondateur » par séquence — il marche parce
+   qu'il détonne.
+3. Un mail = une objection (taille / tombé / risque / délai), pas 4× « revenez ».
+4. Éduquer coûte moins cher que remiser — la promo seulement au dernier mail.
+5. Un seul produit héros : le Polo Marceau.
+6. Segmenter par comportement (consulté ≠ ajouté ≠ checkout).
+7. L'objet parle du lecteur, pas de nous.
+
+### Priorités et objectifs (à trafic constant)
+| # | Flow | Actuel | Cible |
+|---|---|---|---|
+| 1 | Panier abandonné — refonte totale | 1 146 € | 2 700–3 700 € |
+| 2 | Checkout abandonné — amplifier (3→4 mails) | 3 273 € | 4 500–5 500 € |
+| 3 | Post-achat — séparer suivi colis / vente, ajouter le rachat J+21 | 1 041 € | 2 000–2 800 € |
+| 4 | Bienvenue — ne pas casser, corriger liens + 5e mail | 7 551 € | 8 500–9 500 € |
+| 5 | Navigation + Site abandonné — fusionner | 1 659 € | 2 200–2 800 € |
+| 6 | Winback + Sunset — reconstruire (déclencheurs morts) | 0 € | 1 200–2 000 € |
+
+Total : **14 670 € → 24–29 k€ / mois** visés.
+
+### Fix technique central
+Lien de tous les mails de relance panier :
+`https://mynivashop.com/cart/{{ event.VariantID }}:{{ event.Quantity }}`
+(reconstruit le panier sur le bon domaine — l'événement Added to Cart ne
+fournit aucun checkout_url).
+Checkout abandonné : `{{ event.extra.checkout_url }}`.
+
+### Méthode de bascule (validée)
+Construire en brouillon → envoyer chaque message par mail à Badr → activer
+le nouveau et couper l'ancien à la minute → mesurer 14 jours au €/mail
+envoyé → flow suivant. **Un seul flow refondu à la fois.**
+
+### Outils confirmés disponibles
+`create_flow` (définition JSON complète), `create_email_template`
+(editor_type CODE = maîtrise totale des liens), `clone_email_template`,
+`update_dnd_email_template`. Base HTML des nouveaux mails :
+`scratchpad/flows/base.html`.
+
+**Prochaine étape** : attendre la validation du plan par Badr, puis
+construire le flow Panier abandonné (priorité 1) en brouillon.
