@@ -710,3 +710,47 @@ laisser désactivé ou archiver pour éviter les doubles envois.
 - **Abandoned Cart vs Abandoned Checkout** : Cart touche 40 % de gens en
   plus (1 493 vs 1 060) mais rapporte 3 fois moins. L'écart vient du
   contenu, pas de l'audience.
+
+## 🔧 DIAGNOSTIC CONFIRMÉ — pourquoi l'Abandoned Cart ne convertit pas (25/08)
+
+Badr soupçonnait des liens cassés. Vérification faite sur les **données
+réelles des événements Shopify** :
+
+**Événement `Added to Cart` (`WfbaFR`)** — utilisé par le flow Abandoned Cart :
+```
+"URL": "https://zmfm0f-ei.myshopify.com/products/e-book-lart-de-sublimer..."
+```
+Le template `SZipYW` (message E2 « Vous avez laissé quelque chose ») pointe
+son bouton « Finaliser ma commande » sur `{{ event.URL }}`. Résultat :
+1. domaine technique `zmfm0f-ei.myshopify.com` au lieu de `mynivashop.com` ;
+2. c'est une **page produit**, pas un panier — le client arrive avec un
+   panier vide et doit tout refaire.
+
+**Événement `Checkout Started` (`XbpVNm`)** — utilisé par Abandoned Checkout :
+```
+"checkout_url": "https://mynivashop.com/97708671350/checkouts/ac/hWNG3OWHLXBIzM2pF6uNRV7z/recover?key=...&locale=fr-FR"
+```
+Bon domaine **et panier restauré** (l'événement contient les 3 line_items).
+
+➡️ **C'est toute l'explication de l'écart 3,11 € vs 0,78 € par destinataire.**
+Ce n'est pas la rédaction, c'est la destination du bouton.
+
+⚠️ Ne pas conclure trop vite d'un rendu `render_email_template` sans contexte :
+`{{ event.URL }}` s'affiche vide dans ce cas, ce qui fait croire à un
+`href=""` en dur. J'ai commis cette erreur et l'ai corrigée.
+
+⚠️ Correction d'une autre analyse trop rapide : le Post Purchase qui « clique
+sans convertir » (54 % de clic sur `VYGL3p`) n'a PAS de lien cassé — c'est
+le message **« E3 - Tracking colis »**, objet « Où en est votre commande ? ».
+Les gens cliquent pour suivre leur colis, c'est normal. Il ne faut pas
+attendre de ventes de ce message.
+
+**Contrainte technique** : tous les templates de flows sont
+`SYSTEM_DRAGGABLE` (éditeur drag & drop). `update_email_template` les refuse
+(400). Il faut `update_dnd_email_template` avec la définition JSON complète,
+ou passer par des templates clonés.
+
+**Décision de Badr (25/08)** : ne PAS corriger les flows existants. Créer de
+nouveaux flows à neuf, avec mes préconisations et les audiences que je
+conseille. Validation par mail, puis activation du nouveau et désactivation
+de l'ancien.
