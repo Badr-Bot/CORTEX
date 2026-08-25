@@ -1210,3 +1210,74 @@ Alternance par séquence : P1 ivoire→P2 beige · C1 ivoire→C2 beige→C3 ivo
 B1 beige→B2 ivoire→B3 beige · PA1 beige→PA2 ivoire · W1 beige→W2 ivoire.
 
 ### 7 nouveaux tests envoyés (18h13) — attente validation Badr.
+
+---
+
+## 🚀 BASCULE COMPLÈTE — 25/08/2026, fin de session
+
+Tous les flows redesignés (v5, charte mail.pdf) sont **EN LIGNE**. Les anciens
+flows sont **coupés**. Badr a validé : « vas y gooo, envoie le lot des mails
+comme ça on lance les nouveaux flow et t'arrête le reste ».
+
+### Flows LIVE (vérifié par API, 9 au total)
+
+| Flow | ID | Statut |
+|---|---|---|
+| NIVA — Bienvenue (Badr v1) | `Yq5983` | live |
+| NIVA — Panier abandonné (Badr v1) | `WF5ZSe` | live |
+| NIVA — Checkout abandonné (Badr v1) | `TvXLCA` | live |
+| NIVA — Post-achat (Badr v1) | `STxY4j` | live |
+| NIVA — Navigation (Badr v1) | `TT74d3` | live |
+| NIVA — Winback (Badr v1) | `Xsx57Q` | live |
+| NIVA — Suivi de commande (Badr v1) | `TWLyAc` | live |
+| NIVA — Rassurance (Badr v1) | `Ukv6cZ` | live — **délai passé à J+14** |
+| Sunset - NIVA | `RMEGr6` | live — **ne pas toucher** (délivrabilité) |
+
+### Anciens flows COUPÉS (passés en draft)
+
+`T7JxZT` Welcome · `XhNtXV` Abandoned Cart · `SgnesH` Abandoned Checkout ·
+`Yq9Gav` Post Purchase · `XZwTsk` Browse Abandonment · `UNaq2J` Site
+Abandonment · `VPrHJj` Winback
+
+### Les 18 templates v5
+
+13 marketing + 5 Suivi. Signatures : **Mathieu Pavard — fondateur** sur les
+mails de marque, **Camille Dubois — co-fondatrice** sur les mails service
+(Post-achat 1 `X5hMqn` et Post-achat 2 `Ytp9pf`). Les 5 templates Suivi n'ont
+volontairement aucune signature.
+
+Délai de livraison partout : **6 à 8 jours ouvrés** (expédition sous 24 h).
+Jamais 10-20 jours.
+
+### Lot de test envoyé (serraj146@gmail.com)
+
+Les 13 templates marketing ont été envoyés en preview avec contexte simulé
+(panier et checkout rendus avec de vrais visuels produit).
+
+### Limites API Klaviyo confirmées
+
+- `update_flow` n'accepte que `status` — **renommer un flow se fait à la main
+  dans l'UI**. Le flow Rassurance s'appelle encore « J+10 » alors que le délai
+  est bien à 14 jours : à renommer.
+- `update_flow_action` exige l'`id` **dans** l'objet `definition` **et** de
+  renvoyer `links` à l'identique, sinon 400 « You cannot change the links ».
+- `transactional: true` est ignoré par l'API : c'est une **revue Klaviyo**.
+  Suivi 1 est approuvé, les 4 autres sont en attente.
+- Pas d'endpoint `update_form` : la popup / roue se modifie uniquement dans l'UI.
+- Astuce : passer `fields_template: ["id"]` sur les updates réduit la réponse
+  de ~10 000 tokens à ~50.
+
+### Reste à faire par Badr (UI uniquement)
+
+1. Renommer « NIVA — Rassurance J+10 (Badr v1) » → « J+14 ».
+2. Écrire les codes en clair sur les 3 écrans gagnants de la roue
+   (`BIENVENUE5` / `BIENVENUE10` / `BIENVENUE15`) — le lot gagné n'est **pas**
+   enregistré dans Klaviyo, les mails de bienvenue ne peuvent donc pas le citer.
+3. Traduire en français les écrans « Cadeau offert » et « Success » + y mettre
+   le logo.
+4. Unifier la police de la popup (Poppins, ou Jost si dispo).
+5. Couper les notifications d'expédition natives Shopify **le lendemain** de la
+   confirmation que le flow Suivi tourne bien.
+6. Remboursements : Fuzfa #2126 (89,99 €), Verhellen (59,98 €), #6410 et #5919
+   à réception du retour.
+7. Expédier #3601 Cardi et #2349 Bernard le 26/08 + envoyer les numéros de suivi.
