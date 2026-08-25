@@ -672,3 +672,41 @@ annuler l'envoi en cours et repasser aux segments « safe send ».
 
 **Relance proposée (pas encore créée)** : mercredi 26/08 vers 18h, aux
 non-ouvreurs uniquement, objet type « Il reste 6 heures ».
+
+## Performance des flows Klaviyo — relevé du 24/08/2026 (30 derniers jours)
+
+Métrique de conversion : `Placed Order` (`Yrs33B`).
+
+| Flow | ID | Destinataires | Ouv. | Clic | Conv. | CA 30j | €/destinataire |
+|---|---|---|---|---|---|---|---|
+| Welcome Flow | T7JxZT | 3 681 | 40,0 % | 7,4 % | 3,22 % | **7 551 €** | 2,08 € |
+| Abandoned Checkout | SgnesH | 1 060 | 43,9 % | 10,8 % | 4,56 % | **3 273 €** | **3,11 €** |
+| Browse Abandonment | XZwTsk | 3 101 | 32,9 % | 3,1 % | 0,58 % | 1 359 € | 0,44 € |
+| Abandoned Cart | XhNtXV | 1 493 | 36,7 % | 6,7 % | 1,22 % | 1 146 € | 0,78 € |
+| Post Purchase | Yq9Gav | 3 419 | 62,9 % | 27,3 % | 0,44 % | 1 041 € | 0,30 € |
+| Site Abandonment | UNaq2J | 1 202 | 38,1 % | 4,3 % | 0,42 % | 300 € | 0,25 € |
+
+**Total flows : ~14 670 € sur 30 jours.**
+
+Flows `live` sans aucune donnée sur la période : **Winback** (`VPrHJj`) et
+**Sunset** (`RMEGr6`) — ils ne se déclenchent pas.
+Flow en **draft** jamais activé : « Page de commande abandonnée Rappel -
+Standard (E-mail et SMS) » (`Y6Ezmh`) — doublon de Abandoned Checkout, à
+laisser désactivé ou archiver pour éviter les doubles envois.
+
+### Analyse par message — points d'action
+
+- **Le meilleur mail de tout le compte** : `VRdZtF` (Abandoned Checkout) —
+  322 destinataires, 30 conversions, 2 127 €, **6,71 €/destinataire**,
+  51 % d'ouverture, 18,9 % de clic. C'est le modèle à copier.
+- **Le pire** : `RcSwut` (Abandoned Cart, 1er message) — 366 destinataires,
+  **1 seule conversion, 48 €**, 0,13 €/destinataire, 3,9 % de clic. Ce
+  message ne sert à rien en l'état, à réécrire.
+- **Post Purchase = énorme gâchis** : 62,9 % d'ouverture et 27,3 % de clic
+  (933 clics !) mais seulement 0,44 % de conversion, 15 commandes. Les gens
+  cliquent massivement mais n'achètent pas — les liens pointent
+  probablement vers du suivi de colis / avis plutôt que vers des produits.
+  C'est le plus gros gisement inexploité du compte.
+- **Abandoned Cart vs Abandoned Checkout** : Cart touche 40 % de gens en
+  plus (1 493 vs 1 060) mais rapporte 3 fois moins. L'écart vient du
+  contenu, pas de l'audience.
