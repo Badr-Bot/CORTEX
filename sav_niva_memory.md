@@ -1144,3 +1144,52 @@ remplis avec données réelles (polo Noir Espresso 3XL, checkout #hWNFji3...).
   W2 = demande de feedback + désabo assumé (sunset doux).
 - Navigation absorbe Browse+Site abandonment (un seul mail, honnête,
   « on ne relance pas dix fois »).
+
+---
+
+## 🎨 V2 GARCIA + PLANCHE DE MARQUE + CODES PROMO (25/08 ~18h15)
+
+### Décisions Badr
+- Mails du flow 1 (Suivi) : validés « niquel ». **Transactional à cocher : il le fera plus tard.**
+- Code bienvenue : **oui, 5%** → créé dans Shopify : **BIENVENUE5** (gid 2289516413302, tous produits, sans expiration, tous clients).
+- Code dernier rappel checkout : **oui** → créé : **RETOUR10** (−10%, gid 2289516446070). Pourcentage choisi par moi, modifiable.
+- Planche de marque reçue (PDF uploads/…Planche_Design___NIVA_V1_1.pdf) :
+  **Noir #151515** (logo/texte/signature) · **Ivoire #FAF9F6** (fond site) ·
+  **Beige sable #E8E1D4** (packaging, « doux chaleureux artisanal »).
+  Demande : **alterner les fonds** (parfois beige).
+- « Applique les méthodes Alex Garcia » + « inspire-toi du mail Blanc Ivoire :
+  FOMO, gros chiffres » + demande d'un « code valable 10 min ».
+
+### ⚠️ Faux compte à rebours refusé
+« Code valable 10 minutes » avec un code permanent = pratique trompeuse.
+Fait à la place : FOMO honnête (« envoyé une seule fois, il ne reviendra
+pas ») + design v5 (gros −10% blanc sur bloc noir).
+**Option proposée à Badr** : vrai code unique expirant par client = Klaviyo
+→ Coupons → coupon dynamique lié à Shopify (à créer dans l'UI par Badr),
+puis je remplace RETOUR10 par {% coupon_code %}. En attente de sa réponse.
+
+### Apprentissage API
+Les templates clonés dans un flow renvoient **404** sur update_email_template.
+Méthode qui marche : créer un template v2 en bibliothèque →
+`update_flow_action` (id numérique de l'action) avec le message complet
+(subject, preview, template_id, additional_filters, links) → Klaviyo re-clone.
+⚠️ Toujours renvoyer filters + links dans l'update sinon ils sautent.
+
+### v2 en place (design alterné ivoire/beige + P.S. + preuve sociale « 1 000+ commandes »)
+| Mail | Template v2 biblio | Fond | Ajouts |
+|---|---|---|---|
+| Bienvenue 1 | `R6i6nZ` | **beige** | lettre fondateur signée Badr, bloc noir −5% + BIENVENUE5, P.S., objet annonce le code |
+| Bienvenue 2 | `WrFuKp` | ivoire | preuve sociale, P.S. code |
+| Bienvenue 3 | `W9ZXA9` | **beige** | P.S. « dernière fois qu'on en parle » |
+| Checkout 2 | `TgdfuQ` | **beige** | P.S. preuve sociale |
+| Checkout 3 | `WpxJBq` | ivoire | **bloc noir −10% géant + RETOUR10**, objet « −10% pour trancher », P.S. |
+| Panier 2 | `XnRyJF` | **beige** | P.S. « 7 jours » |
+| Post-achat 1 | `X5hMqn` | **beige** | P.S. « jamais avant 20 jours » |
+| Winback 1 | `YjV8FY` | **beige** | P.S. feedback |
+
+Restent en v1 (ivoire, déjà bons, l'alternance tient) : Panier 1, Checkout 1,
+Post-achat 2, Bienvenue —, Navigation 1, Winback 2, et tout le flow Suivi.
+Alternance par séquence : P1 ivoire→P2 beige · C1 ivoire→C2 beige→C3 ivoire+noir ·
+B1 beige→B2 ivoire→B3 beige · PA1 beige→PA2 ivoire · W1 beige→W2 ivoire.
+
+### 7 nouveaux tests envoyés (18h13) — attente validation Badr.
