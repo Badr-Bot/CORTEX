@@ -1696,3 +1696,34 @@ Paramètres → Règles (et non Boutique en ligne → Pages, qui est un autre ob
 5. Contrôle en navigation privée sur `/policies/refund-policy` et
    `/policies/shipping-policy`
 
+
+### Coordonnées officielles NIVA (à saisir dans Paramètres → Général)
+
+Ce sont ces champs que Merchant Center lit pour vérifier l'identité du marchand,
+pas le contenu des pages.
+
+| Champ | Valeur |
+|---|---|
+| Nom de la boutique | NIVA |
+| E-mail service client | contact@mynivashop.com |
+| Téléphone | +1 315 862 4976 |
+| Nom légal | KindredM LLC |
+| Adresse | 30 N Gould St, Ste N |
+| Ville / État / CP | Sheridan · Wyoming (WY) · 82801 |
+| Pays | États-Unis |
+
+⚠️ **E-mail expéditeur** : Paramètres → Notifications affiche encore
+`myniva@outlook.com` dans les politiques de checkout. À passer à
+`contact@mynivashop.com`. Non modifiable par API (les notifications ne sont pas
+exposées dans l'Admin API).
+
+### Pages alignées sur « échange offert » (26/08)
+
+En plus de Livraison & Retours et Politique de remboursement :
+- **Mentions légales** (`Page/710489440630`) : section « Retours » renommée
+  « Échanges et retours », les trois cas de prise en charge y figurent.
+- **Contact** (`Page/704801735030`) : section « Pour un échange de taille »
+  séparée de « Pour un retour ».
+
+Texte intégral des Conditions d'utilisation (20 sections, version française)
+disponible en bloc copiable dans l'artefact de conformité.
