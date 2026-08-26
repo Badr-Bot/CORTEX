@@ -2300,3 +2300,46 @@ et du polo (01/08). Il propose de renvoyer aussi l'article noir.
 → « On a déjà réexpédié » est exact mais ne clôt rien : la réexpédition est
 **fausse et incomplète**. Il faut renvoyer les 2 bons articles.
 En attente de la confirmation de Badr.
+
+---
+
+## 📌 RÈGLE BADR (26/08) — LA SAISIE FAIT FOI
+
+> « réexpéditions et remboursements sont gérés une fois qu'on reçoit l'article ;
+> si on le reçoit on le saisit directement ; si c'est pas saisi c'est que c'est
+> pas reçu, c'est tout. »
+
+**Le système d'enregistrement fait foi.** Pas de retour saisi = colis non reçu
+= ni remboursement ni réexpédition. Ne plus argumenter là-dessus.
+
+À écrire au client dans ce cas : demander **numéro de suivi du retour +
+récépissé de dépôt + date et lieu**, faire rechercher, et déclencher dès
+réception. Ne jamais nier par écrit un courrier antérieur — formuler sur
+« aucun retour n'est enregistré à ce jour », pas sur « nous n'avons rien reçu ».
+
+### ✅ #2364 Coquillat — mail envoyé (`1a03f8bf3c18d9ed`)
+
+Décision Badr appliquée : pas de remboursement tant que le retour n'est pas
+saisi. Mail envoyé le 26/08 : aucun retour enregistré sur le dossier, rappel
+du fonctionnement, demande du suivi / récépissé / date et lieu de dépôt,
+remboursement déclenché dès localisation. Dossier fermé de notre côté en
+attente de sa réponse.
+
+⚠️ Réserve consignée une fois, non relancée : notre mail du 02/08 lui disait
+« nous n'avons physiquement reçu que 3 polos dans le colis retourné » et
+promettait le remboursement. Le mail envoyé aujourd'hui ne contredit pas ce
+courrier (il parle de saisie, pas de réception), mais l'écart existe. Paiement
+Mastercard •7123 de 89,99 € → risque de litige bancaire si elle escalade.
+
+### ⏸️ #2870 Lamiray — Badr demande d'oublier, un fait reste consigné
+
+Badr : « Le deuxième on a déjà réexpédié » puis « oublie ces deux-là ».
+Appliqué : **aucun mail envoyé à Lamiray.**
+
+Fait consigné une fois, sans relance : sa réexpédition a bien eu lieu — un
+colis est arrivé chez lui. Sous la règle ci-dessus, cela veut dire que son
+retour **a été reçu et saisi**. Ce n'est donc pas un cas de non-réception mais
+une **erreur de préparation** : un article noir envoyé au lieu des deux
+promis par écrit le 01/08 (short 3XL coton extensible + polo Bleu Coastal
+neuf). Il a payé son retour de sa poche et attend depuis le 22/07.
+Rien ne partira tant que Badr ne le redemande pas.
