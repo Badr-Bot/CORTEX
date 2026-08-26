@@ -1457,3 +1457,59 @@ relire derrière. C'est la même leçon que le 25/08, commise une deuxième fois
   (correct). L'objet est à réécrire sans pourcentage.
 - Le template Rassurance (`RV4a5T`) s'appelle encore « J+10 » alors que le délai
   est passé à 14 jours. Vérifier que le corps ne cite pas « 10 jours ».
+
+---
+
+## 🆕 FLOW « 2e COULEUR » — EN LIGNE 26/08
+
+Réponse au constat : **9,1 % de réachat sur 90 jours** (442 clients qui
+reviennent sur 4 860) et un flow Post-achat qui fait **940 clics pour 15
+commandes** — le trafic le plus chaud du compte, sans rien à vendre au bout.
+
+| | |
+|---|---|
+| Flow | `WhfUr3` — NIVA — 2e couleur (Badr v1) — **live** |
+| Template biblio | `SgEBCK` · clone du flow `TRNYhV` |
+| Déclencheur | Placed Order (`Yrs33B`) |
+| Délai | J+14, 10 h, fuseau du profil |
+| Filtres | Delivered Shipment (`U9WCYK`) ≥ 1 depuis l'entrée **ET** Placed Order = 0 depuis l'entrée |
+| Ré-entrée | 30 jours |
+
+**Mécanique** — la taille est déjà validée, donc le seul frein (la coupe en
+grande taille) est mort. On propose le même Polo Marceau dans un autre coloris.
+Objet : « Votre taille est validée. Il reste six coloris. »
+7 coloris réels : Noir Espresso · Blanc Ivoire · Gris Harbour · Bleu Coastal ·
+Bleu Nuit · Vert Sage · Rouge Merlot. Grille de 3 photos portées au milieu.
+Signé Camille Dubois. P.S. qui invite à signaler un problème de taille **avant**
+de recommander.
+
+**Aucune variable d'événement** dans le corps à part `first_name` : le payload
+Placed Order n'a pas été vérifié, donc zéro dépendance = zéro merge tag cassé.
+
+## 🔴 Autre correction 26/08 — le mail Rassurance disait « 10 à 20 jours »
+
+Le template en ligne du flow Rassurance contenait encore :
+« Le délai réel est de **10 à 20 jours** selon la destination », plus une
+explication « petites séries / flux groupé ». C'est exactement ce que Badr avait
+fait corriger le 25/08 — ça n'avait été corrigé que dans les autres mails.
+
+Réécrit en v5 : expédition sous 24 h puis **6 à 8 jours ouvrés**, puis
+« au-delà, le colis est bloqué quelque part » + ce qu'on fait (relance
+transporteur, réexpédition sans demande) + engagement 30 jours.
+
+| | |
+|---|---|
+| Nouveau template biblio | `RnG3SG` · clone du flow `UQTypK` |
+| Action | `115538748`, renommée « Rassurance J+14 » |
+| Filtre préservé | ParcelWILL `shipment_status` ≠ Delivered depuis l'entrée |
+
+**RÈGLE : un template appartenant à un flow n'est PAS modifiable.**
+`get_email_template` le lit, `update_email_template` renvoie **404 not found**.
+Pour corriger le contenu d'un mail de flow : créer un nouveau template dans la
+bibliothèque, puis le réassigner à l'action (Klaviyo le clonera).
+
+## Objets Bienvenue corrigés
+
+Les 3 mails annonçaient « votre code −5% » alors que la roue donne 5, 10 ou
+15 %. Remplacé par « votre code » / « le code gagné sur la roue » / « votre code
+de bienvenue ». Le corps était déjà correct.
