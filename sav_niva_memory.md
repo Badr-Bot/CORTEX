@@ -2058,3 +2058,70 @@ propre interface**, c'est le dernier angle mort.
 2. Page produit → FAQ → question « Quels sont les délais de livraison ? » → idem
 3. Les 3 blocs « LIVRAISON OFFERTE » → « Offerte partout sauf La Réunion (20 €). »
 4. Onglet « Livraison & retours » → ajouter qui paie le renvoi (les 3 cas)
+
+## ⚠️ RÈGLE ÉCHANGE — précisée par Badr le 26/08, ma formulation était FAUSSE
+
+Badr : « Échange offert donc le renvoi est offert, mais le retour du colis est
+payant lui. »
+
+**La règle exacte, à trois cas :**
+
+| Situation | Renvoi client → NIVA | Réexpédition NIVA → client |
+|---|---|---|
+| **Échange de taille** | **à la charge du client** | **offerte** |
+| Retour pour remboursement | à la charge du client | — |
+| Article défectueux / erreur NIVA | à notre charge | à notre charge |
+
+### Mon erreur
+
+J'avais écrit partout « à notre charge **dans les deux sens**, vous ne payez
+rien ». C'était **plus généreux que la pratique** — donc un écart
+promesse/pratique, exactement le motif de la suspension, mais créé par moi.
+
+**Corrigé le 26/08 sur 6 pages + 1 article :** Livraison & Retours (711151124854),
+Politique de remboursement (704939098486), Contact (704801735030), Mentions
+légales (710489440630), FAQ (704934674806), Rétractation (709799805302),
+article « Le Polo Marceau » (1001040413046). Textes de l'artefact corrigés aussi.
+
+⚠️ **Les règles de checkout que Badr a collées portent encore l'ancienne
+formulation** — REFUND_POLICY et TERMS_OF_SERVICE §6. À recoller.
+
+**Leçon : un engagement écrit plus large que la pratique est aussi grave qu'un
+engagement plus étroit. Toujours faire préciser la règle avant de la rédiger.**
+
+## 📬 COURRIER DU 26/08 — une vingtaine de mails clients
+
+### 🔴 Sécurité : compte de versement modifié
+
+Shopify, 26/08 13h00 : le compte de versement **GBP** a été changé le
+**24/08 à 2h57 du matin** vers **TRANSFERWISE EUROPE SA/NV 4483**. Versement
+retenu 2 jours, dépôt le 28/08. **Demandé à Badr si c'est lui.** Si non →
+intrusion, contacter l'assistance Shopify immédiatement.
+
+### ✅ Adresses corrigées dans Shopify (vérifiées caractère par caractère)
+
+| Cmd | Avant | Après |
+|---|---|---|
+| #6468 Jossi | `Y` | **Les Barges 50**, 1896 Vouvry, CH · tél. `+41796061007` |
+| #6521 Detienne | `Rue de l'Europe` | **Rue de l'Europe 209**, 5030 Ernage, BE |
+| #6593 Ségala | `212 allée des primevéres`, Les Monts du Roumois | **3 rue Perrine**, 27520 Grand Bourgtheroulde |
+
+Les trois étaient **UNFULFILLED**, donc corrigeables. ⚠️ **Rappel règle Badr :
+corriger dans Shopify ne fait RIEN partir — le sous-traitant doit être relancé.**
+
+### Statuts vérifiés
+
+- **#5737 Ottino** : FULFILLED le 07/08, suivi `YT2621900703348926` (YunExpress). 19 jours.
+- **#6038 Hoffschier** : FULFILLED le 14/08, suivi `YT2622600703096462`. 12 jours.
+  ⚠️ L'e-mail du client vient de `bimboombadaboum@gmail.com` mais la commande
+  porte `bimbo_68@hotmail.fr` — même personne, deux adresses.
+
+### Décisions Badr du 26/08
+
+- **#5428 Fouquet** : lui expliquer la règle exacte (réexpédition offerte, renvoi à sa charge).
+- **#6593** : non expédiée → adresse corrigée.
+- **Mail « colis livré » reçu sans colis (Rauch)** : le client doit contacter le
+  transporteur, le suivi indique livré.
+- **#6038 et #5737** : vérifier le statut, sinon demander au fournisseur.
+- **Polo gratuit (Maryline)** : l'offre est « 2 au prix d'un ». Si elle a
+  commandé deux articles, elle a bien reçu les deux. Rien à envoyer.
