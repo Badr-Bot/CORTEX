@@ -1786,3 +1786,69 @@ actif donnerait le même symptôme — à vérifier côté agence.
 - `contactEmail` = contact@mynivashop.com (l'adresse outlook ne subsiste que
   dans les règles de checkout non modifiables).
 - Les 11 pages sont publiées.
+
+## 🏷️ SKU CRÉÉS SUR TOUT LE CATALOGUE — 26/08
+
+Badr : « pour les SKU crée des sku pour les variantes non ?? ». Fait.
+
+**366 variantes sur 366 portent désormais un SKU**, vérifié par relecture après
+écriture (`products(first:12){variants{sku}}`).
+
+### Nomenclature retenue
+
+`NIVA-<PRODUIT>-<COULEUR>-<TAILLE>`
+
+| Produit | Code | Variantes |
+|---|---|---|
+| Le Polo Marceau | POLO | 63 |
+| Le Gilet Sully | GILE | 48 |
+| La Chemise Turenne | CHEM | 54 |
+| La Chemise Turenne MC | CHMC | 45 |
+| Le T-shirt Vosges (draft) | TSHI | 45 |
+| Le Pantalon Rivoli | PANT | 40 |
+| Le Short Cassini | SHOR | 28 |
+| Le Débardeur Compression | DEBA | 24 |
+| Nivafit Caleçon | CALE | 12 |
+| Les Chaussettes (draft) | CHAU | 4 |
+| La Ceinture (draft) | CEIN | 2 |
+| E-Book | EBOOK-FR | 1 |
+
+Couleur = 3 lettres (NOI, BLA, GRI, BNU, BCO, VSA, RME, RBO, GAN, MOX, VOL,
+BCL, BMA, ROS, MAR, BEI, NON, GSI, BPR, BLE). Taille = telle qu'affichée
+(S…6XL), sauf les chemises qui utilisent le tour de col (40…48).
+
+### ⚠️ Le GTIN, lui, ne s'invente pas
+
+Un code-barres EAN/GTIN est acheté auprès de GS1 ou fourni par le fabricant.
+En inventer serait une fraude et Merchant Center les rejetterait de toute façon.
+Deux voies légitimes :
+1. Demander au fournisseur ses EAN et les saisir dans le champ code-barres.
+2. Déclarer dans le flux Google `identifier_exists = false` **avec** marque
+   (`NIVA`) et référence fabricant (`mpn` = le SKU qu'on vient de créer).
+   C'est la voie normale pour une marque propre sans GTIN.
+
+### Autres corrections du 26/08
+
+- **Page FAQ** (`Page/704934674806`) : était **vide** et liée depuis 2 menus.
+  Remplie et renommée « Questions fréquentes » — 20 questions réelles couvrant
+  tailles, livraison, échanges/retours, paiement, marque. Toutes les réponses
+  reprennent les engagements officiels (5 à 8 jours, échange offert, garantie
+  30 jours), donc aucune nouvelle promesse.
+- **Menu du pied de page** : liens Livraison & Retours et Nous contacter ajoutés.
+
+### ⛔ Impossible par API — confirmé, pas supposé
+
+`ShopUpdateInput` n'existe pas dans le schéma Admin et la doc Shopify ne
+propose aucune mutation de réglages boutique. **Le nom légal et le téléphone
+doivent être saisis à la main** dans Paramètres → Général.
+
+### Décisions Badr du 26/08
+
+- « Du S au 6XL » dans les 6 mails : **« Fais rien »**. Ne pas y toucher. Reste
+  le seul écart connu de la même famille que le motif de suspension — signalé
+  une fois, décision prise, ne pas y revenir sans nouvelle instruction.
+
+### Coquille repérée
+
+Le Débardeur Compression a une taille libellée « L (90 - 109 kg » — parenthèse
+fermante manquante. Visible sur la fiche produit et dans le flux.
