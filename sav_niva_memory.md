@@ -1659,3 +1659,40 @@ pages. L'API refuse : `write_legal_policies` non accordé. Elles sont encore
 C'est le point le plus visible qui reste sur le dossier Google. Les textes
 français à coller sont dans l'artefact de conformité.
 
+
+## ✅ ÉCHANGE DE TAILLE OFFERT — tranché par Badr le 26/08
+
+Badr : « Bah l'échange offert donc tu peux l'écrire ».
+
+La règle commerciale est donc à trois cas, et elle doit être formulée ainsi
+partout — c'est l'écart entre les mails et le site qui posait problème, pas
+l'engagement :
+
+| Situation | Qui paie le renvoi |
+|---|---|
+| **Échange de taille** | **NIVA, dans les deux sens. C'est offert.** |
+| Retour pour remboursement | Le client. Pas d'étiquette prépayée. |
+| Article défectueux / erreur NIVA | NIVA, intégralement. |
+
+Les mails disaient déjà « échange offert » : ils sont désormais alignés avec le
+site, aucun changement Klaviyo nécessaire.
+
+### Pages Shopify mises à jour (26/08)
+
+- **Livraison & Retours** (`Page/711151124854`) : nouvelle section « Échange de
+  taille — offert » en H2, et section « Qui paie le renvoi » qui nomme les trois
+  cas.
+- **Politique de remboursement** (`Page/704939098486`) : idem, avec l'échange
+  placé avant la procédure de retour.
+
+### Marche à suivre transmise à Badr pour les 3 règles de checkout
+
+Paramètres → Règles (et non Boutique en ligne → Pages, qui est un autre objet) :
+1. Politique de remboursement → tout remplacer par le texte français
+2. Politique d'expédition → à créer, elle n'existe pas
+3. Conditions d'utilisation → copier depuis `mynivashop.com/pages/terms-of-service`
+4. Paramètres → Coordonnées de la boutique → téléphone +1 (315) 862-4976
+   (c'est ce champ que Merchant Center lit, pas celui des pages)
+5. Contrôle en navigation privée sur `/policies/refund-policy` et
+   `/policies/shipping-policy`
+
