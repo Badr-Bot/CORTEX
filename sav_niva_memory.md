@@ -2250,3 +2250,53 @@ dans l'admin — la mutation de remboursement est bloquée côté API.
 
 **Compte de versement GBP modifié le 24/08 à 2h57** vers TRANSFERWISE EUROPE
 SA/NV 4483.
+
+---
+
+## 26/08 — Vérification des deux réponses de Badr : les deux prémisses sont fausses
+
+Badr : « 2346 a déjà été remboursé alors » et « Le deuxième on a déjà réexpédié ».
+J'ai vérifié les deux dans Shopify. **Aucun des deux n'est clos.**
+
+### ❌ #2364 Coquillat — le remboursement n'a JAMAIS été fait
+
+Vérifications faites le 26/08 :
+- `displayFinancialStatus` : **PAID** · `totalRefunded` : **0,00 €**
+- **Une seule transaction** sur la commande : `SALE` de 89,99 €, Mastercard
+  •7123, `shopify_payments`, 25/06 17h26. **Aucune transaction `REFUND`.**
+- Journal d'événements complet (11 entrées) : commande → paiement → versement
+  de 88,39 € crédité le 27/06 (**jamais repris**) → expédition Dianxiaomi le
+  27/06 → archivage. **Aucune mention de remboursement, aucun litige.**
+- Aucun objet `refund`, aucun objet `return` sur la commande.
+- Client `Customer/25621308768630` : **1 seule commande**, 89,99 € dépensés,
+  0 € remboursé. Pas d'autre commande où le geste aurait pu être passé.
+
+Le paiement étant une carte encaissée via Shopify Payments, un remboursement
+serait **obligatoirement** visible ici. Il ne l'est pas.
+
+→ Elle a raison. On lui a promis le 02/08 le remboursement de 3 polos,
+**24 jours plus tard rien n'est parti.** Montant : **67,49 €** (3/4 de 89,99 €).
+À faire par Badr dans l'admin. Mail non envoyé, en attente de sa décision.
+
+### ❌ #2870 Lamiray — on a réexpédié, mais on a envoyé le mauvais article
+
+Commande #2870 du 01/07, 7 articles en 3XL : shorts Noir + Marron + Beige,
+polos Bleu Coastal + Gris Harbour + Bleu Nuit + Noir Espresso.
+**Une seule expédition dans Shopify** : 03/07, YunExpress
+`YT2621500711304158`, les 7 articles. La réexpédition d'août **n'est pas
+tracée dans Shopify** — passée en direct par le sous-traitant, donc rien à
+vérifier côté boutique.
+
+Ce qu'on a promis par écrit le 01/08 :
+> « le short en 3XL en coton extensible, ainsi qu'un **polo bleu Coastal
+> neuf** pour remplacer celui qui était taché » — **2 articles**.
+
+Ce qu'il a reçu (26/08, au retour de vacances) : **un seul article, noir.**
+Ni le Bleu Coastal, ni le short.
+
+Rappel de son historique : il a déjà **payé de sa poche** le retour du short
+et du polo (01/08). Il propose de renvoyer aussi l'article noir.
+
+→ « On a déjà réexpédié » est exact mais ne clôt rien : la réexpédition est
+**fausse et incomplète**. Il faut renvoyer les 2 bons articles.
+En attente de la confirmation de Badr.
