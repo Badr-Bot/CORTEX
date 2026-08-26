@@ -1920,3 +1920,81 @@ Prix identiques sur toutes les variantes d'un produit · `compareAtPrice` null s
 les 366 · `inventoryPolicy: DENY` partout · aucune variante à 0 restée achetable
 · chaque coloris a son image · les 3 DRAFT ne sont publiés sur aucun canal ·
 `vendor: "Niva"` homogène · aucun produit archivé · aucune collection vide.
+
+## 🔎 SECOND AUDIT — pages, politiques, blogs (26/08)
+
+### ✅ Badr a collé les politiques — vérifié par moi-même
+
+`shopPolicies` renvoie maintenant **6 règles** (avant : 3) : CONTACT_INFORMATION,
+LEGAL_NOTICE, PRIVACY_POLICY, REFUND_POLICY, **SHIPPING_POLICY (créée)**,
+TERMS_OF_SERVICE. Contenu français, aligné sur les engagements.
+
+### ⚠️ Mais trois défauts de collage — de ma faute
+
+1. **Les 5 règles collées sont enveloppées dans `<pre class="paste">`.** Badr a
+   copié le bloc HTML de l'artefact, pas seulement son texte. Rendu en chasse
+   fixe, défilement horizontal sur mobile.
+   → Consigne à donner : **Ctrl+Maj+V** (coller sans mise en forme), ou le
+   bouton `</>` de l'éditeur Shopify.
+2. **TERMS_OF_SERVICE commence par « ienvenue chez NIVA »** — le B a sauté à la
+   sélection.
+3. **CONTACT_INFORMATION contient un fragment de mon bloc « Coordonnées de la
+   boutique »**, qui était une liste de champs de formulaire, pas une règle.
+   → Un vrai texte « Règle Contact » a été ajouté à l'artefact.
+
+**`shopPolicyUpdate` reste refusé** (`write_legal_policies`). Re-testé
+le 26/08. L'agent d'audit a affirmé le contraire : **il avait tort**, ne pas s'y
+fier. Correction manuelle obligatoire.
+
+### 🚨 Le point le plus lourd après les visuels : les avis
+
+- Widget : **80 avis, 4,13**. Contient des 1★ « impossible de contacter le
+  vendeur… ça ressemble à de l'ARNAQUE », « je n'ai pas reçu ma commande »,
+  « retour impossible, coûte plus cher que les chandails ».
+- **Doublons exacts** (même texte, même note, à quelques secondes).
+- **7 avis 5★ tous horodatés exactement 22:00:00**, format de nom
+  « Prénom + Initiale. » que n'ont aucun des autres avis.
+- Le carrousel masque **date et nom du produit** (`display:none`).
+- Le polo transmet `aggregateRating 5,00 / 2 avis` à Google alors que sa page
+  publique liste **20 avis à 3,05** sous l'ancien nom « Nivafit™ - Polo
+  ultra-confortable ». ~49 avis sur 79 sont rattachés à des produits disparus.
+- La page La Maison dit « Nous n'annonçons pas de note que nous ne pourrions pas
+  prouver » → démenti par la boutique elle-même.
+
+**En attente de décision Badr.**
+
+### 🚨 Six blogs fantômes des anciennes niches, publics
+
+`inhalateur Niva™` · `NivaSmile+ blanchiment` · `semelles de décharge` ·
+un blog **en italien** sur la massothérapie cervicale · 2 doublons vides.
+Tous à 0 article sauf un doublon à 1. Suppression possible mais irréversible —
+**en attente du feu vert de Badr**.
+
+### Corrigé pendant ce tour
+
+| Quoi | Détail |
+|---|---|
+| Article « Blog » du menu | Promettait « Satisfait ou Remboursé… sans aucun risque » (faux) et « affine et structure la silhouette » (démenti par La Maison). Réécrit, signé Maison NIVA au lieu de « Ma boutique Admin » |
+| Menu principal | « Blog » pointait vers 1 article d'un blog doublon → pointe vers **Le Journal**. Ajout Livraison & Retours + Contact |
+| Livraison La Réunion | 20 € facturés alors que tout annonçait « offerte sur l'ensemble de la boutique ». Page corrigée, exception nommée. Intitulés des 3 tarifs portent le délai 5-8 j |
+| Page Rétractation | Une phrase renvoyant à un formulaire inexistant → formulaire type complet + procédure |
+| Page Politique de confidentialité | Balisage d'éditeur collé (`data-test-render-count`, `font-claude-response`), aucun responsable de traitement nommé → réécrite, KindredM LLC identifié, bases légales, durées, CNIL |
+| Collection Best sellers | « Trois pièces » pour 2 produits → corrigé |
+
+### Confirmé sain par le second audit
+
+Délai 5-8 j **identique dans les 5 emplacements**, aucun autre chiffre nulle
+part · règle des 3 cas de frais de retour identique dans 7 documents · garantie
+30 jours identique dans 4 documents · **`myniva@outlook.com` n'apparaît nulle
+part** (vérifié sur 11 pages, 6 règles, 6 articles, métafields, menus) ·
+aucun marqueur `[LINK]`/`[INSERT`/lorem ipsum · aucun anglais résiduel dans les
+pages et règles · aucun lien mort dans les 6 menus · aucune fausse urgence,
+aucun compte à rebours · les 5 articles du Journal sont propres.
+
+### Limites déclarées de l'audit — à faire à l'œil
+
+1. **Le thème** n'est pas lisible par l'API (`appInstallations` refusé). Bandeaux,
+   badges de réassurance, textes de la page d'accueil : non audités. C'est
+   statistiquement là que se logent les promesses les plus agressives.
+2. **Pages 2 et 3 des avis Judge.me** (49 avis sur 79) : non exposées.
+3. **Rendu réel de /pages/widerruf-formular** : à ouvrir dans un navigateur.
