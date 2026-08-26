@@ -1998,3 +1998,63 @@ aucun compte à rebours · les 5 articles du Journal sont propres.
    statistiquement là que se logent les promesses les plus agressives.
 2. **Pages 2 et 3 des avis Judge.me** (49 avis sur 79) : non exposées.
 3. **Rendu réel de /pages/widerruf-formular** : à ouvrir dans un navigateur.
+
+## 🎯 LE THÈME EST LISIBLE PAR L'API — angle mort levé (26/08)
+
+L'agent d'audit avait déclaré le thème inaccessible. **C'est faux** : la requête
+`theme(id){files(filenames:[...])}` fonctionne. Thème MAIN = **NIVA — Maison V6**
+(`gid://shopify/OnlineStoreTheme/198038487414`).
+
+⚠️ **Lecture OK, écriture BLOQUÉE** sur le thème publié (`themeFilesUpsert`
+refusé sur MAIN). Les retouches se font à la main dans l'éditeur de thème.
+
+### ❌ ERREUR DE MA PART À CORRIGER
+
+J'ai écrit à Badr et dans l'artefact que « le site annonce désormais un seul
+chiffre » de délai. **C'était faux.** Le thème porte encore **« 5 à 9 jours
+ouvrés »** à deux endroits, sur la page produit — la page la plus lue du site :
+
+| Où | Texte exact |
+|---|---|
+| `templates/product.json` → bloc `tab_livraison` | « puis **5 à 9 jours ouvrés** d'acheminement » |
+| `templates/product.json` → section `faq`, bloc `q4` | « puis comptez **5 à 9 jours ouvrés** » |
+
+Le balayage des 19 templates Klaviyo et des 11 pages était bon, mais il ne
+couvrait pas le thème. **Toujours vérifier le thème avant d'annoncer qu'un
+chiffre est aligné partout.**
+
+### Autres écarts du thème
+
+- « **Livraison offerte sur toute la boutique, sans minimum d'achat** » à 3
+  endroits (accueil `engagements/e1`, produit `engagements/e1`, produit
+  `tab_livraison`) → contredit les 20 € de La Réunion.
+- `tab_livraison` et FAQ `q5` décrivent le retour **sans dire qui paie le
+  renvoi**, et l'échange **sans dire qu'il est offert**.
+
+### Ce qui est SAIN dans le thème — vérifié fichier par fichier
+
+`templates/index.json`, `templates/product.json`, `config/settings_data.json` :
+- **Aucun compte à rebours, aucun « plus que X en stock », aucune fausse urgence.**
+- **Aucune note ni nombre d'avis en dur.** `show_rating: false` sur les produits
+  liés.
+- Hero : « Du S au 5XL selon les pièces » — honnête.
+- Bloc engagement accueil : « DU S AU 5XL — Jusqu'au 6XL sur le polo » — exact.
+- Mention hero : « Livraison offerte — 30 jours pour changer d'avis » — exact.
+- Aucun anglais résiduel. Aucun prix barré.
+
+### Applications installées (via settings_data.json)
+
+Judge.me · Moon Bundles (progressive gift + cart drawer) · Kaching Cart ·
+Zigpoll · Triple Whale · Microsoft Clarity · GemPages CRO · SmartSize
+(désactivé) · Klaviyo.
+⚠️ Kaching Cart et Moon Bundles sont les applications qui ajoutent
+habituellement des barres de progression « plus que X € pour le cadeau » et des
+minuteurs. Non visibles dans les fichiers de thème — **à contrôler dans leur
+propre interface**, c'est le dernier angle mort.
+
+### Retouches à faire à la main, éditeur de thème
+
+1. Page produit → onglet « Livraison & retours » → remplacer **5 à 9** par **5 à 8**
+2. Page produit → FAQ → question « Quels sont les délais de livraison ? » → idem
+3. Les 3 blocs « LIVRAISON OFFERTE » → « Offerte partout sauf La Réunion (20 €). »
+4. Onglet « Livraison & retours » → ajouter qui paie le renvoi (les 3 cas)
