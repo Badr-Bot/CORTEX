@@ -1396,3 +1396,64 @@ Toujours relire la valeur en base après écriture. Sur les API de cette stack, 
 - **Klaviyo** : `update_flow` n'accepte que `status` (renommage = UI) ·
   `update_flow_action` exige l'`id` dans `definition` **et** le renvoi de
   `links` à l'identique · pas d'endpoint `update_form`.
+
+---
+
+## 🔴 INCIDENT 26/08 — les flows envoyaient l'ANCIEN contenu (v2)
+
+### Ce qui s'est passé
+
+Les 8 flows activés le 25/08 au soir **ne pointaient pas sur les templates v5**.
+Klaviyo **clone** un template au moment où on l'assigne à un mail de flow : le
+flow garde sa propre copie, indépendante de la bibliothèque. Les flows avaient
+été construits avec les templates **v2**, puis j'ai réécrit les templates v5
+dans la bibliothèque — sans que les flows en voient quoi que ce soit.
+
+Résultat : pendant ~9 h, les clients ont reçu la **v2** — sans les vraies photos
+produit, sans la charte du PDF, sans le CTA en haut, avec l'ancienne signature
+et l'ancien délai de livraison. Les 13 mails test validés par Badr ne
+correspondaient à rien de ce qui partait réellement.
+
+### Correspondance corrigée (26/08)
+
+Chaque `send-email` a été réassigné sur le template v5 ; Klaviyo en a fait un
+nouveau clone (colonne de droite), qui porte bien le contenu v5.
+
+| Flow | v2 (avant) | v5 assigné | Clone créé |
+|---|---|---|---|
+| Bienvenue 1 | Xh3Niz | XdGh72 | VxdBtE |
+| Bienvenue 2 | XKwkge | WrFuKp | SRSUin |
+| Bienvenue 3 | TqDg7P | W9ZXA9 | XsSZwq |
+| Panier 1 | Rdb6Zp | Rr36Pa | R85gYL |
+| Panier 2 | WaBdCv | XnRyJF | Unq2Ca |
+| Checkout 1 | UFnBws | SWvYiC | R64gQf |
+| Checkout 2 | YkanHr | TgdfuQ | WKPWAK |
+| Checkout 3 | Y7VBNR | XxnNqM | Yin554 |
+| Post-achat 1 | Vfs9MJ | X5hMqn | UVp4VK |
+| Post-achat 2 | SNUHGV | Ytp9pf | RD3j9Q |
+| Navigation | RtE85V | Rkb7yJ | SQGqdE |
+| Winback 1 | TQ9xRG | YjV8FY | WFMWhH |
+| Winback 2 | XmTNLs | VJnrVQ | UDuhK4 |
+
+**Le flow Suivi n'était pas touché** : il a été construit après les templates
+finaux, il pointe directement sur V8bpu4 / XsZ5fL / Uqx6w3 / VviF4v / TCfxcC.
+
+### ⚠️ Deuxième erreur commise pendant la réparation
+
+Le premier `update_flow_action` (Navigation) a été envoyé **sans**
+`additional_filters` → les 3 conditions d'envoi ont été **effacées**. Le mail
+serait parti à des gens ayant déjà commandé. Détecté par relecture, restauré
+dans la foulée.
+
+**RÈGLE : `update_flow_action` écrase l'objet `message` en entier.** Comme
+`shippingAddress` chez Shopify. Toujours renvoyer `additional_filters`,
+`preview_text`, `smart_sending_enabled`, `transactional`, `id`, `name` — et
+relire derrière. C'est la même leçon que le 25/08, commise une deuxième fois.
+
+### Reste à trancher avec Badr
+
+- Les objets des 3 mails Bienvenue annoncent « votre code **−5%** » alors que la
+  roue donne 5, 10 ou 15 %. Le corps du mail dit « le code gagné sur la roue »
+  (correct). L'objet est à réécrire sans pourcentage.
+- Le template Rassurance (`RV4a5T`) s'appelle encore « J+10 » alors que le délai
+  est passé à 14 jours. Vérifier que le corps ne cite pas « 10 jours ».
