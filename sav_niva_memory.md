@@ -1580,3 +1580,82 @@ téléphone au dossier (0041 79 606 10 07 / +32 499 14 70 40) — à appeler si 
 de réponse sous 48 h. Berseth et Ponseele n'ont **aucun** téléphone : c'est
 pour ça qu'ils sont injoignables. Sans réponse au 02/09 → annulation +
 remboursement intégral.
+
+## 🔁 ALIGNEMENT « 5 À 8 JOURS OUVRÉS » — 26/08, exécuté et vérifié
+
+Badr : « bah aligne tout et gere les pages de politique expédition punaise »
+puis « 5-8 jours ouvrés hein ». Le chiffre de référence est donc **5 à 8 jours
+ouvrés après expédition, expédition sous 24 h**, partout.
+
+### Balayage exhaustif des 19 templates de flow
+
+Les **19** templates rattachés aux flows live ont été lus un par un (pas de
+sondage). Trois seulement portaient un délai chiffré :
+
+| Template | Flow | Avant | Après |
+|---|---|---|---|
+| X5hMqn | Post-achat 1 | 6 à 8 | **5 à 8** |
+| RnG3SG | Rassurance J+14 | 6 à 8 | **5 à 8** |
+| Rkb7yJ | Navigation | 6 à 8 | **5 à 8** |
+
+Les 16 autres ne chiffrent aucun délai (Bienvenue 1/2/3, Panier 1/2,
+Checkout 1/2/3, Post-achat 2, Winback 1/2, 2e couleur, Suivi 1 à 5). Vérifié,
+pas supposé.
+
+### Rappel du piège de clonage (incident du 26/08)
+
+Modifier le template de bibliothèque **ne change rien** au mail envoyé : le
+flow sert sa propre copie. Il faut réassigner le template à l'action, ce qui
+force Klaviyo à re-cloner. Nouveaux clones créés aujourd'hui :
+
+| Action | Flow | Nouveau clone |
+|---|---|---|
+| 115540638 | Post-achat 1 | WGhaZB |
+| 115538748 | Rassurance | WRirEW |
+| 115540601 | Navigation | W38Ccu |
+| 115540666 | Bienvenue 3 | ScK6af |
+| 115540640 | Post-achat 2 | XzceBT |
+| 115540678 | Winback 1 | UV43xj |
+
+**Vérification faite en deux temps** : (1) relecture de chaque action pour
+confirmer le `template_id` **et** la survie des `additional_filters` ;
+(2) relecture du HTML des clones WGhaZB, WRirEW et W38Ccu — les trois portent
+bien « 5 à 8 jours ouvrés ». Aucune condition d'envoi perdue.
+
+### Correction annexe : nombre de coloris
+
+Le Polo Marceau a **7 coloris** en base Shopify (Noir Espresso, Blanc Ivoire,
+Gris Harbour, Bleu Coastal, Bleu Nuit, Vert Sage, Rouge Merlot). Trois mails
+disaient « six » : Bienvenue 3 (W9ZXA9), Post-achat 2 (Ytp9pf), Winback 1
+(YjV8FY). Corrigés en « sept » et réassignés. Le mail « 2e couleur » (TRNYhV)
+était déjà juste (« Sept coloris » / « il reste six coloris » après le 1er achat).
+
+### Shopify — ce qui est fait
+
+- **Tarif de livraison au checkout** (`DeliveryMethodDefinition/1177858474358`) :
+  « Livraison standard : expédition sous 24h, livraison en 5 à 8 jours ouvrés. »
+- **Page Livraison & Retours** (`Page/711151124854`) : déjà en 5 à 8. Vérifiée.
+- **Page Politique de remboursement** (`Page/704939098486`) : réécrite. Elle
+  promettait encore « nous vous enverrons une étiquette d'expédition de retour »
+  — contradiction directe avec la règle « frais de retour à la charge du client ».
+  Supprimé. Ajout des frais à notre charge en cas de défaut/erreur.
+- **Page Conditions d'utilisation** (`Page/704939622774`) : réécrite. Elle
+  contenait 3 marqueurs `[LIEN]` non résolus et des blocs de balisage collés
+  par erreur. Ajout : droit applicable français, garanties légales de conformité
+  et vices cachés, lien ODR, délai 5 à 8 jours, garantie 30 jours.
+
+### ⛔ Shopify — ce qui reste BLOQUÉ (action de Badr en admin)
+
+Les **politiques de checkout** (Paramètres → Politiques) sont distinctes des
+pages. L'API refuse : `write_legal_policies` non accordé. Elles sont encore
+**en anglais brut Shopify** et c'est ce que voit un contrôleur Google :
+
+| Politique | Problème |
+|---|---|
+| REFUND_POLICY | `[INSERT RETURN ADDRESS]` visible · « we'll send you a return shipping label » (faux) · e-mail **myniva@outlook.com** (obsolète) |
+| TERMS_OF_SERVICE | `[NOTE TO MERCHANT: …]` visible · 4× `[LINK]` · myniva@outlook.com |
+| SHIPPING_POLICY | **N'existe pas.** Aucune politique d'expédition au checkout |
+
+C'est le point le plus visible qui reste sur le dossier Google. Les textes
+français à coller sont dans l'artefact de conformité.
+
