@@ -2125,3 +2125,43 @@ corriger dans Shopify ne fait RIEN partir — le sous-traitant doit être relanc
 - **#6038 et #5737** : vérifier le statut, sinon demander au fournisseur.
 - **Polo gratuit (Maryline)** : l'offre est « 2 au prix d'un ». Si elle a
   commandé deux articles, elle a bien reçu les deux. Rien à envoyer.
+
+## 📤 6 MAILS ENVOYÉS LE 26/08 (après validation Badr)
+
+**Adresse de retour utilisée** (à ne jamais publier sur le site, règle Badr) :
+`NIVA - El Boussadani, 4 rue Erik Satie, 94400 Vitry-sur-Seine, France`
+
+| Client | Cmd | Décision Badr | Ce qui a été écrit |
+|---|---|---|---|
+| **Jérôme Lamour** | #5742 | « il le renvoie » | Renvoi des 2 polos dans un colis. Échange Vert Sage S → 3XL + Noir Espresso neuf. **Frais de renvoi remboursés sur justificatif** pour le polo défectueux (garantie légale de conformité) |
+| **Éric Salomon** | #2008 | « oui » = tenir la promesse du 26/07 | **Rien à renvoyer.** 2 polos 5XL expédiés. Excuses explicites pour les 2 mois, la 2e erreur et le silence après sa relance du 12/08 |
+| **Gilles Fouquet** | #5428 | Règle échange | Échange offert = réexpédition gratuite ; renvoi à sa charge. Adresse de retour redonnée |
+| **Maryline** | #5678 | « c'est 2 au prix d'un » | L'offre est une remise, pas un 3e article. Elle a bien reçu 2 polos 5XL pour 47,99 € au lieu de 159,98 € |
+| **Amandine Ségala** | #6593 | Corriger si non expédiée | Adresse corrigée et recopiée pour relecture |
+| **Frédéric Rauch** | ? | Contacter le transporteur | Suivi indique livré → YunExpress d'abord. **Ses 2 commandes (#5631, #6148) ne contiennent ni chemise ni pantalon** — lui demander de confirmer laquelle, ou une autre adresse e-mail |
+
+### ⚠️ Faits établis en lisant les dossiers — ne pas les réoublier
+
+- **Lamour #5742** : le polo Vert Sage **était commandé en S**, ce n'est pas une
+  erreur d'expédition. Seul le polo noir troué est un défaut NIVA.
+- **Salomon #2008** : on lui avait écrit le **26/07** « *sans besoin de nous
+  retourner les articles actuels* ». Lui redemander un retour aurait été un
+  revirement écrit. Signalé à Badr, il a suivi.
+- **Rauch** : dit ne pas avoir reçu « la chemise et le pantalon », mais aucune de
+  ses 2 commandes n'en contient. Piste : autre adresse e-mail.
+
+### ⏳ Encore en attente d'un feu vert Badr
+
+- **Anne-Marie Lavigne** — a choisi l'option 1 le **8 août**, aucune suite depuis. 17 jours.
+- **Stéphane Lamiray #2870** — réexpédition incomplète (1 tee-shirt noir reçu au
+  lieu du tee-shirt Bleu Coastal + short).
+- **Jossi #6468 / Detienne #6521** — adresses enregistrées, mais **le sous-traitant
+  n'a pas été relancé** : ne rien promettre au client tant que ce n'est pas fait.
+- **#6038 et #5737** — expédiées depuis 12 et 19 jours : demander au fournisseur ?
+- **Mme Coquillat** — remboursement de 3 tee-shirts jamais reçu, dossier du 2 août.
+
+### 🔴 TOUJOURS SANS RÉPONSE DE BADR
+
+**Compte de versement GBP modifié le 24/08 à 2h57** vers TRANSFERWISE EUROPE
+SA/NV 4483. Si ce n'est pas lui → intrusion. Relancer à chaque session tant que
+ce n'est pas confirmé.
