@@ -1727,3 +1727,62 @@ En plus de Livraison & Retours et Politique de remboursement :
 
 Texte intégral des Conditions d'utilisation (20 sections, version française)
 disponible en bloc copiable dans l'artefact de conformité.
+
+## 🔍 CONTRE-VÉRIFICATION BOUTIQUE — 26/08, demandée par Badr
+
+Badr : « donc a part ca c est bon ? google va tout me valider ? verifie de ton
+coté ». **Réponse honnête : personne ne peut garantir l'issue** — Google ne dit
+jamais quel élément a déclenché. Ce qui est acquis, c'est la suppression des
+écarts objectivement constatables. Six écarts trouvés en plus des sept premiers.
+
+### Corrigé pendant le contrôle
+
+**Menu du pied de page** (`Menu/320169935222`) : il ne contenait **aucun lien
+vers Livraison & Retours** ni vers Contact — alors que c'est le premier endroit
+où un contrôleur cherche les conditions d'expédition. Les deux ajoutés, ordre
+remanié (Mentions légales et Livraison en tête), les 7 liens existants intacts.
+Vérifié par relecture du menu après écriture.
+
+### Restant — action Badr
+
+| # | Constat | Où |
+|---|---|---|
+| 10 | **Nom légal de l'entreprise VIDE** et téléphone enregistré « (315) 862-4976 » sans indicatif ni format international | Paramètres → Général |
+| 11 | « Du S au 6XL » n'est vrai que pour le Polo Marceau | 6 templates Klaviyo |
+| 12 | Page **FAQ vide** et liée depuis 2 menus | Pages / menus |
+| 13 | **Aucun GTIN ni SKU** sur aucune variante | Catalogue |
+| 14 | Page Rétractation = une phrase renvoyant à « le formulaire ci-dessous » ; e-book vendu 24,99 € et donné en cadeau | À contrôler à l'œil |
+
+### ⚠️ Tailles réelles — « du S au 6XL » est faux
+
+| Produit | Taille max |
+|---|---|
+| Le Polo Marceau | **6XL** |
+| Gilet Sully, Débardeur, les 2 Chemises Turenne | 5XL |
+| Pantalon Rivoli, Short Cassini | 4XL |
+| Caleçon | 3XL |
+
+La page La Maison le dit déjà correctement (« la plupart de nos pièces vont du S
+au 5XL, et le polo jusqu'au 6XL ») : **c'est le site qui contredit les e-mails**.
+Formulation proposée : « Jusqu'au 6XL sur Le Polo Marceau, du S au 5XL sur le
+reste du vestiaire ». Concerne Bienvenue 1, Panier 1, Panier 2, Checkout 3,
+Winback 2, Navigation. **En attente du feu vert de Badr.**
+
+### ⚠️ Les 17 282 refus ne sont PAS la suspension
+
+Aucune variante ne porte de code-barres (GTIN/EAN) ni de SKU. Merchant Center
+exige des identifiants pour le prêt-à-porter. **Lever la suspension ne fera pas
+réapparaître les produits** — deux problèmes distincts, à dire à l'agence.
+
+La boutique ne compte que **12 produits** (3 en brouillon : T-shirt Vosges,
+Chaussettes Malesherbes, Ceinture Bréguet). L'écart avec 17 282 articles refusés
+s'explique sans doute par variantes × pays ciblés, mais un ancien flux encore
+actif donnerait le même symptôme — à vérifier côté agence.
+
+### Confirmé sain
+
+- `compareAtPrice` **null sur les 12 produits** — aucun prix barré fantaisiste.
+- Devise EUR cohérente avec les prix affichés.
+- `contactEmail` = contact@mynivashop.com (l'adresse outlook ne subsiste que
+  dans les règles de checkout non modifiables).
+- Les 11 pages sont publiées.
