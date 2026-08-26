@@ -1513,3 +1513,70 @@ bibliothèque, puis le réassigner à l'action (Klaviyo le clonera).
 Les 3 mails annonçaient « votre code −5% » alors que la roue donne 5, 10 ou
 15 %. Remplacé par « votre code » / « le code gagné sur la roue » / « votre code
 de bienvenue ». Le corps était déjà correct.
+
+---
+
+## 🔴 GOOGLE ADS SUSPENDU — 24/08/2026
+
+**Compte Ads `385-205-3256` (NIVA V2), suspendu le 24/08 à 13 h 45.**
+
+Réponse du support Google (24/08 12 h 51, ticket **1-8849000040870**,
+`ads-support@google.com`, adressée à « Adnane El boussaadani ») :
+
+> « Cette suspension est la conséquence directe de graves cas de non-respect
+> des règles constatés dans un ou plusieurs de vos comptes Google Merchant
+> Center associés. Votre compte Google Ads ne pourra pas être rétabli tant que
+> ces problèmes n'auront pas été résolus. »
+
+| | |
+|---|---|
+| Merchant Center | NIVA V2 — ID `5842314990` |
+| Motif | **Déclarations trompeuses ou déceptives** (misrepresentation) |
+| Impact | **17 282 produits refusés** |
+| Diffusion | Shopping, remarketing dynamique, fiches gratuites, Discovery/Demand Gen, vidéo — **tout coupé** |
+| Pays | ~90 |
+
+**Ce n'est pas le compte Ads qu'il faut débloquer, c'est le Merchant Center.**
+Corriger d'abord, demander l'examen ensuite — un examen demandé avant
+correction complète rallonge le délai.
+
+### Chronologie
+
+| Date | Événement |
+|---|---|
+| 22/08 15 h 36 | Demande d'association à un compte administrateur « Seif Google ads » (`compteagencegestion@gmail.com`) |
+| 22/08 15 h 42-45 | Associations Shopify Google Channel App + Merchant |
+| 22/08 16 h 02 | Code promotionnel Google Ads activé |
+| 24/08 02 h 41 | Merchant Center : « your products cannot be displayed to customers » |
+| 24/08 11 h 08 | Validation en deux étapes activée + n° de téléphone ajouté |
+| 24/08 13 h 45 | **Suspension du compte Ads** |
+| 24/08 14 h 03 | « Vous avez terminé la validation de l'annonceur » |
+| 26/08 02 h 58 | Alerte Merchant Center : chute du nombre d'articles actifs |
+
+### Pistes de correction (misrepresentation — non confirmées par Google)
+
+Google ne dit jamais quel élément précis a déclenché. Les leviers habituels :
+mentions légales complètes (raison sociale, SIRET, adresse physique), CGV et
+politique de retour/remboursement faciles à trouver, page contact avec
+téléphone, délais de livraison affichés **cohérents avec la réalité**, absence
+de fausse urgence, et surtout **cohérence des prix barrés** — un prix de
+référence jamais pratiqué est un déclencheur classique. À vérifier sur NIVA :
+les variantes s'affichent à 79,99 € alors que les commandes se règlent autour
+de 30 € l'unité.
+
+## 4 mails adresse envoyés le 26/08
+
+| Cmd | Client | Type | Montant |
+|---|---|---|---|
+| #6468 | Jossi · fjossi@omedia.ch · CH | 1re demande (rue = « Y ») | 121,80 € |
+| #6521 | Detienne · freddo.detienne@skynet.be · BE | 1re demande (n° manquant) | 89,99 € |
+| #5455 | Berseth · guy.berse@gmail.com · CH | **4e relance + échéance 02/09** | 60,89 € |
+| #5842 | Ponseele · rita.ponseele@icloud.com · BE | **4e relance + échéance 02/09** | 89,99 € |
+
+Total bloqué : **362,67 €**, les quatre en UNFULFILLED.
+
+Jossi et Detienne n'avaient **jamais** été contactés. Tous deux ont un
+téléphone au dossier (0041 79 606 10 07 / +32 499 14 70 40) — à appeler si pas
+de réponse sous 48 h. Berseth et Ponseele n'ont **aucun** téléphone : c'est
+pour ça qu'ils sont injoignables. Sans réponse au 02/09 → annulation +
+remboursement intégral.
