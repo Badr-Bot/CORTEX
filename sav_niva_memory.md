@@ -1852,3 +1852,71 @@ doivent être saisis à la main** dans Paramètres → Général.
 
 Le Débardeur Compression a une taille libellée « L (90 - 109 kg » — parenthèse
 fermante manquante. Visible sur la fiche produit et dans le flux.
+
+## 🚨 AUDIT CATALOGUE APPROFONDI — 26/08, résultats graves
+
+Lancé à la demande de Badr (« met un agent qui ne s'arrête pas de vérifier »).
+Ce que l'audit a trouvé dépasse largement ce que j'avais vu seul.
+
+### Les trois découvertes majeures
+
+**1. Des visuels d'une AUTRE MARQUE et d'un AUTRE PRODUIT, en position 1.**
+
+Les noms de fichiers des images trahissent leur origine :
+- `Le_seul_inhalateur_portable_qui_vous_offre_un_soulagement_immediat_partout…`
+  → 9 images sur 3 produits ACTIFS. **Image n°1 du Polo Marceau** et
+  **du Débardeur** et de **la Chemise Turenne**. C'est un gabarit de pub pour un
+  dispositif médical : allégation de santé + superlatif absolu, dans l'URL
+  publique et dans le JSON-LD Judge.me.
+- `…Bellutia.jpg` (marque tierce) → 5 images sur la Ceinture (DRAFT) et
+  **1 en position 1 sur la Chemise Turenne (ACTIVE)** :
+  `Chemisebellutiabeneficesoptimized_800x_….jpg`. Fichiers du type
+  « LameilleureceinturecreeeBellutia », « Cuir100veritableBellutia »,
+  « MicroAjust_par_Bellutia ».
+- Préfixes `imgi_` (28 images du Gilet) = aspirées d'un site tiers.
+- Préfixes `hf_` = générées par IA. L'E-Book et le Caleçon n'ont **que** ça.
+
+⚠️ Je n'ai pas pu voir le contenu des images, seulement les noms de fichiers.
+Ne pas affirmer que la photo montre un inhalateur — mais le nom de fichier est
+public dans l'URL, et c'est déjà un signal.
+
+**2. Le Débardeur était catégorisé en « Santé et beauté > Hygiène personnelle >
+Soin des pieds > Supports d'arcs »** (`hb-3-9-4-1`), et `google_product_category`
+Facebook à `2503`. Un vêtement gainant déclaré comme accessoire podologique
+déclenche mécaniquement une revue « produits de santé ».
+→ **Corrigé** en `aa-1-13-9` (Débardeurs).
+
+**3. Avis Judge.me importés d'un tiers, non vérifiés, poussés en JSON-LD.**
+Badges `review_collected_from_another_provider` sur Débardeur (7 avis, 5/5 non
+vérifiés), Pantalon (10 avis), Chemise (7 avis). Contenu problématique :
+« ça améliore vraiment ta silhouette », « ma posture s'est vraiment améliorée »,
+« grâce à la fibre de bambou » (composition jamais déclarée nulle part),
+« convient à toutes les morphologies », « prix imbattable ».
+Le T-shirt Vosges (DRAFT) est à **1,00/5** — deux avis « Toujours pas reçu ».
+
+### Autres constats
+
+- **Stock aberrant** : Gilet Sully = 4 619 762 unités, 40 variantes à ~100 000.
+- **Les 12 `descriptionHtml` sont VIDES** (`""`). Vérifié un par un. Donc aucune
+  allégation dans les descriptions — mais l'attribut `description` du flux
+  Google sera vide sur les 12 produits.
+- **134 images sur 134 sans `altText`.**
+- **E-Book** configuré en colis physique (`requiresShipping: true`, 8 769 unités
+  suivies, poids 0 kg) → **corrigé** (requiresShipping false, tracked false).
+- 4 handles contiennent `™` encodé `%E2%84%A2`. `seo.title` du Polo était
+  « Nivafit™ - Polo ultra-confortable » → **corrigé** en « Le Polo Marceau — NIVA ».
+- `productType` vide sur les 12 → **corrigé** (Polo, Gilet, Chemise ×2, Pantalon,
+  Short, Débardeur, T-shirt, Caleçon, Chaussettes, Ceinture, Livre numérique).
+- Gilet Sully catégorisé en « Polos » — **pas corrigé** : impossible de savoir
+  sans voir le produit s'il s'agit d'un cardigan ou d'une doudoune sans manches.
+  À trancher par Badr.
+- E-Book et Caleçon (ACTIFS, publiés sur Google) n'appartiennent à aucune
+  collection.
+- Collection « Best sellers » annonce « Trois pièces » et en contient 2.
+
+### Confirmé sain par l'audit
+
+Prix identiques sur toutes les variantes d'un produit · `compareAtPrice` null sur
+les 366 · `inventoryPolicy: DENY` partout · aucune variante à 0 restée achetable
+· chaque coloris a son image · les 3 DRAFT ne sont publiés sur aucun canal ·
+`vendor: "Niva"` homogène · aucun produit archivé · aucune collection vide.
