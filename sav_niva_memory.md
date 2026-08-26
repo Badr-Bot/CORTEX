@@ -2165,3 +2165,88 @@ corriger dans Shopify ne fait RIEN partir — le sous-traitant doit être relanc
 **Compte de versement GBP modifié le 24/08 à 2h57** vers TRANSFERWISE EUROPE
 SA/NV 4483. Si ce n'est pas lui → intrusion. Relancer à chaque session tant que
 ce n'est pas confirmé.
+
+---
+
+## 26/08 — Suite : Lavigne, Lamiray #2870, Coquillat #2364
+
+### ✅ Anne-Marie Lavigne — TRAITÉ (mail envoyé)
+
+`amlavigne1978@gmail.com` · thread `19fa83523579719b` · commande **#4125** du 11/07.
+
+Contenu réel de la commande (vérifié dans Shopify, contredit son souvenir) :
+- Short en coton extensible **Beige / XL** (elle disait « 2XL » — c'était un XL)
+- Polo Vert Sage / XL
+- Polo Bleu Coastal / XL
+
+Historique : 25/07 premier message sans réponse · 28/07 relance · 01/08 on lui
+propose 2 options · **08/08 elle choisit l'option 1** et demande le même short
+à la bonne taille, tour de taille du conjoint = **40 pouces (~102 cm)** ·
+puis **17 jours de silence de notre côté** · 26/08 elle relance.
+
+Décision Badr : « bah tu lui envoies le code promo et ensuite on lui renvoie
+l'article gratuit choisi ».
+
+Fait :
+- **Code `LAVIGNE20` créé dans Shopify** (`DiscountCodeNode/2289895932278`),
+  -20 % sur toute la boutique, 1 utilisation, sans date de fin, statut ACTIVE.
+  Convention maison respectée (NOM20, comme PRON20 / RHEAUME20 / SOTO20…).
+- Mail envoyé (`1a03f6fae1f80cce`) : excuses pour les 17 jours, short beige
+  offert, **3XL** proposé (2 tailles au-dessus du XL reçu) avec possibilité de
+  basculer en 4XL sur simple réponse, code promo, adresse de livraison
+  rappelée pour confirmation tacite.
+
+⚠️ **Il n'existe AUCUN tableau de tailles publié** (pouces → taille) : ni dans
+la page Guide des tailles, ni dans le thème, ni dans les descriptions produit
+(toutes vides). Le 3XL est un choix raisonné, pas une lecture de barème.
+→ **À expédier par Badr : Le Short Cassini, Beige, 3XL** (SKU
+`NIVA-SHOR-BEI-3XL`, variante `58159715484022`), sauf si elle demande le 4XL.
+
+### ⏸️ Stéphane Lamiray #2870 — RÉPONSE À LA QUESTION DE BADR « PK on réexpédie »
+
+`stephane.lamiray@outlook.fr` · thread `19f8a881b2936381`.
+
+On réexpédie **parce qu'on s'y est engagé par écrit** :
+- 22/07 : commande #2870, short beige ni coton extensible ni à sa taille.
+- 30/07 : on lui propose 2 options.
+- **01/08 : il écrit qu'il a DÉJÀ renvoyé le short et le polo.**
+- **01/08 : on répond** « Dès que nous recevrons votre colis, nous vous
+  renverrons directement les bons articles : le short en 3XL en coton
+  extensible, ainsi qu'un polo ».
+- 26/08 : rentré de vacances, il trouve un colis contenant **uniquement un
+  tee-shirt noir** — au lieu du tee-shirt Bleu Coastal **et** du short.
+
+Donc : réexpédition normale (il a retourné ses articles), mais **la
+réexpédition est incomplète**. ❓ En attente de Badr : on complète l'envoi
+(short 3XL + tee-shirt Bleu Coastal) ou autre chose ?
+
+### 🛑 Mme Coquillat #2364 — MAIL NON ENVOYÉ, PRÉMISSE À VÉRIFIER
+
+`mo.coquillat@gmail.com` · thread `19fb71e88b4fe8d3` · commande **#2364** du
+25/06, **89,99 €**, 4 polos en 3XL.
+
+Décision Badr : « on n'a pas reçu son colis donc pas de remboursement pour le
+moment ». **Je n'ai pas envoyé ce message.**
+
+Raison : le 02/08 nous lui avons écrit noir sur blanc :
+> « nous n'avons physiquement reçu que **3 polos** dans le colis retourné pour
+> la commande #2364 […] Néanmoins nous allons vous **rembourser pour les
+> 3 polos reçus** bien évidemment. vous devriez voir apparaître votre
+> remboursement d'ici quelques jours. »
+
+Donc nous avons **reconnu par écrit avoir reçu le colis** (3 des 4 articles) et
+**promis le remboursement**. Lui écrire aujourd'hui « on n'a pas reçu votre
+colis » contredirait frontalement notre propre courrier de 24 jours.
+
+État Shopify vérifié le 26/08 : `displayFinancialStatus: PAID`,
+`totalRefunded: 0,00 €`, **aucun `refund`, aucun `return`** enregistré. Le
+remboursement promis le 02/08 n'a **jamais** été fait.
+
+→ Décision attendue de Badr. Recommandation : rembourser les 3 polos reçus,
+soit **67,49 €** (3/4 de 89,99 €). Le remboursement doit être fait par Badr
+dans l'admin — la mutation de remboursement est bloquée côté API.
+
+### 🔴 TOUJOURS SANS RÉPONSE DE BADR (4e relance)
+
+**Compte de versement GBP modifié le 24/08 à 2h57** vers TRANSFERWISE EUROPE
+SA/NV 4483.
