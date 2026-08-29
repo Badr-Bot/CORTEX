@@ -28,7 +28,7 @@ import argparse
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from utils.logger import get_logger
@@ -121,6 +121,13 @@ def upsert(base: dict, produit: dict, date: str, source: str) -> dict:
     nouveau = {k: dict(v) for k, v in base.items()}
     ancien = nouveau.get(dom, {})
     chiffres = produit.get("chiffres") or ancien.get("chiffres") or {}
+    if not chiffres:
+        # le rapport n'a pas les chiffres (ils sont réinjectés à la publication) : on les prend dans le scan du jour
+        try:
+            from agents.radar_produits import chiffres_pour
+            chiffres = chiffres_pour(dom, date) or {}
+        except Exception:
+            chiffres = {}
     entree = {
         **ancien,
         "boutique": dom,
@@ -139,6 +146,15 @@ def upsert(base: dict, produit: dict, date: str, source: str) -> dict:
         "ou_lancer": produit.get("ou_lancer") or ancien.get("ou_lancer", ""),
         "verdict_cortex": produit.get("verdict") or ancien.get("verdict_cortex", ""),
         "verdict_pourquoi": produit.get("verdict_pourquoi") or ancien.get("verdict_pourquoi", ""),
+        "tam": produit.get("tam") or ancien.get("tam", ""),
+        "recurrent": produit.get("recurrent") or ancien.get("recurrent", ""),
+        "difficulte": produit.get("difficulte") or ancien.get("difficulte", ""),
+        "ca_jour_estime": produit.get("ca_jour_estime") or ancien.get("ca_jour_estime", ""),
+        "budget_test": produit.get("budget_test") or ancien.get("budget_test", ""),
+        "angle_concurrent": produit.get("angle_concurrent") or ancien.get("angle_concurrent", ""),
+        "pain_points": produit.get("pain_points") or ancien.get("pain_points", []),
+        "angles_non_exploites": produit.get("angles_non_exploites") or ancien.get("angles_non_exploites", []),
+        "marches_detail": produit.get("marches_detail") or ancien.get("marches_detail", {}),
         "lien_boutique": produit.get("lien_boutique") or ancien.get("lien_boutique") or f"https://{dom}",
         "lien_adlibrary": produit.get("lien_adlibrary") or ancien.get("lien_adlibrary", ""),
         "verdict_badr": ancien.get("verdict_badr", ""),
@@ -206,7 +222,14 @@ VERDICT_BADR_NOTION = {"à tester": "🧪 à tester", "en test": "⏳ en test", 
 ICONE_STATUT = {"BANGER": "🔥", "EXPLOSE": "🚀", "SANS TRAFIC": "👻", "A SURVEILLER": "👀", "STABLE": "➖",
                 "EN BAISSE": "📉", "MORT": "💀"}
 DIFFICULTE_NOTION = {"facile": "🟢 facile", "moyen": "🟡 moyen", "dur": "🔴 dur"}
+STADE_NOTION = {1: "1 · personne", 2: "2 · quelques récents — OK", 3: "3 · tout le monde dit pareil",
+                4: "4 · saturé", 5: "5 · nouveau mécanisme requis"}
+AWARENESS_NOTION = {"inconnu ici": "inconnu ici → éduquer", "déjà connu ici": "déjà connu → nouvel angle"}
+RECURRENT_NOTION = {"oui": "oui · consommable", "non": "non · achat unique"}
 COL_VERDICT_BADR, COL_NOTES_BADR = "🎯 MON VERDICT", "📝 MES NOTES"
+VIDE = "—"          # Badr : « éviter le vide dans les cellules »
+A_VERIFIER = "à vérifier"
+MAX_CELLULE = 180   # au-delà, le texte vit dans la page, pas dans la colonne
 
 
 def sans_emoji(valeur) -> str:
@@ -232,8 +255,63 @@ def notion_icone(entree: dict) -> str:
     return ICONE_STATUT.get(entree.get("statut") or "", "🛍️")
 
 
+def _court(texte, defaut: str = VIDE) -> str:
+    """Une cellule = une ligne lisible. Le texte long vit dans la page."""
+    t = " ".join(str(texte or "").split())
+    if not t:
+        return defaut
+    return t if len(t) <= MAX_CELLULE else t[:MAX_CELLULE - 1].rstrip(" ,;.") + "…"
+
+
+def _premiere_pub(entree: dict) -> str | None:
+    """Date de la première pub = aujourd'hui - semaines de diffusion (ce que TrendTrack sait)."""
+    c = entree.get("chiffres") or {}
+    semaines = c.get("semaines_diffusion")
+    base_date = entree.get("maj_le") or entree.get("trouve_le")
+    if not semaines or not base_date:
+        return None
+    try:
+        d = datetime.strptime(base_date, "%Y-%m-%d")
+    except ValueError:
+        return None
+    return (d - timedelta(weeks=int(semaines))).strftime("%Y-%m-%d")
+
+
+def _marches_detail(entree: dict) -> str:
+    """« Pourquoi DE partiel alors que tu dis qu'il n'y a personne » : la preuve, marché par marché."""
+    detail = entree.get("marches_detail") or {}
+    m = entree.get("marches") or {}
+    if detail:
+        return _court(" · ".join(f"{pays} : {txt}" for pays, txt in detail.items() if txt))
+    if entree.get("marche_fr_detail"):
+        return _court(entree["marche_fr_detail"])
+    if m:
+        return _court(" · ".join(f"{p} {v}" for p, v in m.items()) + " — détail non enregistré, relance le contrôle Meta Ad Library")
+    return "contrôle pays pas encore fait"
+
+
+def _resume_angles(entree: dict) -> str:
+    angles = entree.get("angles_non_exploites") or []
+    if not angles:
+        return "aucun angle libre identifié — l'enquête forums n'a rien donné"
+    return _court(" · ".join(a.get("angle", "") for a in angles if a.get("angle")))
+
+
+def _resume_douleurs(entree: dict) -> str:
+    douleurs = [d for d in (entree.get("pain_points") or []) if d.get("intensite") == "forte"] or (entree.get("pain_points") or [])
+    if not douleurs:
+        return "pas de douleur forte trouvée dans les forums"
+    return _court(" · ".join(d.get("douleur", "") for d in douleurs))
+
+
+def _score_sur_9(entree: dict) -> int | None:
+    ok = entree.get("criteres_ok")
+    return len(ok) if isinstance(ok, list) and ok else None
+
+
 def notion_proprietes(entree: dict) -> dict:
-    """Propriétés Notion d'une entrée (jamais MON VERDICT / MES NOTES : ils sont à Badr)."""
+    """Propriétés Notion d'une entrée (jamais MON VERDICT / MES NOTES : ils sont à Badr).
+    Règle Badr du 29/08 : aucune cellule vide, une seule ligne par cellule."""
     c = entree.get("chiffres") or {}
     m = entree.get("marches") or {}
     props = {
@@ -244,42 +322,107 @@ def notion_proprietes(entree: dict) -> dict:
         "✅ Testable": "__YES__" if entree.get("testable") else "__NO__",
         "date:📅 Trouvé le:start": entree.get("trouve_le"), "date:📅 Trouvé le:is_datetime": 0,
         "date:🔄 Mis à jour:start": entree.get("maj_le"), "date:🔄 Mis à jour:is_datetime": 0,
-        "🧩 Niche": entree.get("niche", ""),
-        "💵 Prix vu": entree.get("prix", ""),
+        "🧩 Niche": _court(entree.get("niche")),
+        "💵 Prix vu": _court(entree.get("prix")),
         "💶 Prix EUR": c.get("prix_eur"),
         "📣 Pubs actives": c.get("ads_actives"),
         "📈 Accélération x4 sem": c.get("acceleration"),
-        "📉 Courbe 5 sem": c.get("courbe_ads", ""),
+        "📉 Courbe 5 sem": _court(c.get("courbe_ads"), "courbe non disponible"),
         "⏳ Âge (jours)": c.get("age_jours"),
         "👣 Visites / mois": c.get("visites_mois"),
-        "🇫🇷 FR": MARCHE_NOTION.get(m.get("FR") or ""), "🇩🇪 DE": MARCHE_NOTION.get(m.get("DE") or ""),
-        "🇪🇸 ES": MARCHE_NOTION.get(m.get("ES") or ""), "🇬🇧 GB": MARCHE_NOTION.get(m.get("GB") or ""),
-        "🎚 Stade": entree.get("stade_sophistication"),
-        "🌍 Où lancer": entree.get("ou_lancer", ""),
-        "💰 CA / jour estimé": entree.get("ca_jour_estime", ""),
+        "🌐 Pays de leurs pubs": _court(c.get("pays_pub"), "pays non indexés"),
+        "🇫🇷 FR": MARCHE_NOTION.get(m.get("FR") or "", MARCHE_NOTION["A VERIFIER"]),
+        "🇩🇪 DE": MARCHE_NOTION.get(m.get("DE") or "", MARCHE_NOTION["A VERIFIER"]),
+        "🇪🇸 ES": MARCHE_NOTION.get(m.get("ES") or "", MARCHE_NOTION["A VERIFIER"]),
+        "🇬🇧 GB": MARCHE_NOTION.get(m.get("GB") or "", MARCHE_NOTION["A VERIFIER"]),
+        "🌍 Marchés (détail)": _marches_detail(entree),
+        "🎚 Stade (1 libre → 5 saturé)": STADE_NOTION.get(entree.get("stade_sophistication")),
+        "🧠 Awareness": AWARENESS_NOTION.get(entree.get("awareness") or "", A_VERIFIER),
+        "📐 TAM": _court(entree.get("tam"), "TAM pas encore mesuré"),
+        "🔁 Récurrent": RECURRENT_NOTION.get(str(entree.get("recurrent") or "").lower()[:3].rstrip(), A_VERIFIER),
+        "🌍 Où lancer": _court(entree.get("ou_lancer")),
+        "💰 CA / jour estimé": _court(entree.get("ca_jour_estime"), "non estimable"),
         "⚡ Difficulté": _difficulte(entree),
-        "💡 Angle recommandé": entree.get("angle_recommande", ""),
+        "💡 Angle recommandé": _court(entree.get("angle_recommande")),
+        "🗣 Angle du concurrent": _court(entree.get("angle_concurrent"), "pubs concurrentes pas encore lues"),
+        "💥 Angles non exploités": _resume_angles(entree),
+        "😣 Douleurs fortes": _resume_douleurs(entree),
+        "🧾 Budget test": _court(entree.get("budget_test"), "CBO 100-300 €/j, décision à 48 h"),
+        "⭐ Score /9": _score_sur_9(entree),
         "🔗 Lien boutique": entree.get("lien_boutique") or None,
         "📺 Leurs pubs": entree.get("lien_adlibrary") or None,
     }
+    premiere = _premiere_pub(entree)
+    if premiere:
+        props["date:🎬 Première pub:start"] = premiere
+        props["date:🎬 Première pub:is_datetime"] = 0
     return {k: v for k, v in props.items() if v is not None}
 
 
 def notion_contenu(entree: dict) -> str:
-    """La fiche (corps de la page Notion) : pourquoi, awareness, historique."""
-    lignes = []
-    if entree.get("verdict_pourquoi"):
-        lignes += [f"## Pourquoi CORTEX dit {entree.get('verdict_cortex') or '…'}", "", entree["verdict_pourquoi"], ""]
-    if entree.get("awareness"):
-        lignes += ["## Awareness", "", entree["awareness"], ""]
+    """La fiche complète (corps de la page) : tout ce qui ne tient pas sur une ligne."""
+    c = entree.get("chiffres") or {}
+    L: list[str] = []
+
+    def bloc(titre: str, corps: str):
+        if corps:
+            L.extend([f"## {titre}", "", corps, ""])
+
+    chiffres = [f"**{c.get('ads_actives', '?')} pubs actives**"]
+    if c.get("acceleration") is not None:
+        chiffres.append(f"×{c['acceleration']} en 4 semaines")
+    if c.get("courbe_ads"):
+        chiffres.append(f"courbe {c['courbe_ads']}")
+    if c.get("age_jours") is not None:
+        chiffres.append(f"boutique de {c['age_jours']} jours")
+    if c.get("semaines_diffusion"):
+        chiffres.append(f"{c['semaines_diffusion']} semaines de diffusion")
+    if c.get("visites_mois") is not None:
+        chiffres.append(f"{c['visites_mois']} visites/mois")
+    if c.get("nb_skus") is not None:
+        chiffres.append(f"{c['nb_skus']} produits au catalogue")
+    bloc("Les chiffres", " · ".join(chiffres))
+
+    bloc(f"Pourquoi CORTEX dit {entree.get('verdict_cortex') or '…'}", entree.get("verdict_pourquoi", ""))
+    bloc("Où lancer", entree.get("ou_lancer", ""))
+
+    detail = entree.get("marches_detail") or {}
+    if detail:
+        bloc("Marché par marché", "\n".join(f"- **{p}** — {t}" for p, t in detail.items() if t))
+    elif entree.get("marche_fr_detail"):
+        bloc("Marché par marché", entree["marche_fr_detail"])
+
+    bloc("Combien ça peut faire", entree.get("ca_jour_estime", ""))
+    bloc("Taille du marché (TAM)", entree.get("tam", ""))
+    bloc("Angle recommandé", entree.get("angle_recommande", ""))
+    bloc("Ce que disent les concurrents", entree.get("angle_concurrent", ""))
+
+    douleurs = entree.get("pain_points") or []
+    if douleurs:
+        bloc("Douleurs réelles (scraping forums)", "\n".join(
+            f"- **{d.get('intensite', '?')}** — {d.get('douleur', '')}" +
+            (f"\n  > {d.get('preuve')}" if d.get("preuve") else "") +
+            (f"\n  [source]({d['source_url']})" if d.get("source_url") else "")
+            for d in douleurs))
+
+    angles = entree.get("angles_non_exploites") or []
+    if angles:
+        bloc("Angles que personne n'exploite", "\n".join(
+            f"- **{a.get('angle', '')}**" +
+            (f"\n  Douleur ciblée : {a['douleur_ciblee']}" if a.get("douleur_ciblee") else "") +
+            (f"\n  Pourquoi personne ne le fait : {a['pourquoi_personne']}" if a.get("pourquoi_personne") else "")
+            for a in angles))
+
+    bloc("Budget de test", entree.get("budget_test", ""))
     if entree.get("raison_non_testable"):
-        lignes += ["## Plus testable", "", entree["raison_non_testable"], ""]
+        bloc("Pourquoi il n'est plus testable", entree["raison_non_testable"])
+
     hist = entree.get("historique") or []
     if hist:
-        lignes += ["## Historique", ""]
-        lignes += [f"- {h.get('date')} — {h.get('ads') if h.get('ads') is not None else '?'} pubs · {h.get('courbe') or '?'} · {h.get('statut') or ''}"
-                   for h in hist]
-    return "\n".join(lignes).strip()
+        bloc("Historique", "\n".join(
+            f"- {h.get('date')} — {h.get('ads') if h.get('ads') is not None else '?'} pubs · {h.get('courbe') or '?'} · {h.get('statut') or ''}"
+            for h in hist))
+    return "\n".join(L).strip()
 
 
 def notion_export(base: dict, date: str) -> list[dict]:

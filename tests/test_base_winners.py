@@ -4,7 +4,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from agents.base_winners import upsert, est_testable, statut_vie, rafraichir, exporter_xlsx, importer_verdicts_xlsx
 from agents.base_winners import testables as produits_testables  # renommé : pytest prendrait « testables » pour un test
-from agents.base_winners import notion_proprietes, notion_export, importer_verdicts_notion, _page_id_depuis_url
+from agents.base_winners import (notion_proprietes, notion_contenu, notion_export,
+                                 importer_verdicts_notion, _page_id_depuis_url)
 
 
 def test_notion_proprietes_ne_touche_jamais_aux_colonnes_de_badr():
@@ -14,10 +15,33 @@ def test_notion_proprietes_ne_touche_jamais_aux_colonnes_de_badr():
     assert props["Boutique"] == "pestprohome.com"
     assert props["✅ Testable"] == "__YES__"
     assert props["date:📅 Trouvé le:start"] == "2026-08-29"
-    assert props["🇫🇷 FR"] == "🟡 PARTIEL" and props["🎚 Stade"] == 2
+    assert props["🇫🇷 FR"] == "🟡 PARTIEL" and props["🎚 Stade (1 libre → 5 saturé)"].startswith("2 ·")
     assert props["🔥 Statut"] == "🔥 BANGER" and props["🤖 Verdict CORTEX"] == "✅ GO TEST"
     assert not any("MON VERDICT" in k or "MES NOTES" in k for k in props)
     assert notion_export(base, "2026-08-29")[0]["icon"] == "🔥"
+    # Badr, 29/08 : « éviter le vide dans les cellules » et « je vois pas quand ça dépasse deux lignes »
+    textes = [v for k, v in props.items() if isinstance(v, str) and not k.startswith("date:")]
+    assert all(v.strip() for v in textes), "aucune cellule ne doit être vide"
+    assert all(len(v) <= 181 and "\n" not in v for v in textes), "une cellule = une ligne courte"
+    # les marchés non renseignés tombent sur « à vérifier », jamais sur du vide
+    nu = notion_proprietes({"boutique": "x.com", "produit": "X"})
+    assert nu["🇩🇪 DE"] == "⚪ A VERIFIER" and nu["📐 TAM"] and nu["😣 Douleurs fortes"]
+
+
+def test_la_fiche_page_porte_le_detail_long():
+    base = upsert({}, _pepite(marches_detail={"FR": "PARTIEL — 81 pubs, Nuizoff 16 pubs depuis 10 j"},
+                             pain_points=[{"douleur": "cafards malgré le ménage", "intensite": "forte",
+                                           "preuve": "je n'en peux plus", "source_url": "https://reddit.com/x"}],
+                             angles_non_exploites=[{"angle": "le locataire impuissant", "douleur_ciblee": "le proprio ne fait rien",
+                                                    "pourquoi_personne": "tout le monde parle d'hygiène"}],
+                             tam="354 pubs actives au Royaume-Uni"),
+                  "2026-08-29", "radar quotidien")
+    fiche = notion_contenu(base["pestprohome.com"])
+    assert "## Les chiffres" in fiche and "170 pubs actives" in fiche
+    assert "## Marché par marché" in fiche and "Nuizoff" in fiche
+    assert "## Douleurs réelles" in fiche and "https://reddit.com/x" in fiche
+    assert "## Angles que personne n'exploite" in fiche and "locataire impuissant" in fiche
+    assert "## Taille du marché (TAM)" in fiche
 
 
 def test_notion_export_cree_puis_ne_repousse_que_les_touches():

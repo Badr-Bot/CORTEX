@@ -335,6 +335,8 @@ Chaque produit de `ecommerce.radar_produits` est un objet avec ces clés
 | `angles_non_exploites` | 2 à 3 objets `{"angle": "…", "douleur_ciblee": "…", "pourquoi_personne": "…"}` — chaque angle adossé à une douleur de `pain_points` |
 | `chiffres` | **ne pas remplir** : réinjecté automatiquement à la publication depuis `data/radar/AAAA-MM-JJ.json` (ads actives, courbe, ×4 semaines, âge, semaines de diffusion, visites, pays des pubs, SKU, prix) — le modèle ne retape jamais un chiffre |
 | `marche_fr_detail` | ce que la requête a montré (qui, combien d'ads, depuis quand), ou « non vérifié — solde TrendTrack » |
+| `marches_detail` | **obligatoire** : un texte par marché contrôlé, recopié de la sortie de `python -m agents.radar_produits marche <PAYS> "<mots>"` — ex. `{"FR": "PARTIEL — 81 pubs actives, 4 annonceurs sérieux : Nuizoff 16 pubs depuis 10 j…", "DE": "PRIS — 32 pubs actives, 7 annonceurs sérieux : Vorgebirge gwia 11 pubs depuis 223 j…"}`. C'est ce qui justifie chaque pastille de couleur. |
+| `recurrent` | `oui` (consommable, réachat) ou `non` (achat unique) — change tout pour la LTV |
 | `ou_lancer` | le ou les marchés recommandés et pourquoi (règle §4 « Où lancer ») : « FR d'abord car libre », ou « pas la France (pris par X) → DE puis AT/CH ». 100-250 caractères. |
 | `criteres_ok` / `criteres_ko` | parmi les 9 critères (`master-research/09-criteres-produit.md:60-78`) : besoin fort · effet visuel · marge ×3-×4 · preuve sociale · simple à utiliser · légal/douane OK · introuvable en magasin · compréhension immédiate · upsell possible. Listes courtes, ce que tu peux juger d'après le brief. |
 | `verdict` | `GO TEST`, `A SURVEILLER` ou `ECARTER` |
@@ -392,6 +394,22 @@ Charge les outils : ToolSearch
    `action`, `notion_page_id`, `icon` (🔥 banger, 🚀 explose, 💀 mort…),
    `properties` (prêtes pour Notion : noms de colonnes avec emoji, options avec
    emoji, dates déjà éclatées en `date:…:start`) et `content` (la fiche en Markdown).
+
+   **Règles de lisibilité (Badr, 29/08 — « ton tableau est nul, je vois pas quand
+   ça dépasse deux lignes ») :** une cellule = **une ligne courte** (180 caractères
+   max, coupée par `_court()`), **jamais vide** (« — », « à vérifier », « TAM pas
+   encore mesuré »…). Tout le détail long vit dans **la page** : chiffres, pourquoi,
+   où lancer, marché par marché, TAM, angle recommandé, angle des concurrents,
+   douleurs citées avec leurs liens, angles non exploités, budget, historique.
+   Les colonnes à remplir absolument, sinon Badr ne peut pas décider :
+   `📣 Pubs actives`, `⏳ Âge (jours)`, `🎬 Première pub`, `🌐 Pays de leurs pubs`,
+   `🌍 Marchés (détail)` (qui est là, combien de pubs, depuis quand — c'est la
+   réponse à « pourquoi DE est PRIS »), `🎚 Stade (1 libre → 5 saturé)`,
+   `🧠 Awareness`, `📐 TAM`, `🔁 Récurrent`, `⭐ Score /9` (nombre de critères
+   `criteres_ok`), `💥 Angles non exploités`, `😣 Douleurs fortes`.
+   Pour les remplir, le rapport doit contenir `marches_detail` (un texte par pays,
+   repris de la sortie `radar_produits marche`), `recurrent` (`oui`/`non`),
+   `criteres_ok`, `tam`, `angle_concurrent`, `pain_points`, `angles_non_exploites`.
    - `action = create` → `notion-create-pages` avec
      `parent = {"type": "data_source_id", "data_source_id": "76f47e8d-dae2-428b-843d-2f6f22305e09"}`,
      `icon`, `properties` et `content` tels quels ;

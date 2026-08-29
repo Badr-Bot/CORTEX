@@ -8,26 +8,121 @@
   "maj_le": "2026-08-29",
   "source": "radar quotidien",
   "statut": "BANGER",
-  "chiffres": {},
+  "chiffres": {
+   "ads_actives": 170,
+   "courbe_ads": "25 > 128",
+   "acceleration": 5.1,
+   "delta_ads_7j": 412,
+   "age_jours": 11,
+   "cree_le": "2026-08-18",
+   "semaines_diffusion": 2,
+   "visites_mois": 0,
+   "pays_pub": "GB 39%, CA 18%, US 16%, AU 14%, NZ 13%",
+   "fr_dans_leurs_pubs": "non ciblée",
+   "marches_libres": "FR/ES/DE/IT",
+   "nb_skus": 3,
+   "prix": "59.9 USD",
+   "statut": "BANGER",
+   "priorite": 90,
+   "reseau": "",
+   "techno_scaling": false
+  },
   "marches": {
    "FR": "PARTIEL",
-   "DE": "PARTIEL",
+   "DE": "PRIS",
    "ES": "PARTIEL",
-   "GB": "PARTIEL"
+   "GB": "PRIS"
   },
   "stade_sophistication": 2,
   "awareness": "déjà connu ici",
   "angle_recommande": "Le client français connaît l'objet (prises à ultrasons à 12 € sur Amazon) mais pas la promesse « sans poison ». Attaquer en solution-aware : problème (cafards ou souris malgré le ménage, enfants et animaux à la maison) → mécanisme expliqué (ultrasons à fréquence variable 22-65 kHz, silencieux pour nous) → preuve (avis, garantie 90 jours) → pack 2-3 prises, une par pièce. Avatar : parents et propriétaires 30-60 ans, ciblage large.",
-  "ou_lancer": "France en premier : stade 2 (un seul concurrent récent), ta boutique FR fait 90 % de ton volume, et les créas françaises sont prêtes à copier. Puis Allemagne (personne sur le répulsif d'intérieur, PayPal obligatoire), puis Espagne. Pas le Royaume-Uni : marché d'origine de PestPro.",
+  "ou_lancer": "France en premier : 4 concurrents seulement, tous arrivés il y a moins de 11 jours, aucun installé. Puis Espagne (3 annonceurs, aucun dominant). Pas l'Allemagne ni le Royaume-Uni : marchés déjà pris.",
   "verdict_cortex": "GO TEST",
-  "verdict_pourquoi": "Récent (11 jours), explosif (×5 en 2 semaines), mono-produit, problème fort, et stade 2 sur tes quatre marchés — exactement le profil que la formation demande à un débutant : demande prouvée, concurrence qui commence à peine, angle clair. Test en pack de 2-3 pour tenir ton panier moyen, en copiant les premières créas de PestPro (problème → mécanisme → preuve).",
+  "verdict_pourquoi": "Boutique de 11 jours, 170 pubs actives, ×5 en 2 semaines, mono-produit (3 SKU) sur un problème fort. En France le marché est encore ouvert : 4 concurrents, tous arrivés il y a moins de 11 jours, aucun installé — c'est exactement la fenêtre que la formation demande. Attention : l'Allemagne et le Royaume-Uni sont déjà pris (un annonceur allemand diffuse depuis 223 jours), donc France puis Espagne, pas ailleurs. Teste en pack de 2-3 prises pour tenir ton panier moyen.",
   "lien_boutique": "https://pestprohome.com",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=pestprohome",
   "verdict_badr": "",
   "notes_badr": "",
   "notion_page_id": "3cb91197-e08c-813e-a8ae-c97df8624276",
-  "historique": [],
+  "historique": [
+   {
+    "date": "2026-08-29",
+    "ads": 170,
+    "courbe": "25 > 128",
+    "statut": "BANGER"
+   }
+  ],
   "testable": true,
-  "raison_non_testable": ""
+  "raison_non_testable": "",
+  "marches_detail": {
+   "FR": "PARTIEL — 81 pubs actives, 4 annonceur(s) sérieux : Nuizoff 16 pubs depuis 10 j, Boutiqueeur shop 2 pubs depuis 5 j, Dreanno 2 pubs depuis 6 j",
+   "DE": "PRIS — 32 pubs actives, 7 annonceur(s) sérieux : Vorgebirge gwia 11 pubs depuis 223 j, Berlinwoch store 3 pubs depuis 10 j, Boutiqunb us 3 pubs depuis 149 j",
+   "ES": "PARTIEL — 28 pubs actives, 3 annonceur(s) sérieux : Vigorrous FIN 9 pubs depuis 15 j, Gadget World 6 pubs depuis 107 j, Radiants.C 4 pubs depuis 105 j",
+   "GB": "PRIS — 354 pubs actives, 6 annonceur(s) sérieux : Amelia Smith 6 pubs depuis 1 j, Gratitudet.com 5 pubs depuis 1 j, Boniss 4 pubs depuis 1 j"
+  },
+  "recurrent": "non",
+  "criteres_ok": [
+   "besoin fort",
+   "effet visuel",
+   "marge x3-x4",
+   "preuve sociale",
+   "simple à utiliser",
+   "compréhension immédiate",
+   "upsell possible"
+  ],
+  "tam": "Marché prouvé : 354 pubs actives au Royaume-Uni et 81 en France sur ce seul produit, 6 annonceurs sérieux côté GB. Catégorie maison/anti-nuisibles = besoin universel, achat toute l'année.",
+  "ca_jour_estime": "ESTIMATION, pas un chiffre mesuré : trafic pas encore indexé. Avec 170 pubs actives après 11 jours, ordre de grandeur 1 000 à 5 000 € de CA par jour si leur ROAS tient. À revoir quand le trafic sortira.",
+  "budget_test": "CBO 100 à 300 € par jour, décision à 48 h sur la marge réelle : 200 à 600 € pour savoir.",
+  "difficulte": "moyen",
+  "angle_concurrent": "Nuizoff (FR, 77 pubs actives, 53 jours) attaque la honte : « Tu penses que les cafards ne viennent que chez les gens pas propres ? Faux. Ils cherchent juste la chaleur, l'humidité et la nourriture » — puis sans chimie, sans odeur, sans risque pour enfants et animaux, 2 achetés = 1 offert, garantie 90 jours. Original España (ES, 77 pubs) fait du pur descriptif : « repele ratones, cucarachas, hormigas y arañas, solo tienes que enchufarlo, seguro para niños y mascotas ». PestPro lui-même : « Pests leave. And stay gone. » + 7 400 avis. Personne ne parle du propriétaire qui ne fait rien, de la panique au premier cafard, ni de « pourquoi ton ancien répulsif n'a pas marché ».",
+  "pain_points": [
+   {
+    "douleur": "La panique au premier cafard : on pleure, on angoisse, on ne sait pas si c'est le début d'une infestation",
+    "intensite": "forte",
+    "preuve": "Cafard mort, dois-je paniquer ? — étudiante fraîchement arrivée à Paris, immeuble haussmannien, « tout me semblait nickel »",
+    "source_url": "https://www.reddit.com/r/AskFrance/comments/1sp3ug1/cafard_mort_doisje_paniquer/"
+   },
+   {
+    "douleur": "Le propriétaire ou la copropriété ne fait rien : l'infestation dure depuis 2024 malgré les sociétés et les fumigènes, et le locataire est impuissant",
+    "intensite": "forte",
+    "preuve": "Cafards - copropriété - propriétaire ne répond pas : « Une société est passée plusieurs fois pour mettre différents produits, fumigènes etc mais rien »",
+    "source_url": "https://www.reddit.com/r/immobilier/comments/1sjb5fq/cafards_copropriété_propriétaire_ne_répond_pas/"
+   },
+   {
+    "douleur": "Tout essayé, rien ne marche, c'est devenu une phobie : bombes, acide borique, fumigènes",
+    "intensite": "forte",
+    "preuve": "« Je n'en peux plus » — a essayé bombes, granulés d'acide borique, fumigènes ; la situation est devenue une phobie (forum SudCafard)",
+    "source_url": "https://www.sudcafard.fr/les-differents-forums/les-blattes-les-cafards-les-cancrelats/jai-des-cafards-chez-moi-que-faire/"
+   },
+   {
+    "douleur": "Le répulsif à ultrasons acheté n'a rien fait : mal placé (moquette, derrière un meuble, ne traverse pas les murs), 3 semaines sans effet",
+    "intensite": "forte",
+    "preuve": "Un utilisateur rapporte avoir essayé un appareil « pro » à -70 %, trois semaines plus tard aucun effet sur les souris ; « l'emplacement représente 90 % du travail »",
+    "source_url": "https://www.royaltiss.fr/bricolage/ultrasons-repulsifs-souris-mythe-solution-efficace-avis-conseils-comparatif"
+   },
+   {
+    "douleur": "Avec un bébé, peur des produits chimiques : les cafards contaminent jouets et table à langer, mais les aérosols sont interdits",
+    "intensite": "forte",
+    "preuve": "Règle centrale : placer les substances actives hors de portée du bébé et éviter tout aérosol diffusé dans l'air ; contamination possible par les jouets",
+    "source_url": "https://www.pestverdict.com/insectes-rampants/cafards/cafards-danger-bebe-grossesse/"
+   }
+  ],
+  "angles_non_exploites": [
+   {
+    "angle": "« Ton proprio ne fait rien ? Reprends le contrôle ce soir, sans travaux ni autorisation » — le locataire impuissant",
+    "douleur_ciblee": "Le propriétaire / la copropriété ne fait rien, l'infestation dure",
+    "pourquoi_personne": "Nuizoff parle de honte et d'hygiène, PestPro de « pests leave » ; aucune pub n'adresse le blocage n°1 des locataires : dépendre de quelqu'un qui ne bouge pas. Une prise, pas de travaux, pas de permission."
+   },
+   {
+    "angle": "« Ton ancien répulsif n'a pas marché ? Voilà pourquoi » — l'objection frontale (sophistication stade 3)",
+    "douleur_ciblee": "Répulsif à ultrasons déjà acheté et sans effet",
+    "pourquoi_personne": "Les concurrents vendent l'objet comme neuf ; une partie du marché l'a déjà essayé et y croit plus. Expliquer l'emplacement (une prise par pièce, 28 m², jamais derrière un meuble), la fréquence variable 22-65 kHz et la garantie 90 jours transforme le sceptique en client."
+   },
+   {
+    "angle": "« Premier cafard vu : le kit des 10 premières secondes » — l'angle panique, pour ceux qui viennent d'emménager",
+    "douleur_ciblee": "La panique au premier cafard, souvent juste après un emménagement",
+    "pourquoi_personne": "Toutes les pubs ciblent l'infestation installée. Le moment où l'on cherche le plus, c'est le premier cafard (Reddit : « dois-je paniquer ? », « appartement récupéré insalubre »). Angle prévention immédiate + pack studio/2 pièces, audience 20-35 ans qui déménagent."
+   }
+  ]
  }
 }
