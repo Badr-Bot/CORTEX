@@ -36,16 +36,30 @@ def test_marche_partiel_avec_trois_petits_annonceurs_recents():
     assert echo["recent"] is False
 
 
-def test_marche_pris_avec_cinq_annonceurs():
-    ads = [_ad(f"Shop{i}", 30) for i in range(5)]
+def test_marche_pris_avec_cinq_annonceurs_serieux():
+    ads = [_ad(f"Shop{i}", 30) for i in range(5) for _ in range(2)]
     res = analyser_marche_meta(_payload(ads), NOW)
-    assert res["verdict"] == "PRIS" and res["stade"] == 3
+    assert res["verdict"] == "PRIS" and res["stade"] == 3 and res["nb_serieux"] == 5
 
 
-def test_marche_pris_avec_un_acteur_dominant():
-    ads = [_ad("Urban Core Hub", 40)] * 25 + [_ad("Petit", 3)]
+def test_cinq_pages_a_une_seule_pub_ne_font_pas_un_marche_pris():
+    ads = [_ad(f"Dropship{i}", 30) for i in range(5)]
     res = analyser_marche_meta(_payload(ads), NOW)
-    assert res["verdict"] == "PRIS" and "dominant" in res["raison"] and "Urban Core Hub" in res["raison"]
+    assert res["verdict"] == "PARTIEL" and res["nb_serieux"] == 0
+
+
+def test_marche_pris_avec_un_acteur_installe_qui_domine():
+    ads = [_ad("Urban Core Hub", 140)] * 25 + [_ad("Petit", 3)]
+    res = analyser_marche_meta(_payload(ads), NOW)
+    assert res["verdict"] == "PRIS" and "domine" in res["raison"] and "Urban Core Hub" in res["raison"]
+
+
+def test_concurrent_recent_qui_scale_reste_partiel_mais_alerte():
+    # cas réel du 29/08 : Nuizoff, 18 pubs lancées il y a 4 jours sur « répulsif ultrasons » FR
+    ads = [_ad("Nuizoff", 4, "N'écrase surtout pas ce cafard")] * 21 + [_ad("Maison Protégée", 9)] * 2 + [_ad("Buiqei shop", 10)]
+    res = analyser_marche_meta(_payload(ads, total=81), NOW)
+    assert res["verdict"] == "PARTIEL" and res["stade"] == 2
+    assert "ATTENTION" in res["raison"] and "Nuizoff" in res["raison"]
 
 
 def test_accepte_le_json_deja_decode():

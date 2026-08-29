@@ -597,9 +597,10 @@ def cmd_pubs(mot: str, src: list[str] | None, max_age_hours: float) -> int:
 # L'agent enregistre la réponse de ads_library_search dans
 # data/radar/raw/meta_<PAYS>_<mot>.json ; ici on la lit et on tranche.
 
-SEUIL_PAGES_PRIS = 5          # ≥ 5 annonceurs = marché PRIS (stade 3+)
-SEUIL_ADS_DOMINANT = 20       # une page avec ≥ 20 pubs dans l'échantillon de 50 = acteur dominant
-JOURS_RECENT = 60             # concurrent « récent » = première pub ≤ 60 jours
+SEUIL_PAGES_PRIS = 5          # ≥ 5 annonceurs SÉRIEUX = marché PRIS (stade 3+)
+SEUIL_ADS_SERIEUX = 2         # un annonceur compte s'il a ≥ 2 pubs dans l'échantillon (1 pub = bruit dropship)
+SEUIL_ADS_DOMINANT = 20       # ≥ 20 pubs dans l'échantillon ET pas récent = acteur installé qui domine
+JOURS_RECENT = 60             # concurrent « récent » = première pub ≤ 60 jours (leçon 33 : « vient de commencer » = OK)
 
 
 def _payload_meta(payload) -> dict:
@@ -636,22 +637,33 @@ def analyser_marche_meta(payload, aujourd_hui: float | None = None) -> dict:
     for p in annonceurs:
         p["age_jours"] = int((now - p["premiere_pub"]) / 86400) if p["premiere_pub"] else None
         p["recent"] = p["age_jours"] is not None and p["age_jours"] <= JOURS_RECENT
-    dominant = [p for p in annonceurs if p["ads"] >= SEUIL_ADS_DOMINANT]
+    serieux = [p for p in annonceurs if p["ads"] >= SEUIL_ADS_SERIEUX]
+    dominant = [p for p in serieux if p["ads"] >= SEUIL_ADS_DOMINANT and not p["recent"]]
+    qui_scale = [p for p in serieux if p["ads"] >= SEUIL_ADS_DOMINANT and p["recent"]]
     if not annonceurs and total == 0:
         verdict, raison = "LIBRE", "aucune pub active ne contient ces mots"
-    elif len(annonceurs) >= SEUIL_PAGES_PRIS or dominant:
-        qui = ", ".join(f"{p['page']} ({p['ads']} pubs)" for p in (dominant or annonceurs)[:3])
-        verdict, raison = "PRIS", f"{len(annonceurs)} annonceurs" + (f", dominant : {qui}" if dominant else f" : {qui}")
+    elif dominant or len(serieux) >= SEUIL_PAGES_PRIS:
+        qui = ", ".join(f"{p['page']} ({p['ads']} pubs)" for p in (dominant or serieux)[:3])
+        verdict = "PRIS"
+        raison = (f"acteur installé qui domine : {qui}" if dominant
+                  else f"{len(serieux)} annonceurs sérieux : {qui}")
     else:
-        qui = ", ".join(f"{p['page']} ({p['ads']} pubs{', récent' if p['recent'] else ''})" for p in annonceurs)
-        verdict, raison = "PARTIEL", f"{len(annonceurs)} annonceur(s) sans dominant : {qui}"
+        qui = ", ".join(f"{p['page']} ({p['ads']} pubs{', récent' if p['recent'] else ''})" for p in serieux) or "que des pages à 1 pub"
+        verdict = "PARTIEL"
+        raison = f"{len(serieux)} annonceur(s) sérieux, aucun acteur installé : {qui}"
+        if qui_scale:
+            raison += " — ATTENTION, concurrent récent qui scale déjà : " + ", ".join(
+                f"{p['page']} ({p['ads']} pubs en {p['age_jours']} j)" for p in qui_scale)
     return {"verdict": verdict, "raison": raison, "total_pubs": total, "nb_annonceurs": len(annonceurs),
-            "annonceurs": annonceurs, "stade": 1 if verdict == "LIBRE" else 2 if verdict == "PARTIEL" else 3}
+            "nb_serieux": len(serieux), "annonceurs": annonceurs,
+            "stade": 1 if verdict == "LIBRE" else 2 if verdict == "PARTIEL" else 3}
 
 
 def cmd_marche(pays: str, mot: str) -> int:
     """Lit data/radar/raw/meta_<PAYS>_<mot>.json et imprime le verdict de marché."""
-    slug = re.sub(r"[^a-z0-9]+", "-", mot.lower()).strip("-")
+    import unicodedata
+    sans_accents = unicodedata.normalize("NFKD", mot).encode("ascii", "ignore").decode()
+    slug = re.sub(r"[^a-z0-9]+", "-", sans_accents.lower()).strip("-")
     candidats = sorted(RAW_DIR.glob(f"meta_{pays.upper()}_{slug}*.json"))
     if not candidats:
         print(f"Aucun fichier data/radar/raw/meta_{pays.upper()}_{slug}.json — enregistre d'abord la réponse de ads_library_search.")

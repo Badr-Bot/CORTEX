@@ -283,7 +283,8 @@ ads_library_search  search_terms="<2-3 mots qui décrivent LE PRODUIT, dans la l
   (lipocavitation, colliers anti-aboiement…) ; « répulsif ultrasons » renvoie le
   vrai marché. En allemand/espagnol/anglais, traduis (« Ultraschall Schädlinge »,
   « repelente ultrasonidos », « ultrasonic pest repeller »).
-- Enregistre la réponse **telle quelle** dans `data/radar/raw/meta_<PAYS>_<mots-en-minuscules-avec-tirets>.json`
+- Enregistre la réponse **telle quelle** dans `data/radar/raw/meta_<PAYS>_<mots-en-minuscules-sans-accents-avec-tirets>.json`
+  (« répulsif ultrasons » → `meta_FR_repulsif-ultrasons.json`)
   puis : `python -m agents.radar_produits marche FR "répulsif ultrasons"` → il agrège
   par annonceur (nb de pubs, ancienneté de la première pub, exemple de titre) et
   tranche : **LIBRE** = 0 pub · **PARTIEL** = 1-4 annonceurs sans dominant (stade 2,
