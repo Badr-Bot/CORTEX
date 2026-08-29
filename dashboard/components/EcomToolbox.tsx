@@ -61,6 +61,30 @@ function RadarCard({ p }: { p: RadarProduit }) {
         </div>
       </div>
 
+      {/* Les chiffres TrendTrack, réinjectés — jamais retapés par le modèle */}
+      {p.chiffres && (
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+          {[
+            { label: "Pubs actives", value: p.chiffres.ads_actives != null ? String(p.chiffres.ads_actives) : "?" },
+            { label: "× en 4 sem.", value: p.chiffres.acceleration != null ? `×${p.chiffres.acceleration}` : "?" },
+            { label: "Âge boutique", value: p.chiffres.age_jours != null ? `${p.chiffres.age_jours} j` : "?" },
+            { label: "Diffusion", value: p.chiffres.semaines_diffusion != null ? `${p.chiffres.semaines_diffusion} sem.` : "?" },
+            { label: "Trafic affiché", value: p.chiffres.visites_mois != null ? `${p.chiffres.visites_mois}/mois` : "?" },
+            { label: "Références", value: p.chiffres.nb_skus != null ? `${p.chiffres.nb_skus} SKU` : "?" },
+          ].map((c) => (
+            <div key={c.label} className="bg-black/30 rounded-md px-2.5 py-2 border border-white/5">
+              <div className="text-[9px] text-slate-500 uppercase tracking-wider">{c.label}</div>
+              <div className="text-sm font-mono text-white">{c.value}</div>
+            </div>
+          ))}
+          <div className="col-span-3 sm:col-span-6 text-[11px] font-mono text-slate-500">
+            Courbe des pubs (5 sem.) : <span className="text-slate-300">{p.chiffres.courbe_ads || "?"}</span>
+            {p.chiffres.pays_pub ? <> · Pays de leurs pubs : <span className="text-slate-300">{p.chiffres.pays_pub}</span></> : null}
+            {p.chiffres.reseau ? <> · <span className="text-amber-400/80">{p.chiffres.reseau}</span></> : null}
+          </div>
+        </div>
+      )}
+
       {/* Les 4 questions de Badr */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         <div className="bg-black/30 rounded-md p-3 border border-white/5 space-y-1">
@@ -101,6 +125,34 @@ function RadarCard({ p }: { p: RadarProduit }) {
         <p className="text-xs text-slate-300 leading-relaxed">
           <span className="text-amber-400/80 font-medium">🌍 Où lancer : </span>{p.ou_lancer}
         </p>
+      )}
+
+      {/* Sophistication, awareness, angle, TAM — la méthode MASTER */}
+      {(p.stade_sophistication || p.angle_recommande || p.tam) && (
+        <div className="bg-black/30 rounded-md p-3 border border-white/5 space-y-1.5">
+          <div className="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-wider">
+            {p.stade_sophistication && (
+              <span className="px-2 py-0.5 rounded border border-violet-500/30 text-violet-300 bg-violet-500/10">
+                Sophistication : stade {p.stade_sophistication}/5
+              </span>
+            )}
+            {p.awareness && (
+              <span className={`px-2 py-0.5 rounded border ${p.awareness === "inconnu ici" ? "border-emerald-500/30 text-emerald-300 bg-emerald-500/10" : "border-amber-500/30 text-amber-300 bg-amber-500/10"}`}>
+                Produit {p.awareness}
+              </span>
+            )}
+          </div>
+          {p.angle_recommande && (
+            <p className="text-xs text-slate-300 leading-relaxed">
+              <span className="text-violet-400/80 font-medium">🎯 Angle : </span>{p.angle_recommande}
+            </p>
+          )}
+          {p.tam && (
+            <p className="text-xs text-slate-400 leading-relaxed">
+              <span className="text-slate-300 font-medium">📐 TAM : </span>{p.tam}
+            </p>
+          )}
+        </div>
       )}
 
       {/* Critères */}

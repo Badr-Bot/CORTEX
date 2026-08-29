@@ -82,6 +82,29 @@ export interface RadarProduit {
   marche_fr: "LIBRE" | "PRIS" | "PARTIEL" | "A VERIFIER"
   marche_fr_detail?: string
   marches?: Record<string, "LIBRE" | "PRIS" | "PARTIEL" | "A VERIFIER">
+  stade_sophistication?: number
+  awareness?: "inconnu ici" | "déjà connu ici"
+  angle_recommande?: string
+  tam?: string
+  /** Chiffres TrendTrack réinjectés à la publication (jamais retapés). */
+  chiffres?: {
+    ads_actives?: number
+    courbe_ads?: string
+    acceleration?: number | null
+    delta_ads_7j?: number | null
+    age_jours?: number | null
+    cree_le?: string
+    semaines_diffusion?: number
+    visites_mois?: number | null
+    pays_pub?: string
+    fr_dans_leurs_pubs?: string
+    marches_libres?: string
+    nb_skus?: number | null
+    prix?: string
+    prix_eur?: number | null
+    statut?: string
+    reseau?: string
+  }
   ou_lancer?: string
   criteres_ok?: string[]
   criteres_ko?: string[]

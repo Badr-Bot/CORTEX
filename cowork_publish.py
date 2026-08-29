@@ -45,6 +45,17 @@ def _merge_dashboards(report: dict, donnees: dict) -> dict:
     ecom["dashboard"] = donnees.get("ecommerce_dashboard", {})
     ecom["themes"] = donnees.get("ecommerce_themes", {})
 
+    # Même principe pour le radar : les chiffres TrendTrack de chaque produit
+    # viennent du scan du jour, pas du texte du modèle.
+    date = donnees.get("date") or ""
+    if date:
+        from agents.radar_produits import chiffres_pour
+
+        for produit in ecom.get("radar_produits", []) or []:
+            chiffres = chiffres_pour(produit.get("boutique", ""), date)
+            if chiffres:
+                produit["chiffres"] = chiffres
+
     return report
 
 

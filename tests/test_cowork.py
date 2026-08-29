@@ -385,6 +385,24 @@ def test_les_chiffres_sont_reinjectes_jamais_retapes(rapport):
     assert merged["ecommerce"]["dashboard"]["stocks"][0]["ticker"] == "SHOP"
 
 
+def test_les_chiffres_radar_sont_reinjectes(rapport, tmp_path, monkeypatch):
+    """Les ads actives, la courbe, l'âge… viennent du scan du jour, jamais du texte."""
+    import json
+    from agents import radar_produits
+    from cowork_publish import _merge_dashboards
+
+    monkeypatch.setattr(radar_produits, "RADAR_DIR", tmp_path)
+    (tmp_path / "2026-08-29.json").write_text(json.dumps([{
+        "boutique": "lampe.com", "ads_actives": 170, "courbe_ads": "25 > 128", "acceleration": 5.1,
+        "age_jours": 11, "semaines_diffusion": 2, "visites_mois": 0, "pays_pub": "GB 39%", "nb_skus": 3,
+        "prix": "45 USD", "statut": "BANGER",
+    }]), encoding="utf-8")
+    rapport["ecommerce"]["radar_produits"] = [_radar_item(boutique="lampe.com")]
+    merged = _merge_dashboards(copy.deepcopy(rapport), {"date": "2026-08-29"})
+    chiffres = merged["ecommerce"]["radar_produits"][0]["chiffres"]
+    assert chiffres["ads_actives"] == 170 and chiffres["courbe_ads"] == "25 > 128" and chiffres["age_jours"] == 11
+
+
 def test_les_cinq_messages_se_construisent(rapport):
     from cowork_publish import build_messages, _merge_dashboards
 

@@ -358,6 +358,26 @@ def update_suivi(suivi: dict, day: list[dict], date: str) -> dict:
     return nouveau
 
 
+CHIFFRES_KEYS = (
+    "ads_actives", "courbe_ads", "acceleration", "delta_ads_7j", "age_jours", "cree_le",
+    "semaines_diffusion", "visites_mois", "pays_pub", "fr_dans_leurs_pubs", "marches_libres",
+    "nb_skus", "prix", "prix_eur", "statut", "priorite", "reseau", "techno_scaling",
+)
+
+
+def chiffres_pour(boutique: str, date: str) -> dict | None:
+    """Les chiffres TrendTrack relevés pour une boutique, tels quels — c'est ce
+    que la publication réinjecte dans la fiche produit, jamais retapé."""
+    path = RADAR_DIR / f"{date}.json"
+    if not path.exists():
+        return None
+    dom = boutique.lower().replace("https://", "").strip("/")
+    for p in json.loads(path.read_text(encoding="utf-8")):
+        if p.get("boutique", "").lower() == dom:
+            return {k: p.get(k) for k in CHIFFRES_KEYS if k in p}
+    return None
+
+
 def mark_analysed(suivi: dict, date: str, domaines: list[str]) -> dict:
     nouveau = {k: dict(v) for k, v in suivi.items()}
     for dom in domaines:

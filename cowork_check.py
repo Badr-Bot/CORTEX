@@ -249,6 +249,16 @@ def _check_radar(ecom: dict, r: Report) -> None:
         if marches is not None:
             if not isinstance(marches, dict) or any(v not in RADAR_MARCHES for v in marches.values()):
                 r.err(f"{where} : 'marches' doit être un objet {{FR/DE/ES/GB: LIBRE|PRIS|PARTIEL|A VERIFIER}}")
+        stade = item.get("stade_sophistication")
+        if stade is None:
+            r.warn(f"{where} : 'stade_sophistication' absent — leçon 33, la cible du débutant est le stade 2-3")
+        elif not isinstance(stade, int) or not 1 <= stade <= 5:
+            r.err(f"{where} : stade_sophistication doit être un entier de 1 à 5")
+        for field in ("awareness", "angle_recommande", "tam"):
+            if not item.get(field):
+                r.warn(f"{where} : '{field}' absent — voir docs/RADAR.md §4 (awareness, angle, preuve de TAM)")
+        if item.get("awareness") and item["awareness"] not in ("inconnu ici", "déjà connu ici"):
+            r.err(f"{where} : awareness doit être 'inconnu ici' ou 'déjà connu ici'")
         if item.get("statut") not in RADAR_STATUTS - {"A SURVEILLER"} and item.get("verdict") == "GO TEST":
             r.warn(f"{where} : GO TEST sur un statut {item.get('statut')} — vérifie que le signal explose vraiment")
         if item.get("verdict") not in RADAR_VERDICTS:

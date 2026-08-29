@@ -29,14 +29,22 @@ check_credits
 
 ## 2. Les passes du jour
 
-Trois passes, complémentaires. Le scan complet de Badr en compte 13 (~1 400
-crédits) ; on garde chaque jour celles qui trouvent des choses différentes :
+Quatre passes, complémentaires (~400 crédits). Le scan complet de Badr en
+compte 13 (~1 400 crédits) ; on garde chaque jour celles qui trouvent des
+choses différentes — et en premier celle qui trouve **les bangers qui explosent
+maintenant** :
 
 | Passe | Ce qu'elle trouve | Appel |
 |---|---|---|
+| **D — explosion 7 jours** (`04-ecom-data-1.md:287` « elle explose direct et elle a beaucoup d'ad active, là ça c'est vraiment lourd ») | les boutiques dont le nombre d'ads a au moins doublé cette semaine | `search_shops creation_date_from=<J-180> min_active_ads=100 max_products_count=40 ads_growth=[{"period":"last7d","comparison":"greater","value":100}] sort_by=activeAds limit=100 page=1` |
 | **A1 — fraîcheur** (`03-marche-retour-d-experience-complet.md:180` « quelques jours qu'ils commencent à run […] ça produit Pépite ») | les boutiques récentes qui ont déjà beaucoup d'ads | `search_shops creation_date_from=<J-120> min_active_ads=100 max_products_count=40 sort_by=activeAds limit=100 page=1` |
 | **B1 — toutes neuves** | les plus jeunes, dès 50 ads | `search_shops creation_date_from=<J-90> min_active_ads=50 max_products_count=40 sort_by=createdAt limit=100 page=1` |
 | **G1 — filtre secret sans trafic** (ci-dessous) | les vieux domaines à diffusion neuve, invisibles ailleurs | `search_shops max_monthly_visits=100 min_active_ads=100 sort_by=activeAds limit=100 page=1` |
+
+Sources à venir (Badr les branchera) : **BrandSearch** (« le plus complet »,
+`04-ecom-data-1.md:305`, vivier bien plus grand que TrendTrack) et **Kalodata**
+(TikTok Shop). Elles alimenteront le même `extract` : toute réponse au format
+`{"data": [{"domain": …}]}` déposée dans `data/radar/raw/` est dépouillée.
 
 ⚠️ Sans A1/B1, la passe G seule (triée par nombre d'ads) remonte surtout des
 annonceurs installés depuis 6 mois : le 29/08, 0 boutique fraîche sur 155.
@@ -117,16 +125,65 @@ Ce qui compte, c'est **être le premier sur le marché où tu lances**. Donc :
    (`ou_lancer`), et le produit reste une pépite **pour ce marché**.
 3. FR, DE, ES et GB tous `PRIS` → **écarté**. Passe au candidat suivant
    (jusqu'à ~10 contrôles `search_ads` par jour, ~30 crédits chacun).
-4. **`PARTIEL`** = un annonceur existe mais exécute mal : moins de ~10 pubs
-   actives, dépense dérisoire, copie sale (« un opérateur qui exécute mal
-   n'est pas un test de marché »). Un concurrent à 50+ pubs actives depuis
-   plus d'un mois, c'est `PRIS`.
-5. **`LIBRE`** exige la preuve (la requête a tourné, aucun annonceur sur le
+4. **`LIBRE`** exige la preuve (la requête a tourné, aucun annonceur sur le
    produit) ; **`A VERIFIER`** si le contrôle n'a pas pu être fait — jamais
    `LIBRE` sur un 0 résultat.
-6. Le jour où aucun candidat ne passe, **le rapport dit 0 produit** et liste ce
+5. Le jour où aucun candidat ne passe, **le rapport dit 0 produit** et liste ce
    qui a été vérifié et écarté (`radar_ecartes`). Une pépite est rare, et un
    faux GO coûte 200-600 € de test.
+
+### Lire le contrôle avec la sophistication (leçon 33, « Sophistication simplifié »)
+
+`0-to-1-master-one/33-sophistication-simplifie-base-a-connaitre.md` : « la
+sophistication c'est le nombre de concurrents que vous avez sur un certain
+produit-marché » (`:153`). « S'il y a genre 3 concurrents qui viennent juste de
+commencer, c'est totalement OK » (`:152`) ; « des dizaines et même 15 qui
+utilisent littéralement le même message marketing, en tant que débutant, c'est
+pas ce qu'on conseille » (`:166`). **Cible du débutant : stade 2 à 3** (`:47`).
+
+| Ce que montre `search_ads` sur le mot-clé, dans le pays | Stade | État à écrire |
+|---|---|---|
+| aucun annonceur sur le produit | 1 — tu es le premier | `LIBRE` |
+| 1 à 4 annonceurs **récents** (< 6 mois) ou qui exécutent mal (< ~10 pubs, copie sale — cas Solina) | 2 — la concurrence arrive | `PARTIEL` → **OK pour lancer**, on peut copier leurs messages qui marchent |
+| ≥ 5 annonceurs, ou un acteur qui **domine** le mot-clé (> 100 pubs actives, ou plusieurs millions de personnes touchées) | 3-4 — tout le monde dit la même chose | `PRIS` → il faudrait un nouveau mécanisme : pas un test de 48 h |
+| 15+ annonceurs avec le même message | 5 — saturé | `PRIS` (vendre une identité, réservé aux expérimentés) |
+
+Écris le stade dans `stade_sophistication` (1 à 5, pour le marché de
+lancement) avec la preuve : combien d'annonceurs, depuis quand, combien de pubs.
+
+### L'awareness : comment vendre le produit sur le marché de lancement
+
+Même leçon, `:150-158` (exemple du shilajit) : « la façon dont on vendait le
+shilajit au début aux États-Unis, c'était la même façon dont il fallait le
+vendre en France. Beaucoup ont fait l'erreur de prendre le marketing du
+présent aux États-Unis, où les clients étaient déjà aware du produit […] ils ne
+parlaient que d'offres, que de prix, et n'expliquaient pas l'histoire ». Donc :
+
+- **Le marché de lancement ne connaît pas encore le produit** (unaware /
+  problem aware) → copier les **premières** pubs du marché d'origine :
+  raconter le problème, expliquer ce que c'est et comment ça marche, preuve.
+  Audience large, pas de ciblage fin. Champ `awareness` = « inconnu ici ».
+- **Le marché de lancement connaît déjà le produit** (solution / product
+  aware — les pubs concurrentes le montrent directement, l'offre et le prix
+  dominent) → il faut un **nouvel angle** ou un **mécanisme unique**
+  (`master-acquisition/02`, lexique : « recréer un océan bleu même sur un
+  marché saturé »), ou une différenciation prouvée (stade 4). Champ
+  `awareness` = « déjà connu ici ».
+- Dans `angle_recommande` : l'angle, l'avatar et le stade de conscience à
+  attaquer, en une ou deux phrases concrètes (ex. « problème → mécanisme
+  ultrasons expliqué → preuve, audience large 30-60 ans propriétaires »).
+
+### La preuve de TAM (`02-master-product-formulatm.md:270`)
+
+« Grand minimum 5 concurrents qui ont minimum 100 ads actifs » et « 50 à 100k
+visiteurs mensuels chez vos concurrents » — **mesuré sur le marché d'origine /
+mondial**, pas sur le marché de lancement (où l'on veut justement peu de
+monde). Compte, dans les résultats `search_ads` déjà obtenus (FR, DE, ES, GB,
+et au besoin US), les annonceurs dont `liveAdsCount ≥ 100` ; écris-le dans
+`tam` : « TAM prouvé : 7 annonceurs à 100+ pubs (US/GB/DE), catégorie maison »
+ou « TAM incertain : 2 annonceurs à 100+ pubs seulement ». Un TAM faible
+n'écarte pas une pépite de test, mais limite le scaling (`:285` « une micro
+niche qui limite votre spend »).
 
 Dans l'analyse, remplis `marches` : `{"FR": "PRIS", "DE": "LIBRE", "ES": "A VERIFIER", "GB": "A VERIFIER"}`
 et dis dans `marche_fr_detail` / `ou_lancer` qui occupe quoi (nom, pubs
@@ -194,6 +251,11 @@ Chaque produit de `ecommerce.radar_produits` est un objet avec ces clés
 | `difficulte_pourquoi` | prix vs AOV 65-70 €, réglementaire (cosmétique, ingérable, contrefaçon), créas nécessaires (VSL longue ou vidéo 30 s ?), concurrence FR, logistique (poids, liquide). 150-350 caractères. |
 | `marche_fr` | `LIBRE`, `PRIS`, `PARTIEL` ou `A VERIFIER` (règles §5) |
 | `marches` | état par marché de Badr : `{"FR": …, "DE": …, "ES": …, "GB": …}` avec les mêmes valeurs ; si FR est `PRIS`, au moins un autre doit être `LIBRE` ou `PARTIEL` (sinon le produit est écarté) |
+| `stade_sophistication` | entier 1 à 5 pour le marché de lancement (tableau §4), avec la preuve dans `marche_fr_detail` |
+| `awareness` | « inconnu ici » ou « déjà connu ici » : le marché de lancement connaît-il le produit ? (§4) |
+| `angle_recommande` | l'angle, l'avatar et le stade de conscience à attaquer, concret. 120-300 caractères. |
+| `tam` | preuve de TAM chiffrée (§4) : annonceurs à 100+ pubs, catégorie. 80-200 caractères. |
+| `chiffres` | **ne pas remplir** : réinjecté automatiquement à la publication depuis `data/radar/AAAA-MM-JJ.json` (ads actives, courbe, ×4 semaines, âge, semaines de diffusion, visites, pays des pubs, SKU, prix) — le modèle ne retape jamais un chiffre |
 | `marche_fr_detail` | ce que la requête a montré (qui, combien d'ads, depuis quand), ou « non vérifié — solde TrendTrack » |
 | `ou_lancer` | le ou les marchés recommandés et pourquoi (règle §4 « Où lancer ») : « FR d'abord car libre », ou « pas la France (pris par X) → DE puis AT/CH ». 100-250 caractères. |
 | `criteres_ok` / `criteres_ko` | parmi les 9 critères (`master-research/09-criteres-produit.md:60-78`) : besoin fort · effet visuel · marge ×3-×4 · preuve sociale · simple à utiliser · légal/douane OK · introuvable en magasin · compréhension immédiate · upsell possible. Listes courtes, ce que tu peux juger d'après le brief. |
