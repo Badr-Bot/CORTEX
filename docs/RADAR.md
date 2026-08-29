@@ -267,9 +267,38 @@ Ce que ça alimente dans chaque fiche pépite :
   ne fait rien → reprends le contrôle sans attendre »). C'est là que se joue
   la différenciation (leçon 33, stade 2-3).
 
-## 5. Le contrôle « déjà en France ? » (0 à 3 appels)
+## 5. Le contrôle « déjà en France ? » — Meta Ad Library d'abord (gratuit), TrendTrack ensuite
 
-Pour chaque produit retenu, si le solde le permet :
+### 5a. Meta Ad Library (connecteur META) — 0 crédit, autant de contrôles que nécessaire
+
+Charge l'outil : ToolSearch `"select:mcp__META__ads_library_search"`. Pour chaque
+produit retenu et chaque marché (FR d'abord, puis DE, ES, GB si FR est PRIS) :
+```
+ads_library_search  search_terms="<2-3 mots qui décrivent LE PRODUIT, dans la langue du pays>"
+                    countries=["FR"]  ad_active_status="ACTIVE"  limit=50
+                    client_conversation_id="<20 caractères, le même pour toute la session>"
+                    advertiser_request="vérifier si <produit> est déjà vendu en pubs en <pays>"
+```
+- **2-3 mots précis**, pas un seul : « ultrasons » seul en FR renvoie 2 400 pubs
+  (lipocavitation, colliers anti-aboiement…) ; « répulsif ultrasons » renvoie le
+  vrai marché. En allemand/espagnol/anglais, traduis (« Ultraschall Schädlinge »,
+  « repelente ultrasonidos », « ultrasonic pest repeller »).
+- Enregistre la réponse **telle quelle** dans `data/radar/raw/meta_<PAYS>_<mots-en-minuscules-avec-tirets>.json`
+  puis : `python -m agents.radar_produits marche FR "répulsif ultrasons"` → il agrège
+  par annonceur (nb de pubs, ancienneté de la première pub, exemple de titre) et
+  tranche : **LIBRE** = 0 pub · **PARTIEL** = 1-4 annonceurs sans dominant (stade 2,
+  OK pour lancer) · **PRIS** = ≥ 5 annonceurs ou un acteur à ≥ 20 pubs dans
+  l'échantillon (stade 3+). Recopie le verdict et sa raison dans `marches` et
+  cite les annonceurs dans `angle_concurrent`.
+- Si un acteur domine, tu peux compter ses pubs exactes avec `page_ids=[<page_id>]`
+  (utile pour le TAM : ≥ 100 pubs = gros annonceur).
+- L'outil ne rend ni le texte complet des pubs ni la portée : pour **lire** les
+  pubs du concurrent (angle, promesse), utilise `ad_snapshot_url` (WebFetch) ou
+  TrendTrack `search_ads` ci-dessous.
+
+### 5b. TrendTrack `search_ads` — seulement pour les copies de pubs (30 crédits)
+
+Réservé aux 1-3 pépites finales, pour citer l'angle exact du concurrent :
 ```
 search_ads  query="<UN seul mot, le produit>"  country="FR"  trend_signal="reach"
 ```
@@ -277,6 +306,7 @@ Règles (`FILTRES.md` §6, pièges vérifiés le 25/08) :
 - **toujours** `trend_signal="reach"` — la valeur par défaut exige une croissance de reach et renvoie 0 sur des marchés pourtant occupés ;
 - un mot, jamais une phrase ;
 - **0 résultat ne s'écrit jamais LIBRE** : ça s'écrit `A VERIFIER`. LIBRE seulement si la requête tourne et ne remonte aucun annonceur sérieux ; PRIS si un concurrent y est avec des ads (dis qui) ; PARTIEL si un annonceur existe mais exécute mal.
+- Si le connecteur META n'est pas disponible dans la session, `search_ads` redevient le contrôle pays (limite-toi à ~10 contrôles).
 
 ## 6. L'analyse approfondie — le format de chaque produit
 

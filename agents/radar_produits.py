@@ -593,6 +593,79 @@ def cmd_pubs(mot: str, src: list[str] | None, max_age_hours: float) -> int:
     return 0
 
 
+# ── Contrôle pays par la Meta Ad Library (gratuit, connecteur META) ──────────
+# L'agent enregistre la réponse de ads_library_search dans
+# data/radar/raw/meta_<PAYS>_<mot>.json ; ici on la lit et on tranche.
+
+SEUIL_PAGES_PRIS = 5          # ≥ 5 annonceurs = marché PRIS (stade 3+)
+SEUIL_ADS_DOMINANT = 20       # une page avec ≥ 20 pubs dans l'échantillon de 50 = acteur dominant
+JOURS_RECENT = 60             # concurrent « récent » = première pub ≤ 60 jours
+
+
+def _payload_meta(payload) -> dict:
+    """Le connecteur renvoie {"results": "<json>"} ; on accepte aussi le JSON déjà décodé."""
+    if isinstance(payload, dict) and isinstance(payload.get("results"), str):
+        try:
+            return json.loads(payload["results"])
+        except json.JSONDecodeError:
+            return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def analyser_marche_meta(payload, aujourd_hui: float | None = None) -> dict:
+    """Agrège une réponse Meta Ad Library par annonceur et rend le verdict de marché
+    (MASTER RESEARCH · 3 lu avec la leçon 33) : LIBRE = personne ; PARTIEL = 1-4
+    annonceurs, aucun dominant ; PRIS = ≥ 5 annonceurs ou un acteur dominant."""
+    data = _payload_meta(payload)
+    ads = data.get("ads") or []
+    total = int(data.get("estimated_total_count") or len(ads))
+    now = aujourd_hui or time.time()
+    pages: dict[str, dict] = {}
+    for a in ads:
+        pid = str(a.get("page_id") or a.get("page_name") or "")
+        if not pid:
+            continue
+        p = pages.setdefault(pid, {"page": a.get("page_name") or pid, "ads": 0, "premiere_pub": None, "exemple": ""})
+        p["ads"] += 1
+        t = a.get("ad_creation_time") or a.get("ad_delivery_start_time")
+        if t and (p["premiere_pub"] is None or t < p["premiere_pub"]):
+            p["premiere_pub"] = t
+        if not p["exemple"] and a.get("ad_creative_link_title"):
+            p["exemple"] = a["ad_creative_link_title"]
+    annonceurs = sorted(pages.values(), key=lambda p: -p["ads"])
+    for p in annonceurs:
+        p["age_jours"] = int((now - p["premiere_pub"]) / 86400) if p["premiere_pub"] else None
+        p["recent"] = p["age_jours"] is not None and p["age_jours"] <= JOURS_RECENT
+    dominant = [p for p in annonceurs if p["ads"] >= SEUIL_ADS_DOMINANT]
+    if not annonceurs and total == 0:
+        verdict, raison = "LIBRE", "aucune pub active ne contient ces mots"
+    elif len(annonceurs) >= SEUIL_PAGES_PRIS or dominant:
+        qui = ", ".join(f"{p['page']} ({p['ads']} pubs)" for p in (dominant or annonceurs)[:3])
+        verdict, raison = "PRIS", f"{len(annonceurs)} annonceurs" + (f", dominant : {qui}" if dominant else f" : {qui}")
+    else:
+        qui = ", ".join(f"{p['page']} ({p['ads']} pubs{', récent' if p['recent'] else ''})" for p in annonceurs)
+        verdict, raison = "PARTIEL", f"{len(annonceurs)} annonceur(s) sans dominant : {qui}"
+    return {"verdict": verdict, "raison": raison, "total_pubs": total, "nb_annonceurs": len(annonceurs),
+            "annonceurs": annonceurs, "stade": 1 if verdict == "LIBRE" else 2 if verdict == "PARTIEL" else 3}
+
+
+def cmd_marche(pays: str, mot: str) -> int:
+    """Lit data/radar/raw/meta_<PAYS>_<mot>.json et imprime le verdict de marché."""
+    slug = re.sub(r"[^a-z0-9]+", "-", mot.lower()).strip("-")
+    candidats = sorted(RAW_DIR.glob(f"meta_{pays.upper()}_{slug}*.json"))
+    if not candidats:
+        print(f"Aucun fichier data/radar/raw/meta_{pays.upper()}_{slug}.json — enregistre d'abord la réponse de ads_library_search.")
+        return 1
+    res = analyser_marche_meta(_load_payload(candidats[-1]))
+    print(f"=== {pays.upper()} · « {mot} » · {res['total_pubs']} pubs actives estimées · {res['nb_annonceurs']} annonceurs dans l'échantillon")
+    print(f"VERDICT : {res['verdict']} (stade {res['stade']}) — {res['raison']}")
+    for p in res["annonceurs"][:12]:
+        age = f"{p['age_jours']} j" if p["age_jours"] is not None else "?"
+        print(f"  - {p['page']:<40} {p['ads']:>3} pubs · première pub il y a {age}{' · RÉCENT' if p['recent'] else ''}"
+              + (f" · « {p['exemple'][:60]} »" if p["exemple"] else ""))
+    return 0
+
+
 def cmd_mark(date: str, domaines: list[str]) -> int:
     RADAR_DIR.mkdir(parents=True, exist_ok=True)
     suivi = mark_analysed(load_suivi(), date, domaines)
@@ -624,9 +697,15 @@ def main(argv: list[str] | None = None) -> int:
     p_pubs.add_argument("--src", nargs="*", default=None)
     p_pubs.add_argument("--max-age-hours", type=float, default=24)
 
+    p_marche = sub.add_parser("marche", help="verdict LIBRE/PARTIEL/PRIS depuis une réponse Meta Ad Library enregistrée")
+    p_marche.add_argument("pays")
+    p_marche.add_argument("mot")
+
     args = parser.parse_args(argv)
     if args.cmd == "extract":
         return cmd_extract(args.date, args.src, args.max_age_hours)
+    if args.cmd == "marche":
+        return cmd_marche(args.pays, args.mot)
     if args.cmd == "candidats":
         return cmd_candidats(args.date, args.n)
     if args.cmd == "pubs":
