@@ -49,7 +49,7 @@ export default function EcommerceSection({ ecommerce }: { ecommerce?: EcommerceD
       )}
 
       {/* Boîte à outils + radar produits : ce que Badr attend en premier */}
-      <EcomToolbox outils={ecommerce.outils} radar={ecommerce.radar_produits} />
+      <EcomToolbox outils={ecommerce.outils} radar={ecommerce.radar_produits} ecartes={ecommerce.radar_ecartes} />
 
       {/* Actions du secteur */}
       {stocks.length > 0 && (

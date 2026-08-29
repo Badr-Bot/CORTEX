@@ -91,6 +91,13 @@ export interface RadarProduit {
   lien_adlibrary?: string
 }
 
+/** Produit vérifié puis refusé par le radar (marché FR pris, ingérable…). */
+export interface RadarEcarte {
+  produit: string
+  boutique: string
+  raison: string
+}
+
 export interface CryptoDashboard {
   btc_price?: number
   btc_change_24h?: number
@@ -148,6 +155,7 @@ export interface EcommerceData {
   tendance_globale?: string
   outils?: EcomTool[]
   radar_produits?: RadarProduit[]
+  radar_ecartes?: RadarEcarte[]
   nouveautes?: EcomNouveaute[]
   signals?: EcomSignal[]
   autres_news?: AutreNews[]

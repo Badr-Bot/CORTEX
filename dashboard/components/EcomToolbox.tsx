@@ -1,4 +1,4 @@
-import type { EcomTool, RadarProduit, ToolCategory } from "@/lib/types"
+import type { EcomTool, RadarEcarte, RadarProduit, ToolCategory } from "@/lib/types"
 
 const CATEGORIES: Record<ToolCategory, { icon: string; label: string; badge: string }> = {
   video:           { icon: "🎬", label: "Vidéo & créas",      badge: "bg-pink-500/10 border-pink-500/30 text-pink-300"         },
@@ -133,13 +133,15 @@ function RadarCard({ p }: { p: RadarProduit }) {
 type Props = {
   outils?: EcomTool[]
   radar?: RadarProduit[]
+  ecartes?: RadarEcarte[]
 }
 
 /** La boîte à outils du jour + le radar produits : ce que Badr peut utiliser cette semaine. */
-export default function EcomToolbox({ outils, radar }: Props) {
+export default function EcomToolbox({ outils, radar, ecartes }: Props) {
   const hasTools = !!outils && outils.length > 0
   const hasRadar = !!radar && radar.length > 0
-  if (!hasTools && !hasRadar) return null
+  const hasEcartes = !!ecartes && ecartes.length > 0
+  if (!hasTools && !hasRadar && !hasEcartes) return null
 
   return (
     <>
@@ -200,22 +202,40 @@ export default function EcomToolbox({ outils, radar }: Props) {
         </div>
       )}
 
-      {hasRadar && (
+      {(hasRadar || hasEcartes) && (
         <div className="glass rounded-xl p-5 card-hover border border-amber-500/10 animate-slide-up space-y-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_#f59e0b] animate-pulse-glow" />
               <div className="text-[10px] text-amber-400 uppercase tracking-widest font-semibold">
-                🎯 Radar produits — les 3 du jour, analysés
+                🎯 Radar produits — {hasRadar ? `${radar!.length} pépite${radar!.length > 1 ? "s" : ""} du jour` : "aucune pépite aujourd'hui"}
               </div>
             </div>
             <span className="text-[10px] font-mono text-slate-600">TrendTrack · méthode MASTER</span>
           </div>
-          <div className="space-y-3">
-            {radar!.map((p, i) => (
-              <RadarCard key={`${p.boutique}-${i}`} p={p} />
-            ))}
-          </div>
+          {hasRadar && (
+            <div className="space-y-3">
+              {radar!.map((p, i) => (
+                <RadarCard key={`${p.boutique}-${i}`} p={p} />
+              ))}
+            </div>
+          )}
+          {hasEcartes && (
+            <div className="bg-black/20 rounded-lg p-3.5 border border-white/5 space-y-2">
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider">
+                ✗ Vérifiés et écartés aujourd&apos;hui ({ecartes!.length})
+              </div>
+              <ul className="space-y-1.5">
+                {ecartes!.map((e, i) => (
+                  <li key={`${e.boutique}-${i}`} className="text-xs text-slate-400 leading-relaxed">
+                    <span className="text-slate-300 font-medium">{e.produit}</span>
+                    <span className="text-slate-600 font-mono"> · {e.boutique}</span>
+                    {" — "}{e.raison}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
     </>

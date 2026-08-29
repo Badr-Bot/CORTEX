@@ -55,10 +55,21 @@ INGERABLE = re.compile(
     r"electrolyte|tea |thé |infusion)\b", re.I)
 COSMETIQUE = re.compile(r"\b(cream|serum|oil|balm|lotion|gel|mask|shampoo|creme|huile)\b", re.I)
 DEVISES_OK = {"USD", "EUR", "GBP", "CAD", "AUD", "CHF", "SEK", "DKK", "NOK"}
+# Taux approximatifs vers l'euro, pour comparer un prix vu à l'AOV de Badr.
+# 199 DKK n'est pas 199 € : sans conversion le filtre prix laissait tout passer.
+TAUX_EUR = {"EUR": 1.0, "USD": 0.92, "GBP": 1.17, "CAD": 0.68, "AUD": 0.61,
+            "CHF": 1.05, "SEK": 0.087, "DKK": 0.134, "NOK": 0.086}
+
+
+def prix_en_euros(prix, devise: str):
+    if prix is None:
+        return None
+    return round(prix * TAUX_EUR.get((devise or "").upper(), 1.0), 2)
 UPSELL = re.compile(
     r"(vip|membership|abonnement|subscription|assurance|insurance|priorit|priority|"
     r"protection|warranty|garantie|shipping|livraison|expedition|tip|pourboire|"
-    r"donation|gift card|carte cadeau|extension|add-?on|bundle upgrade)", re.I)
+    r"donation|gift card|carte cadeau|extension|add-?on|bundle upgrade|bonus|gratuit|"
+    r"free gift|money-back|guarantee|guide)", re.I)
 
 # Seuils : 50 ads = la seule règle chiffrée de la formation (04-ecom-data-1.md:271).
 # ×2 = "explose", ≤ 0,8 = "en baisse", 60 jours = "récente" : calibrations maison.
@@ -262,6 +273,7 @@ def classify(row: dict, techno: bool, today: _date) -> dict | None:
         "marches_libres": libres_txt,
         "prix": f"{prix} {devise}" if prix is not None else "",
         "prix_num": prix,
+        "prix_eur": prix_en_euros(prix, devise),
         "pays_boutique": prof.get("countryCode") or "",
         "alertes": " | ".join(alertes),
         "reseau": "",
@@ -389,18 +401,22 @@ def qualifie(p: dict) -> tuple[bool, str]:
         raisons.append("cible déjà la France")
     if p.get("produit", "").startswith("(catalogue non indexé)") or p.get("prix_num") is None:
         raisons.append("produit ou prix non indexé — rien à analyser")
-    prix = p.get("prix_num")
+    prix = p.get("prix_eur", p.get("prix_num"))
     if prix is not None and prix < PRIX_MIN:
-        raisons.append(f"prix bas ({prix}) vs AOV 65-70")
+        raisons.append(f"prix bas ({p.get('prix')} ≈ {prix} €) vs AOV 65-70")
+    if not est_fraiche(p):
+        raisons.append("pas récente (domaine > 60 j et diffusion > 8 semaines)")
     return (not raisons, " + ".join(raisons))
 
 
 def est_fraiche(p: dict) -> bool:
-    """« Une boutique vraiment récente […] qui explose » (04-ecom-data-1.md:287,
-    :299 « moins de deux mois ») : domaine ≤ 60 j OU diffusion ≤ 10 semaines."""
+    """Le profil pépite de MASTER RESEARCH · 3 (:180 « ça fait juste quelques
+    jours qu'ils commencent à run ») et 04-ecom-data-1.md:299 « moins de deux
+    mois » : domaine ≤ 60 j, OU diffusion ≤ 8 semaines (extension de Badr pour
+    les vieux domaines à diffusion neuve, cas getwildnest.com)."""
     age = p.get("age_jours")
     sem = p.get("semaines_diffusion") or 0
-    return (age is not None and age <= RECENTE_JOURS) or (0 < sem <= 10)
+    return (age is not None and age <= RECENTE_JOURS) or (0 < sem <= 8)
 
 
 def candidats(day: list[dict], suivi: dict, date: str, n: int = 12) -> list[dict]:

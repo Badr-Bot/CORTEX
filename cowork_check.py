@@ -236,6 +236,11 @@ def _check_radar(ecom: dict, r: Report) -> None:
         elif item.get("marche_fr") == "LIBRE" and not item.get("marche_fr_detail"):
             r.err(f"{where} : marche_fr = LIBRE sans marche_fr_detail — un 0 résultat s'écrit A VERIFIER, "
                   "LIBRE exige la preuve (requête search_ads trend_signal=reach)")
+        elif item.get("marche_fr") == "PRIS":
+            r.err(f"{where} : marche_fr = PRIS — un produit déjà lancé en France n'est pas une pépite "
+                  "(MASTER RESEARCH · 3) : écarte-le et passe au candidat suivant")
+        if item.get("statut") not in RADAR_STATUTS - {"A SURVEILLER"} and item.get("verdict") == "GO TEST":
+            r.warn(f"{where} : GO TEST sur un statut {item.get('statut')} — vérifie que le signal explose vraiment")
         if item.get("verdict") not in RADAR_VERDICTS:
             r.err(f"{where} : verdict invalide ({item.get('verdict')!r}) — attendu {sorted(RADAR_VERDICTS)}")
         ca = item.get("ca_jour_estime") or ""
@@ -248,6 +253,17 @@ def _check_radar(ecom: dict, r: Report) -> None:
             url = item.get(field) or ""
             if url and not url.startswith("http"):
                 r.err(f"{where} : {field} invalide ({url})")
+
+    ecartes = ecom.get("radar_ecartes")
+    if ecartes is not None:
+        if not isinstance(ecartes, list):
+            r.err("ecommerce.radar_ecartes doit être une liste")
+        else:
+            for i, item in enumerate(ecartes, 1):
+                if not isinstance(item, dict) or not all(item.get(k) for k in ("produit", "boutique", "raison")):
+                    r.err(f"ecommerce.radar_ecartes[{i}] : produit, boutique et raison obligatoires")
+    if isinstance(items, list) and not items and not ecartes:
+        r.warn("ecommerce.radar_produits vide sans radar_ecartes — dis ce qui a été vérifié et pourquoi rien ne passe")
 
 
 def check(report: dict, known_urls: set[str]) -> Report:

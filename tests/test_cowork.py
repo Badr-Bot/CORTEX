@@ -328,6 +328,13 @@ def test_radar_valeurs_imposees(rapport):
     assert "verdict" in joined and "marche_fr" in joined and "difficulte" in joined
 
 
+def test_radar_marche_fr_pris_refuse(rapport):
+    """MASTER RESEARCH · 3 : pas une pépite si quelqu'un l'a déjà lancé en France."""
+    rapport["ecommerce"]["radar_produits"] = [_radar_item(marche_fr="PRIS", marche_fr_detail="Cabaïa, 1 844 pubs")]
+    r = check(rapport, KNOWN_URLS)
+    assert any("PRIS" in e and "pépite" in e for e in r.errors)
+
+
 def test_radar_zero_resultat_jamais_libre_sans_detail(rapport):
     """FILTRES.md §6 : un 0 résultat s'écrit A VERIFIER, jamais LIBRE."""
     rapport["ecommerce"]["radar_produits"] = [_radar_item(marche_fr="LIBRE", marche_fr_detail="")]

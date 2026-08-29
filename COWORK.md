@@ -194,6 +194,9 @@ Un seul objet JSON, avec ces cinq clés : `ai`, `crypto`, `market`, `deeptech`, 
         "lien_boutique": "https://domaine.com", "lien_adlibrary": "https://www.facebook.com/ads/library/?q=domaine"
       }
     ],
+    "radar_ecartes": [
+      { "produit": "…", "boutique": "domaine.com", "raison": "marché FR pris — Nuizoff, 77 pubs actives depuis 53 jours" }
+    ],
     "nouveautes": [
       {
         "theme": "automation",
@@ -296,7 +299,8 @@ Une `<autre news>` :
 | `market.recession_indicators` | les 10, aucun omis |
 | `deeptech.signals` | 2 à 4 |
 | `ecommerce.outils` | 4 à 8, catégories variées |
-| `ecommerce.radar_produits` | 3 (voir `docs/RADAR.md`), sinon `[]` |
+| `ecommerce.radar_produits` | 0 à 3 pépites qui passent TOUS les filtres (voir `docs/RADAR.md`) — 0 est une réponse valide |
+| `ecommerce.radar_ecartes` | 3 à 8 produits vérifiés et refusés, avec la raison |
 | `ecommerce.nouveautes` | 3 à 6, thèmes variés, priorité à automation / creatives / emailing |
 | `ecommerce.signals` | 3 à 5, les 3 premiers sur 3 thèmes différents |
 | `ecommerce.actions_semaine` | 2 |

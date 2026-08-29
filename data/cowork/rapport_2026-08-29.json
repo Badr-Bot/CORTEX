@@ -693,107 +693,7 @@
         "source_url": "https://github.com/TOPDEV99999/ai-ShopMind"
       }
     ],
-    "radar_produits": [
-      {
-        "produit": "PestPro — répulsif à ultrasons « Banish 14+ Pests for Good »",
-        "boutique": "pestprohome.com",
-        "niche": "Maison / anti-nuisibles",
-        "prix": "45 USD (offres en pack, guide à 19 $ et garantie à 23 $ en options)",
-        "statut": "BANGER",
-        "signal": "Boutique créée il y a 11 jours seulement, avec déjà 170 publicités actives : la courbe d'ads (le nombre de pubs Meta qui tournent en même temps, semaine après semaine) est passée de 25 à 128 en deux semaines, soit ×5. Le trafic affiché est à 0 visite/mois : ce n'est pas que personne n'achète, c'est que les outils de mesure n'ont pas encore indexé le site. Ce délai est exactement la fenêtre pendant laquelle on peut repérer un produit avant que tout le monde le voie (leçon « filtre secret sans trafic »). 3 références seulement : une boutique mono-produit qui pousse fort, pas un magasin généraliste.",
-        "stade_marche": "Fenêtre de copie ouverte : lancement tout frais, diffusion au Royaume-Uni (39 % de leurs pubs), Canada (18 %), États-Unis (16 %), Australie (14 %) et Nouvelle-Zélande (13 %). Ils ne diffusent pas en France, ni en Espagne, en Allemagne ou en Italie : tes quatre marchés sont libres de leur côté.",
-        "notoriete": "Le produit (une prise murale qui émet des ultrasons pour faire fuir cafards, souris, punaises, fourmis, araignées, sans produit chimique) existe depuis des années sur Amazon à bas prix ; ce qui est neuf, c'est l'angle marque « sans poison, pour les familles avec enfants et animaux » avec garantie 90 jours. En France, un seul annonceur récent occupe cet angle précis (Nuizoff, 53 jours, 2 pubs) ; le reste du mot-clé « répulsif » est pris par les anti-moustiques (Comme Avant, Puressentiel), qui ne sont pas le même produit.",
-        "ca_jour_estime": "ESTIMATION prudente, pas un chiffre mesuré : le trafic n'est pas encore indexé, donc pas de calcul possible avec la méthode visites × taux de conversion. Repère de la formation : la dépense pub n'est pas visible hors Union européenne (« aux US on peut pas voir le spend »). Avec 170 publicités actives après 11 jours, on est vraisemblablement sur quelques centaines à un ou deux milliers d'euros de pub par jour, donc un chiffre d'affaires de l'ordre de 1 000 à 5 000 € par jour si leur ROAS (ce que rapporte 1 € de pub) tient. À réévaluer dès que TrendTrack affiche le trafic.",
-        "difficulte": "moyen",
-        "difficulte_pourquoi": "Facile côté produit : léger, pas de liquide, pas de taille, compréhension immédiate en 3 secondes, upsells évidents (pack pour plusieurs pièces, guide anti-nuisibles). Moyen côté marketing : le même objet se trouve à 10-15 € sur Amazon, donc il faut vendre la marque et la garantie, pas la prise ; les « preuves » d'efficacité des ultrasons sont contestées, donc attention aux promesses dans les pubs (Meta refuse les allégations trompeuses). Prix vu 45 $ : sous ton panier moyen de 65-70 €, à vendre en pack de 2 ou 3 (une prise par pièce).",
-        "marche_fr": "PARTIEL",
-        "marche_fr_detail": "Requête search_ads « répulsif », France, signal reach, le 29/08 : Nuizoff (2 pubs, 53 jours, 647 000 personnes touchées) attaque les cafards avec un répulsif ; Wedinery (485 jours) vend un répulsif à ultrasons pour animaux ; Comme Avant (8 pubs, 10,7 M touchés) et Puressentiel = anti-moustiques, autre produit. Un annonceur existe sur l'angle exact, mais petit : marché partiel, pas pris.",
-        "ou_lancer": "France en premier : un seul petit concurrent sur l'angle « sans poison », et ta boutique FR fait 90 % de ton volume. Puis Allemagne (aucun concurrent repéré chez eux, boutique DE et coûts déjà en place ; ~90 % des ventes passent par PayPal là-bas). L'Espagne ensuite avec les mêmes créas traduites.",
-        "criteres_ok": [
-          "besoin fort (nuisibles = problème immédiat)",
-          "compréhension immédiate",
-          "simple à utiliser (on branche, c'est tout)",
-          "léger, pas de liquide, douane simple",
-          "upsell possible (pack multi-pièces, guide)",
-          "preuve sociale (7 400 avis affichés)"
-        ],
-        "criteres_ko": [
-          "introuvable en magasin : non, vendu partout (il faut vendre la marque)",
-          "marge ×3-×4 : à vérifier, coût fournisseur d'une prise ultrasons ≈ 3-5 €, donc OK si vendu 45 €"
-        ],
-        "verdict": "GO TEST",
-        "verdict_pourquoi": "C'est le seul candidat du jour qui coche à la fois la fraîcheur (11 jours), l'explosion (×5 en 2 semaines), le mono-produit, un problème fort et un marché français quasi libre. Le risque est marketing (produit banalisé sur Amazon), pas logistique : ça se teste vite et pas cher, en pack de 2-3 pour tenir ton panier moyen.",
-        "budget_test": "Protocole MASTER : CBO (budget de campagne) 100 à 300 € par jour, décision à 48 h sur la marge réelle, soit 200 à 600 € pour savoir.",
-        "lien_boutique": "https://pestprohome.com",
-        "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=pestprohome"
-      },
-      {
-        "produit": "RIIGID V2 — valise en aluminium épais, roues amovibles",
-        "boutique": "riigidukshop.com",
-        "niche": "Voyage / bagagerie premium",
-        "prix": "120 à 280 GBP selon la taille (soit ~140 à 330 €)",
-        "statut": "SANS TRAFIC",
-        "signal": "Nom de domaine créé il y a 31 jours, mais la diffusion de pubs dure depuis 9 semaines (la marque tournait sans doute déjà sur un autre domaine). 763 publicités actives, courbe 430 › 558 › 559 › 601 › 738 : une progression régulière (×1,7 en 4 semaines), pas une explosion — c'est un opérateur qui met du budget avec méthode. Trafic affiché à 0 : le site n'est pas encore indexé par les outils, la fenêtre est ouverte. 8 références (valises, housse, cubes de compression, sac à dos) : catalogue resserré autour d'une seule idée, l'aluminium.",
-        "stade_marche": "Marché des bagages = TAM (taille totale du marché) énorme, exactement ce que la formation demande en premier. Ils diffusent aux États-Unis (40 %), au Royaume-Uni (34 %), en Australie (14 %) et au Canada (13 %) ; rien en France, Espagne, Allemagne, Italie. Mais le segment « valise aluminium » est un marché installé, pas une nouveauté.",
-        "notoriete": "Tout le monde connaît la valise aluminium : RIMOWA l'a rendue iconique (1 256 pubs actives en France, garantie à vie mise en avant). En France, Cabaïa pousse sa nouvelle collection avec 1 844 pubs actives et 2,8 M de personnes touchées ; Armoir (244 jours) et Dot-Drops occupent aussi la place. Le produit n'a rien à expliquer, mais il a beaucoup de voisins.",
-        "ca_jour_estime": "ESTIMATION prudente : trafic non indexé, donc pas de calcul visites × conversion. Avec 763 pubs actives depuis 9 semaines et un ticket de 140 à 330 €, quelques dizaines de commandes par jour suffisent à faire plusieurs milliers d'euros de chiffre d'affaires quotidien — mais la marge dépend d'un coût fournisseur et d'un transport (poids, casse) bien plus lourds qu'un petit produit.",
-        "difficulte": "difficile",
-        "difficulte_pourquoi": "Panier très haut (bon pour ton AOV) mais logistique lourde : colis volumineux, risque de casse et de retours, coût fournisseur élevé qui rend la marge ×3 difficile ; il faut une vraie qualité perçue et des vidéos produit soignées, pas une créa de 15 secondes. Concurrence installée en France : Cabaïa et RIMOWA ne sont pas une « concurrence saine », ce sont des acteurs rentables sur leur terrain (la formation distingue les deux).",
-        "marche_fr": "PRIS",
-        "marche_fr_detail": "Requête search_ads « valise », France, signal reach, le 29/08 : Cabaïa (1 844 pubs actives, 2,8 M touchés, nouvelle collection), RIMOWA (1 256 pubs actives), Armoir (244 jours), Dot-Drops (157 jours), La Redoute. Marché français occupé par des marques installées.",
-        "ou_lancer": "Pas la France en premier (Cabaïa + RIMOWA). Si tu y vas, l'Allemagne d'abord — mais RIMOWA y est chez lui — donc plutôt l'Espagne, où aucun concurrent n'est apparu dans le contrôle et où ta boutique existe. À traiter comme un projet de marque, pas un test de 48 h.",
-        "criteres_ok": [
-          "compréhension immédiate",
-          "effet visuel (l'aluminium se voit en 1 seconde)",
-          "panier élevé, bon pour la marge par commande",
-          "upsell naturel (housse, cubes, sac à dos)"
-        ],
-        "criteres_ko": [
-          "besoin fort : non, c'est un « nice to have » (on a déjà une valise)",
-          "légal/douane/transport : colis lourd et volumineux, casse",
-          "marge ×3-×4 : difficile vu le coût fournisseur",
-          "introuvable en magasin : non"
-        ],
-        "verdict": "A SURVEILLER",
-        "verdict_pourquoi": "Le signal est réel (763 pubs, progression régulière, fenêtre encore ouverte), mais ce n'est pas un produit de test à 48 h : marché français pris par des marques installées, logistique lourde, marge incertaine. À garder en veille pour un éventuel projet de marque bagagerie, pas pour le protocole de testing produit.",
-        "budget_test": "Protocole MASTER : CBO (budget de campagne) 100 à 300 € par jour, décision à 48 h sur la marge réelle, soit 200 à 600 € pour savoir.",
-        "lien_boutique": "https://riigidukshop.com",
-        "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=riigidukshop"
-      },
-      {
-        "produit": "Effortless — robe droite en mélange lin (Linen-Blend Shift Dress)",
-        "boutique": "v8cmtk-f0.myshopify.com",
-        "niche": "Mode femme / lin",
-        "prix": "39.99 USD (affiché « dernier jour -49 % »)",
-        "statut": "BANGER",
-        "signal": "Boutique de 57 jours, 382 publicités actives, courbe 28 › 46 › 220 › 186 › 275 : ×9,8 en 4 semaines, avec un léger creux la semaine dernière puis une reprise. Trafic affiché à 0 : pas encore indexé, fenêtre ouverte. 10 références : catalogue serré autour d'une robe déclinée. Tu l'avais déjà qualifiée dans ta feuille du 26/08 — elle continue de pousser.",
-        "stade_marche": "Diffusion aux États-Unis (29 %), Australie (26 %), Canada (24 %), Royaume-Uni (22 %) ; rien en France, Espagne, Allemagne, Italie. Mais attention au calendrier : une robe en lin se vend en été, et on est fin août en Europe — la saison se termine, sauf en Australie où l'été arrive (ce qui explique sans doute leurs 26 %).",
-        "notoriete": "Produit archi-connu (la robe d'été en lin) : rien à expliquer, mais rien de neuf non plus. En France, le mot « lin » est occupé par des marques de vêtements installées (Charles Tyrwhitt 2 487 pubs, Superdry, Biaotic, Freeman T. Porter), et « robe » par Halara France (1 985 pubs actives), BlueJolie, Cocorico. La boutique tourne encore sur une adresse myshopify.com sans nom de domaine et son catalogue public répond en erreur : signe d'un test en mouvement, pas d'une marque posée.",
-        "ca_jour_estime": "ESTIMATION prudente : trafic non indexé. 382 pubs actives à 40 $ la robe : plusieurs centaines à un millier d'euros de pub par jour est plausible, soit un chiffre d'affaires quotidien de l'ordre de 1 000 à 4 000 € si le ROAS tient — chiffre indicatif, sans donnée de trafic.",
-        "difficulte": "difficile",
-        "difficulte_pourquoi": "Prix 40 $ sous ton panier de 65-70 € : à vendre par 2 ou avec un pack. Tailles = retours et échanges (tu connais le sujet avec le polo). Saisonnalité : lancer une robe d'été en France en septembre, c'est arriver après la bataille ; il faudrait viser l'hémisphère sud ou attendre le printemps. Marché de la mode saturé en France : la différenciation ne peut venir que de la créa et de l'offre.",
-        "marche_fr": "PRIS",
-        "marche_fr_detail": "Requêtes search_ads France, signal reach, le 29/08 : « lin » → Charles Tyrwhitt (2 487 pubs), Superdry (571), Biaotic (221 jours), Freeman T. Porter ; « robe » (contrôle du matin) → Halara France (1 985 pubs actives), BlueJolie, Cocorico. Marché de la mode occupé par des acteurs installés.",
-        "ou_lancer": "Pas maintenant en Europe (fin de saison). Si le produit est retenu, le préparer pour le printemps 2027 en France/Espagne, ou le tester tout de suite en Australie où l'été commence — mais ce n'est pas un de tes marchés existants.",
-        "criteres_ok": [
-          "effet visuel",
-          "compréhension immédiate",
-          "simple (pas de VSL)",
-          "léger, douane simple"
-        ],
-        "criteres_ko": [
-          "besoin fort : non (nice to have)",
-          "introuvable en magasin : non",
-          "marge ×3-×4 à 40 $ : juste",
-          "saisonnalité contre toi en Europe"
-        ],
-        "verdict": "A SURVEILLER",
-        "verdict_pourquoi": "Le signal d'ads est fort et tu l'avais repérée, mais les règles de la formation jouent contre un test maintenant : pas de problème fort, marché FR pris, prix sous ton panier, et surtout mauvais moment de l'année pour l'Europe. À reprendre au printemps si la courbe tient l'hiver (signe d'une vraie marque et pas d'un coup d'été).",
-        "budget_test": "Protocole MASTER : CBO (budget de campagne) 100 à 300 € par jour, décision à 48 h sur la marge réelle, soit 200 à 600 € pour savoir.",
-        "lien_boutique": "https://v8cmtk-f0.myshopify.com",
-        "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=v8cmtk-f0"
-      }
-    ],
+    "radar_produits": [],
     "nouveautes": [
       {
         "theme": "automation",
@@ -943,6 +843,48 @@
     "actions_semaine": [
       "Compare ton CPA Meta Ads de cette semaine à la semaine dernière suite à la suppression du contrôle des emplacements — ajuste ton budget si ça dérape.",
       "Clone video-shotcraft et génère une vidéo produit avec Claude Code cette semaine ; compare le coût et le temps à ton monteur actuel."
+    ],
+    "radar_ecartes": [
+      {
+        "produit": "PestPro — répulsif à ultrasons (11 jours, 170 pubs, ×5)",
+        "boutique": "pestprohome.com",
+        "raison": "Marché FR pris : Nuizoff diffuse le même produit (cafards, ultrasons) depuis 53 jours avec 77 pubs actives et 647 000 personnes touchées. Un second lanceur (pestpulse.co, 7 jours, GB) confirme la vague — mais la France est déjà servie."
+      },
+      {
+        "produit": "Effortless — robe en mélange lin (57 jours, 382 pubs, ×9,8)",
+        "boutique": "v8cmtk-f0.myshopify.com",
+        "raison": "Marché FR pris (Halara France 1 985 pubs actives, BlueJolie, Charles Tyrwhitt 2 487 pubs sur le lin) + fin de saison en Europe + prix 40 $ sous ton panier."
+      },
+      {
+        "produit": "RIIGID V2 — valise aluminium (763 pubs)",
+        "boutique": "riigidukshop.com",
+        "raison": "Pas récente (9 semaines de diffusion) et marché FR pris : Cabaïa 1 844 pubs actives, RIMOWA 1 256. Logistique lourde, marge ×3 improbable."
+      },
+      {
+        "produit": "TrueForm Fascial Release (8 jours, ×17,7)",
+        "boutique": "myseese.com",
+        "raison": "Ingérable : c'est un complément alimentaire (page « Supplement Facts »), pas un outil — hors France, arbitrage du 25/08. Ta feuille du 26/08 l'avait qualifié sur le titre."
+      },
+      {
+        "produit": "Cairn (6 jours, 151 pubs, ×9,9)",
+        "boutique": "aureasole.com",
+        "raison": "Ingérable : huile de graines de courge en gélules pour randonneurs. Le titre ne le disait pas, la fiche produit oui."
+      },
+      {
+        "produit": "Revotín — spray anti-chute de cheveux (368 pubs, ×26,8)",
+        "boutique": "revotin.com",
+        "raison": "Marché FR pris sur « calvitie » : Vitalis (5 pubs, 44 jours), Ulti Paris (839 jours, 1,5 M touchés), Norabeauty, Miraj. Cosmétique : notification CPNP obligatoire en plus."
+      },
+      {
+        "produit": "Fresh Reserve — kit de sacs de compression voyage (358 pubs)",
+        "boutique": "getfreshreserve.co.uk",
+        "raison": "Marché FR pris : AileSeine (1 014 pubs actives), Copensunny (817), Sac Cabine, Boutiquefortun. Diffusion de 19 semaines : pas une fenêtre."
+      },
+      {
+        "produit": "Chatterpup — cartes parlantes pour enfants (9 jours, 114 pubs)",
+        "boutique": "aryrvq-qg.myshopify.com",
+        "raison": "Marché FR pris : LouLou Smile vend LouLouCartes avec 140 pubs actives et 24 M de personnes touchées depuis 89 jours. Le train magnétique de whiz-toys (Monde Enfants, 204 pubs) et le parfum aux phéromones (ECDF by Julie, 384 pubs) sont pris aussi."
+      }
     ]
   }
 }

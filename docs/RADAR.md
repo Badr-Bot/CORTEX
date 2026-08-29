@@ -92,8 +92,40 @@ de donnée n'est jamais une preuve de marché libre) · catalogue généraliste
 (compléments, gummies, drops : hors France, arbitrage Badr du 25/08 — la
 réglementation novel food / allégations santé bloque, `⚠️ Hors formation`).
 
-Il écarte aussi les lignes « (catalogue non indexé) » ou sans prix : on
-n'analyse pas un produit qu'on ne peut pas nommer.
+Il écarte aussi les lignes « (catalogue non indexé) » ou sans prix (on
+n'analyse pas un produit qu'on ne peut pas nommer) et **tout ce qui n'est pas
+récent** : domaine > 60 jours ET diffusion > 8 semaines. C'est le profil pépite
+de `03-marche-retour-d-experience-complet.md:180` — « ça fait juste quelques
+jours qu'ils commencent à run » — et de `04-ecom-data-1.md:299` « moins de deux
+mois ». Les prix sont convertis en euros avant le filtre (199 DKK ≠ 199 €).
+
+### La règle qui tranche : personne ne l'a lancé en France
+
+`03-marche-retour-d-experience-complet.md:180` : « Juste chercher en France,
+il n'y a pas de personnes qui ont lancé. Et si ce n'est pas le cas, ça produit
+Pépite. » Donc :
+
+- **marché FR `PRIS` → le produit est écarté**, il ne va pas dans le rapport.
+  Passe au candidat suivant de la liste et refais le contrôle (jusqu'à 8
+  contrôles `search_ads` par jour, ~30 crédits chacun).
+- **`PARTIEL`** n'est acceptable que si l'annonceur français exécute mal :
+  moins de ~10 pubs actives, dépense dérisoire, copie sale (cas Solina sur
+  GroundGuard : « un opérateur qui exécute mal n'est pas un test de marché »).
+  Un concurrent avec 50+ pubs actives depuis plus d'un mois, c'est `PRIS`.
+- **`LIBRE`** exige la preuve (la requête a tourné, aucun annonceur sur le
+  produit) ; **`A VERIFIER`** si le contrôle n'a pas pu être fait.
+- Le jour où aucun candidat ne passe, **le rapport dit 0 produit** et liste ce
+  qui a été vérifié et écarté (`radar_ecartes`). C'est normal : une pépite est
+  rare, et un faux GO coûte 200-600 € de test.
+
+### Lire le vrai produit avant de juger
+
+Ouvre `https://<boutique>/products.json` (WebFetch, si le réseau le permet) :
+le titre TrendTrack ne dit pas tout. « TrueForm Fascial Release » est un
+complément (page « Supplement Facts ») ; « Cairn » d'aureasole.com est de
+l'huile de graines de courge en gélules ; « Cordless Vacuum Sealer » était un
+kit de sacs de compression pour valise. Un ingérable découvert à cette étape
+est écarté, même s'il a passé le filtre automatique.
 
 Dans `candidats_AAAA-MM-JJ.md` (déjà trié dans cet ordre) :
 1. les **movers** (grosse montée de rang depuis le dernier scan) ;
@@ -159,6 +191,13 @@ Règles ») : TAM · intensité du problème · résolution réelle · economics
 qualité · résilience. Un produit de décoration est un « nice to have », un
 produit qui soulage une douleur est un « need to have » — le scaling n'est pas
 le même.
+
+### Les écartés (`ecommerce.radar_ecartes`)
+
+Liste courte de ce qui a été vérifié et refusé aujourd'hui, pour que Badr voie
+le travail et ne le refasse pas : `[{"produit": "…", "boutique": "…", "raison":
+"marché FR pris — Nuizoff, 77 pubs actives depuis 53 jours"}]`. 3 à 8 lignes,
+une phrase par raison.
 
 ## 7. Après avoir écrit le rapport
 

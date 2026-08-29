@@ -10,7 +10,7 @@ from datetime import date
 
 from agents.radar_produits import (
     classify, fusionner_reseaux, build_day, candidats, update_suivi, mark_analysed,
-    _looks_like_search_shops,
+    _looks_like_search_shops, est_fraiche,
 )
 
 TODAY = date(2026, 8, 29)
@@ -69,9 +69,16 @@ def test_titre_upsell_ignore_au_profit_du_vrai_produit():
     row = _row()
     row["catalog"]["bestSellers"] = [
         {"title": "VIP Membership", "price": 4.99, "currency": "USD"},
+        {"title": "Bonus Secret Gratuit – Valeur 54,95 €", "price": 54.95, "currency": "EUR"},
         {"title": "Lampe de bureau pliable", "price": 39.9, "currency": "USD"},
     ]
     assert classify(row, False, TODAY)["produit"] == "Lampe de bureau pliable"
+
+
+def test_vieux_domaine_a_diffusion_neuve_reste_frais():
+    """Cas getwildnest.com : domaine de 205 j, diffusion de 5 semaines."""
+    p = classify(_row(created="2026-02-02", history=(0, 0, 0, 5, 62, 264, 549, 619)), False, TODAY)
+    assert est_fraiche(p)
 
 
 def test_france_ciblee_et_marches_libres():
@@ -127,6 +134,9 @@ def test_regles_de_qualification_de_badr():
         "non indexés": _row(countries=[]),
         "catalogue": _row(products=45, countries=[{"countryCode": "US", "share": 1.0}]),
         "ingérable": _row(title="Magnesium Gummies", countries=[{"countryCode": "US", "share": 1.0}]),
+        "pas récente": _row(created="2026-01-10", history=tuple([200] * 20) + (250, 300, 400, 500, 600),
+                            countries=[{"countryCode": "US", "share": 1.0}]),
+        "prix bas": _row(price=199, currency="DKK", countries=[{"countryCode": "US", "share": 1.0}]),
     }
     for attendu, row in cas.items():
         ok, raison = qualifie(classify(row, False, TODAY))
