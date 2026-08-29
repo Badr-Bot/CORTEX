@@ -99,24 +99,39 @@ de `03-marche-retour-d-experience-complet.md:180` — « ça fait juste quelques
 jours qu'ils commencent à run » — et de `04-ecom-data-1.md:299` « moins de deux
 mois ». Les prix sont convertis en euros avant le filtre (199 DKK ≠ 199 €).
 
-### La règle qui tranche : personne ne l'a lancé en France
+### La règle qui tranche : personne ne l'a lancé sur TON marché
 
 `03-marche-retour-d-experience-complet.md:180` : « Juste chercher en France,
 il n'y a pas de personnes qui ont lancé. Et si ce n'est pas le cas, ça produit
-Pépite. » Donc :
+Pépite. » La France est le marché principal de Badr (90 % du volume), mais il a
+**4 boutiques : FR, ES, UK, DE** — et son rapport GroundGuard du 24/08 applique
+la règle marché par marché : France prise par Solina → « meilleur combiné
+DE + AT + CH ». La concurrence n'est pas un mal en soi : `02-master-product-
+formulatm.md:270` demande même ≥ 5 concurrents à ≥ 100 ads pour prouver le TAM.
+Ce qui compte, c'est **être le premier sur le marché où tu lances**. Donc :
 
-- **marché FR `PRIS` → le produit est écarté**, il ne va pas dans le rapport.
-  Passe au candidat suivant de la liste et refais le contrôle (jusqu'à 8
-  contrôles `search_ads` par jour, ~30 crédits chacun).
-- **`PARTIEL`** n'est acceptable que si l'annonceur français exécute mal :
-  moins de ~10 pubs actives, dépense dérisoire, copie sale (cas Solina sur
-  GroundGuard : « un opérateur qui exécute mal n'est pas un test de marché »).
-  Un concurrent avec 50+ pubs actives depuis plus d'un mois, c'est `PRIS`.
-- **`LIBRE`** exige la preuve (la requête a tourné, aucun annonceur sur le
-  produit) ; **`A VERIFIER`** si le contrôle n'a pas pu être fait.
-- Le jour où aucun candidat ne passe, **le rapport dit 0 produit** et liste ce
-  qui a été vérifié et écarté (`radar_ecartes`). C'est normal : une pépite est
-  rare, et un faux GO coûte 200-600 € de test.
+1. Contrôle **FR** d'abord. `LIBRE` ou `PARTIEL` → pépite, on lance en France.
+2. FR `PRIS` → contrôle **DE**, puis **ES**, puis **GB** (même règle : un mot
+   dans la langue du pays, `trend_signal="reach"`, `country="DE"`…). Le
+   premier marché `LIBRE`/`PARTIEL` devient le marché de lancement
+   (`ou_lancer`), et le produit reste une pépite **pour ce marché**.
+3. FR, DE, ES et GB tous `PRIS` → **écarté**. Passe au candidat suivant
+   (jusqu'à ~10 contrôles `search_ads` par jour, ~30 crédits chacun).
+4. **`PARTIEL`** = un annonceur existe mais exécute mal : moins de ~10 pubs
+   actives, dépense dérisoire, copie sale (« un opérateur qui exécute mal
+   n'est pas un test de marché »). Un concurrent à 50+ pubs actives depuis
+   plus d'un mois, c'est `PRIS`.
+5. **`LIBRE`** exige la preuve (la requête a tourné, aucun annonceur sur le
+   produit) ; **`A VERIFIER`** si le contrôle n'a pas pu être fait — jamais
+   `LIBRE` sur un 0 résultat.
+6. Le jour où aucun candidat ne passe, **le rapport dit 0 produit** et liste ce
+   qui a été vérifié et écarté (`radar_ecartes`). Une pépite est rare, et un
+   faux GO coûte 200-600 € de test.
+
+Dans l'analyse, remplis `marches` : `{"FR": "PRIS", "DE": "LIBRE", "ES": "A VERIFIER", "GB": "A VERIFIER"}`
+et dis dans `marche_fr_detail` / `ou_lancer` qui occupe quoi (nom, pubs
+actives, ancienneté). ⚠️ Allemagne : ~90 % des ventes via PayPal
+(`03-…:182`), les Allemands aiment l'écologique et la santé (`03-…:22:00`).
 
 ### Lire le vrai produit avant de juger
 
@@ -178,6 +193,7 @@ Chaque produit de `ecommerce.radar_produits` est un objet avec ces clés
 | `difficulte` | `facile`, `moyen` ou `difficile` |
 | `difficulte_pourquoi` | prix vs AOV 65-70 €, réglementaire (cosmétique, ingérable, contrefaçon), créas nécessaires (VSL longue ou vidéo 30 s ?), concurrence FR, logistique (poids, liquide). 150-350 caractères. |
 | `marche_fr` | `LIBRE`, `PRIS`, `PARTIEL` ou `A VERIFIER` (règles §5) |
+| `marches` | état par marché de Badr : `{"FR": …, "DE": …, "ES": …, "GB": …}` avec les mêmes valeurs ; si FR est `PRIS`, au moins un autre doit être `LIBRE` ou `PARTIEL` (sinon le produit est écarté) |
 | `marche_fr_detail` | ce que la requête a montré (qui, combien d'ads, depuis quand), ou « non vérifié — solde TrendTrack » |
 | `ou_lancer` | le ou les marchés recommandés et pourquoi (règle §4 « Où lancer ») : « FR d'abord car libre », ou « pas la France (pris par X) → DE puis AT/CH ». 100-250 caractères. |
 | `criteres_ok` / `criteres_ko` | parmi les 9 critères (`master-research/09-criteres-produit.md:60-78`) : besoin fort · effet visuel · marge ×3-×4 · preuve sociale · simple à utiliser · légal/douane OK · introuvable en magasin · compréhension immédiate · upsell possible. Listes courtes, ce que tu peux juger d'après le brief. |

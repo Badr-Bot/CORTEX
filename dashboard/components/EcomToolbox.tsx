@@ -80,6 +80,15 @@ function RadarCard({ p }: { p: RadarProduit }) {
             👀 Les gens connaissent ? · France : <span className={MARCHE_FR_BADGE[p.marche_fr] ?? "text-slate-400"}>{p.marche_fr}</span>
           </div>
           <p className="text-xs text-slate-300 leading-relaxed">{p.notoriete}</p>
+          {p.marches && (
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {Object.entries(p.marches).map(([pays, etat]) => (
+                <span key={pays} className={`text-[10px] font-mono px-1.5 py-0.5 rounded border border-white/10 ${MARCHE_FR_BADGE[etat] ?? "text-slate-400"}`}>
+                  {pays} : {etat}
+                </span>
+              ))}
+            </div>
+          )}
           {p.marche_fr_detail && <p className="text-[11px] text-slate-500 italic">{p.marche_fr_detail}</p>}
         </div>
       </div>

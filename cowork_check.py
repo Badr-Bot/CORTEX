@@ -237,8 +237,18 @@ def _check_radar(ecom: dict, r: Report) -> None:
             r.err(f"{where} : marche_fr = LIBRE sans marche_fr_detail — un 0 résultat s'écrit A VERIFIER, "
                   "LIBRE exige la preuve (requête search_ads trend_signal=reach)")
         elif item.get("marche_fr") == "PRIS":
-            r.err(f"{where} : marche_fr = PRIS — un produit déjà lancé en France n'est pas une pépite "
-                  "(MASTER RESEARCH · 3) : écarte-le et passe au candidat suivant")
+            marches = item.get("marches") or {}
+            ouverts = [m for m, etat in marches.items() if m != "FR" and etat in ("LIBRE", "PARTIEL")]
+            if not ouverts:
+                r.err(f"{where} : marche_fr = PRIS et aucun autre marché de Badr (DE/ES/GB) vérifié LIBRE ou PARTIEL "
+                      "dans 'marches' — « personne ne l'a lancé sur ton marché » (MASTER RESEARCH · 3) : "
+                      "contrôle DE/ES/GB ou écarte-le")
+            elif not item.get("ou_lancer"):
+                r.err(f"{where} : marché FR pris mais {ouverts} ouvert(s) — 'ou_lancer' doit le dire")
+        marches = item.get("marches")
+        if marches is not None:
+            if not isinstance(marches, dict) or any(v not in RADAR_MARCHES for v in marches.values()):
+                r.err(f"{where} : 'marches' doit être un objet {{FR/DE/ES/GB: LIBRE|PRIS|PARTIEL|A VERIFIER}}")
         if item.get("statut") not in RADAR_STATUTS - {"A SURVEILLER"} and item.get("verdict") == "GO TEST":
             r.warn(f"{where} : GO TEST sur un statut {item.get('statut')} — vérifie que le signal explose vraiment")
         if item.get("verdict") not in RADAR_VERDICTS:

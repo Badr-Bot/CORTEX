@@ -328,11 +328,21 @@ def test_radar_valeurs_imposees(rapport):
     assert "verdict" in joined and "marche_fr" in joined and "difficulte" in joined
 
 
-def test_radar_marche_fr_pris_refuse(rapport):
-    """MASTER RESEARCH · 3 : pas une pépite si quelqu'un l'a déjà lancé en France."""
-    rapport["ecommerce"]["radar_produits"] = [_radar_item(marche_fr="PRIS", marche_fr_detail="Cabaïa, 1 844 pubs")]
+def test_radar_marche_fr_pris_sans_autre_marche_refuse(rapport):
+    """MASTER RESEARCH · 3 : pas une pépite si quelqu'un l'a déjà lancé sur TON marché."""
+    rapport["ecommerce"]["radar_produits"] = [_radar_item(marche_fr="PRIS", marche_fr_detail="Cabaïa, 1 844 pubs",
+                                                          marches={"FR": "PRIS", "DE": "PRIS", "ES": "A VERIFIER"})]
     r = check(rapport, KNOWN_URLS)
-    assert any("PRIS" in e and "pépite" in e for e in r.errors)
+    assert any("PRIS" in e and "ton marché" in e for e in r.errors)
+
+
+def test_radar_marche_fr_pris_mais_allemagne_libre_accepte(rapport):
+    """Cas GroundGuard (24/08) : France prise par Solina → DE + AT + CH."""
+    rapport["ecommerce"]["radar_produits"] = [_radar_item(marche_fr="PRIS", marche_fr_detail="Solina, 10 pubs",
+                                                          marches={"FR": "PRIS", "DE": "LIBRE", "ES": "A VERIFIER", "GB": "PRIS"},
+                                                          ou_lancer="Allemagne d'abord : 0 pub sur Arbeitssocken.")]
+    r = check(rapport, KNOWN_URLS)
+    assert not any("radar_produits" in e for e in r.errors), r.errors
 
 
 def test_radar_zero_resultat_jamais_libre_sans_detail(rapport):

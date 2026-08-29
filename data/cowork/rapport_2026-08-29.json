@@ -693,7 +693,48 @@
         "source_url": "https://github.com/TOPDEV99999/ai-ShopMind"
       }
     ],
-    "radar_produits": [],
+    "radar_produits": [
+      {
+        "produit": "PestPro — répulsif à ultrasons « Banish 14+ Pests for Good »",
+        "boutique": "pestprohome.com",
+        "niche": "Maison / anti-nuisibles",
+        "prix": "45 USD (offres en pack ; guide à 19 $ et garantie à 23 $ en options)",
+        "statut": "BANGER",
+        "signal": "Boutique créée il y a 11 jours seulement, avec déjà 170 publicités actives : la courbe d'ads (le nombre de pubs Meta qui tournent en même temps, semaine après semaine) est passée de 25 à 128 en deux semaines, soit ×5. Le trafic affiché est à 0 visite/mois : ce n'est pas que personne n'achète, c'est que les outils de mesure n'ont pas encore indexé le site — c'est exactement la fenêtre pendant laquelle on repère un produit avant tout le monde (leçon « filtre secret sans trafic »). 3 références seulement : une boutique mono-produit qui pousse fort. Un second lanceur (pestpulse.co, 7 jours, Royaume-Uni) vient d'apparaître sur le même produit : c'est une vague qui démarre.",
+        "stade_marche": "Fenêtre de copie ouverte côté produit, mais déjà refermée sur trois de tes quatre marchés : la France (Nuizoff), l'Espagne (Original España) et le Royaume-Uni (PestPro lui-même y fait 39 % de ses pubs). L'Allemagne est le marché où personne ne pousse encore ce répulsif d'intérieur. Diffusion actuelle de PestPro : GB 39 %, CA 18 %, US 16 %, AU 14 %, NZ 13 %.",
+        "notoriete": "Le produit (une prise murale qui émet des ultrasons pour faire fuir cafards, souris, punaises, fourmis, araignées, sans produit chimique) existe depuis des années sur Amazon à bas prix ; ce qui est neuf, c'est l'angle marque « sans poison, pour les familles avec enfants et animaux » avec garantie 90 jours. En Allemagne, le mot-clé « Ultraschall » ne remonte que des produits voisins : un anti-aboiement pour chiens (Tier-Herzen, 398 jours) et un répulsif d'extérieur oiseaux/insectes (Vorgebirge gwia, 17 jours, 434 pubs actives) — personne sur le répulsif d'intérieur.",
+        "ca_jour_estime": "ESTIMATION prudente, pas un chiffre mesuré : le trafic n'est pas encore indexé, donc pas de calcul possible avec la méthode visites × taux de conversion. Repère de la formation : la dépense pub n'est pas visible hors Union européenne (« aux US on peut pas voir le spend »). Avec 170 publicités actives après 11 jours, on est vraisemblablement sur quelques centaines à un ou deux milliers d'euros de pub par jour, donc un chiffre d'affaires de l'ordre de 1 000 à 5 000 € par jour si leur ROAS (ce que rapporte 1 € de pub) tient. À réévaluer dès que TrendTrack affiche le trafic.",
+        "difficulte": "moyen",
+        "difficulte_pourquoi": "Facile côté produit : léger, pas de liquide, pas de taille, compréhension immédiate en 3 secondes, upsells évidents (pack pour plusieurs pièces, guide anti-nuisibles). Moyen côté marketing : le même objet se trouve à 10-15 € sur Amazon, donc il faut vendre la marque et la garantie, pas la prise ; les « preuves » d'efficacité des ultrasons sont contestées, attention aux promesses dans les pubs (Meta refuse les allégations trompeuses). Allemagne : ~90 % des ventes passent par PayPal, à avoir en place ; les Allemands aiment l'écologique et la santé (formation, leçon marché) — l'angle « sans poison » leur parle. Prix vu 45 $ : sous ton panier moyen de 65-70 €, à vendre en pack de 2 ou 3 (une prise par pièce).",
+        "marche_fr": "PRIS",
+        "marche_fr_detail": "Contrôles search_ads du 29/08, signal reach, un mot par pays : FR « ultrasons » → Nuizoff (53 jours, 77 pubs actives, 647 000 personnes touchées) sur les cafards = PRIS. ES « ultrasonidos » → Original España (39 jours, 77 pubs actives : « repele ratones, cucarachas, hormigas y arañas ») = PRIS. DE « Ultraschall » → aucun répulsif d'intérieur, seulement des voisins (anti-aboiement, répulsif d'extérieur) = PARTIEL. GB → PestPro y diffuse déjà (39 % de ses pubs) = PRIS.",
+        "marches": {
+          "FR": "PRIS",
+          "DE": "PARTIEL",
+          "ES": "PRIS",
+          "GB": "PRIS"
+        },
+        "ou_lancer": "Allemagne, et seulement l'Allemagne pour l'instant : personne sur le répulsif d'intérieur, ta boutique DE et tes coûts DE sont déjà en place, PayPal obligatoire. Ensuite Autriche et Suisse alémanique avec les mêmes créas. Pas la France ni l'Espagne (prises), pas le Royaume-Uni (marché d'origine de PestPro).",
+        "criteres_ok": [
+          "besoin fort (nuisibles = problème immédiat)",
+          "compréhension immédiate",
+          "simple à utiliser (on branche, c'est tout)",
+          "léger, pas de liquide, douane simple",
+          "upsell possible (pack multi-pièces, guide)",
+          "preuve sociale (7 400 avis affichés)",
+          "personne ne l'a lancé en Allemagne"
+        ],
+        "criteres_ko": [
+          "introuvable en magasin : non, vendu partout (il faut vendre la marque)",
+          "marge ×3-×4 : à vérifier, coût fournisseur d'une prise ultrasons ≈ 3-5 €, donc OK si vendu 45 €"
+        ],
+        "verdict": "GO TEST",
+        "verdict_pourquoi": "Récent (11 jours), explosif (×5 en 2 semaines), mono-produit, problème fort, et un de tes marchés encore libre : l'Allemagne. C'est la règle de la formation appliquée marché par marché — être le premier là où tu lances, pas partout. Test en pack de 2-3 pour tenir ton panier moyen, créas allemandes sur l'angle « sans poison, enfants et animaux ».",
+        "budget_test": "Protocole MASTER : CBO (budget de campagne) 100 à 300 € par jour, décision à 48 h sur la marge réelle, soit 200 à 600 € pour savoir.",
+        "lien_boutique": "https://pestprohome.com",
+        "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=pestprohome"
+      }
+    ],
     "nouveautes": [
       {
         "theme": "automation",
@@ -846,19 +887,14 @@
     ],
     "radar_ecartes": [
       {
-        "produit": "PestPro — répulsif à ultrasons (11 jours, 170 pubs, ×5)",
-        "boutique": "pestprohome.com",
-        "raison": "Marché FR pris : Nuizoff diffuse le même produit (cafards, ultrasons) depuis 53 jours avec 77 pubs actives et 647 000 personnes touchées. Un second lanceur (pestpulse.co, 7 jours, GB) confirme la vague — mais la France est déjà servie."
-      },
-      {
         "produit": "Effortless — robe en mélange lin (57 jours, 382 pubs, ×9,8)",
         "boutique": "v8cmtk-f0.myshopify.com",
-        "raison": "Marché FR pris (Halara France 1 985 pubs actives, BlueJolie, Charles Tyrwhitt 2 487 pubs sur le lin) + fin de saison en Europe + prix 40 $ sous ton panier."
+        "raison": "Marché FR pris (Halara France 1 985 pubs actives, BlueJolie ; « lin » : Charles Tyrwhitt 2 487 pubs) et fin de saison en Europe — pas de contrôle DE/ES fait, une robe d'été en septembre n'est pas un test."
       },
       {
         "produit": "RIIGID V2 — valise aluminium (763 pubs)",
         "boutique": "riigidukshop.com",
-        "raison": "Pas récente (9 semaines de diffusion) et marché FR pris : Cabaïa 1 844 pubs actives, RIMOWA 1 256. Logistique lourde, marge ×3 improbable."
+        "raison": "Pas récente (9 semaines de diffusion) et marché FR pris : Cabaïa 1 844 pubs actives, RIMOWA 1 256 (allemand, donc DE pris aussi). Logistique lourde, marge ×3 improbable."
       },
       {
         "produit": "TrueForm Fascial Release (8 jours, ×17,7)",
@@ -873,17 +909,17 @@
       {
         "produit": "Revotín — spray anti-chute de cheveux (368 pubs, ×26,8)",
         "boutique": "revotin.com",
-        "raison": "Marché FR pris sur « calvitie » : Vitalis (5 pubs, 44 jours), Ulti Paris (839 jours, 1,5 M touchés), Norabeauty, Miraj. Cosmétique : notification CPNP obligatoire en plus."
+        "raison": "Marché FR pris sur « calvitie » : Vitalis (5 pubs, 44 jours), Ulti Paris (839 jours, 1,5 M touchés), Norabeauty, Miraj. Cosmétique : notification CPNP obligatoire en plus. DE/ES non contrôlés (budget crédits)."
       },
       {
         "produit": "Fresh Reserve — kit de sacs de compression voyage (358 pubs)",
         "boutique": "getfreshreserve.co.uk",
-        "raison": "Marché FR pris : AileSeine (1 014 pubs actives), Copensunny (817), Sac Cabine, Boutiquefortun. Diffusion de 19 semaines : pas une fenêtre."
+        "raison": "Pas récente (19 semaines de diffusion) et marché FR pris : AileSeine (1 014 pubs actives), Copensunny (817), Sac Cabine, Boutiquefortun."
       },
       {
         "produit": "Chatterpup — cartes parlantes pour enfants (9 jours, 114 pubs)",
         "boutique": "aryrvq-qg.myshopify.com",
-        "raison": "Marché FR pris : LouLou Smile vend LouLouCartes avec 140 pubs actives et 24 M de personnes touchées depuis 89 jours. Le train magnétique de whiz-toys (Monde Enfants, 204 pubs) et le parfum aux phéromones (ECDF by Julie, 384 pubs) sont pris aussi."
+        "raison": "FR pris (LouLou Smile, 140 pubs actives, 24 M touchés depuis 89 jours) ET DE pris (KiddoSpace, 231 jours, 66 pubs, « Lernkarten » pour tout-petits). Le train magnétique de whiz-toys (Monde Enfants, 204 pubs) et le parfum aux phéromones (ECDF by Julie, 384 pubs) sont pris en France aussi."
       }
     ]
   }
