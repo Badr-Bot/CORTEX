@@ -1,0 +1,32 @@
+{
+ "pestprohome.com": {
+  "boutique": "pestprohome.com",
+  "produit": "PestPro — répulsif à ultrasons « Banish 14+ Pests for Good »",
+  "niche": "Maison / anti-nuisibles",
+  "prix": "45 USD (offres en pack ; guide à 19 $ et garantie à 23 $ en options)",
+  "trouve_le": "2026-08-29",
+  "maj_le": "2026-08-29",
+  "source": "radar quotidien",
+  "statut": "BANGER",
+  "chiffres": {},
+  "marches": {
+   "FR": "PARTIEL",
+   "DE": "PARTIEL",
+   "ES": "PARTIEL",
+   "GB": "PARTIEL"
+  },
+  "stade_sophistication": 2,
+  "awareness": "déjà connu ici",
+  "angle_recommande": "Le client français connaît l'objet (prises à ultrasons à 12 € sur Amazon) mais pas la promesse « sans poison ». Attaquer en solution-aware : problème (cafards ou souris malgré le ménage, enfants et animaux à la maison) → mécanisme expliqué (ultrasons à fréquence variable 22-65 kHz, silencieux pour nous) → preuve (avis, garantie 90 jours) → pack 2-3 prises, une par pièce. Avatar : parents et propriétaires 30-60 ans, ciblage large.",
+  "ou_lancer": "France en premier : stade 2 (un seul concurrent récent), ta boutique FR fait 90 % de ton volume, et les créas françaises sont prêtes à copier. Puis Allemagne (personne sur le répulsif d'intérieur, PayPal obligatoire), puis Espagne. Pas le Royaume-Uni : marché d'origine de PestPro.",
+  "verdict_cortex": "GO TEST",
+  "verdict_pourquoi": "Récent (11 jours), explosif (×5 en 2 semaines), mono-produit, problème fort, et stade 2 sur tes quatre marchés — exactement le profil que la formation demande à un débutant : demande prouvée, concurrence qui commence à peine, angle clair. Test en pack de 2-3 pour tenir ton panier moyen, en copiant les premières créas de PestPro (problème → mécanisme → preuve).",
+  "lien_boutique": "https://pestprohome.com",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=pestprohome",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [],
+  "testable": true,
+  "raison_non_testable": ""
+ }
+}

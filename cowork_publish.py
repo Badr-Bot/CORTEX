@@ -56,6 +56,19 @@ def _merge_dashboards(report: dict, donnees: dict) -> dict:
             if chiffres:
                 produit["chiffres"] = chiffres
 
+    # La base de winners (main) : les produits encore testables, pour l'onglet du dashboard.
+    try:
+        from agents.base_winners import charger, testables
+
+        ecom["base_winners"] = [
+            {k: e.get(k) for k in ("produit", "boutique", "niche", "prix", "trouve_le", "maj_le", "statut", "chiffres",
+                                   "marches", "stade_sophistication", "verdict_cortex", "ou_lancer", "verdict_badr",
+                                   "lien_boutique", "lien_adlibrary")}
+            for e in testables(charger())
+        ]
+    except Exception as e:
+        logger.warning(f"Base de winners non injectée : {e}")
+
     return report
 
 

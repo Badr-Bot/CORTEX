@@ -3,6 +3,11 @@ name: CORTEX — Publier le rapport cowork
 # L'agent Claude planifié rédige data/cowork/rapport_AAAA-MM-JJ.json et le pousse.
 # Ce workflow prend le relais pour livrer : il détient les secrets Supabase et
 # Telegram, que l'agent cloud n'a pas.
+#
+# Il tient aussi la BASE DE WINNERS, qui vit sur main (les branches de l'agent
+# n'y sont jamais fusionnées) : les pépites du jour y sont ajoutées, la base
+# rafraîchie par l'agent (si présente sur sa branche) y est reportée, l'Excel
+# est régénéré, et le tout est commité sur main.
 
 on:
   push:
@@ -14,13 +19,22 @@ on:
         description: 'Date du rapport à publier (AAAA-MM-JJ, vide = le plus récent)'
         required: false
 
+permissions:
+  contents: write
+
 jobs:
   publier:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Checkout de main (la base de winners y vit)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
 
       - uses: actions/setup-python@v5
         with:
@@ -45,10 +59,49 @@ jobs:
             echo "date=$date" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Mettre à jour la base de winners sur main
+        env:
+          CORTEX_RADAR_DIR: ${{ github.workspace }}/main-repo/data/radar
+          CORTEX_RAPPORT: ${{ github.workspace }}/data/cowork/rapport_${{ steps.cible.outputs.date }}.json
+        run: |
+          date="${{ steps.cible.outputs.date }}"
+          mkdir -p main-repo/data/radar
+          # Si l'agent a rafraîchi la base sur sa branche (passe hebdo), on la reporte.
+          if [ -f data/radar/base_winners.json ]; then
+            python - <<'EOF'
+          import json, os, pathlib
+          br = pathlib.Path("data/radar/base_winners.json")
+          mn = pathlib.Path(os.environ["CORTEX_RADAR_DIR"]) / "base_winners.json"
+          b = json.loads(br.read_text(encoding="utf-8"))
+          m = json.loads(mn.read_text(encoding="utf-8")) if mn.exists() else {}
+          # entrée par entrée : la plus récente (maj_le) gagne, les verdicts de Badr sont conservés
+          for dom, e in b.items():
+              old = m.get(dom)
+              if not old or (e.get("maj_le", "") >= old.get("maj_le", "")):
+                  e = {**e, "verdict_badr": (old or {}).get("verdict_badr") or e.get("verdict_badr", ""),
+                       "notes_badr": (old or {}).get("notes_badr") or e.get("notes_badr", "")}
+                  m[dom] = e
+          mn.write_text(json.dumps(m, ensure_ascii=False, indent=1), encoding="utf-8")
+          print(f"base fusionnée : {len(m)} produits")
+          EOF
+          fi
+          # Le scan du jour sert à réinjecter les chiffres : on le rend visible depuis main-repo.
+          [ -f "data/radar/${date}.json" ] && cp "data/radar/${date}.json" "main-repo/data/radar/${date}.json"
+          python -m agents.base_winners add "$date"
+          cd main-repo
+          git config user.name "cortex-winners"
+          git config user.email "cortex-winners@users.noreply.github.com"
+          git add data/radar/base_winners.json data/radar/BASE-WINNERS.xlsx "data/radar/${date}.json" 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Base inchangée."; else
+            git commit -m "winners: base mise à jour avec le rapport du ${date}"
+            git pull --rebase origin main && git push origin HEAD:main
+          fi
+
       - name: Publier
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          CORTEX_RADAR_DIR: ${{ github.workspace }}/main-repo/data/radar
         run: python cowork_publish.py "${{ steps.cible.outputs.date }}"

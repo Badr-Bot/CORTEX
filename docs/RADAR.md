@@ -324,6 +324,51 @@ le travail et ne le refasse pas : `[{"produit": "…", "boutique": "…", "raiso
 "marché FR pris — Nuizoff, 77 pubs actives depuis 53 jours"}]`. 3 à 8 lignes,
 une phrase par raison.
 
+## 6bis. La base de winners (leçon MASTER RESEARCH · 10 « fichier d'organisation »)
+
+Une seule liste, `data/radar/base_winners.json` **sur main** (tes branches n'y
+sont jamais fusionnées : c'est le workflow de publication qui l'alimente avec
+les pépites du rapport, et qui reporte la base rafraîchie si tu l'as commitée
+sur ta branche). Export lisible : `data/radar/BASE-WINNERS.xlsx`, feuilles
+WINNERS (seulement les testables) / HISTORIQUE / LEGENDE. Les colonnes
+« MON VERDICT » et « MES NOTES » appartiennent à Badr et ne sont jamais
+écrasées ; un produit qu'il a marqué « écarté » ou « testé - mort » n'est plus
+proposé (le script `candidats` l'exclut et `est_testable` le refuse).
+
+### Le lundi : la passe hebdomadaire
+
+1. **Scan élargi** en plus des 4 passes : G page 2, la passe Triple Whale
+   (`shopify_app_ids=[2982]`, `creation_date_from=<J-120>`, `min_active_ads=50`)
+   et la croissance 30 jours (`creation_date_from=<J-180>`, `min_active_ads=100`,
+   `ads_growth=[{"period":"last30d","comparison":"greater","value":100}]`,
+   `sort_by=growth30d`). Coût réel = nombre de résultats renvoyés (une page
+   pleine de 100 = ~100 crédits ; un filtre serré qui rend 30 boutiques = 30).
+2. **Rafraîchir la base** : pour chaque boutique de `base_winners.json`,
+   `search_shops query=<domaine> match_mode=exact limit=1` (~2 crédits chacune,
+   la réponse est petite et revient en ligne : enregistre-la telle quelle dans
+   `data/radar/raw/AAAA-MM-JJ-<domaine>.json`). Puis
+   `python -m agents.radar_produits extract AAAA-MM-JJ` et
+   `python -m agents.base_winners refresh AAAA-MM-JJ` : statuts mis à jour
+   (BANGER → STABLE → EN BAISSE → MORT), les morts sortent de WINNERS.
+3. **Relire les verdicts de Badr** : avec le connecteur Google Drive, cherche
+   dans le dossier « 05 — RECHERCHE PRODUITS » (id `1nH38fj8BsTF8DZ0KKYeZzKA5mmhSG3-B`)
+   le dernier `*-BASE-WINNERS.xlsx`, télécharge-le (`download_file_content`),
+   écris-le dans `data/radar/drive_BASE-WINNERS.xlsx` et lance
+   `python -m agents.base_winners import-verdicts data/radar/drive_BASE-WINNERS.xlsx`.
+4. **Top 10 de la semaine** : parmi les candidats de la semaine (le suivi
+   garde les rangs), choisis jusqu'à 10 produits qui passent tous les filtres
+   et écris-les dans `ecommerce.radar_produits` du rapport du lundi (même
+   format ; l'enquête et les contrôles France pour chacun — budget crédits
+   oblige, priorise les 3 meilleurs pour l'enquête complète).
+5. **Déposer l'Excel** : `python -m agents.base_winners export`, puis
+   `create_file` (Google Drive) avec `base64Content` du fichier
+   `data/radar/BASE-WINNERS.xlsx`, `contentMimeType`
+   `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`,
+   `disableConversionToGoogleType=true`, titre `AAAA-MM-JJ-BASE-WINNERS.xlsx`,
+   `parentId` = le dossier ci-dessus. Le fichier de la semaine précédente reste
+   (historique daté, comme Badr le fait déjà).
+6. `git add data/radar/` avec le reste : la publication reporte la base sur main.
+
 ## 7. Après avoir écrit le rapport
 
 ```

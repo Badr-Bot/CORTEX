@@ -6,6 +6,7 @@ import MarketSection from "@/components/MarketSection"
 import EcommerceSection from "@/components/EcommerceSection"
 import AutresNews from "@/components/AutresNews"
 import TrendingRepos from "@/components/TrendingRepos"
+import BaseWinners from "@/components/BaseWinners"
 import type { ReportJSON, DailyReport } from "@/lib/types"
 
 export const dynamic = 'force-dynamic'
@@ -158,6 +159,7 @@ const TABS = [
   { id: "crypto",    label: "Crypto",     icon: "₿",  color: "amber"   },
   { id: "market",    label: "Marchés",    icon: "📈", color: "emerald" },
   { id: "ecommerce", label: "E-commerce", icon: "🛍️", color: "pink"    },
+  { id: "winners",   label: "Winners",    icon: "🏆", color: "amber"   },
   { id: "deeptech",  label: "DeepTech",   icon: "⚡", color: "violet"  },
   { id: "lexique",   label: "Lexique",    icon: "📖", color: "cyan"    },
 ] as const
@@ -229,6 +231,7 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
       </div>
     )
   }
+  if (tab === "winners") return <BaseWinners items={report.ecommerce?.base_winners} />
 
   if (tab === "deeptech") {
     return (

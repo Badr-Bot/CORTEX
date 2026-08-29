@@ -118,6 +118,25 @@ export interface RadarProduit {
   lien_adlibrary?: string
 }
 
+/** Une ligne de la base de winners (data/radar/base_winners.json, sur main). */
+export interface BaseWinner {
+  produit: string
+  boutique: string
+  niche?: string
+  prix?: string
+  trouve_le: string
+  maj_le?: string
+  statut?: string
+  chiffres?: RadarProduit["chiffres"]
+  marches?: Record<string, string>
+  stade_sophistication?: number
+  verdict_cortex?: string
+  ou_lancer?: string
+  verdict_badr?: string
+  lien_boutique?: string
+  lien_adlibrary?: string
+}
+
 /** Produit vérifié puis refusé par le radar (marché FR pris, ingérable…). */
 export interface RadarEcarte {
   produit: string
@@ -183,6 +202,7 @@ export interface EcommerceData {
   outils?: EcomTool[]
   radar_produits?: RadarProduit[]
   radar_ecartes?: RadarEcarte[]
+  base_winners?: BaseWinner[]
   nouveautes?: EcomNouveaute[]
   signals?: EcomSignal[]
   autres_news?: AutreNews[]
