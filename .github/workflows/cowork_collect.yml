@@ -1,0 +1,82 @@
+name: CORTEX — Collecte cowork
+
+# Étape 1 du mode cowork : ramasser les news, les chiffres et les outils, puis
+# les committer dans data/cowork/. L'agent Claude planifié (qui rédige le
+# rapport) n'a PAS d'accès réseau dans son bac à sable : il lit ces fichiers.
+#
+# Deux créneaux pour la même date de rapport, parce que les crons GitHub
+# gratuits partent souvent avec des heures de retard :
+#   - 22:00 UTC la veille   (date visée = demain)
+#   - 00:30 UTC le jour même (date visée = aujourd'hui) — rattrapage
+# Le script ne remplace une collecte existante que si la nouvelle est plus riche.
+# La routine de rédaction tourne à 03:00 UTC (05:00 Paris).
+
+on:
+  schedule:
+    - cron: '0 22 * * *'
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date du rapport alimenté (AAAA-MM-JJ, vide = calcul automatique)'
+        required: false
+      force:
+        description: 'Écraser une collecte existante plus riche (true/false)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+  collecter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Déterminer la date du rapport
+        id: cible
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            date="${{ github.event.inputs.date }}"
+          elif [ "$(date -u +%H)" -ge 12 ]; then
+            date="$(date -u -d tomorrow +%F)"
+          else
+            date="$(date -u +%F)"
+          fi
+          echo "date=$date" >> "$GITHUB_OUTPUT"
+          echo "Collecte pour le rapport du $date"
+
+      - name: Collecter
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          force=""
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then force="--force"; fi
+          python cowork_collect.py --date "${{ steps.cible.outputs.date }}" --hours 30 $force
+
+      - name: Committer la collecte
+        run: |
+          date="${{ steps.cible.outputs.date }}"
+          git config user.name "cortex-collecte"
+          git config user.email "cortex-collecte@users.noreply.github.com"
+          git add "data/cowork/collecte_${date}.md" "data/cowork/donnees_${date}.json"
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau à committer."
+            exit 0
+          fi
+          total=$(python -c "import json;print(sum(json.load(open('data/cowork/donnees_${date}.json'))['compte_news'].values()))")
+          git commit -m "cowork: collecte pour le ${date} (${total} entrées)"
+          git pull --rebase origin main
+          git push origin HEAD:main

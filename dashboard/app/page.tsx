@@ -4,6 +4,8 @@ import SignalCard from "@/components/SignalCard"
 import CryptoSection from "@/components/CryptoSection"
 import MarketSection from "@/components/MarketSection"
 import EcommerceSection from "@/components/EcommerceSection"
+import AutresNews from "@/components/AutresNews"
+import TrendingRepos from "@/components/TrendingRepos"
 import type { ReportJSON, DailyReport } from "@/lib/types"
 
 export const dynamic = 'force-dynamic'
@@ -59,6 +61,20 @@ const LEXIQUE = [
       { term: "UGC", def: "Contenu créé par des utilisateurs ou créateurs, utilisé comme publicité. Souvent moins cher à produire et plus crédible que la publicité de marque classique." },
       { term: "Taux de conversion", def: "Part des visiteurs qui achètent. 2 à 3% est une norme courante en e-commerce — au-delà de 4%, la boutique est très performante." },
       { term: "D2C", def: "Vente directe au consommateur, sans intermédiaire ni distributeur. Meilleures marges mais coût d'acquisition entièrement à la charge de la marque." },
+      { term: "Repo GitHub", def: "Un projet de code en libre accès, qu'on peut copier et utiliser gratuitement. Les étoiles (⭐) mesurent sa popularité — une montée rapide = un outil que tout le monde adopte." },
+      { term: "Skill Claude", def: "Un mode d'emploi prêt à l'emploi qu'on donne à Claude pour qu'il fasse une tâche précise (analyser des créas, écrire des fiches produit, gérer le SAV…)." },
+    ],
+  },
+  {
+    category: "🎯 Radar produits",
+    color: "amber",
+    terms: [
+      { term: "BANGER", def: "Boutique dont le trafic affiché est encore à 0 (les outils d'espionnage ne la voient pas encore) ET dont le nombre de publicités actives explose (×2 ou plus en 4 semaines). La fenêtre pour copier est encore ouverte." },
+      { term: "SANS TRAFIC", def: "Trafic affiché à 0, au moins 50 pubs actives, mais la courbe n'est pas encore partie. La fenêtre est ouverte — on attend le départ." },
+      { term: "EXPLOSE", def: "Le nombre de pubs actives a doublé ou plus, mais le trafic est déjà visible : tout le monde peut repérer cette boutique." },
+      { term: "Courbe d'ads", def: "Nombre de publicités actives d'une boutique, semaine par semaine. Une courbe qui monte fort = un vendeur qui gagne de l'argent et met du budget." },
+      { term: "Marché FR : LIBRE / PRIS", def: "LIBRE = aucun annonceur sérieux ne vend ce produit en France (vérifié). PRIS = un concurrent y est déjà avec des pubs. A VERIFIER = pas encore contrôlé — jamais conclu sur un 0 résultat." },
+      { term: "Test 48 h", def: "Protocole MASTER : lancer le produit avec un budget de 100 à 300 € par jour, attendre 48 h, puis décider sur la marge réelle (pas seulement le ROAS Meta). Coût pour savoir : 200 à 600 €." },
     ],
   },
   {
@@ -162,6 +178,7 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
   if (tab === "ai") {
     return (
       <div className="space-y-5">
+        <TrendingRepos items={report.ai.trending_repos} />
         {report.ai.signals?.map((sig, i) => (
           <SignalCard key={i} signal={sig} index={i} sector="ai" />
         ))}
@@ -183,13 +200,35 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
             </ul>
           </div>
         )}
+        <AutresNews items={report.ai.autres_news} sector="ai" />
       </div>
     )
   }
 
-  if (tab === "crypto") return <CryptoSection crypto={report.crypto} />
-  if (tab === "market") return <MarketSection market={report.market} />
-  if (tab === "ecommerce") return <EcommerceSection ecommerce={report.ecommerce} />
+  if (tab === "crypto") {
+    return (
+      <div className="space-y-5">
+        <CryptoSection crypto={report.crypto} />
+        <AutresNews items={report.crypto.autres_news} sector="crypto" />
+      </div>
+    )
+  }
+  if (tab === "market") {
+    return (
+      <div className="space-y-5">
+        <MarketSection market={report.market} />
+        <AutresNews items={report.market.autres_news} sector="market" />
+      </div>
+    )
+  }
+  if (tab === "ecommerce") {
+    return (
+      <div className="space-y-5">
+        <EcommerceSection ecommerce={report.ecommerce} />
+        <AutresNews items={report.ecommerce?.autres_news} sector="ecommerce" />
+      </div>
+    )
+  }
 
   if (tab === "deeptech") {
     return (
@@ -202,6 +241,7 @@ function SectorContent({ tab, report }: { tab: TabId; report: ReportJSON }) {
             Aucun signal deeptech aujourd'hui
           </div>
         )}
+        <AutresNews items={report.deeptech.autres_news} sector="deeptech" />
       </div>
     )
   }

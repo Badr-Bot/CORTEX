@@ -2,14 +2,13 @@ name: CORTEX — Rapport du matin
 
 on:
   schedule:
-    # RÉALITÉ : c'est GitHub Actions qui génère le rapport (l'app serveur
-    # Fly/Railway n'est pas allumée). Les crons GitHub gratuits partent en
-    # retard (best-effort, observé +3 à +6h). On vise donc TÔT (03:00 UTC)
-    # pour que la livraison réelle tombe le matin.
-    # NB heure d'été : Paris = UTC+2 en été, UTC+1 en hiver.
-    # Livraison à 6h PILE = impossible à garantir ici → nécessite l'app
-    # serveur allumée (APScheduler, timezone Europe/Paris).
-    - cron: '0 3 * * *'
+    # FILET DE SECOURS. Le rapport normal est rédigé par l'agent Claude
+    # planifié (mode cowork, 03:00 UTC) et publié par cowork_publish.yml.
+    # Ce pipeline gratuit (Groq/Gemini) ne tourne que si aucun rapport complet
+    # n'existe encore en base pour aujourd'hui — il s'arrête sinon.
+    # 06:00 UTC = 08:00 Paris ; les crons GitHub gratuits partent souvent
+    # avec 3 à 6 h de retard, ce qui laisse à la routine le temps de livrer.
+    - cron: '0 6 * * *'
   workflow_dispatch:       # Déclenchement manuel possible
 
 jobs:

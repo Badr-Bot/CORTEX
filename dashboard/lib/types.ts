@@ -1,5 +1,6 @@
 export interface Signal {
   title: string
+  en_clair?: string
   fait: string
   implication_2: string
   implication_3: string
@@ -22,6 +23,71 @@ export interface DeeptechSignal extends Signal {
   investissement_cotes?: string[]
   investissement_etf?: string[]
   investissement_early?: string[]
+}
+
+/** Une news de plus, expliquée en une phrase — le tour d'horizon de chaque onglet. */
+export interface AutreNews {
+  titre: string
+  en_clair: string
+  source_name: string
+  source_url: string
+}
+
+/** Repo GitHub ou modèle IA qui monte, avec ce que Badr peut en faire. */
+export interface TrendingRepo {
+  nom: string
+  type: "repo" | "modele" | "space"
+  quoi: string
+  pour_toi: string
+  popularite?: string
+  source_url: string
+}
+
+export type ToolCategory =
+  | "video"
+  | "produit_gagnant"
+  | "analyse_marche"
+  | "scraping"
+  | "pub"
+  | "fiches_produit"
+  | "service_client"
+  | "skill_claude"
+  | "automatisation"
+
+/** Un outil concret pour la boutique : repo, skill Claude, modèle, app. */
+export interface EcomTool {
+  nom: string
+  categorie: ToolCategory
+  quoi: string
+  pour_toi: string
+  comment_tester: string
+  gratuit?: boolean
+  source_name?: string
+  source_url: string
+}
+
+/** Produit repéré par le radar TrendTrack, analysé en profondeur (docs/RADAR.md §6). */
+export interface RadarProduit {
+  produit: string
+  boutique: string
+  niche?: string
+  prix?: string
+  statut: "BANGER" | "EXPLOSE" | "SANS TRAFIC" | "A SURVEILLER"
+  signal: string
+  stade_marche: string
+  notoriete: string
+  ca_jour_estime: string
+  difficulte: "facile" | "moyen" | "difficile"
+  difficulte_pourquoi: string
+  marche_fr: "LIBRE" | "PRIS" | "PARTIEL" | "A VERIFIER"
+  marche_fr_detail?: string
+  criteres_ok?: string[]
+  criteres_ko?: string[]
+  verdict: "GO TEST" | "A SURVEILLER" | "ECARTER"
+  verdict_pourquoi: string
+  budget_test: string
+  lien_boutique: string
+  lien_adlibrary?: string
 }
 
 export interface CryptoDashboard {
@@ -79,8 +145,11 @@ export interface EcommerceData {
     }
   }
   tendance_globale?: string
+  outils?: EcomTool[]
+  radar_produits?: RadarProduit[]
   nouveautes?: EcomNouveaute[]
   signals?: EcomSignal[]
+  autres_news?: AutreNews[]
   actions_semaine?: string[]
   themes?: Record<string, number>
 }
@@ -97,6 +166,8 @@ export interface ReportJSON {
   ai: {
     signals: Signal[]
     watchlist: string[]
+    trending_repos?: TrendingRepo[]
+    autres_news?: AutreNews[]
   }
   crypto: {
     dashboard: CryptoDashboard
@@ -106,6 +177,7 @@ export interface ReportJSON {
     bear_case: string
     score: Record<string, { value: number; note: string }>
     signals: Signal[]
+    autres_news?: AutreNews[]
   }
   market: {
     dashboard: MarketDashboard
@@ -116,9 +188,11 @@ export interface ReportJSON {
     signals: Signal[]
     hot_stocks: HotStock[]
     crash?: { crash_score: number; color: string; interpretation: string; factors: unknown[] }
+    autres_news?: AutreNews[]
   }
   deeptech: {
     signals: DeeptechSignal[]
+    autres_news?: AutreNews[]
   }
   ecommerce?: EcommerceData
   nexus: {

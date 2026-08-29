@@ -85,11 +85,12 @@ async def publish(date: str, dry_run: bool = False) -> int:
 
     report = json.loads(report_path.read_text(encoding="utf-8"))
     donnees = json.loads(data_path.read_text(encoding="utf-8")) if data_path.exists() else {}
-    if not donnees:
-        logger.warning(f"Chiffres du jour introuvables ({data_path.name}) — dashboards vides")
 
     # Validation avant toute publication : un rapport cassé ne part pas.
-    from cowork_check import check, _collect_urls
+    from cowork_check import check, check_donnees, _collect_urls
+
+    for w in check_donnees(donnees):
+        logger.warning(f"Chiffres du jour : {w}")
 
     result = check(report, _collect_urls(COWORK_DIR / f"collecte_{date}.md"))
     if result.errors:
@@ -109,6 +110,12 @@ async def publish(date: str, dry_run: bool = False) -> int:
         len(report.get(s, {}).get("signals", []))
         for s in ("ai", "crypto", "market", "deeptech", "ecommerce")
     )
+    autres_total = sum(
+        len(report.get(s, {}).get("autres_news", []) or [])
+        for s in ("ai", "crypto", "market", "deeptech", "ecommerce")
+    )
+    outils_total = len(report.get("ecommerce", {}).get("outils", []) or [])
+    logger.info(f"Contenu : {signals_total} signaux, {autres_total} autres news, {outils_total} outils")
 
     if dry_run:
         logger.info(f"Essai à blanc — {signals_total} signaux, rien n'a été publié")

@@ -72,6 +72,14 @@ export default function SignalCard({ signal, index, sector = "ai" }: Props) {
         </div>
       </div>
 
+      {/* En clair : la phrase que Badr lit en premier */}
+      {signal.en_clair && (
+        <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-lg px-4 py-3">
+          <span className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold mr-2">🟢 En clair</span>
+          <span className="text-sm text-emerald-100 leading-relaxed">{signal.en_clair}</span>
+        </div>
+      )}
+
       {/* Ce qui se passe */}
       <div className="space-y-1">
         <div className="text-[10px] text-slate-500 uppercase tracking-widest font-medium flex items-center gap-2">

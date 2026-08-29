@@ -64,12 +64,33 @@ def _deeptech_signal(url=URL_A):
                    investissement_early=[])
 
 
+def _autres_news(n: int = 4) -> list[dict]:
+    return [
+        {"titre": f"News {i}", "en_clair": "Ce qui s'est passé et pourquoi ça compte, en une phrase simple.",
+         "source_name": "Source", "source_url": URL_B}
+        for i in range(n)
+    ]
+
+
+def _outil(url=URL_A, categorie="video") -> dict:
+    return {
+        "nom": "Outil", "categorie": categorie, "quoi": "Ce que fait l'outil.",
+        "pour_toi": "Ce que Badr en ferait.", "comment_tester": "Cloner et lancer.",
+        "gratuit": True, "source_name": "GitHub", "source_url": url,
+    }
+
+
 @pytest.fixture
 def rapport():
     return {
         "ai": {
             "signals": [_signal(URL_A), _signal(URL_B), _signal(URL_C)],
             "watchlist": ["Premier signal à surveiller", "Deuxième signal à confirmer"],
+            "trending_repos": [
+                {"nom": "org/repo", "type": "repo", "quoi": "Un outil.", "pour_toi": "Utile pour X.",
+                 "popularite": "1 000 étoiles", "source_url": URL_C}
+            ] * 3,
+            "autres_news": _autres_news(),
         },
         "crypto": {
             "phase": "Accumulation",
@@ -84,6 +105,7 @@ def rapport():
             "magnitude": "faible",
             "bear_case": "Ce qui invaliderait cette lecture, avec des seuils précis.",
             "signals": [_signal(URL_A), _signal(URL_B), _signal(URL_C)],
+            "autres_news": _autres_news(),
         },
         "market": {
             "recession_indicators": {
@@ -95,10 +117,15 @@ def rapport():
             "regime": "Transition",
             "regime_justification": "Le régime actuel expliqué simplement en plusieurs lignes.",
             "signals": [_signal(URL_A), _signal(URL_B), _signal(URL_C)],
+            "autres_news": _autres_news(),
         },
-        "deeptech": {"signals": [_deeptech_signal(URL_A), _deeptech_signal(URL_B)]},
+        "deeptech": {"signals": [_deeptech_signal(URL_A), _deeptech_signal(URL_B)],
+                     "autres_news": _autres_news()},
         "ecommerce": {
             "tendance_globale": "Ce qui bouge en e-commerce en ce moment, expliqué simplement.",
+            "outils": [_outil(URL_A, "video"), _outil(URL_B, "produit_gagnant"), _outil(URL_C, "pub")],
+            "radar_produits": [],
+            "autres_news": _autres_news(),
             "nouveautes": [
                 {"theme": "automation", "titre": "T1", "quoi": "Q1", "pourquoi": "P1",
                  "source_name": "S", "source_url": URL_A},
@@ -194,6 +221,127 @@ def test_themes_ecommerce_doivent_etre_differents(rapport):
         sig["theme"] = "automation"
     r = check(rapport, KNOWN_URLS)
     assert any("DIFFÉRENTS" in e for e in r.errors)
+
+
+def test_quatre_a_cinq_signaux_acceptes(rapport):
+    """Badr veut plus de contenu : 4 ou 5 signaux par section doivent passer."""
+    rapport["ai"]["signals"].append(_signal(URL_B))
+    rapport["ai"]["signals"].append(_signal(URL_C))
+    r = check(rapport, KNOWN_URLS)
+    assert not any("ai.signals" in e for e in r.errors)
+
+
+def test_six_signaux_refuses(rapport):
+    rapport["ai"]["signals"] += [_signal(URL_B)] * 3
+    r = check(rapport, KNOWN_URLS)
+    assert any("ai.signals" in e for e in r.errors)
+
+
+# ── Les nouvelles sections : outils, repos tendances, autres news ─────────────
+
+def test_url_inventee_dans_les_outils(rapport):
+    rapport["ecommerce"]["outils"][0]["source_url"] = "https://inventé.example/outil"
+    r = check(rapport, KNOWN_URLS)
+    assert any("outils[1]" in e and "inventée" in e for e in r.errors)
+
+
+def test_categorie_outil_invalide(rapport):
+    rapport["ecommerce"]["outils"][0]["categorie"] = "magie"
+    r = check(rapport, KNOWN_URLS)
+    assert any("categorie invalide" in e for e in r.errors)
+
+
+def test_outil_sans_comment_tester(rapport):
+    del rapport["ecommerce"]["outils"][0]["comment_tester"]
+    r = check(rapport, KNOWN_URLS)
+    assert any("comment_tester" in e for e in r.errors)
+
+
+def test_categories_outils_alignees_avec_le_scout():
+    from agents.scout_tools import USAGES
+    from cowork_check import TOOL_CATEGORIES
+    assert set(USAGES) == TOOL_CATEGORIES
+
+
+def test_repo_tendance_type_invalide(rapport):
+    rapport["ai"]["trending_repos"][0]["type"] = "site"
+    r = check(rapport, KNOWN_URLS)
+    assert any("trending_repos[1]" in e and "type invalide" in e for e in r.errors)
+
+
+def test_autres_news_url_inventee(rapport):
+    rapport["market"]["autres_news"][0]["source_url"] = "https://faux.example/x"
+    r = check(rapport, KNOWN_URLS)
+    assert any("market.autres_news[1]" in e and "inventée" in e for e in r.errors)
+
+
+def test_autres_news_explication_trop_courte(rapport):
+    rapport["crypto"]["autres_news"][0]["en_clair"] = "Bitcoin monte."
+    r = check(rapport, KNOWN_URLS)
+    assert any("crypto.autres_news[1]" in e and "trop court" in e for e in r.errors)
+
+
+def test_sections_nouvelles_absentes_sont_un_avertissement_pas_une_erreur(rapport):
+    """Un rapport de l'ancien format doit encore passer — avec des avertissements."""
+    for sector in ("ai", "crypto", "market", "deeptech", "ecommerce"):
+        rapport[sector].pop("autres_news", None)
+    rapport["ai"].pop("trending_repos")
+    rapport["ecommerce"].pop("outils")
+    r = check(rapport, KNOWN_URLS)
+    assert not r.errors, r.errors
+    assert any("autres_news" in w for w in r.warnings)
+    assert any("outils" in w for w in r.warnings)
+    assert any("trending_repos" in w for w in r.warnings)
+
+
+def _radar_item(**extra):
+    item = {
+        "produit": "Lampe pliable", "boutique": "lampe.com", "niche": "Maison", "prix": "39.9 USD",
+        "statut": "BANGER", "signal": "La courbe monte.", "stade_marche": "Fenêtre ouverte.",
+        "notoriete": "Personne en France.", "ca_jour_estime": "Estimation : 500-1 500 €/jour.",
+        "difficulte": "moyen", "difficulte_pourquoi": "Prix sous l'AOV.", "marche_fr": "A VERIFIER",
+        "marche_fr_detail": "Non vérifié.", "criteres_ok": ["besoin fort"], "criteres_ko": ["marge"],
+        "verdict": "GO TEST", "verdict_pourquoi": "Parce que.", "budget_test": "200-600 € sur 48 h",
+        "lien_boutique": "https://lampe.com", "lien_adlibrary": "https://www.facebook.com/ads/library/?q=lampe",
+    }
+    item.update(extra)
+    return item
+
+
+def test_radar_produit_complet_accepte(rapport):
+    rapport["ecommerce"]["radar_produits"] = [_radar_item()]
+    r = check(rapport, KNOWN_URLS)
+    assert not any("radar_produits" in e for e in r.errors), r.errors
+
+
+def test_radar_produits_incomplet(rapport):
+    rapport["ecommerce"]["radar_produits"] = [{"produit": "Lampe", "niche": "Déco"}]
+    r = check(rapport, KNOWN_URLS)
+    assert any("radar_produits[1]" in e for e in r.errors)
+
+
+def test_radar_valeurs_imposees(rapport):
+    rapport["ecommerce"]["radar_produits"] = [_radar_item(verdict="ACHETER", marche_fr="LIBRE?", difficulte="dur")]
+    r = check(rapport, KNOWN_URLS)
+    joined = " ".join(r.errors)
+    assert "verdict" in joined and "marche_fr" in joined and "difficulte" in joined
+
+
+def test_radar_zero_resultat_jamais_libre_sans_detail(rapport):
+    """FILTRES.md §6 : un 0 résultat s'écrit A VERIFIER, jamais LIBRE."""
+    rapport["ecommerce"]["radar_produits"] = [_radar_item(marche_fr="LIBRE", marche_fr_detail="")]
+    r = check(rapport, KNOWN_URLS)
+    assert any("LIBRE" in e for e in r.errors)
+
+
+def test_chiffres_vides_signales():
+    from cowork_check import check_donnees
+    vides = {"crypto_dashboard": {"btc_price": 0}, "market_dashboard": {"sp500": {"price": "N/A"}},
+             "ecommerce_dashboard": {"stocks": []}}
+    assert len(check_donnees(vides)) == 3
+    pleins = {"crypto_dashboard": {"btc_price": 80000}, "market_dashboard": {"sp500": {"price": "7,700"}},
+              "ecommerce_dashboard": {"stocks": [{"ticker": "SHOP"}]}}
+    assert check_donnees(pleins) == []
 
 
 # ── Publication ───────────────────────────────────────────────────────────────

@@ -8,6 +8,7 @@ Surveille :
 
 import httpx
 from datetime import datetime, timezone, timedelta
+from utils.github_api import github_headers
 from utils.logger import get_logger
 
 logger = get_logger("scout_ai.viral")
@@ -38,18 +39,20 @@ async def fetch_github_trending(hours: int = 24) -> list[dict]:
     Utilise la GitHub Search API avec filtre sur création récente + stars.
     """
     signals = []
-    cutoff = (datetime.now(timezone.utc) - timedelta(hours=max(hours, 24))).strftime("%Y-%m-%d")
+    # Repos CRÉÉS récemment et déjà populaires = ceux qui montent vraiment.
+    # (Filtrer sur "pushed" ramenait les géants établis — transformers, gradio —
+    # qui ne bougent pas et n'apprennent rien à Badr.)
+    now = datetime.now(timezone.utc)
+    cutoff_7d = (now - timedelta(days=7)).strftime("%Y-%m-%d")
+    cutoff_30d = (now - timedelta(days=30)).strftime("%Y-%m-%d")
 
     queries = [
-        f"language:python stars:>100 pushed:>{cutoff} AI OR LLM OR machine learning",
-        f"language:python stars:>200 created:>{cutoff}",
-        f"language:jupyter-notebook stars:>50 pushed:>{cutoff}",
+        f"created:>{cutoff_7d} stars:>50 AI OR LLM OR agent OR diffusion",
+        f"created:>{cutoff_30d} stars:>300",
+        f"language:jupyter-notebook created:>{cutoff_30d} stars:>30",
     ]
 
-    async with httpx.AsyncClient(
-        timeout=15,
-        headers={"Accept": "application/vnd.github.v3+json"},
-    ) as client:
+    async with httpx.AsyncClient(timeout=15, headers=github_headers()) as client:
         for query in queries:
             try:
                 resp = await client.get(
@@ -111,10 +114,7 @@ async def fetch_github_viral(hours: int = 168) -> list[dict]:
         f"AI agent stars:>2000 pushed:>{pushed}",
     ]
 
-    async with httpx.AsyncClient(
-        timeout=15,
-        headers={"Accept": "application/vnd.github.v3+json"},
-    ) as client:
+    async with httpx.AsyncClient(timeout=15, headers=github_headers()) as client:
         for query in queries:
             try:
                 resp = await client.get(

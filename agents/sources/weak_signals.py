@@ -12,6 +12,7 @@ Surveille :
 import feedparser
 import httpx
 from datetime import datetime, timezone, timedelta
+from utils.github_api import github_headers
 from utils.logger import get_logger
 
 logger = get_logger("scout_ai.weak_signals")
@@ -134,10 +135,7 @@ async def fetch_watched_repos(hours: int = 48) -> list[dict]:
     signals = []
     cutoff  = _hours_ago(hours)
 
-    async with httpx.AsyncClient(
-        timeout=15,
-        headers={"Accept": "application/vnd.github.v3+json"},
-    ) as client:
+    async with httpx.AsyncClient(timeout=15, headers=github_headers()) as client:
         for repo_info in WATCHED_REPOS:
             repo = repo_info["repo"]
             name = repo_info["name"]
@@ -228,10 +226,7 @@ async def fetch_github_weak(hours: int = 96) -> list[dict]:
     signals = []
     cutoff_date = (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime("%Y-%m-%d")
 
-    async with httpx.AsyncClient(
-        timeout=15,
-        headers={"Accept": "application/vnd.github.v3+json"},
-    ) as client:
+    async with httpx.AsyncClient(timeout=15, headers=github_headers()) as client:
         for query in GITHUB_SEARCH_QUERIES[:3]:
             try:
                 search_q = f"{query} stars:30..500 created:>{cutoff_date}"

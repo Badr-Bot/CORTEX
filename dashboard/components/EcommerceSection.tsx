@@ -1,4 +1,5 @@
 import SignalCard from "@/components/SignalCard"
+import EcomToolbox from "@/components/EcomToolbox"
 import type { EcommerceData, EcomTheme } from "@/lib/types"
 
 const THEMES: Record<EcomTheme, { icon: string; label: string; badge: string }> = {
@@ -46,6 +47,9 @@ export default function EcommerceSection({ ecommerce }: { ecommerce?: EcommerceD
           <p className="text-slate-300 text-sm leading-relaxed">{ecommerce.tendance_globale}</p>
         </div>
       )}
+
+      {/* Boîte à outils + radar produits : ce que Badr attend en premier */}
+      <EcomToolbox outils={ecommerce.outils} radar={ecommerce.radar_produits} />
 
       {/* Actions du secteur */}
       {stocks.length > 0 && (
@@ -159,7 +163,7 @@ export default function EcommerceSection({ ecommerce }: { ecommerce?: EcommerceD
         </div>
       )}
 
-      {!signals.length && !nouveautes.length && (
+      {!signals.length && !nouveautes.length && !ecommerce.outils?.length && (
         <div className="text-slate-500 text-sm text-center py-12 glass rounded-xl border border-white/5">
           Aucune nouveauté e-commerce aujourd&apos;hui
         </div>
