@@ -1,30 +1,29 @@
 {
   "date": "2026-08-29",
-  "collecte_le": "2026-08-29 08:33 UTC",
+  "collecte_le": "2026-08-29 08:35 UTC",
   "crypto_dashboard": {
     "btc_dominance": 59.0,
     "total_volume_24h": 82984573710.6383,
     "market_cap_change": -4.8,
-    "btc_price": 77579,
+    "btc_price": 77525,
     "btc_change_24h": -2.8,
     "btc_price_source": "CoinGecko",
     "fear_greed_score": 68,
     "fear_greed_label": "Avidité",
     "fear_greed_trend": "en hausse",
     "fear_greed_avg_7d": 70,
-    "open_interest_btc": 8542443199.999999,
-    "long_short_ratio": 0.5375080936083618,
+    "open_interest_btc": 0.0,
+    "long_short_ratio": 0.5,
     "mempool_fee": 1,
     "liq_longs_24h_usd": 0,
     "liq_shorts_24h_usd": 0,
     "liq_dominance": "N/A",
-    "funding_description": "Neutres (0.010%)",
+    "funding_description": "Neutres (0.000%)",
     "exchange_flows": {
-      "binance_vol_24h_usd": 1294035873,
-      "top5_exchanges_vol_btc": 208989.8,
-      "trend": "distribution",
-      "pression": "vente",
-      "btc_change_24h_pct": -2.84
+      "binance_vol_24h_usd": 0,
+      "top5_exchanges_vol_btc": 208538.2,
+      "trend": "faible_volume",
+      "pression": "neutre"
     },
     "cycle": {
       "phase": "Markup",
@@ -323,13 +322,97 @@
         "sentiment": "bearish"
       }
     },
-    "fred": {},
+    "fred": {
+      "yield_curve_10y2y": {
+        "value": 0.39,
+        "prev": 0.47,
+        "change": -0.08,
+        "unit": "points",
+        "date": "2026-08-28"
+      },
+      "jobless_claims": {
+        "value": 203000.0,
+        "prev": 207000.0,
+        "change": -4000.0,
+        "unit": "milliers",
+        "date": "2026-08-22"
+      },
+      "housing_starts": {
+        "value": 1239.0,
+        "prev": 1415.0,
+        "change": -176.0,
+        "unit": "milliers annualisé",
+        "date": "2026-07-01"
+      },
+      "consumer_confidence": {
+        "value": 55.2,
+        "prev": 49.5,
+        "change": 5.7,
+        "unit": "indice",
+        "date": "2026-07-01"
+      },
+      "hy_spread": {
+        "value": 6.96,
+        "prev": 7.0,
+        "change": -0.04,
+        "unit": "bps",
+        "date": "2026-08-27"
+      },
+      "median_home_price": {
+        "value": 393800.0,
+        "prev": 403100.0,
+        "change": -9300.0,
+        "unit": "USD",
+        "date": "2026-07-01"
+      }
+    },
     "fed_watch": {
       "fed_hold_prob": null,
       "fed_cut_prob": null
     }
   },
-  "market_hot_stocks": [],
+  "market_hot_stocks": [
+    {
+      "ticker": "CRM",
+      "name": "SaaS CRM",
+      "price": 252.05,
+      "change_1d": 22.6,
+      "change_5d": 22.7,
+      "reason": ""
+    },
+    {
+      "ticker": "CRWD",
+      "name": "Cybersécurité",
+      "price": 227.96,
+      "change_1d": 20.5,
+      "change_5d": 19.8,
+      "reason": ""
+    },
+    {
+      "ticker": "MSTR",
+      "name": "Bitcoin trésorerie",
+      "price": 137.4,
+      "change_1d": 11.5,
+      "change_5d": 22.3,
+      "reason": ""
+    },
+    {
+      "ticker": "NOW",
+      "name": "SaaS Entreprise",
+      "price": 138.43,
+      "change_1d": 10.0,
+      "change_5d": 6.7,
+      "reason": ""
+    },
+    {
+      "ticker": "NVDA",
+      "name": "Semi-conducteurs IA",
+      "price": 227.98,
+      "change_1d": 8.7,
+      "change_5d": 5.1,
+      "reason": ""
+    }
+  ],
   "market_crash": {
     "crash_score": 2.5,
     "color": "🟢",
@@ -357,7 +440,7 @@
     "yield_curve": 0.39,
     "hy_spread": 6.96,
     "vix": 14.43,
-    "updated_at": "2026-08-29T08:33:05.622433+00:00"
+    "updated_at": "2026-08-29T08:35:47.392754+00:00"
   },
   "ecommerce_dashboard": {
     "stocks": [
@@ -443,7 +526,7 @@
   "ecommerce_themes": {
     "marketplace": 32,
     "creatives": 23,
-    "automation": 9,
+    "automation": 8,
     "operations": 5,
     "emailing": 8
   },
@@ -458,12 +541,12 @@
     "automatisation": 5
   },
   "compte_news": {
-    "ai": 12,
-    "trending": 43,
+    "ai": 18,
+    "trending": 45,
     "crypto": 60,
     "market": 47,
-    "deeptech": 50,
-    "ecommerce": 77,
+    "deeptech": 52,
+    "ecommerce": 76,
     "outils": 68
   }
 }
