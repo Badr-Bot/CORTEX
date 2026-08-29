@@ -36,11 +36,11 @@ Le fichier de collecte a 7 sections : IA, repos & modèles qui montent, crypto, 
 
 Charge les outils : ToolSearch "select:mcp__Trendtrack__check_credits,mcp__Trendtrack__search_shops,mcp__Trendtrack__search_ads".
 
-Suis docs/RADAR.md à la lettre : check_credits d'abord (si totalRemaining < 1000, radar_produits = [] et dis-le) ; les 2 passes search_shops du « filtre secret sans trafic » (max_monthly_visits=100, min_active_ads=100, limit=100, pages 1 et 2 — ~200 crédits) ; NE LIS PAS les réponses ; puis :
+Suis docs/RADAR.md à la lettre : check_credits d'abord (si totalRemaining < 1000, radar_produits = [] et dis-le) ; les 3 passes search_shops de RADAR.md §2 — A1 fraîcheur (creation_date_from = J-120, min_active_ads=100, max_products_count=40, sort_by=activeAds), B1 toutes neuves (creation_date_from = J-90, min_active_ads=50, max_products_count=40, sort_by=createdAt), G1 filtre secret sans trafic (max_monthly_visits=100, min_active_ads=100, sort_by=activeAds), chacune limit=100 page=1 — ~300 crédits ; NE LIS PAS les réponses ; puis :
 
 python -m agents.radar_produits extract AAAA-MM-JJ
 
-Lis data/radar/candidats_AAAA-MM-JJ.md, choisis 3 produits (règles RADAR.md §4), fais 0 à 3 contrôles « déjà en France ? » (§5, toujours trend_signal="reach", un seul mot, 0 résultat = A VERIFIER jamais LIBRE), et rédige l'analyse de chacun au format RADAR.md §6 : combien par jour (ESTIMATION étiquetée, méthode dite), dur ou pas et pourquoi, stade du marché, est-ce que les gens connaissent déjà, verdict GO TEST / A SURVEILLER / ECARTER, budget de test.
+Lis data/radar/candidats_AAAA-MM-JJ.md : le script a déjà écarté ce que les règles de Badr refusent (prix < 30 $, France déjà ciblée, généralistes, ingérables, hors Big Five, produit non indexé). Choisis 3 produits (règles RADAR.md §4 : movers, puis FRAÎCHES, puis BANGER/EXPLOSE, variété), ouvre la page /products.json de chaque boutique avec WebFetch si le réseau le permet pour savoir ce que c'est vraiment (un « Fascial Release » peut être un complément : alors écarte-le), fais 0 à 3 contrôles « déjà en France ? » (§5, toujours trend_signal="reach", un seul mot, 0 résultat = A VERIFIER jamais LIBRE), et rédige l'analyse de chacun au format RADAR.md §6 : combien par jour (ESTIMATION étiquetée, méthode dite), dur ou pas et pourquoi, stade du marché, est-ce que les gens connaissent déjà, verdict GO TEST / A SURVEILLER / ECARTER, budget de test.
 
 Si les outils Trendtrack ne sont pas disponibles dans la session : radar_produits = [], et dis-le dans le résumé. N'invente jamais un produit.
 
