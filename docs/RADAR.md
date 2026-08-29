@@ -326,14 +326,46 @@ une phrase par raison.
 
 ## 6bis. La base de winners (leçon MASTER RESEARCH · 10 « fichier d'organisation »)
 
-Une seule liste, `data/radar/base_winners.json` **sur main** (tes branches n'y
-sont jamais fusionnées : c'est le workflow de publication qui l'alimente avec
-les pépites du rapport, et qui reporte la base rafraîchie si tu l'as commitée
-sur ta branche). Export lisible : `data/radar/BASE-WINNERS.xlsx`, feuilles
-WINNERS (seulement les testables) / HISTORIQUE / LEGENDE. Les colonnes
-« MON VERDICT » et « MES NOTES » appartiennent à Badr et ne sont jamais
-écrasées ; un produit qu'il a marqué « écarté » ou « testé - mort » n'est plus
-proposé (le script `candidats` l'exclut et `est_testable` le refuse).
+Une seule liste, en deux endroits qui disent la même chose :
+
+- **la vérité** : `data/radar/base_winners.json` **sur main** (tes branches n'y
+  sont jamais fusionnées : c'est le workflow de publication qui l'alimente avec
+  les pépites du rapport, et qui reporte la base rafraîchie si tu l'as commitée
+  sur ta branche) ;
+- **la vue vivante de Badr** : la base Notion « 🏆 BASE WINNERS — CORTEX »
+  (`https://app.notion.com/p/6b156b50a295410081c94286cf34321c`, data source
+  `collection://76f47e8d-dae2-428b-843d-2f6f22305e09`), une ligne par boutique.
+  C'est LÀ que Badr met son verdict. Les colonnes « MON VERDICT » et « MES NOTES »
+  lui appartiennent : tu ne les écris jamais. Un produit qu'il a marqué « écarté »
+  ou « testé - mort » n'est plus proposé (le script `candidats` l'exclut et
+  `est_testable` le refuse).
+
+### Tous les jours : synchroniser Notion (connecteur Notion, ~6 appels)
+
+Charge les outils : ToolSearch
+`"select:mcp__Notion__notion-query-data-sources,mcp__Notion__notion-create-pages,mcp__Notion__notion-update-page"`.
+
+1. **Avant le radar — relire les verdicts de Badr** : `notion-query-data-sources`
+   en mode SQL sur la data source ci-dessus :
+   `SELECT url, "Boutique", "MON VERDICT", "MES NOTES" FROM "collection://76f47e8d-dae2-428b-843d-2f6f22305e09"`.
+   Écris la réponse telle quelle (la liste de lignes) dans
+   `data/radar/notion_verdicts_AAAA-MM-JJ.json`, puis
+   `python -m agents.base_winners import-verdicts-notion data/radar/notion_verdicts_AAAA-MM-JJ.json`
+   (relit les verdicts et mémorise l'id de page de chaque boutique).
+2. **Après le rapport (étape 5, avant le push)** :
+   `python -m agents.base_winners add AAAA-MM-JJ` puis
+   `python -m agents.base_winners notion-export AAAA-MM-JJ` →
+   `data/radar/notion_push_AAAA-MM-JJ.json`, une entrée par page à pousser avec
+   `action`, `notion_page_id`, `properties` (prêtes pour Notion : dates déjà
+   éclatées en `date:…:start`) et `content` (la fiche en Markdown).
+   - `action = create` → `notion-create-pages` avec
+     `parent = {"type": "data_source_id", "data_source_id": "76f47e8d-dae2-428b-843d-2f6f22305e09"}`,
+     `properties` et `content` tels quels, icône 🏆 ;
+   - `action = update` → `notion-update-page` `command = update_properties`
+     avec `page_id` et `properties` ; puis `command = replace_content` avec
+     `new_str = content` (la fiche est courte, on la remplace).
+   Ne touche jamais MON VERDICT / MES NOTES (ils ne sont pas dans `properties`).
+3. `git add data/radar/` avec le reste : la publication reporte la base sur main.
 
 ### Le lundi : la passe hebdomadaire
 
@@ -350,24 +382,14 @@ proposé (le script `candidats` l'exclut et `est_testable` le refuse).
    `python -m agents.radar_produits extract AAAA-MM-JJ` et
    `python -m agents.base_winners refresh AAAA-MM-JJ` : statuts mis à jour
    (BANGER → STABLE → EN BAISSE → MORT), les morts sortent de WINNERS.
-3. **Relire les verdicts de Badr** : avec le connecteur Google Drive, cherche
-   dans le dossier « 05 — RECHERCHE PRODUITS » (id `1nH38fj8BsTF8DZ0KKYeZzKA5mmhSG3-B`)
-   le dernier `*-BASE-WINNERS.xlsx`, télécharge-le (`download_file_content`),
-   écris-le dans `data/radar/drive_BASE-WINNERS.xlsx` et lance
-   `python -m agents.base_winners import-verdicts data/radar/drive_BASE-WINNERS.xlsx`.
-4. **Top 10 de la semaine** : parmi les candidats de la semaine (le suivi
+3. **Top 10 de la semaine** : parmi les candidats de la semaine (le suivi
    garde les rangs), choisis jusqu'à 10 produits qui passent tous les filtres
    et écris-les dans `ecommerce.radar_produits` du rapport du lundi (même
    format ; l'enquête et les contrôles France pour chacun — budget crédits
    oblige, priorise les 3 meilleurs pour l'enquête complète).
-5. **Déposer l'Excel** : `python -m agents.base_winners export`, puis
-   `create_file` (Google Drive) avec `base64Content` du fichier
-   `data/radar/BASE-WINNERS.xlsx`, `contentMimeType`
-   `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`,
-   `disableConversionToGoogleType=true`, titre `AAAA-MM-JJ-BASE-WINNERS.xlsx`,
-   `parentId` = le dossier ci-dessus. Le fichier de la semaine précédente reste
-   (historique daté, comme Badr le fait déjà).
-6. `git add data/radar/` avec le reste : la publication reporte la base sur main.
+4. La synchro Notion quotidienne (ci-dessus) pousse alors toutes les lignes
+   rafraîchies : statuts à jour, les morts passent `Testable` à non et restent
+   visibles dans Notion (Badr filtre la vue comme il veut).
 
 ## 7. Après avoir écrit le rapport
 

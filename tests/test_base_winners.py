@@ -4,6 +4,40 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from agents.base_winners import upsert, est_testable, statut_vie, rafraichir, exporter_xlsx, importer_verdicts_xlsx
 from agents.base_winners import testables as produits_testables  # renommé : pytest prendrait « testables » pour un test
+from agents.base_winners import notion_proprietes, notion_export, importer_verdicts_notion, _page_id_depuis_url
+
+
+def test_notion_proprietes_ne_touche_jamais_aux_colonnes_de_badr():
+    base = upsert({}, _pepite(), "2026-08-29", "radar quotidien")
+    props = notion_proprietes(base["pestprohome.com"])
+    assert props["Produit"].startswith("PestPro")
+    assert props["Boutique"] == "pestprohome.com"
+    assert props["Testable"] == "__YES__"
+    assert props["date:Trouvé le:start"] == "2026-08-29"
+    assert props["FR"] == "PARTIEL" and props["Stade"] == 2
+    assert "MON VERDICT" not in props and "MES NOTES" not in props
+
+
+def test_notion_export_cree_puis_ne_repousse_que_les_touches():
+    base = upsert({}, _pepite(), "2026-08-29", "radar quotidien")
+    assert [i["action"] for i in notion_export(base, "2026-08-29")] == ["create"]
+    # une fois la page connue et rien de neuf ce jour-là : rien à pousser
+    base["pestprohome.com"]["notion_page_id"] = "26ab1f9f-4c5f-80b1-8d3b-d10a6b1d2f4e"
+    assert notion_export(base, "2026-08-30") == []
+    base = upsert(base, _pepite(), "2026-08-30", "radar quotidien")
+    assert [i["action"] for i in notion_export(base, "2026-08-30")] == ["update"]
+
+
+def test_importer_verdicts_notion_relit_verdict_et_memorise_la_page():
+    base = upsert({}, _pepite(), "2026-08-29", "radar quotidien")
+    rows = [{"url": "https://www.notion.so/PestPro-26ab1f9f4c5f80b18d3bd10a6b1d2f4e",
+             "Boutique": "pestprohome.com", "MON VERDICT": "écarté", "MES NOTES": "trop vu"}]
+    base, lus = importer_verdicts_notion(base, rows)
+    e = base["pestprohome.com"]
+    assert lus == 1 and e["verdict_badr"] == "écarté" and e["notes_badr"] == "trop vu"
+    assert e["notion_page_id"] == "26ab1f9f-4c5f-80b1-8d3b-d10a6b1d2f4e"
+    assert e["testable"] is False and "Badr" in e["raison_non_testable"]
+    assert _page_id_depuis_url("https://app.notion.com/p/6b156b50a295410081c94286cf34321c") == "6b156b50-a295-4100-81c9-4286cf34321c"
 
 
 def _pepite(**extra):

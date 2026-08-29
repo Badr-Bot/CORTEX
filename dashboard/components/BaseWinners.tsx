@@ -17,6 +17,8 @@ const MARCHE_COLOR: Record<string, string> = {
   LIBRE: "text-emerald-400", PARTIEL: "text-amber-400", PRIS: "text-red-400", "A VERIFIER": "text-slate-500",
 }
 
+const NOTION_DB_URL = "https://app.notion.com/p/6b156b50a295410081c94286cf34321c"
+
 type Props = { items?: BaseWinner[] }
 
 /** La base de winners : tout ce que le radar a trouvé et qui reste testable, par date de découverte. */
@@ -35,8 +37,12 @@ export default function BaseWinners({ items }: Props) {
         </div>
         <p className="text-slate-500 text-xs leading-relaxed">
           Tout ce que le radar a proposé et qui reste testable : vivant, un de tes marchés ouvert, stade ≤ 3, prix ≥ 30 €.
-          Le lundi, chaque produit est rafraîchi (pubs, courbe) et le fichier Excel est déposé sur ton Drive — c&apos;est là que tu mets ton verdict.
+          La base vivante est dans Notion — c&apos;est là que tu mets ton verdict, et CORTEX la met à jour chaque matin (le lundi : rafraîchissement complet).
         </p>
+        <a href={NOTION_DB_URL} target="_blank" rel="noopener noreferrer"
+           className="inline-block mt-3 text-xs px-3 py-1.5 rounded-lg border border-amber-500/40 text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 font-mono">
+          ↗ Ouvrir la base dans Notion
+        </a>
       </div>
 
       {rows.length === 0 && (
@@ -87,7 +93,7 @@ export default function BaseWinners({ items }: Props) {
               {w.verdict_badr ? (
                 <span className="px-2 py-0.5 rounded border border-amber-500/40 text-amber-200 bg-amber-500/10 font-mono">Mon verdict : {w.verdict_badr}</span>
               ) : (
-                <span className="text-slate-600 font-mono">Mon verdict : à remplir dans l&apos;Excel</span>
+                <span className="text-slate-600 font-mono">Mon verdict : à remplir dans Notion</span>
               )}
               {w.lien_boutique && (
                 <a href={w.lien_boutique} target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300">↗ Boutique</a>

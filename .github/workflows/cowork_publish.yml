@@ -6,8 +6,8 @@ name: CORTEX — Publier le rapport cowork
 #
 # Il tient aussi la BASE DE WINNERS, qui vit sur main (les branches de l'agent
 # n'y sont jamais fusionnées) : les pépites du jour y sont ajoutées, la base
-# rafraîchie par l'agent (si présente sur sa branche) y est reportée, l'Excel
-# est régénéré, et le tout est commité sur main.
+# rafraîchie par l'agent (si présente sur sa branche) y est reportée, et le
+# tout est commité sur main. La vue vivante (Notion) est tenue par l'agent.
 
 on:
   push:
@@ -91,7 +91,7 @@ jobs:
           cd main-repo
           git config user.name "cortex-winners"
           git config user.email "cortex-winners@users.noreply.github.com"
-          git add data/radar/base_winners.json data/radar/BASE-WINNERS.xlsx "data/radar/${date}.json" 2>/dev/null || true
+          git add data/radar/base_winners.json "data/radar/${date}.json" 2>/dev/null || true
           if git diff --cached --quiet; then echo "Base inchangée."; else
             git commit -m "winners: base mise à jour avec le rapport du ${date}"
             git pull --rebase origin main && git push origin HEAD:main

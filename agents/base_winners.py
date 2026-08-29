@@ -11,14 +11,17 @@ Deux colonnes appartiennent à Badr et ne sont JAMAIS écrasées : « Mon verdic
 et « Mes notes ». Un produit qu'il a marqué « écarté » n'est plus reproposé.
 
 Fichiers :
-  data/radar/base_winners.json      la vérité (une entrée par boutique)
-  data/radar/BASE-WINNERS.xlsx      l'export lisible (WINNERS / HISTORIQUE / LEGENDE)
+  data/radar/base_winners.json      la vérité (une entrée par boutique), sur main
+  Notion « 🏆 BASE WINNERS — CORTEX »  la vue vivante de Badr (une ligne par boutique),
+                                    tenue à jour par la routine via le connecteur Notion
 
 Commandes :
   python -m agents.base_winners add AAAA-MM-JJ           # pépites du rapport du jour → base
   python -m agents.base_winners refresh AAAA-MM-JJ       # rafraîchit avec le scan du jour (data/radar/AAAA-MM-JJ.json)
-  python -m agents.base_winners import-verdicts FICHIER.xlsx   # relit Mon verdict / Mes notes
-  python -m agents.base_winners export [FICHIER.xlsx]
+  python -m agents.base_winners notion-export AAAA-MM-JJ # → data/radar/notion_push_AAAA-MM-JJ.json (à pousser dans Notion)
+  python -m agents.base_winners import-verdicts-notion FICHIER.json  # relit MON VERDICT / MES NOTES depuis une requête Notion
+  python -m agents.base_winners import-verdicts FICHIER.xlsx         # (ancien) relit depuis un Excel
+  python -m agents.base_winners export [FICHIER.xlsx]                # export Excel de secours
 """
 
 import argparse
@@ -38,7 +41,10 @@ RADAR_DIR = Path(os.getenv("CORTEX_RADAR_DIR") or (Path(__file__).parent.parent 
 BASE_PATH = RADAR_DIR / "base_winners.json"
 XLSX_PATH = RADAR_DIR / "BASE-WINNERS.xlsx"
 
-VERDICTS_BADR = ("", "à tester", "en test", "winner", "écarté", "testé - mort")
+NOTION_DB_URL = "https://app.notion.com/p/6b156b50a295410081c94286cf34321c"
+NOTION_DATA_SOURCE = "collection://76f47e8d-dae2-428b-843d-2f6f22305e09"
+
+VERDICTS_BADR = ("", "à tester", "en test", "testé - winner", "écarté", "testé - mort")
 STATUTS_VIE = ("BANGER", "EXPLOSE", "SANS TRAFIC", "A SURVEILLER", "STABLE", "EN BAISSE", "MORT")
 PRIX_MIN_EUR = 30
 MIN_ADS_VIVANT = 50
@@ -183,6 +189,119 @@ def testables(base: dict) -> list[dict]:
     return rows
 
 
+# ── Notion ───────────────────────────────────────────────────────────────────
+# La routine n'a pas de réseau mais a le connecteur Notion : ce module prépare
+# les propriétés (notion-export) et relit les verdicts (import-verdicts-notion) ;
+# c'est l'agent qui appelle create-pages / update-page avec ce JSON.
+
+DIFFICULTE_NOTION = {"facile": "facile", "moyen": "moyen", "dur": "dur"}
+
+
+def _difficulte(entree: dict) -> str | None:
+    d = (entree.get("difficulte") or "").lower()
+    for cle, val in DIFFICULTE_NOTION.items():
+        if cle in d:
+            return val
+    return None
+
+
+def notion_proprietes(entree: dict) -> dict:
+    """Propriétés Notion d'une entrée (jamais MON VERDICT / MES NOTES : ils sont à Badr)."""
+    c = entree.get("chiffres") or {}
+    m = entree.get("marches") or {}
+    props = {
+        "Produit": entree.get("produit") or entree.get("boutique", ""),
+        "Boutique": entree.get("boutique", ""),
+        "Verdict CORTEX": entree.get("verdict_cortex") or None,
+        "Statut": entree.get("statut") or None,
+        "Testable": "__YES__" if entree.get("testable") else "__NO__",
+        "date:Trouvé le:start": entree.get("trouve_le"), "date:Trouvé le:is_datetime": 0,
+        "date:Mis à jour:start": entree.get("maj_le"), "date:Mis à jour:is_datetime": 0,
+        "Niche": entree.get("niche", ""),
+        "Prix": entree.get("prix", ""),
+        "Prix EUR": c.get("prix_eur"),
+        "Pubs actives": c.get("ads_actives"),
+        "Accélération x4 sem": c.get("acceleration"),
+        "Courbe": c.get("courbe_ads", ""),
+        "Âge (jours)": c.get("age_jours"),
+        "Visites / mois": c.get("visites_mois"),
+        "FR": m.get("FR"), "DE": m.get("DE"), "ES": m.get("ES"), "GB": m.get("GB"),
+        "Stade": entree.get("stade_sophistication"),
+        "Où lancer": entree.get("ou_lancer", ""),
+        "CA / jour estimé": entree.get("ca_jour_estime", ""),
+        "Difficulté": _difficulte(entree),
+        "Angle recommandé": entree.get("angle_recommande", ""),
+        "Lien boutique": entree.get("lien_boutique") or None,
+        "Leurs pubs": entree.get("lien_adlibrary") or None,
+    }
+    return {k: v for k, v in props.items() if v is not None}
+
+
+def notion_contenu(entree: dict) -> str:
+    """La fiche (corps de la page Notion) : pourquoi, awareness, historique."""
+    lignes = []
+    if entree.get("verdict_pourquoi"):
+        lignes += [f"## Pourquoi CORTEX dit {entree.get('verdict_cortex') or '…'}", "", entree["verdict_pourquoi"], ""]
+    if entree.get("awareness"):
+        lignes += ["## Awareness", "", entree["awareness"], ""]
+    if entree.get("raison_non_testable"):
+        lignes += ["## Plus testable", "", entree["raison_non_testable"], ""]
+    hist = entree.get("historique") or []
+    if hist:
+        lignes += ["## Historique", ""]
+        lignes += [f"- {h.get('date')} — {h.get('ads') if h.get('ads') is not None else '?'} pubs · {h.get('courbe') or '?'} · {h.get('statut') or ''}"
+                   for h in hist]
+    return "\n".join(lignes).strip()
+
+
+def notion_export(base: dict, date: str) -> list[dict]:
+    """Ce qu'il faut pousser dans Notion : les entrées touchées ce jour ou jamais créées."""
+    out = []
+    for dom, e in sorted(base.items()):
+        if e.get("maj_le") != date and e.get("notion_page_id"):
+            continue
+        out.append({
+            "boutique": dom,
+            "notion_page_id": e.get("notion_page_id", ""),
+            "action": "update" if e.get("notion_page_id") else "create",
+            "properties": notion_proprietes(e),
+            "content": notion_contenu(e),
+        })
+    return out
+
+
+def _page_id_depuis_url(url: str) -> str:
+    """https://www.notion.so/xxx-26ab1f9f4c5f80b18d3bd10a6b1d2f4e → 26ab1f9f-4c5f-80b1-8d3b-d10a6b1d2f4e"""
+    brut = (url or "").rstrip("/").split("/")[-1].split("?")[0].split("-")[-1].replace("-", "")
+    if len(brut) != 32:
+        return ""
+    return f"{brut[:8]}-{brut[8:12]}-{brut[12:16]}-{brut[16:20]}-{brut[20:]}"
+
+
+def importer_verdicts_notion(base: dict, lignes: list[dict]) -> tuple[dict, int]:
+    """Relit MON VERDICT / MES NOTES depuis les lignes d'une requête Notion
+    (SELECT url, Boutique, "MON VERDICT", "MES NOTES" …). Mémorise aussi l'id
+    de page pour les prochaines mises à jour."""
+    nouveau = {k: dict(v) for k, v in base.items()}
+    lus = 0
+    for row in lignes:
+        dom = str(row.get("Boutique") or "").strip().lower()
+        if dom not in nouveau:
+            continue
+        page_id = _page_id_depuis_url(row.get("url") or row.get("notion_page_id") or "")
+        if page_id:
+            nouveau[dom]["notion_page_id"] = page_id
+        verdict = str(row.get("MON VERDICT") or "").strip().lower()
+        notes = str(row.get("MES NOTES") or "").strip()
+        if verdict != nouveau[dom].get("verdict_badr", "") or notes != nouveau[dom].get("notes_badr", ""):
+            nouveau[dom]["verdict_badr"] = verdict
+            nouveau[dom]["notes_badr"] = notes
+            ok, raison = est_testable(nouveau[dom])
+            nouveau[dom]["testable"], nouveau[dom]["raison_non_testable"] = ok, raison
+            lus += 1
+    return nouveau, lus
+
+
 # ── Excel ────────────────────────────────────────────────────────────────────
 
 COLONNES = [
@@ -310,10 +429,23 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("add"); p.add_argument("date")
     p = sub.add_parser("refresh"); p.add_argument("date")
     p = sub.add_parser("import-verdicts"); p.add_argument("fichier")
+    p = sub.add_parser("import-verdicts-notion"); p.add_argument("fichier")
+    p = sub.add_parser("notion-export"); p.add_argument("date")
     p = sub.add_parser("export"); p.add_argument("fichier", nargs="?", default=str(XLSX_PATH))
     args = parser.parse_args(argv)
 
     base = charger()
+    if args.cmd == "notion-export":
+        items = notion_export(base, args.date)
+        out = RADAR_DIR / f"notion_push_{args.date}.json"
+        out.write_text(json.dumps(items, ensure_ascii=False, indent=1), encoding="utf-8")
+        logger.info(f"{len(items)} page(s) à pousser dans Notion → {out.name} "
+                    f"({sum(i['action'] == 'create' for i in items)} à créer)")
+        return 0
+    if args.cmd == "export":
+        path = exporter_xlsx(base, Path(args.fichier))
+        logger.info(f"Export Excel : {path}")
+        return 0
     if args.cmd == "add":
         rapport_path = Path(os.getenv("CORTEX_RAPPORT") or (Path(__file__).parent.parent / "data" / "cowork" / f"rapport_{args.date}.json"))
         if not rapport_path.exists():
@@ -327,9 +459,13 @@ def main(argv: list[str] | None = None) -> int:
     elif args.cmd == "import-verdicts":
         base, lus = importer_verdicts_xlsx(base, Path(args.fichier))
         logger.info(f"{lus} verdict(s) de Badr relus")
+    elif args.cmd == "import-verdicts-notion":
+        brut = json.loads(Path(args.fichier).read_text(encoding="utf-8"))
+        lignes = brut.get("rows") or brut.get("results") or brut if isinstance(brut, dict) else brut
+        base, lus = importer_verdicts_notion(base, lignes if isinstance(lignes, list) else [])
+        logger.info(f"{lus} verdict(s) de Badr relus depuis Notion")
     sauver(base)
-    path = exporter_xlsx(base, Path(args.fichier) if args.cmd == "export" else XLSX_PATH)
-    logger.info(f"Base : {len(base)} produits, {len(testables(base))} testables → {path.name}")
+    logger.info(f"Base : {len(base)} produits, {len(testables(base))} testables")
     return 0
 
 
