@@ -84,10 +84,15 @@ function RadarCard({ p }: { p: RadarProduit }) {
         </div>
       </div>
 
-      {/* Le signal chiffré */}
+      {/* Le signal chiffré + où lancer */}
       <p className="text-xs text-slate-400 leading-relaxed">
         <span className="text-slate-300 font-medium">Le signal : </span>{p.signal}
       </p>
+      {p.ou_lancer && (
+        <p className="text-xs text-slate-300 leading-relaxed">
+          <span className="text-amber-400/80 font-medium">🌍 Où lancer : </span>{p.ou_lancer}
+        </p>
+      )}
 
       {/* Critères */}
       {(p.criteres_ok?.length || p.criteres_ko?.length) ? (

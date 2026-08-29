@@ -81,6 +81,7 @@ export interface RadarProduit {
   difficulte_pourquoi: string
   marche_fr: "LIBRE" | "PRIS" | "PARTIEL" | "A VERIFIER"
   marche_fr_detail?: string
+  ou_lancer?: string
   criteres_ok?: string[]
   criteres_ko?: string[]
   verdict: "GO TEST" | "A SURVEILLER" | "ECARTER"

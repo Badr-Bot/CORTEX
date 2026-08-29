@@ -74,12 +74,37 @@ et produit `data/radar/candidats_AAAA-MM-JJ.md` — **c'est ce fichier que tu li
 
 ## 4. Choisir les 3 produits
 
+Le script a déjà appliqué **les règles de qualification de Badr** (sa feuille
+WINNERS du 26/08/2026, 186 lignes : 56 qualifiés, 130 écartés). Un produit est
+écarté avant analyse si : prix bas vs AOV 65-70 € (< 30 $) · il cible déjà la
+France · devise/pays hors Big Five · pays de diffusion non indexés (une absence
+de donnée n'est jamais une preuve de marché libre) · catalogue généraliste
+(> 20 SKU : « une boutique de volume, pas un produit à copier ») · ingérable
+(compléments, gummies, drops : hors France, arbitrage Badr du 25/08 — la
+réglementation novel food / allégations santé bloque, `⚠️ Hors formation`).
+
 Dans `candidats_AAAA-MM-JJ.md`, dans cet ordre :
 1. les **movers** (grosse montée de rang depuis le dernier scan) ;
 2. les **BANGER** puis **EXPLOSE** ;
 3. **variété** : pas deux produits de la même niche, pas deux fois le même opérateur (colonne réseau) ;
-4. jamais un produit marqué INGERABLE, jamais un produit analysé dans les 7 derniers jours (le script les a déjà retirés) ;
-5. préfère un prix vu ≥ 30 $ : l'AOV réel de Badr est de **65-70 €** (mémoire business) — un produit à 20 $ ne passe qu'en pack.
+4. jamais un produit analysé dans les 7 derniers jours (déjà retiré) ;
+5. à signal égal, préfère le **mono-produit** (≤ 5 SKU) et le **consommable / réachat** (résilient).
+
+### Lire une courbe comme Badr la lit (exemples de ses rapports)
+
+- « 62 → 264 → 549 → 616 : la courbe **plafonne**, la phase d'explosion est finie » — un plateau après explosion n'est plus une fenêtre, c'est un opérateur installé.
+- « 3 604 → 3 163 ads : volume très élevé mais en léger recul, pas une pépite fraîche ».
+- « 787 produits au catalogue : magasin généraliste, à écarter sauf si un SKU précis se détache ».
+- « Callie France diffuse le même angle depuis 468 jours avec 411 ads : ce n'est plus "être le premier", c'est affronter un acteur rentable sur son terrain » — une concurrence **installée** n'est pas une concurrence **saine** (MASTER RESEARCH · 2 exige les deux : TAM énorme ET concurrence saine).
+- « 0 visiteur SimilarWeb + des centaines d'ads = exactement le profil à choper avant les autres ».
+- « Le set de 2 résout d'emblée le problème d'AOV » — quand le prix unitaire est bas, raisonne pack/bundle.
+
+### Où lancer (`ou_lancer`)
+
+Badr a **4 boutiques : FR (~90 % du volume), ES, UK, DE** ; le pays n'est pas un obstacle (boutique créée à la demande), les COGS DE/ES/GB sont connus. Règle qu'il applique :
+- marché FR `LIBRE` ou `PARTIEL` → **FR en premier** ;
+- FR `PRIS` → **DE en priorité** (plus gros marché d'Europe, boutique et COGS déjà en place), puis AT/CH avec les mêmes créas allemandes, puis ES ; ⚠️ Allemagne : ~90 % des ventes passent par PayPal (`03-marche-retour-d-experience-complet.md:182`) ;
+- utilise `marches_libres` du brief (pays que la boutique ne cible pas encore) pour proposer l'ordre.
 
 ## 5. Le contrôle « déjà en France ? » (0 à 3 appels)
 
@@ -108,7 +133,8 @@ Chaque produit de `ecommerce.radar_produits` est un objet avec ces clés
 | `difficulte` | `facile`, `moyen` ou `difficile` |
 | `difficulte_pourquoi` | prix vs AOV 65-70 €, réglementaire (cosmétique, ingérable, contrefaçon), créas nécessaires (VSL longue ou vidéo 30 s ?), concurrence FR, logistique (poids, liquide). 150-350 caractères. |
 | `marche_fr` | `LIBRE`, `PRIS`, `PARTIEL` ou `A VERIFIER` (règles §5) |
-| `marche_fr_detail` | ce que la requête a montré, ou « non vérifié — solde TrendTrack » |
+| `marche_fr_detail` | ce que la requête a montré (qui, combien d'ads, depuis quand), ou « non vérifié — solde TrendTrack » |
+| `ou_lancer` | le ou les marchés recommandés et pourquoi (règle §4 « Où lancer ») : « FR d'abord car libre », ou « pas la France (pris par X) → DE puis AT/CH ». 100-250 caractères. |
 | `criteres_ok` / `criteres_ko` | parmi les 9 critères (`master-research/09-criteres-produit.md:60-78`) : besoin fort · effet visuel · marge ×3-×4 · preuve sociale · simple à utiliser · légal/douane OK · introuvable en magasin · compréhension immédiate · upsell possible. Listes courtes, ce que tu peux juger d'après le brief. |
 | `verdict` | `GO TEST`, `A SURVEILLER` ou `ECARTER` |
 | `verdict_pourquoi` | la raison en 2-3 phrases simples. 150-350 caractères. |

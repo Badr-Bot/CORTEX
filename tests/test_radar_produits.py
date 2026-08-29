@@ -103,13 +103,45 @@ def test_build_day_trie_et_numerote():
 
 
 def test_candidats_excluent_analyses_recentes_et_ingerables():
-    payload = {"data": [_row("fresh.com"), _row("done.com"), _row("gummy.com", title="Sleep Gummies")],
+    us = [{"countryCode": "US", "share": 1.0}]
+    payload = {"data": [_row("fresh.com", countries=us), _row("done.com", countries=us),
+                        _row("gummy.com", title="Sleep Gummies", countries=us)],
                "raw": {}}
     day = build_day([(payload, False)], TODAY)
     suivi = update_suivi({}, day, "2026-08-29")
     suivi = mark_analysed(suivi, "2026-08-27", ["done.com"])
     noms = [p["boutique"] for p in candidats(day, suivi, "2026-08-29")]
     assert "fresh.com" in noms and "done.com" not in noms and "gummy.com" not in noms
+
+
+def test_regles_de_qualification_de_badr():
+    """Feuille WINNERS du 26/08 : prix bas, France déjà ciblée, hors Big Five,
+    pays non indexés, catalogue généraliste et ingérables sont écartés."""
+    from agents.radar_produits import qualifie
+    ok, _ = qualifie(classify(_row(countries=[{"countryCode": "US", "share": 1.0}]), False, TODAY))
+    assert ok
+    cas = {
+        "prix bas": _row(price=19.99, countries=[{"countryCode": "US", "share": 1.0}]),
+        "cible déjà la France": _row(countries=[{"countryCode": "FR", "share": 0.5}, {"countryCode": "US", "share": 0.5}]),
+        "hors Big Five": _row(currency="KWD", countries=[{"countryCode": "US", "share": 1.0}]),
+        "non indexés": _row(countries=[]),
+        "catalogue": _row(products=45, countries=[{"countryCode": "US", "share": 1.0}]),
+        "ingérable": _row(title="Magnesium Gummies", countries=[{"countryCode": "US", "share": 1.0}]),
+    }
+    for attendu, row in cas.items():
+        ok, raison = qualifie(classify(row, False, TODAY))
+        assert not ok and attendu in raison, (attendu, raison)
+
+
+def test_candidats_appliquent_les_regles_de_badr():
+    payload = {"data": [
+        _row("ok.com", countries=[{"countryCode": "US", "share": 1.0}]),
+        _row("cheap.com", price=12.0, countries=[{"countryCode": "US", "share": 1.0}]),
+        _row("fr.com", countries=[{"countryCode": "FR", "share": 0.9}]),
+    ], "raw": {}}
+    day = build_day([(payload, False)], TODAY)
+    noms = [p["boutique"] for p in candidats(day, {}, "2026-08-29")]
+    assert noms == ["ok.com"]
 
 
 def test_suivi_conserve_les_analyses_et_les_rangs():

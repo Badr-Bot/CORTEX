@@ -300,7 +300,8 @@ def _radar_item(**extra):
         "statut": "BANGER", "signal": "La courbe monte.", "stade_marche": "Fenêtre ouverte.",
         "notoriete": "Personne en France.", "ca_jour_estime": "Estimation : 500-1 500 €/jour.",
         "difficulte": "moyen", "difficulte_pourquoi": "Prix sous l'AOV.", "marche_fr": "A VERIFIER",
-        "marche_fr_detail": "Non vérifié.", "criteres_ok": ["besoin fort"], "criteres_ko": ["marge"],
+        "marche_fr_detail": "Non vérifié.", "ou_lancer": "FR d'abord si libre, sinon DE.",
+        "criteres_ok": ["besoin fort"], "criteres_ko": ["marge"],
         "verdict": "GO TEST", "verdict_pourquoi": "Parce que.", "budget_test": "200-600 € sur 48 h",
         "lien_boutique": "https://lampe.com", "lien_adlibrary": "https://www.facebook.com/ads/library/?q=lampe",
     }

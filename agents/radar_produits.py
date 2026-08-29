@@ -361,13 +361,42 @@ def _mover(entree: dict, date: str) -> int | None:
     return rangs[dates[-1]] - rangs.get(date, rangs[dates[-1]])
 
 
+# Prix plancher : l'AOV réel de Badr est de 65-70 € ; sous ~30 $ un produit ne
+# passe qu'en pack (feuille WINNERS du 26/08 : "prix bas vs AOV 65-70").
+PRIX_MIN = 30
+
+
+def qualifie(p: dict) -> tuple[bool, str]:
+    """Les règles de qualification de Badr (feuille WINNERS du 26/08/2026) :
+    ce qui écarte un produit avant même de l'analyser."""
+    raisons = []
+    if p["statut"] not in STATUTS_CANDIDATS:
+        raisons.append(p["statut"].lower())
+    a = p.get("alertes", "")
+    if "INGERABLE" in a:
+        raisons.append("ingérable — hors France (arbitrage Badr 25/08)")
+    if "hors Big Five" in a:
+        raisons.append("hors Big Five")
+    if "non indexés" in a:
+        raisons.append("pays de diffusion non indexés")
+    if "catalogue" in a:
+        raisons.append("catalogue généraliste")
+    if str(p.get("fr_dans_leurs_pubs", "")).startswith("OUI"):
+        raisons.append("cible déjà la France")
+    prix = p.get("prix_num")
+    if prix is not None and prix < PRIX_MIN:
+        raisons.append(f"prix bas ({prix}) vs AOV 65-70")
+    return (not raisons, " + ".join(raisons))
+
+
 def candidats(day: list[dict], suivi: dict, date: str, n: int = 12) -> list[dict]:
-    """Les meilleures lignes à proposer à l'agent : statut porteur, pas
-    d'ingérable, pas déjà analysée dans la semaine. Les movers montent."""
+    """Les meilleures lignes à proposer à l'agent : qualifiées selon les règles
+    de Badr, pas déjà analysées dans la semaine. Les movers montent."""
     limite = datetime.fromisoformat(date).date()
     out = []
     for p in day:
-        if p["statut"] not in STATUTS_CANDIDATS or "INGERABLE" in p["alertes"]:
+        ok, _ = qualifie(p)
+        if not ok:
             continue
         entree = suivi.get(p["boutique"].lower(), {})
         recent = [d for d in entree.get("analyse_le", [])
@@ -380,13 +409,28 @@ def candidats(day: list[dict], suivi: dict, date: str, n: int = 12) -> list[dict
     return out[:n]
 
 
-def format_candidats(cands: list[dict], date: str, total: int, par_statut: dict) -> str:
+def raisons_ecart(day: list[dict]) -> dict[str, int]:
+    compte: dict[str, int] = {}
+    for p in day:
+        ok, raison = qualifie(p)
+        if not ok:
+            compte[raison] = compte.get(raison, 0) + 1
+    return dict(sorted(compte.items(), key=lambda kv: -kv[1]))
+
+
+def format_candidats(cands: list[dict], date: str, total: int, par_statut: dict,
+                     ecartes: dict[str, int] | None = None) -> str:
     lines = [
         f"# Radar produits — candidats du {date}",
         "",
         f"{total} boutiques dépouillées. Statuts : "
         + ", ".join(f"{k} {v}" for k, v in par_statut.items()) + ".",
         "",
+    ]
+    if ecartes:
+        lines += ["Écartés avant analyse (règles de Badr) : "
+                  + " · ".join(f"{k} : {v}" for k, v in list(ecartes.items())[:8]) + ".", ""]
+    lines += [
         "Choisis 3 produits ci-dessous (règles dans docs/RADAR.md) et analyse-les en profondeur.",
         "",
     ]
@@ -433,7 +477,7 @@ def cmd_extract(date: str, src: list[str] | None, max_age_hours: float) -> int:
     par_statut = {s: par_statut[s] for s in STATUT_ORDRE if s in par_statut}
     cands = candidats(day, suivi, date)
     (RADAR_DIR / f"candidats_{date}.md").write_text(
-        format_candidats(cands, date, len(day), par_statut), encoding="utf-8")
+        format_candidats(cands, date, len(day), par_statut, raisons_ecart(day)), encoding="utf-8")
     logger.info(f"Radar {date} : {len(day)} boutiques — {par_statut} — {len(cands)} candidats")
     return 0
 
@@ -447,7 +491,8 @@ def cmd_candidats(date: str, n: int) -> int:
     par_statut = {}
     for p in day:
         par_statut[p["statut"]] = par_statut.get(p["statut"], 0) + 1
-    print(format_candidats(candidats(day, load_suivi(), date, n), date, len(day), par_statut))
+    print(format_candidats(candidats(day, load_suivi(), date, n), date, len(day), par_statut,
+                           raisons_ecart(day)))
     return 0
 
 

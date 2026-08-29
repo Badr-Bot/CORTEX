@@ -200,7 +200,7 @@ def _check_outils(ecom: dict, known_urls: set[str], r: Report) -> None:
 
 RADAR_FIELDS = [
     "produit", "boutique", "statut", "signal", "stade_marche", "notoriete", "ca_jour_estime",
-    "difficulte", "difficulte_pourquoi", "marche_fr", "verdict", "verdict_pourquoi",
+    "difficulte", "difficulte_pourquoi", "marche_fr", "ou_lancer", "verdict", "verdict_pourquoi",
     "budget_test", "lien_boutique",
 ]
 RADAR_STATUTS = {"BANGER", "EXPLOSE", "SANS TRAFIC", "A SURVEILLER"}
