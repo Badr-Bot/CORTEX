@@ -79,7 +79,9 @@ Corrige et relance jusqu'à zéro erreur. Traite aussi les avertissements (secti
 ÉTAPE 5 — PUBLICATION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-python -m agents.radar_produits mark AAAA-MM-JJ <les 3 domaines analysés>   (seulement si le radar a tourné)
+python -m agents.radar_produits mark AAAA-MM-JJ <les domaines analysés ou écartés>   (seulement si le radar a tourné)
+
+SYNCHRO NOTION (RADAR.md §6bis) : python -m agents.base_winners add AAAA-MM-JJ puis python -m agents.base_winners notion-export AAAA-MM-JJ → data/radar/notion_push_AAAA-MM-JJ.json ; pour chaque entrée : action=create → notion-create-pages (parent {"type":"data_source_id","data_source_id":"76f47e8d-dae2-428b-843d-2f6f22305e09"}, properties et content tels quels, icône 🏆) ; action=update → notion-update-page command=update_properties (page_id, properties) puis command=replace_content (new_str = content). Jamais MON VERDICT / MES NOTES : ils sont à Badr.
 git add data/cowork/ data/radar/
 git commit -m "rapport du AAAA-MM-JJ"
 git push
@@ -88,4 +90,4 @@ Le push déclenche la publication (dashboard Vercel + Telegram). Si le push éch
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Termine par un résumé court en français : par onglet, le nombre de signaux / autres news / outils / repos / produits radar ; les crédits TrendTrack restants ; et tout ce qui a posé problème (collecte absente, réseau, validation, push).
+Termine par un résumé court en français : par onglet, le nombre de signaux / autres news / outils / repos / produits radar (et écartés) ; les crédits TrendTrack restants ; la base Notion (lignes créées / mises à jour, verdicts de Badr relus) ; et tout ce qui a posé problème (collecte absente, réseau, enquête, validation, push).
