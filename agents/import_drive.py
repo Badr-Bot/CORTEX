@@ -197,9 +197,21 @@ def importer(base: dict, chemins: list[Path], date: str) -> tuple[dict, int, int
                     ignores += 1
                     continue
                 dom = p["boutique"]
-                deja = dom in base
+                ancien = dict(base.get(dom) or {})
+                deja = bool(ancien)
+                # Un vieux tableau ne doit jamais écraser une analyse plus récente.
+                perime = deja and (ancien.get("maj_le") or "") > date
                 base = upsert(base, p, date, SOURCE)
                 e = base[dom]
+                if perime:
+                    for cle in ("produit", "niche", "prix", "lien_boutique", "lien_adlibrary",
+                                "marches", "marches_detail", "chiffres", "statut", "verdict_cortex",
+                                "verdict_pourquoi", "stade_sophistication", "awareness", "decalage_marche",
+                                "tam", "recurrent", "criteres_ok", "ou_lancer", "ca_jour_estime",
+                                "budget_test", "angle_recommande", "angle_concurrent", "pain_points",
+                                "angles_non_exploites", "difficulte", "maj_le", "historique"):
+                        if ancien.get(cle) not in (None, "", [], {}):
+                            e[cle] = ancien[cle]
                 if not deja:
                     e["trouve_le"] = date          # date du tableau, pas d'aujourd'hui
                     ajoutes += 1

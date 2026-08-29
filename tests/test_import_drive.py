@@ -77,6 +77,27 @@ def test_import_n_ecrase_pas_le_verdict_de_badr(tmp_path):
     assert e["testable"] is False and "Badr" in e["raison_non_testable"]
 
 
+def test_un_vieux_tableau_n_ecrase_pas_une_analyse_plus_recente(tmp_path):
+    """Le scan du 26/08 ne doit pas rendre à « a verifier » un marché contrôlé le 29/08."""
+    base = {"pestprohome.com": {"boutique": "pestprohome.com", "produit": "PestPro", "trouve_le": "2026-08-29",
+                                "maj_le": "2026-08-29", "marches": {"FR": "PARTIEL", "DE": "PRIS"},
+                                "marches_detail": {"FR": "81 pubs, Nuizoff 16 pubs depuis 10 j"},
+                                "verdict_cortex": "GO TEST", "stade_sophistication": 2,
+                                "chiffres": {"ads_actives": 170, "acceleration": 5.1, "prix_eur": 41.4}}}
+    csv_path = tmp_path / "vieux.csv"
+    import csv as _csv
+    with csv_path.open("w", encoding="utf-8", newline="") as f:
+        w = _csv.DictWriter(f, fieldnames=list(LIGNE_TOP))
+        w.writeheader(); w.writerow(LIGNE_TOP)          # même boutique, données du 26/08
+    base, _, _ = importer(base, [csv_path], "2026-08-26")
+    e = base["pestprohome.com"]
+    assert e["marches"]["FR"] == "PARTIEL" and e["marches"]["DE"] == "PRIS"
+    assert "Nuizoff" in e["marches_detail"]["FR"]
+    assert e["verdict_cortex"] == "GO TEST" and e["chiffres"]["ads_actives"] == 170
+    assert e["maj_le"] == "2026-08-29"
+    assert e["testable"] is True
+
+
 def test_conversions():
     assert _marche("PARTIEL - la mousseline est travaillee en FR") == "PARTIEL"
     assert _marche("SANS OBJET - complement non lance en France") == "A VERIFIER"

@@ -98,12 +98,12 @@ def est_testable(entree: dict) -> tuple[bool, str]:
     if entree.get("statut") in ("MORT", "EN BAISSE"):
         raisons.append(f"courbe {entree.get('statut', '').lower()}")
     marches = entree.get("marches") or {}
-    # « A VERIFIER » n'est pas un refus : un marché pas encore contrôlé reste une piste.
-    # On n'écarte que si TOUS les marchés ont été contrôlés et sont PRIS.
+    # Testable = un marché de Badr est ouvert, prouvé par un contrôle. Tant que
+    # le contrôle pays n'a pas été fait, le produit est un candidat, pas un testable.
     if marches and all(v == "PRIS" for v in marches.values()):
         raisons.append("tous tes marchés sont pris")
-    elif marches and not any(v in ("LIBRE", "PARTIEL", "A VERIFIER") for v in marches.values()):
-        raisons.append("aucun marché ouvert")
+    elif marches and not any(v in ("LIBRE", "PARTIEL") for v in marches.values()):
+        raisons.append("contrôle pays pas encore fait")
     stade = entree.get("stade_sophistication")
     if isinstance(stade, int) and stade > 3:
         raisons.append(f"stade {stade} — nouveau mécanisme requis")

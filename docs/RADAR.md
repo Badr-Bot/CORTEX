@@ -470,6 +470,14 @@ Charge les outils : ToolSearch
    Pour les remplir, le rapport doit contenir `marches_detail` (un texte par pays,
    repris de la sortie `radar_produits marche`), `recurrent` (`oui`/`non`),
    `criteres_ok`, `tam`, `angle_concurrent`, `pain_points`, `angles_non_exploites`.
+   **Rattrapage** : si `notion_push_*.json` contient beaucoup d'entrées (l'import
+   des anciens tableaux Drive en a laissé ~100 sans page Notion), pousse-les par
+   lots : `notion-create-pages` accepte jusqu'à 100 pages par appel, donc deux
+   appels suffisent. Ne saute pas ce rattrapage : tant qu'une entrée n'a pas de
+   `notion_page_id`, elle revient à chaque export. Après le push, recopie les
+   `id` renvoyés dans `notion_page_id` de `data/radar/base_winners.json`
+   (clé = le champ `Boutique` de la page) et commite le fichier.
+
    - `action = create` → `notion-create-pages` avec
      `parent = {"type": "data_source_id", "data_source_id": "76f47e8d-dae2-428b-843d-2f6f22305e09"}`,
      `icon`, `properties` et `content` tels quels ;
