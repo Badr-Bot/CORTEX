@@ -67,9 +67,12 @@ def _prix_eur(txt: str):
 
 
 def _domaine(txt: str) -> str:
-    d = str(txt or "").strip().lower()
-    d = re.sub(r"^https?://", "", d).split("/")[0].strip()
-    return d
+    """Domaine, avec le chemin produit s'il y en a un : une même boutique peut
+    pousser deux produits différents (WildNest = GroundGuard ET CloudNest)."""
+    d = re.sub(r"^https?://", "", str(txt or "").strip().lower()).rstrip("/")
+    if "/products/" in d:
+        return d
+    return d.split("/")[0].strip()
 
 
 def _marche(txt: str) -> str:
@@ -131,16 +134,25 @@ def ligne_vers_produit(ligne: dict, date: str) -> dict | None:
         "nb_skus": int(_nombre(_col(ligne, "sku")) or 0) or None,
         "prix": prix,
         "prix_eur": _prix_eur(prix),
+        "statut": _statut(_col(ligne, "statut")),   # statut_vie le respecte si la boutique est vivante
     }.items() if v not in (None, "")}
 
     fr = _marche(_col(ligne, "marche fr", "france"))
     marches = {"FR": fr, "DE": "A VERIFIER", "ES": "A VERIFIER", "GB": "A VERIFIER"}
     libres = _col(ligne, "marches libres")
-    for pays in ("DE", "ES", "GB"):
-        if re.search(rf"\b{pays}\b", libres, re.I):
-            marches[pays] = "LIBRE"
+    # « DE et ES a verifier » ne veut pas dire libre. En revanche « DE, ES, IT
+    # (verifie le 24/08) » veut bien dire libre : c'est un contrôle déjà fait.
+    if libres and "a verifier" not in _norm(libres):
+        for pays in ("DE", "ES", "GB"):
+            if re.search(rf"\b{pays}\b", libres, re.I):
+                marches[pays] = "LIBRE"
 
     commentaire = _col(ligne, "commentaire formation", "le verdict", "commentaire")
+    # Règle de Badr : rien d'ingérable. Le tableau le disait en toutes lettres.
+    contexte = _norm(f"{produit} {_col(ligne, 'niche')} {commentaire} {_col(ligne, 'france')}")
+    if any(mot in contexte for mot in ("ingerable", "complement", "supplement", "extract", "cleanse", "drops",
+                                       "capsules", "gelules", "sante complements")):
+        chiffres["alertes"] = "INGERABLE — complément alimentaire, écarté par ta règle"
     detail = {}
     for source_col, pays in (("marche fr", "FR"), ("france", "FR")):
         txt = _col(ligne, source_col)

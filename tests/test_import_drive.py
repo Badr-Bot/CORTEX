@@ -48,6 +48,14 @@ def test_lecture_d_une_ligne_de_l_analyse_approfondie():
     assert p["_score"] == 8
 
 
+def test_un_marche_a_verifier_n_est_pas_marque_libre():
+    # « DE et ES a verifier » (holdmategear) : rien n'est libre…
+    a_verifier = dict(LIGNE_ANALYSE, **{"MARCHES LIBRES": "DE et ES a verifier - FR est hors jeu"})
+    assert ligne_vers_produit(a_verifier, "2026-08-25")["marches"]["DE"] == "A VERIFIER"
+    # … alors que « DE, ES, IT (verifie le 24/08) » est un contrôle déjà fait.
+    assert ligne_vers_produit(LIGNE_ANALYSE, "2026-08-25")["marches"]["DE"] == "LIBRE"
+
+
 def test_les_lignes_sans_produit_sont_ignorees():
     assert ligne_vers_produit({"PRODUIT": "", "BOUTIQUE": ""}, "2026-08-26") is None
     assert ligne_vers_produit({"PRODUIT": "Produit d'insecte été", "BOUTIQUE": ""}, "2026-08-26") is None

@@ -124,5 +124,607 @@
     "pourquoi_personne": "Toutes les pubs ciblent l'infestation installée. Le moment où l'on cherche le plus, c'est le premier cafard (Reddit : « dois-je paniquer ? », « appartement récupéré insalubre »). Angle prévention immédiate + pack studio/2 pièces, audience 20-35 ans qui déménagent."
    }
   ]
+ },
+ "thefleececompany.it": {
+  "boutique": "thefleececompany.it",
+  "produit": "Federa in Mussola (taie mousseline, set de 2)",
+  "niche": "Maison / literie",
+  "prix": "39,95 EUR",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "BANGER",
+  "chiffres": {
+   "ads_actives": 3373,
+   "age_jours": 115,
+   "visites_mois": 0.0,
+   "pays_pub": "US, CA, AU, GB, DE",
+   "prix": "39,95 EUR",
+   "prix_eur": 39.95,
+   "statut": "BANGER"
+  },
+  "marches": {
+   "FR": "PARTIEL",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "Angle possible en FR sur la taie seule, en profitant du fait que Montivo et Swiss-LifeBox ont deja eduque le marche sur la mousseline. Mais leur courbe recule (3604 -> 3163 ads) : ce n'est pas une pepite fraiche.",
+  "verdict_cortex": "A SURVEILLER",
+  "verdict_pourquoi": "3 604 -> 3 163 ads : volume tres eleve mais en LEGER RECUL, donc pas en phase d'explosion. Mono-produit (2 SKU) enregistre a Hong Kong, marche principal US : profil d'operateur asiatique qui scale. MASTER RESEARCH 9 : textile leger, comprehension immediate, difficile a trouver en magasin. Le set de 2 resout d'emblee le probleme d'AOV.",
+  "tam": "",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "FR": "PARTIEL - la mousseline est travaillee en FR sur la COUVERTURE (Montivo, 4,8 M reach, +2,04 M de reach le 24/08 seul ; Swiss-LifeBox, 805 ads, boutique de 55 j) mais PAS sur la taie d'oreiller. Verifie le 25/08.",
+   "Marchés libres relevés à l'époque": "FR sur le SKU taie uniquement - a confirmer, DE/ES a verifier"
+  },
+  "lien_boutique": "https://thefleececompany.it",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=mussola",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 3373,
+    "courbe": null,
+    "statut": "BANGER"
+   }
+  ],
+  "testable": true,
+  "raison_non_testable": "",
+  "notion_page_id": "3cb91197-e08c-811b-8b57-ea68c1a246e2"
+ },
+ "tryhappyharvest.com": {
+  "boutique": "tryhappyharvest.com",
+  "produit": "HappyHarvest Tart Cherry Extract",
+  "niche": "Sante / complements",
+  "prix": "39,99 USD",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "BANGER",
+  "chiffres": {
+   "ads_actives": 1281,
+   "age_jours": 59,
+   "visites_mois": 0.0,
+   "pays_pub": "ES (1er), US, CA, AU, GB",
+   "prix": "39,99 USD",
+   "prix_eur": 36.79,
+   "statut": "BANGER",
+   "alertes": "INGERABLE — complément alimentaire, écarté par ta règle"
+  },
+  "marches": {
+   "FR": "A VERIFIER",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "Complement ingerable : hors France (arbitrage Badr 25/08). Hors formation - aucune lecon ne traite la reglementation des complements. Certifications obligatoires pour vendre en France, 200-400 EUR chacune ; Meta rejette les claims sante.",
+  "verdict_cortex": "A SURVEILLER",
+  "verdict_pourquoi": "450 -> 935 -> 1136 -> 1281 ads en 4 semaines, boutique mono-produit creee le 27/06. Profil MASTER RESEARCH 3 (fraicheur + volume d'ads). Le fait que l'Espagne soit leur marche numero 1 est atypique et vaut une verification : c'est un marche ou tu es deja installe. Bloque par le critere 6 (legal).",
+  "tam": "",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "FR": "SANS OBJET - complement non lance en France (arbitrage Badr)",
+   "Marchés libres relevés à l'époque": "a verifier"
+  },
+  "lien_boutique": "https://tryhappyharvest.com",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=tart%20cherry",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 1281,
+    "courbe": null,
+    "statut": "BANGER"
+   }
+  ],
+  "testable": false,
+  "raison_non_testable": "ingérable",
+  "notion_page_id": "3cb91197-e08c-811b-888d-cde24b0f18ac"
+ },
+ "holdmategear.de": {
+  "boutique": "holdmategear.de",
+  "produit": "An Angel By Your Side - Necklace",
+  "niche": "Cadeau / bijou emotionnel",
+  "prix": "25,95 EUR",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "BANGER",
+  "chiffres": {
+   "ads_actives": 1270,
+   "age_jours": 81,
+   "visites_mois": 0.0,
+   "pays_pub": "AU, US, CA, NZ, GR",
+   "prix": "25,95 EUR",
+   "prix_eur": 25.95,
+   "statut": "BANGER"
+  },
+  "marches": {
+   "FR": "PRIS",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "PAS la France. Le bijou-cadeau personnalise FR est tenu par des acteurs installes depuis plus d'un an. A reevaluer sur DE/ES seulement, et sans illusion : l'angle est generique.",
+  "verdict_cortex": "ECARTER",
+  "verdict_pourquoi": "Correction du 25/08 : le controle France l'ecarte. MASTER RESEARCH 2 exige un TAM enorme ET une concurrence saine - ici la concurrence n'est pas saine, elle est installee (Callie France diffuse le meme angle depuis 468 jours avec 411 ads). Le plateau d'ads chez holdmategear (1240 -> 1270) confirme qu'ils ne sont PAS en phase d'explosion.",
+  "tam": "",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "FR": "PRIS - Callie France (collier photo aile d'ange, 411 ads actives, 468 j, 4,4 M reach) fait le MEME angle. + Milona Paris (10,2 M reach) et Tanndem (4,3 M reach). Verifie le 25/08.",
+   "Marchés libres relevés à l'époque": "DE et ES a verifier - FR est hors jeu"
+  },
+  "lien_boutique": "https://holdmategear.de",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=angel%20necklace",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 1270,
+    "courbe": null,
+    "statut": "BANGER"
+   }
+  ],
+  "testable": false,
+  "raison_non_testable": "écarté par le radar + prix 25.95 € sous l'AOV",
+  "notion_page_id": "3cb91197-e08c-81f4-9220-d1554cfa3184"
+ },
+ "tryalora.co": {
+  "boutique": "tryalora.co",
+  "produit": "Black Walnut Wormwood Parasite Cleanse",
+  "niche": "Sante / complements",
+  "prix": "34,99 USD",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "BANGER",
+  "chiffres": {
+   "ads_actives": 1223,
+   "age_jours": 50,
+   "visites_mois": 0.0,
+   "pays_pub": "US, CA, AU, NZ, GB",
+   "prix": "34,99 USD",
+   "prix_eur": 32.19,
+   "statut": "BANGER",
+   "alertes": "INGERABLE — complément alimentaire, écarté par ta règle"
+  },
+  "marches": {
+   "FR": "A VERIFIER",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "Complement ingerable : hors France (arbitrage Badr 25/08). Certifications obligatoires 200-400 EUR ; Meta rejette les claims sante.",
+  "verdict_cortex": "A SURVEILLER",
+  "verdict_pourquoi": "La plus forte acceleration du scan : 223 -> 534 -> 963 -> 1223 ads en 3 semaines (x5,5). MASTER RESEARCH 13 : c'est le daily spend en hausse qui compte. MAIS MASTER RESEARCH 9 critere 6 (aucun probleme legal/douanier) bloque : complement alimentaire ingerable vendu en UE = novel food / allegations sante.",
+  "tam": "",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "FR": "SANS OBJET - complement non lance en France (arbitrage Badr)",
+   "Marchés libres relevés à l'époque": "a verifier"
+  },
+  "lien_boutique": "https://tryalora.co",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=parasite%20cleanse",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 1223,
+    "courbe": null,
+    "statut": "BANGER"
+   }
+  ],
+  "testable": false,
+  "raison_non_testable": "ingérable",
+  "notion_page_id": "3cb91197-e08c-81a4-8dd4-d573a5d852a5"
+ },
+ "vovalin.com": {
+  "boutique": "vovalin.com",
+  "produit": "Robe / denim gradient (mono-SKU en tete)",
+  "niche": "Apparel femme",
+  "prix": "52,99 USD",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "BANGER",
+  "chiffres": {
+   "ads_actives": 963,
+   "age_jours": 56,
+   "visites_mois": 0.0,
+   "pays_pub": "US, CA, AU, FR, IT",
+   "prix": "52,99 USD",
+   "prix_eur": 48.75,
+   "statut": "BANGER"
+  },
+  "marches": {
+   "FR": "PRIS",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "Rien en l'etat : 787 produits au catalogue = boutique de volume, pas un produit a copier. Et ils sont deja en FR.",
+  "verdict_cortex": "ECARTER",
+  "verdict_pourquoi": "293 -> 579 -> 890 -> 963 ads en 4 semaines. Mais 787 produits indexes : c'est un magasin generaliste qui pousse des dizaines de references, pas un mono-produit. FILTRES 1 : le signal 'beaucoup d'ads' ne vaut que rapporte a l'age ET a la concentration du catalogue. A ecarter sauf si un SKU precis se detache.",
+  "tam": "",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "FR": "PRIS (a confirmer) - la France figure dans leurs 5 premiers marches",
+   "Marchés libres relevés à l'époque": "a verifier"
+  },
+  "lien_boutique": "https://vovalin.com",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=vovalin",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 963,
+    "courbe": null,
+    "statut": "BANGER"
+   }
+  ],
+  "testable": false,
+  "raison_non_testable": "écarté par le radar",
+  "notion_page_id": "3cb91197-e08c-815e-aae6-e5324c433784"
+ },
+ "getwildnest.com": {
+  "boutique": "getwildnest.com",
+  "produit": "GroundGuard (chaussettes de travail)",
+  "niche": "Outils & metiers",
+  "prix": "25,99 USD",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "BANGER",
+  "chiffres": {
+   "ads_actives": 616,
+   "age_jours": 24,
+   "visites_mois": 0.0,
+   "pays_pub": "GB, NZ, AU, CA, US (Big Five)",
+   "prix": "25,99 USD",
+   "prix_eur": 23.91,
+   "statut": "BANGER"
+  },
+  "marches": {
+   "FR": "PRIS",
+   "DE": "LIBRE",
+   "ES": "LIBRE",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "DE en priorite 1 : marche libre au 24/08, plus gros effectif BTP d'Europe, boutique DE deja en place et COGS DE connus. Puis AT + CH avec le meme jeu de creas allemandes. PayPal obligatoire en Allemagne.",
+  "verdict_cortex": "A SURVEILLER",
+  "verdict_pourquoi": "MASTER RESEARCH 3 : boutique a 0 visiteur SimilarWeb + des centaines d'ads actives = exactement le profil 'a chopper avant les autres'. MASTER RESEARCH 9 : 8 criteres sur 9 coches, c'est un consommable (reachat) donc resilient. ATTENTION : la courbe d'ads plafonne (62 -> 264 -> 549 -> 616 par semaine), la phase d'explosion est finie. MASTER ACQUISITION 22 : leur dispositif est en blended 4-5 pays, une campagne mono-pays est un angle d'attaque.",
+  "tam": "Reach 30 jours relevé à l'époque : 1943261",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "FR": "PRIS - Solina (solina-official.com), ~10 ads actives, 270 creees, depuis le 15/08",
+   "Marchés libres relevés à l'époque": "DE, ES, IT, AT, CH, BE (verifie le 24/08)"
+  },
+  "lien_boutique": "https://getwildnest.com/products/groundguard",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=groundguard",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 616,
+    "courbe": null,
+    "statut": "BANGER"
+   }
+  ],
+  "testable": false,
+  "raison_non_testable": "prix 23.91 € sous l'AOV",
+  "criteres_ok": [
+   "8 critères cochés dans ton tableau du Drive",
+   "8 critères cochés dans ton tableau du Drive",
+   "8 critères cochés dans ton tableau du Drive",
+   "8 critères cochés dans ton tableau du Drive",
+   "8 critères cochés dans ton tableau du Drive",
+   "8 critères cochés dans ton tableau du Drive",
+   "8 critères cochés dans ton tableau du Drive",
+   "8 critères cochés dans ton tableau du Drive"
+  ],
+  "notion_page_id": "3cb91197-e08c-81c3-870c-f3317f6023ef"
+ },
+ "buy.lymphoria.co": {
+  "boutique": "buy.lymphoria.co",
+  "produit": "Lymphoria Drainage Drops",
+  "niche": "Sante / complements",
+  "prix": "39,99 USD",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "EXPLOSE",
+  "chiffres": {
+   "ads_actives": 1557,
+   "age_jours": 69,
+   "visites_mois": 2058.0,
+   "pays_pub": "US, CA, GB, AU, NZ",
+   "prix": "39,99 USD",
+   "prix_eur": 36.79,
+   "statut": "EXPLOSE",
+   "alertes": "INGERABLE — complément alimentaire, écarté par ta règle"
+  },
+  "marches": {
+   "FR": "A VERIFIER",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "Complement ingerable : hors France (arbitrage Badr 25/08). Liquide : douane et Meta.",
+  "verdict_cortex": "A SURVEILLER",
+  "verdict_pourquoi": "869 -> 822 -> 1136 -> 1557 ads : reprise nette apres un creux. FILTRES 3 critere 6 : 'aucun probleme legal/douanier (attention liquides, contrefacon)' - c'est litteralement le cas d'ecole. A garder en veille pour l'angle (le drainage lymphatique est un angle qui marche), pas pour le produit.",
+  "tam": "",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "FR": "SANS OBJET - complement non lance en France (arbitrage Badr)",
+   "Marchés libres relevés à l'époque": "a verifier"
+  },
+  "lien_boutique": "https://lymphoria.co",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=lymphatic%20drainage%20drops",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 1557,
+    "courbe": null,
+    "statut": "EXPLOSE"
+   }
+  ],
+  "testable": false,
+  "raison_non_testable": "ingérable",
+  "notion_page_id": "3cb91197-e08c-8163-bb58-f4d95ac63429"
+ },
+ "thegiftnorth.com": {
+  "boutique": "thegiftnorth.com",
+  "produit": "Moringa & Berberine 4-in-1",
+  "niche": "Sante / complements",
+  "prix": "23,99 USD",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "EXPLOSE",
+  "chiffres": {
+   "ads_actives": 1060,
+   "age_jours": 115,
+   "visites_mois": 61805.0,
+   "pays_pub": "US, AU, CA, NZ, FR",
+   "prix": "23,99 USD",
+   "prix_eur": 22.07,
+   "statut": "EXPLOSE",
+   "alertes": "INGERABLE — complément alimentaire, écarté par ta règle"
+  },
+  "marches": {
+   "FR": "PRIS",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "Complement ingerable : hors France (arbitrage Badr 25/08).",
+  "verdict_cortex": "A SURVEILLER",
+  "verdict_pourquoi": "385 -> 1060 ads en 4 semaines, 61 805 visites/mois : passe le seuil des 50-100k visiteurs de MASTER RESEARCH 2. Mais 76 produits au catalogue = boutique multi-produits, pas un mono-produit a copier. Interet principal : c'est le seul du scan qui diffuse deja en France, donc leurs creas FR sont lisibles gratuitement.",
+  "tam": "",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "FR": "PRIS - la France figure dans leurs 5 premiers marches d'ads",
+   "Marchés libres relevés à l'époque": "a verifier"
+  },
+  "lien_boutique": "https://thegiftnorth.com",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=moringa%20berberine",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 1060,
+    "courbe": null,
+    "statut": "EXPLOSE"
+   }
+  ],
+  "testable": false,
+  "raison_non_testable": "prix 22.07 € sous l'AOV + ingérable",
+  "notion_page_id": "3cb91197-e08c-8170-bb5a-cdf24dd0c6f8"
+ },
+ "panthertechnology.com": {
+  "boutique": "panthertechnology.com",
+  "produit": "Eclipse Charger",
+  "niche": "Tech / accessoires",
+  "prix": "19,00 USD",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "EXPLOSE",
+  "chiffres": {
+   "ads_actives": 1031,
+   "age_jours": 111,
+   "visites_mois": 106434.0,
+   "pays_pub": "US, IT, AU, CA, DE",
+   "prix": "19,00 USD",
+   "prix_eur": 17.48,
+   "statut": "EXPLOSE"
+  },
+  "marches": {
+   "FR": "A VERIFIER",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "A creuser : 106 434 visites/mois, donc au-dessus du seuil de 50-100k. Electronique = verifier CE/RoHS avant tout test UE.",
+  "verdict_cortex": "A SURVEILLER",
+  "verdict_pourquoi": "607 -> 1 031 ads et 106 434 visites/mois : coche le critere de trafic de MASTER RESEARCH 2. 6 produits au catalogue, donc concentre. Reserve : l'electronique grand public tombe sous marquage CE et DEEE en UE - critere 6 a instruire. Prix 19 USD tres en dessous de ton AOV : ne tient qu'en bundle.",
+  "tam": "",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "Marchés libres relevés à l'époque": "a verifier"
+  },
+  "lien_boutique": "https://panthertechnology.com",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=eclipse%20charger",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 1031,
+    "courbe": null,
+    "statut": "EXPLOSE"
+   }
+  ],
+  "testable": false,
+  "raison_non_testable": "prix 17.48 € sous l'AOV",
+  "notion_page_id": "3cb91197-e08c-811d-bd15-c33153d35bfd"
+ },
+ "getwildnest.com/products/cloudnest": {
+  "boutique": "getwildnest.com/products/cloudnest",
+  "produit": "CloudNest (chaussettes cosy d'interieur)",
+  "niche": "Maison / cosy Q4",
+  "prix": "a relever",
+  "trouve_le": "2026-08-25",
+  "maj_le": "2026-08-25",
+  "source": "tableaux Drive (import)",
+  "statut": "MORT",
+  "chiffres": {
+   "ads_actives": 26,
+   "age_jours": 4,
+   "visites_mois": 0.0,
+   "pays_pub": "GB + US + CA + NZ + AU (deja blended)",
+   "prix": "a relever",
+   "statut": "A SURVEILLER"
+  },
+  "marches": {
+   "FR": "LIBRE",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": null,
+  "awareness": "",
+  "decalage_marche": "",
+  "angle_recommande": "",
+  "ou_lancer": "Ne rien lancer tant que le signal n'est pas confirme. Regle de veille : si les ads passent de 26 a 100+, c'est un second winner et l'Europe est vierge.",
+  "verdict_cortex": "A SURVEILLER",
+  "verdict_pourquoi": "4 jours d'existence, 26 ads, reach 2 665 : ce n'est PAS valide, c'est une intention. 0-to-1 79 : 'moins de 50 ads actives = pas ouf'. Le signal fort n'est pas le produit, c'est l'operateur : il a valide GroundGuard en 23 jours, qu'il remette une piece sur un second produit de chaussettes indique que son unit economics fonctionne. Produit de saison qui monte vers le Q4 + taille unique + 5 coloris = profil cadeau. C'est la ligne a regarder en premier chaque matin.",
+  "tam": "Reach 30 jours relevé à l'époque : 2665",
+  "recurrent": "",
+  "difficulte": "",
+  "ca_jour_estime": "",
+  "budget_test": "",
+  "angle_concurrent": "",
+  "pain_points": [],
+  "angles_non_exploites": [],
+  "marches_detail": {
+   "FR": "LIBRE (verifie le 24/08)",
+   "Marchés libres relevés à l'époque": "tous - personne nulle part"
+  },
+  "lien_boutique": "https://getwildnest.com/products/cloudnest",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?q=cloudnest",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-08-25",
+    "ads": 26,
+    "courbe": null,
+    "statut": "A SURVEILLER"
+   }
+  ],
+  "testable": false,
+  "raison_non_testable": "courbe mort",
+  "notion_page_id": "3cb91197-e08c-8192-8b79-d2fdb900be4e"
  }
 }
