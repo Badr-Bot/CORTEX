@@ -28,6 +28,35 @@ def test_notion_proprietes_ne_touche_jamais_aux_colonnes_de_badr():
     assert nu["🇩🇪 DE"] == "⚪ A VERIFIER" and nu["📐 TAM"] and nu["😣 Douleurs fortes"]
 
 
+def test_la_crea_a_faire_suit_le_stade_et_l_awareness():
+    from agents.base_winners import crea_a_faire
+
+    # stade 3 : la formation impose un nouveau mécanisme
+    e3 = upsert({}, _pepite(stade_sophistication=3, awareness="solution aware"), "2026-08-29", "x")["pestprohome.com"]
+    c3 = crea_a_faire(e3)
+    assert "mécanisme unique" in c3 and "discrédites les SOLUTIONS" in c3
+    props3 = notion_proprietes(e3)
+    assert props3["🎚 Stade (1 libre → 5 saturé)"].startswith("3 ·")
+    assert props3["🧠 Awareness"].startswith("Solution aware")
+    # solution aware => le marché n'est pas encore éduqué sur le produit
+    assert props3["🕰 Marché FR vs origine"] == "à vérifier"
+
+    # marché en retard : le piège Shilajit doit être rappelé
+    e1 = upsert({}, _pepite(stade_sophistication=1, awareness="unaware"), "2026-08-29", "x")["pestprohome.com"]
+    c1 = crea_a_faire(e1)
+    assert "explique simplement" in c1 and "VSL longue" in c1
+    assert "PREMIÈRES" in notion_proprietes(e1)["🕰 Marché FR vs origine"]
+
+    # marché déjà éduqué : offre ou nouveau mécanisme
+    e5 = upsert({}, _pepite(stade_sophistication=5, awareness="most aware"), "2026-08-29", "x")["pestprohome.com"]
+    assert "identité" in crea_a_faire(e5)
+    assert notion_proprietes(e5)["🕰 Marché FR vs origine"].startswith("déjà éduqué")
+
+    # les anciens libellés du rapport continuent de marcher
+    vieux = upsert({}, _pepite(awareness="déjà connu ici"), "2026-08-29", "x")["pestprohome.com"]
+    assert notion_proprietes(vieux)["🧠 Awareness"].startswith("Product aware")
+
+
 def test_la_fiche_page_porte_le_detail_long():
     base = upsert({}, _pepite(marches_detail={"FR": "PARTIEL — 81 pubs, Nuizoff 16 pubs depuis 10 j"},
                              pain_points=[{"douleur": "cafards malgré le ménage", "intensite": "forte",

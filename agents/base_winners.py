@@ -142,6 +142,7 @@ def upsert(base: dict, produit: dict, date: str, source: str) -> dict:
         "marches": produit.get("marches") or ancien.get("marches", {}),
         "stade_sophistication": produit.get("stade_sophistication", ancien.get("stade_sophistication")),
         "awareness": produit.get("awareness") or ancien.get("awareness", ""),
+        "decalage_marche": produit.get("decalage_marche") or ancien.get("decalage_marche", ""),
         "angle_recommande": produit.get("angle_recommande") or ancien.get("angle_recommande", ""),
         "ou_lancer": produit.get("ou_lancer") or ancien.get("ou_lancer", ""),
         "verdict_cortex": produit.get("verdict") or ancien.get("verdict_cortex", ""),
@@ -222,9 +223,64 @@ VERDICT_BADR_NOTION = {"à tester": "🧪 à tester", "en test": "⏳ en test", 
 ICONE_STATUT = {"BANGER": "🔥", "EXPLOSE": "🚀", "SANS TRAFIC": "👻", "A SURVEILLER": "👀", "STABLE": "➖",
                 "EN BAISSE": "📉", "MORT": "💀"}
 DIFFICULTE_NOTION = {"facile": "🟢 facile", "moyen": "🟡 moyen", "dur": "🔴 dur"}
-STADE_NOTION = {1: "1 · personne", 2: "2 · quelques récents — OK", 3: "3 · tout le monde dit pareil",
-                4: "4 · saturé", 5: "5 · nouveau mécanisme requis"}
-AWARENESS_NOTION = {"inconnu ici": "inconnu ici → éduquer", "déjà connu ici": "déjà connu → nouvel angle"}
+# SOPHISTICATION (leçon 33) = l'état du MARCHÉ, sert à CHOISIR le produit.
+# Chaque stade impose une créa différente — citations de la leçon en commentaire.
+STADE_NOTION = {
+    1: "1 · personne ne vend ça → explique simplement",      # « il suffit d'expliquer ce que ça fait »
+    2: "2 · quelques concurrents → promesse plus forte",     # « plus grande, plus attirante, plus émotionnelle »
+    3: "3 · tous disent pareil → nouveau mécanisme",         # « lui montrer une nouvelle façon d'obtenir le résultat »
+    4: "4 · mécanisme copié → prouve que tu fais mieux",     # « plus rapide, plus simple, moins cher, plus efficace »
+    5: "5 · saturé → vends une identité",                    # « il n'achète plus un objet, il achète ce qu'il représente »
+}
+STADE_CREA = {
+    1: "Personne ne vend ça : explique simplement ce que le produit fait, la nouveauté fait le travail.",
+    2: "Quelques concurrents : même promesse qu'eux mais plus grande, plus émotionnelle.",
+    3: "Tout le monde dit la même chose : il te faut un mécanisme unique — le hook porte le COMMENT, pas le QUOI.",
+    4: "Le mécanisme est copié : créa comparative — plus rapide, plus simple, moins cher ou plus efficace.",
+    5: "Marché saturé, il ne croit plus rien : arrête le rationnel, vends l'identité qu'il veut devenir.",
+}
+
+# AWARENESS (master-acquisition 02-05) = l'état d'esprit du CLIENT, sert à CONSTRUIRE les créas.
+AWARENESS_NOTION = {
+    "unaware": "Unaware · il ignore le problème → VSL histoire",
+    "problem aware": "Problem aware · il sent le mal → mécanise le problème",
+    "solution aware": "Solution aware · il connaît des solutions → discrédite les solutions",
+    "product aware": "Product aware · il compare les marques → 3 raisons + mécanisme unique",
+    "most aware": "Most aware · il veut acheter → offre choc",
+    # anciens libellés du rapport, conservés pour ne rien casser
+    "inconnu ici": "Problem aware · il sent le mal → mécanise le problème",
+    "déjà connu ici": "Product aware · il compare les marques → 3 raisons + mécanisme unique",
+}
+AWARENESS_CREA = {
+    "unaware": "Il ne sait même pas qu'il a un problème : VSL longue, on commence par une histoire large, "
+               "puis on introduit le problème, puis le mécanisme, puis l'offre.",
+    "problem aware": "Il sent le problème sans connaître la solution : 1) mécanise le problème comme un expert, "
+                     "2) appuie la douleur, 3) la solution devient inévitable, 4) le produit + preuves.",
+    "solution aware": "Il connaît d'autres solutions : ne nomme pas ton produit tout de suite. Hook type « la plupart "
+                      "des gens utilisent X… le problème avec X, c'est que ça masque seulement le problème », "
+                      "tu discrédites les SOLUTIONS (pas les marques), puis tu amènes la tienne.",
+    "product aware": "Il compare les marques : « 3 raisons pour lesquelles je recommande… », tu discrédites les autres "
+                     "MARQUES avec des faits, tu montres ton avantage unique ou ton mécanisme.",
+    "most aware": "Il veut déjà acheter : créa simple produit + offre, hook sur l'offre « la meilleure qu'on ait "
+                  "jamais faite ». Audience petite, ça ne scale pas seul.",
+}
+AWARENESS_NORMALISE = {"inconnu ici": "problem aware", "déjà connu ici": "product aware"}
+
+# Le piège Shilajit (leçon 33) : sur un marché qui ne connaît pas encore le produit,
+# copier les pubs RÉCENTES (offre, prix) du marché d'origine ne marche pas.
+DECALAGE_NOTION = {
+    "en retard": "en retard → copier leurs PREMIÈRES pubs",
+    "aligné": "aligné → copier leurs pubs actuelles",
+    "déjà éduqué": "déjà éduqué → angle prix ou nouveau mécanisme",
+}
+DECALAGE_CREA = {
+    "en retard": "Le marché de lancement est en retard sur le marché d'origine : reprends leurs PREMIÈRES pubs "
+                 "(celles qui racontent l'histoire et expliquent le produit), surtout pas les récentes qui ne "
+                 "parlent que d'offre et de prix — c'est l'erreur du Shilajit.",
+    "aligné": "Les deux marchés sont au même niveau : tu peux copier leurs messages actuels.",
+    "déjà éduqué": "Le marché connaît déjà le produit : soit tu gagnes sur l'offre, soit tu ajoutes un mécanisme "
+                   "que personne n'a (un produit connu + une promesse neuve).",
+}
 RECURRENT_NOTION = {"oui": "oui · consommable", "non": "non · achat unique"}
 COL_VERDICT_BADR, COL_NOTES_BADR = "🎯 MON VERDICT", "📝 MES NOTES"
 VIDE = "—"          # Badr : « éviter le vide dans les cellules »
@@ -304,6 +360,43 @@ def _resume_douleurs(entree: dict) -> str:
     return _court(" · ".join(d.get("douleur", "") for d in douleurs))
 
 
+def _awareness_cle(entree: dict) -> str:
+    a = str(entree.get("awareness") or "").strip().lower()
+    return AWARENESS_NORMALISE.get(a, a)
+
+
+def _decalage_cle(entree: dict) -> str:
+    """En retard / aligné / déjà éduqué — depuis `decalage_marche`, sinon déduit de l'awareness."""
+    d = str(entree.get("decalage_marche") or "").strip().lower()
+    for cle in ("en retard", "aligné", "aligne", "éduqué", "eduque"):
+        if cle in d:
+            return "aligné" if cle.startswith("align") else ("déjà éduqué" if "duqu" in cle else "en retard")
+    aw = _awareness_cle(entree)
+    if aw in ("unaware", "problem aware"):
+        return "en retard"
+    if aw in ("product aware", "most aware"):
+        return "déjà éduqué"
+    return ""
+
+
+def crea_a_faire(entree: dict) -> str:
+    """Ce qu'il faut tourner : stade du marché + awareness + décalage avec le marché d'origine.
+    « La sophistication te dit comment te différencier, l'awareness comment présenter » (leçon 33)."""
+    morceaux = []
+    stade = entree.get("stade_sophistication")
+    if stade in STADE_CREA:
+        morceaux.append(f"Stade {stade} — {STADE_CREA[stade]}")
+    aw = _awareness_cle(entree)
+    if aw in AWARENESS_CREA:
+        morceaux.append(AWARENESS_CREA[aw])
+    dec = _decalage_cle(entree)
+    if dec in DECALAGE_CREA:
+        morceaux.append(DECALAGE_CREA[dec])
+    if not morceaux:
+        return "Stade et awareness pas encore établis — fais le contrôle pays et lis leurs pubs."
+    return " ".join(morceaux)
+
+
 def _score_sur_9(entree: dict) -> int | None:
     ok = entree.get("criteres_ok")
     return len(ok) if isinstance(ok, list) and ok else None
@@ -337,7 +430,9 @@ def notion_proprietes(entree: dict) -> dict:
         "🇬🇧 GB": MARCHE_NOTION.get(m.get("GB") or "", MARCHE_NOTION["A VERIFIER"]),
         "🌍 Marchés (détail)": _marches_detail(entree),
         "🎚 Stade (1 libre → 5 saturé)": STADE_NOTION.get(entree.get("stade_sophistication")),
-        "🧠 Awareness": AWARENESS_NOTION.get(entree.get("awareness") or "", A_VERIFIER),
+        "🧠 Awareness": AWARENESS_NOTION.get(_awareness_cle(entree), A_VERIFIER),
+        "🕰 Marché FR vs origine": DECALAGE_NOTION.get(_decalage_cle(entree), A_VERIFIER),
+        "🎬 Créa à faire": _court(crea_a_faire(entree)),
         "📐 TAM": _court(entree.get("tam"), "TAM pas encore mesuré"),
         "🔁 Récurrent": RECURRENT_NOTION.get(str(entree.get("recurrent") or "").lower()[:3].rstrip(), A_VERIFIER),
         "🌍 Où lancer": _court(entree.get("ou_lancer")),
@@ -394,6 +489,7 @@ def notion_contenu(entree: dict) -> str:
 
     bloc("Combien ça peut faire", entree.get("ca_jour_estime", ""))
     bloc("Taille du marché (TAM)", entree.get("tam", ""))
+    bloc("La créa à faire (stade du marché + awareness)", crea_a_faire(entree))
     bloc("Angle recommandé", entree.get("angle_recommande", ""))
     bloc("Ce que disent les concurrents", entree.get("angle_concurrent", ""))
 

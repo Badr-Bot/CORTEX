@@ -198,6 +198,10 @@ def _check_outils(ecom: dict, known_urls: set[str], r: Report) -> None:
         _check_url(item.get("source_url") or "", where, known_urls, r)
 
 
+AWARENESS_VALIDES = ("unaware", "problem aware", "solution aware", "product aware", "most aware",
+                     "inconnu ici", "déjà connu ici")   # les deux derniers = anciens libellés, tolérés
+DECALAGE_VALIDES = ("en retard", "aligné", "déjà éduqué")
+
 RADAR_FIELDS = [
     "produit", "boutique", "statut", "signal", "stade_marche", "notoriete", "ca_jour_estime",
     "difficulte", "difficulte_pourquoi", "marche_fr", "ou_lancer", "verdict", "verdict_pourquoi",
@@ -254,11 +258,16 @@ def _check_radar(ecom: dict, r: Report) -> None:
             r.warn(f"{where} : 'stade_sophistication' absent — leçon 33, la cible du débutant est le stade 2-3")
         elif not isinstance(stade, int) or not 1 <= stade <= 5:
             r.err(f"{where} : stade_sophistication doit être un entier de 1 à 5")
-        for field in ("awareness", "angle_recommande", "tam"):
+        for field in ("awareness", "angle_recommande", "tam", "decalage_marche"):
             if not item.get(field):
-                r.warn(f"{where} : '{field}' absent — voir docs/RADAR.md §4 (awareness, angle, preuve de TAM)")
-        if item.get("awareness") and item["awareness"] not in ("inconnu ici", "déjà connu ici"):
-            r.err(f"{where} : awareness doit être 'inconnu ici' ou 'déjà connu ici'")
+                r.warn(f"{where} : '{field}' absent — voir docs/RADAR.md §4 "
+                       "(sophistication, awareness, décalage de marché, angle, preuve de TAM)")
+        # Awareness = l'état d'esprit du client, il commande la créa (master-acquisition 02-05).
+        if item.get("awareness") and item["awareness"] not in AWARENESS_VALIDES:
+            r.err(f"{where} : awareness doit être l'un de {', '.join(AWARENESS_VALIDES)}")
+        # Décalage avec le marché d'origine — le piège Shilajit (leçon 33).
+        if item.get("decalage_marche") and item["decalage_marche"] not in DECALAGE_VALIDES:
+            r.err(f"{where} : decalage_marche doit être l'un de {', '.join(DECALAGE_VALIDES)}")
 
         # Leçon 08 « Analyse marketing » : l'angle du concurrent et les vraies douleurs.
         if not item.get("angle_concurrent"):

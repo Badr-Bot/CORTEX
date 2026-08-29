@@ -151,6 +151,65 @@ pas ce qu'on conseille » (`:166`). **Cible du débutant : stade 2 à 3** (`:47`
 Écris le stade dans `stade_sophistication` (1 à 5, pour le marché de
 lancement) avec la preuve : combien d'annonceurs, depuis quand, combien de pubs.
 
+### Sophistication et awareness : deux échelles, deux usages (leçon 33 + master-acquisition 02-05)
+
+La formation est explicite (`0-to-1-master-one/33-sophistication-simplifie-base-a-connaitre.md`
+et son doc Google) :
+
+> « **La sophistication, c'est l'état du marché. L'awareness, c'est l'état d'esprit
+> de votre client. L'un est externe. L'autre est interne.** »
+> « **Sophistication : vous l'utilisez AVANT de choisir votre produit. C'est votre
+> filtre de sélection. Awareness : vous l'utilisez APRÈS, quand vous construisez
+> vos publicités.** »
+
+**Les 5 stades de sophistication, et la créa que chacun impose** (citations de la leçon 33) :
+
+| Stade | Le marché | La créa à faire |
+|---|---|---|
+| 1 | « Ton type de produit n'existe pas encore sur le marché » | « il suffit d'expliquer ce que ça fait. La nouveauté fait tout le travail » |
+| 2 | « D'autres vendeurs commencent à proposer des produits similaires » | rendre ta promesse « plus grande, plus attirante, plus émotionnelle » |
+| 3 | « Tous tes concurrents font les mêmes promesses […] il n'y croit plus » | « lui montrer une nouvelle façon d'obtenir le résultat […] un nouveau mécanisme » |
+| 4 | « Ta nouvelle approche a été copiée » | « prouver que ta version est meilleure. Plus rapide, plus simple, moins chère, plus efficace » |
+| 5 | « Ton client ne croit plus rien […] les arguments rationnels ne fonctionnent plus » | « ne plus vendre un produit, mais vendre une identité » |
+
+> « **Ce que vous cherchez en tant que débutant : un produit entre stade 2 et stade 3.** »
+
+Les seuls chiffres que la formation donne pour trancher : **3-4 concurrents récents = feu
+vert**, **15+ avec le même message = saturé**, **20+ = stop pour un débutant**, **des
+centaines = terrain défavorable**. Plus le test de différenciation : « imagine que tu
+colles ta promesse sur le produit d'un concurrent direct. Si ça marche aussi bien pour
+lui que pour toi, ta promesse ne te différencie pas. »
+
+**Les 5 niveaux d'awareness, et la créa de chacun** (master-acquisition 02 à 05).
+Le niveau se joue **au début de la vidéo** : « c'est au début de l'ad que vous devez
+cibler quel niveau de conscience vous touchez ».
+
+| Niveau | Le client | La créa |
+|---|---|---|
+| Unaware | « ne sait même pas qu'il a un problème » | VSL longue : on part d'une histoire large, on introduit le problème, puis le mécanisme, puis l'offre |
+| Problem aware | il sent le mal, ignore la solution | 1) mécaniser le problème en expert, 2) appuyer la douleur, 3) rendre la solution inévitable, 4) produit + preuves. Sans ça « ça ne sera pas scalable » |
+| Solution aware | il connaît d'autres solutions | ne pas nommer le produit tout de suite ; hook « la plupart des gens utilisent X… le problème avec X, c'est que ça masque seulement le problème » ; discréditer **les solutions**, pas les marques |
+| Product aware | il compare les marques | « 3 raisons pour lesquelles je recommande… », discréditer **les marques** avec des faits, avantage unique ou mécanisme |
+| Most aware | il veut déjà acheter | créa produit + offre, hook sur l'offre ; audience petite, « très peu scalable » |
+
+**Le piège du Shilajit — le décalage entre marchés** (leçon 33) :
+
+> « la façon dont on vendait le Shilajit **au début** aux États-Unis, c'était la même
+> façon dont il fallait le vendre en France. Or beaucoup d'e-commerçants avaient fait
+> l'erreur de prendre le marketing **du présent** aux États-Unis, où les clients étaient
+> déjà aware du produit […] ils parlaient que d'offres, que de prix […] et ça ne
+> marchait pas. »
+
+Donc dans le rapport, le champ `decalage_marche` :
+- **`en retard`** (ton marché ne connaît pas encore le produit) → copier leurs
+  **premières** pubs, celles qui racontent l'histoire et expliquent ;
+- **`aligné`** → « on peut juste copier les mêmes messages » ;
+- **`déjà éduqué`** → gagner sur l'offre, ou ajouter un mécanisme neuf sur un produit
+  connu (« vous prenez un t-shirt basique et vous dites qu'il permet de ne pas transpirer »).
+
+`agents/base_winners.crea_a_faire()` assemble ces trois éléments et remplit la colonne
+Notion **🎬 Créa à faire** : c'est le brief de tournage.
+
 ### L'awareness : comment vendre le produit sur le marché de lancement
 
 Même leçon, `:150-158` (exemple du shilajit) : « la façon dont on vendait le
@@ -327,7 +386,8 @@ Chaque produit de `ecommerce.radar_produits` est un objet avec ces clés
 | `marche_fr` | `LIBRE`, `PRIS`, `PARTIEL` ou `A VERIFIER` (règles §5) |
 | `marches` | état par marché de Badr : `{"FR": …, "DE": …, "ES": …, "GB": …}` avec les mêmes valeurs ; si FR est `PRIS`, au moins un autre doit être `LIBRE` ou `PARTIEL` (sinon le produit est écarté) |
 | `stade_sophistication` | entier 1 à 5 pour le marché de lancement (tableau §4), avec la preuve dans `marche_fr_detail` |
-| `awareness` | « inconnu ici » ou « déjà connu ici » : le marché de lancement connaît-il le produit ? (§4) |
+| `awareness` | le niveau de conscience à cibler, parmi `unaware`, `problem aware`, `solution aware`, `product aware`, `most aware` (§4). Il commande la créa : c'est ce qu'on met **au début** de la vidéo. |
+| `decalage_marche` | `en retard`, `aligné` ou `déjà éduqué` : où en est ton marché par rapport au marché d'origine du produit (piège Shilajit, §4) |
 | `angle_recommande` | l'angle, l'avatar et le stade de conscience à attaquer, concret. 120-300 caractères. |
 | `tam` | preuve de TAM chiffrée (§4) : annonceurs à 100+ pubs, catégorie. 80-200 caractères. |
 | `angle_concurrent` | l'angle des concurrents, cité depuis leurs pubs réelles (§4bis). 150-400 caractères. |
