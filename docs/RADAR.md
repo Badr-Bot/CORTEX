@@ -347,7 +347,9 @@ Charge les outils : ToolSearch
 
 1. **Avant le radar — relire les verdicts de Badr** : `notion-query-data-sources`
    en mode SQL sur la data source ci-dessus :
-   `SELECT url, "Boutique", "MON VERDICT", "MES NOTES" FROM "collection://76f47e8d-dae2-428b-843d-2f6f22305e09"`.
+   `SELECT url, "Boutique", "🎯 MON VERDICT", "📝 MES NOTES" FROM "collection://76f47e8d-dae2-428b-843d-2f6f22305e09"`
+   (les colonnes et les options portent des emojis — « 🚫 écarté », « 🔥 BANGER » — ;
+   le script les retire tout seul).
    Écris la réponse telle quelle (la liste de lignes) dans
    `data/radar/notion_verdicts_AAAA-MM-JJ.json`, puis
    `python -m agents.base_winners import-verdicts-notion data/radar/notion_verdicts_AAAA-MM-JJ.json`
@@ -356,13 +358,14 @@ Charge les outils : ToolSearch
    `python -m agents.base_winners add AAAA-MM-JJ` puis
    `python -m agents.base_winners notion-export AAAA-MM-JJ` →
    `data/radar/notion_push_AAAA-MM-JJ.json`, une entrée par page à pousser avec
-   `action`, `notion_page_id`, `properties` (prêtes pour Notion : dates déjà
-   éclatées en `date:…:start`) et `content` (la fiche en Markdown).
+   `action`, `notion_page_id`, `icon` (🔥 banger, 🚀 explose, 💀 mort…),
+   `properties` (prêtes pour Notion : noms de colonnes avec emoji, options avec
+   emoji, dates déjà éclatées en `date:…:start`) et `content` (la fiche en Markdown).
    - `action = create` → `notion-create-pages` avec
      `parent = {"type": "data_source_id", "data_source_id": "76f47e8d-dae2-428b-843d-2f6f22305e09"}`,
-     `properties` et `content` tels quels, icône 🏆 ;
+     `icon`, `properties` et `content` tels quels ;
    - `action = update` → `notion-update-page` `command = update_properties`
-     avec `page_id` et `properties` ; puis `command = replace_content` avec
+     avec `page_id`, `icon` et `properties` ; puis `command = replace_content` avec
      `new_str = content` (la fiche est courte, on la remplace).
    Ne touche jamais MON VERDICT / MES NOTES (ils ne sont pas dans `properties`).
 3. `git add data/radar/` avec le reste : la publication reporte la base sur main.

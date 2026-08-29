@@ -194,7 +194,28 @@ def testables(base: dict) -> list[dict]:
 # les propriétés (notion-export) et relit les verdicts (import-verdicts-notion) ;
 # c'est l'agent qui appelle create-pages / update-page avec ce JSON.
 
-DIFFICULTE_NOTION = {"facile": "facile", "moyen": "moyen", "dur": "dur"}
+# Les options Notion portent un emoji (Badr veut repérer d'un coup d'œil) :
+# ici la valeur brute → l'option Notion. À l'import on fait l'inverse en
+# retirant tout ce qui précède la première lettre.
+STATUT_NOTION = {"BANGER": "🔥 BANGER", "EXPLOSE": "🚀 EXPLOSE", "SANS TRAFIC": "👻 SANS TRAFIC",
+                 "A SURVEILLER": "👀 A SURVEILLER", "STABLE": "➖ STABLE", "EN BAISSE": "📉 EN BAISSE", "MORT": "💀 MORT"}
+VERDICT_NOTION = {"GO TEST": "✅ GO TEST", "A SURVEILLER": "👀 A SURVEILLER", "ECARTER": "❌ ECARTER"}
+MARCHE_NOTION = {"LIBRE": "🟢 LIBRE", "PARTIEL": "🟡 PARTIEL", "PRIS": "🔴 PRIS", "A VERIFIER": "⚪ A VERIFIER"}
+VERDICT_BADR_NOTION = {"à tester": "🧪 à tester", "en test": "⏳ en test", "testé - winner": "🏆 testé - winner",
+                       "testé - mort": "💀 testé - mort", "écarté": "🚫 écarté"}
+ICONE_STATUT = {"BANGER": "🔥", "EXPLOSE": "🚀", "SANS TRAFIC": "👻", "A SURVEILLER": "👀", "STABLE": "➖",
+                "EN BAISSE": "📉", "MORT": "💀"}
+DIFFICULTE_NOTION = {"facile": "🟢 facile", "moyen": "🟡 moyen", "dur": "🔴 dur"}
+COL_VERDICT_BADR, COL_NOTES_BADR = "🎯 MON VERDICT", "📝 MES NOTES"
+
+
+def sans_emoji(valeur) -> str:
+    """'🔥 BANGER' → 'BANGER', '🚫 écarté' → 'écarté'. Retire tout ce qui précède la première lettre."""
+    s = str(valeur or "").strip()
+    i = 0
+    while i < len(s) and not s[i].isalpha():
+        i += 1
+    return s[i:].strip()
 
 
 def _difficulte(entree: dict) -> str | None:
@@ -205,6 +226,12 @@ def _difficulte(entree: dict) -> str | None:
     return None
 
 
+def notion_icone(entree: dict) -> str:
+    if entree.get("verdict_badr") == "testé - winner":
+        return "🏆"
+    return ICONE_STATUT.get(entree.get("statut") or "", "🛍️")
+
+
 def notion_proprietes(entree: dict) -> dict:
     """Propriétés Notion d'une entrée (jamais MON VERDICT / MES NOTES : ils sont à Badr)."""
     c = entree.get("chiffres") or {}
@@ -212,27 +239,28 @@ def notion_proprietes(entree: dict) -> dict:
     props = {
         "Produit": entree.get("produit") or entree.get("boutique", ""),
         "Boutique": entree.get("boutique", ""),
-        "Verdict CORTEX": entree.get("verdict_cortex") or None,
-        "Statut": entree.get("statut") or None,
-        "Testable": "__YES__" if entree.get("testable") else "__NO__",
-        "date:Trouvé le:start": entree.get("trouve_le"), "date:Trouvé le:is_datetime": 0,
-        "date:Mis à jour:start": entree.get("maj_le"), "date:Mis à jour:is_datetime": 0,
-        "Niche": entree.get("niche", ""),
-        "Prix": entree.get("prix", ""),
-        "Prix EUR": c.get("prix_eur"),
-        "Pubs actives": c.get("ads_actives"),
-        "Accélération x4 sem": c.get("acceleration"),
-        "Courbe": c.get("courbe_ads", ""),
-        "Âge (jours)": c.get("age_jours"),
-        "Visites / mois": c.get("visites_mois"),
-        "FR": m.get("FR"), "DE": m.get("DE"), "ES": m.get("ES"), "GB": m.get("GB"),
-        "Stade": entree.get("stade_sophistication"),
-        "Où lancer": entree.get("ou_lancer", ""),
-        "CA / jour estimé": entree.get("ca_jour_estime", ""),
-        "Difficulté": _difficulte(entree),
-        "Angle recommandé": entree.get("angle_recommande", ""),
-        "Lien boutique": entree.get("lien_boutique") or None,
-        "Leurs pubs": entree.get("lien_adlibrary") or None,
+        "🤖 Verdict CORTEX": VERDICT_NOTION.get(entree.get("verdict_cortex") or ""),
+        "🔥 Statut": STATUT_NOTION.get(entree.get("statut") or ""),
+        "✅ Testable": "__YES__" if entree.get("testable") else "__NO__",
+        "date:📅 Trouvé le:start": entree.get("trouve_le"), "date:📅 Trouvé le:is_datetime": 0,
+        "date:🔄 Mis à jour:start": entree.get("maj_le"), "date:🔄 Mis à jour:is_datetime": 0,
+        "🧩 Niche": entree.get("niche", ""),
+        "💵 Prix vu": entree.get("prix", ""),
+        "💶 Prix EUR": c.get("prix_eur"),
+        "📣 Pubs actives": c.get("ads_actives"),
+        "📈 Accélération x4 sem": c.get("acceleration"),
+        "📉 Courbe 5 sem": c.get("courbe_ads", ""),
+        "⏳ Âge (jours)": c.get("age_jours"),
+        "👣 Visites / mois": c.get("visites_mois"),
+        "🇫🇷 FR": MARCHE_NOTION.get(m.get("FR") or ""), "🇩🇪 DE": MARCHE_NOTION.get(m.get("DE") or ""),
+        "🇪🇸 ES": MARCHE_NOTION.get(m.get("ES") or ""), "🇬🇧 GB": MARCHE_NOTION.get(m.get("GB") or ""),
+        "🎚 Stade": entree.get("stade_sophistication"),
+        "🌍 Où lancer": entree.get("ou_lancer", ""),
+        "💰 CA / jour estimé": entree.get("ca_jour_estime", ""),
+        "⚡ Difficulté": _difficulte(entree),
+        "💡 Angle recommandé": entree.get("angle_recommande", ""),
+        "🔗 Lien boutique": entree.get("lien_boutique") or None,
+        "📺 Leurs pubs": entree.get("lien_adlibrary") or None,
     }
     return {k: v for k, v in props.items() if v is not None}
 
@@ -264,6 +292,7 @@ def notion_export(base: dict, date: str) -> list[dict]:
             "boutique": dom,
             "notion_page_id": e.get("notion_page_id", ""),
             "action": "update" if e.get("notion_page_id") else "create",
+            "icon": notion_icone(e),
             "properties": notion_proprietes(e),
             "content": notion_contenu(e),
         })
@@ -284,15 +313,23 @@ def importer_verdicts_notion(base: dict, lignes: list[dict]) -> tuple[dict, int]
     de page pour les prochaines mises à jour."""
     nouveau = {k: dict(v) for k, v in base.items()}
     lus = 0
+
+    def _col(row: dict, fin: str):
+        """Tolère les noms avec ou sans emoji ('🎯 MON VERDICT' ou 'MON VERDICT')."""
+        for k, v in row.items():
+            if sans_emoji(k).upper() == fin:
+                return v
+        return None
+
     for row in lignes:
-        dom = str(row.get("Boutique") or "").strip().lower()
+        dom = str(row.get("Boutique") or _col(row, "BOUTIQUE") or "").strip().lower()
         if dom not in nouveau:
             continue
         page_id = _page_id_depuis_url(row.get("url") or row.get("notion_page_id") or "")
         if page_id:
             nouveau[dom]["notion_page_id"] = page_id
-        verdict = str(row.get("MON VERDICT") or "").strip().lower()
-        notes = str(row.get("MES NOTES") or "").strip()
+        verdict = sans_emoji(_col(row, "MON VERDICT")).lower()
+        notes = str(_col(row, "MES NOTES") or "").strip()
         if verdict != nouveau[dom].get("verdict_badr", "") or notes != nouveau[dom].get("notes_badr", ""):
             nouveau[dom]["verdict_badr"] = verdict
             nouveau[dom]["notes_badr"] = notes

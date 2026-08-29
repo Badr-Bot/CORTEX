@@ -12,10 +12,12 @@ def test_notion_proprietes_ne_touche_jamais_aux_colonnes_de_badr():
     props = notion_proprietes(base["pestprohome.com"])
     assert props["Produit"].startswith("PestPro")
     assert props["Boutique"] == "pestprohome.com"
-    assert props["Testable"] == "__YES__"
-    assert props["date:Trouvé le:start"] == "2026-08-29"
-    assert props["FR"] == "PARTIEL" and props["Stade"] == 2
-    assert "MON VERDICT" not in props and "MES NOTES" not in props
+    assert props["✅ Testable"] == "__YES__"
+    assert props["date:📅 Trouvé le:start"] == "2026-08-29"
+    assert props["🇫🇷 FR"] == "🟡 PARTIEL" and props["🎚 Stade"] == 2
+    assert props["🔥 Statut"] == "🔥 BANGER" and props["🤖 Verdict CORTEX"] == "✅ GO TEST"
+    assert not any("MON VERDICT" in k or "MES NOTES" in k for k in props)
+    assert notion_export(base, "2026-08-29")[0]["icon"] == "🔥"
 
 
 def test_notion_export_cree_puis_ne_repousse_que_les_touches():
@@ -31,7 +33,7 @@ def test_notion_export_cree_puis_ne_repousse_que_les_touches():
 def test_importer_verdicts_notion_relit_verdict_et_memorise_la_page():
     base = upsert({}, _pepite(), "2026-08-29", "radar quotidien")
     rows = [{"url": "https://www.notion.so/PestPro-26ab1f9f4c5f80b18d3bd10a6b1d2f4e",
-             "Boutique": "pestprohome.com", "MON VERDICT": "écarté", "MES NOTES": "trop vu"}]
+             "Boutique": "pestprohome.com", "🎯 MON VERDICT": "🚫 écarté", "📝 MES NOTES": "trop vu"}]
     base, lus = importer_verdicts_notion(base, rows)
     e = base["pestprohome.com"]
     assert lus == 1 and e["verdict_badr"] == "écarté" and e["notes_badr"] == "trop vu"
