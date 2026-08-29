@@ -48,9 +48,11 @@ DEFAULT_TOOL_RESULT_GLOBS = [
 
 # Vocabulaire de FILTRES.md §3 critère 6 (liquides / ingérables) et cosmétiques
 INGERABLE = re.compile(
-    r"\b(cleanse|detox|supplement|complement|gummies|gummy|capsul|tablet|drops|"
-    r"tincture|extract|vitamin|collagen|probiotic|powder|sirop|serum buvable|"
-    r"mushroom|ashwagandha|magnesium|melatonin|electrolyte|tea |thé |infusion)\b", re.I)
+    r"\b(cleanse|detox|d[ée]tox|colon|supplement|suplemento|supl[ée]ment|complement|compl[ée]ment|gummies|gummy|"
+    r"capsul|g[ée]lule|tablet|drops|tincture|extract|vitamin|collagen|collag[èe]ne|"
+    r"probiotic|powder|protein|prot[ée]ine|whey|creatine|burner|shred|nutrition|"
+    r"organics|sirop|serum buvable|mushroom|ashwagandha|magnesium|melatonin|"
+    r"electrolyte|tea |thé |infusion)\b", re.I)
 COSMETIQUE = re.compile(r"\b(cream|serum|oil|balm|lotion|gel|mask|shampoo|creme|huile)\b", re.I)
 DEVISES_OK = {"USD", "EUR", "GBP", "CAD", "AUD", "CHF", "SEK", "DKK", "NOK"}
 UPSELL = re.compile(
@@ -197,7 +199,9 @@ def classify(row: dict, techno: bool, today: _date) -> dict | None:
 
     nb_prod = cat.get("productsCount")
     alertes = []
-    if INGERABLE.search(produit) or INGERABLE.search(row.get("name") or ""):
+    # Le nom de domaine trahit souvent la boutique de compléments (…nutrition.co,
+    # …organics.com) même quand le best-seller a un titre neutre ("Shred").
+    if any(INGERABLE.search(t or "") for t in (produit, row.get("name"), dom.replace(".", " "))):
         alertes.append("INGERABLE - critère 6")
     elif COSMETIQUE.search(produit):
         alertes.append("cosmétique - réglementaire à vérifier")
@@ -383,10 +387,20 @@ def qualifie(p: dict) -> tuple[bool, str]:
         raisons.append("catalogue généraliste")
     if str(p.get("fr_dans_leurs_pubs", "")).startswith("OUI"):
         raisons.append("cible déjà la France")
+    if p.get("produit", "").startswith("(catalogue non indexé)") or p.get("prix_num") is None:
+        raisons.append("produit ou prix non indexé — rien à analyser")
     prix = p.get("prix_num")
     if prix is not None and prix < PRIX_MIN:
         raisons.append(f"prix bas ({prix}) vs AOV 65-70")
     return (not raisons, " + ".join(raisons))
+
+
+def est_fraiche(p: dict) -> bool:
+    """« Une boutique vraiment récente […] qui explose » (04-ecom-data-1.md:287,
+    :299 « moins de deux mois ») : domaine ≤ 60 j OU diffusion ≤ 10 semaines."""
+    age = p.get("age_jours")
+    sem = p.get("semaines_diffusion") or 0
+    return (age is not None and age <= RECENTE_JOURS) or (0 < sem <= 10)
 
 
 def candidats(day: list[dict], suivi: dict, date: str, n: int = 12) -> list[dict]:
@@ -404,8 +418,15 @@ def candidats(day: list[dict], suivi: dict, date: str, n: int = 12) -> list[dict
         if recent:
             continue
         mover = _mover(entree, date)
-        out.append({**p, "mover": mover, "deja_vu": entree.get("premiere_vue", date) != date})
-    out.sort(key=lambda p: (-(p["mover"] or 0) if (p["mover"] or 0) > 5 else 0, -p["priorite"]))
+        out.append({**p, "mover": mover, "deja_vu": entree.get("premiere_vue", date) != date,
+                    "fraiche": est_fraiche(p)})
+    # Ordre : movers, puis fraîcheur (la fenêtre de copie), puis explosion, puis prio.
+    out.sort(key=lambda p: (
+        -(p["mover"] or 0) if (p["mover"] or 0) > 5 else 0,
+        0 if p["fraiche"] else 1,
+        0 if p["statut"] in ("BANGER", "EXPLOSE") else 1,
+        -p["priorite"],
+    ))
     return out[:n]
 
 
@@ -436,6 +457,8 @@ def format_candidats(cands: list[dict], date: str, total: int, par_statut: dict,
     ]
     for p in cands:
         tags = [p["statut"]]
+        if p.get("fraiche"):
+            tags.append("FRAÎCHE")
         if p.get("mover"):
             tags.append(f"mover +{p['mover']} places")
         if p.get("techno_scaling"):

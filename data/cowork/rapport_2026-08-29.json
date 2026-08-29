@@ -1,0 +1,948 @@
+{
+  "ai": {
+    "signals": [
+      {
+        "conviction": 4,
+        "title": "ANTHROPIC MONTRE UNE IA QUI CORRIGE SEULE SES PROPRES DÉFAUTS",
+        "en_clair": "Un chercheur d'Anthropic a fait tester à une IA 10 comportements à problème, et elle a réussi à se corriger elle-même sur les 10, sans perdre en qualité ailleurs.",
+        "fait": "Un chercheur d'Anthropic (l'entreprise qui fabrique Claude, l'assistant que tu utilises avec Claude Code) a publié un aperçu de ce qu'on appelle une IA \"auto-améliorante\" : un système qui repère ses propres défauts de comportement et les corrige lui-même, sans qu'un humain réécrive son code. L'expérience a donné à l'IA 10 benchmarks (des tests standardisés) portant chacun sur un comportement problématique précis — par exemple mentir pour éviter d'être coupée, ou flatter l'utilisateur au lieu de dire la vérité. Le système automatisé a amélioré son score sur les 10 tests à la fois, sans faire baisser ses performances générales ailleurs. C'est la première fois qu'un tel résultat est montré publiquement par un des grands laboratoires d'IA : jusqu'ici, corriger un défaut de comportement demandait un réentraînement humain long et coûteux.",
+        "implication_2": "Concrètement, ça veut dire que les futurs modèles d'IA (dont ceux que tu utilises) pourraient devenir plus fiables plus vite, parce que les équipes n'ont plus besoin de tout corriger à la main : l'IA participe elle-même à sa propre amélioration.",
+        "implication_3": "Anthropic gagne en crédibilité technique face à OpenAI et Google sur la sécurité des modèles, un argument de vente auprès des entreprises qui s'inquiètent des dérapages de l'IA. Les chercheurs indépendants, eux, s'inquiètent : une IA capable de s'auto-corriger pourrait aussi, en théorie, apprendre à contourner les garde-fous plus vite que les humains ne peuvent les vérifier.",
+        "these_opposee": "Ce n'est qu'un aperçu limité à 10 benchmarks choisis par les chercheurs eux-mêmes : rien ne prouve que la méthode marche sur des défauts plus subtils ou en dehors du laboratoire.",
+        "action": "Aucune action produit immédiate pour ta boutique : c'est un signal à ranger dans un coin de la tête. Si tu utilises Claude Code au quotidien, garde un œil sur les prochaines notes de version d'Anthropic dans les 2-3 prochains mois : c'est là que ce type de recherche finit par arriver dans les outils que tu utilises.",
+        "sizing": "Faible",
+        "invalide_si": "Anthropic ou un labo concurrent publie des résultats contradictoires montrant que la méthode dégrade les performances sur des tests non choisis à l'avance.",
+        "source_name": "TechCrunch AI",
+        "source_url": "https://techcrunch.com/2026/08/28/an-anthropic-researcher-just-gave-us-a-peek-at-self-improving-ai/"
+      },
+      {
+        "conviction": 3,
+        "title": "UN JUGE FÉDÉRAL DONNE RAISON À ANTHROPIC CONTRE LE PENTAGONE",
+        "en_clair": "Un tribunal américain a jugé illégal le fait que l'administration Trump ait classé Anthropic comme \"risque pour la chaîne d'approvisionnement\", une étiquette qui aurait pu lui fermer des marchés publics.",
+        "fait": "Un juge fédéral américain a estimé que l'administration Trump avait agi illégalement en collant à Anthropic (l'entreprise derrière Claude) une étiquette de \"risque pour la chaîne d'approvisionnement\" — un classement habituellement réservé à des entreprises jugées dangereuses pour la sécurité nationale (par exemple des fournisseurs liés à des pays hostiles). Cette étiquette aurait pu empêcher Anthropic de vendre ses services à des administrations et entreprises américaines. Le motif du litige : Anthropic a refusé de développer des usages militaires létaux autonomes et de surveillance de masse pour ses modèles, ce que l'administration a interprété comme un manque de coopération. C'est la première victoire judiciaire d'Anthropic dans ce dossier ; un second procès contre le Pentagone est encore en cours à Washington.",
+        "implication_2": "Concrètement, ça veut dire qu'Anthropic peut continuer à vendre Claude aux administrations et grandes entreprises américaines sans l'obstacle de cette étiquette, au moins pour l'instant — ce qui sécurise la continuité du service que tu utilises via Claude Code.",
+        "implication_3": "Ce jugement rassure les entreprises qui misent sur Anthropic : le risque politique de voir leur fournisseur d'IA black-listé du jour au lendemain recule. À l'inverse, les laboratoires d'IA plus dociles aux demandes militaires pourraient perdre un avantage concurrentiel qu'ils espéraient obtenir sur les contrats publics.",
+        "these_opposee": "Le procès sur le fond continue : ce n'est qu'une première manche, et l'administration peut faire appel ou tenter une nouvelle étiquette sous un autre motif juridique.",
+        "action": "Aucune action directe pour ta boutique. Point de vigilance seulement si tu construis des automatisations critiques sur l'API Claude : la victoire judiciaire réduit le risque d'une coupure de service liée à un bras de fer politique, mais le dossier n'est pas clos.",
+        "sizing": "Faible",
+        "invalide_si": "L'administration Trump obtient gain de cause en appel ou réintroduit une étiquette équivalente sous un autre motif dans les prochains mois.",
+        "source_name": "TechCrunch AI",
+        "source_url": "https://techcrunch.com/2026/08/28/anthropic-gets-its-first-court-win-over-the-pentagons-supply-chain-risk-label/"
+      },
+      {
+        "conviction": 3,
+        "title": "LAMBDA EMPRUNTE 1 MILLIARD DE DOLLARS POUR ACHETER DES PUCES NVIDIA",
+        "en_clair": "Lambda, un fournisseur de calcul pour l'IA, a emprunté 1 milliard de dollars rien que pour acheter plus de puces Nvidia à louer à Microsoft — signe que la course à l'IA coûte de plus en plus cher.",
+        "fait": "Lambda, un \"neocloud\" (un fournisseur spécialisé qui loue de la puissance de calcul pour l'IA, par opposition aux géants généralistes comme Amazon ou Microsoft Azure), a levé 1 milliard de dollars sous forme de dette privée (un emprunt auprès d'investisseurs, pas une levée de fonds classique en échange de parts de l'entreprise) pour acheter davantage de puces Nvidia — les composants électroniques spécialisés qui font tourner les modèles d'IA comme Claude ou ChatGPT. Ces puces seront ensuite louées à Microsoft. C'est le dernier d'une longue série d'emprunts du même type dans le secteur, qui souligne à quel point la course à l'IA coûte cher : les entreprises s'endettent lourdement pour financer des infrastructures qu'elles espèrent rentabiliser sur plusieurs années.",
+        "implication_2": "Concrètement, ça veut dire que la demande de puissance de calcul pour l'IA reste très forte — assez pour justifier un endettement massif — et que Nvidia continue de vendre autant de puces qu'il peut en produire, ce qui soutient son cours de bourse.",
+        "implication_3": "Les fournisseurs de cloud IA gagnent à court terme (revenus de location garantis par Microsoft), mais s'exposent à un risque si la demande en IA ralentit avant que la dette soit remboursée. Les investisseurs commencent à se demander si ce modèle d'endettement en cascade dans le secteur de l'IA ne ressemble pas à une bulle de crédit.",
+        "these_opposee": "Ce type de financement par la dette est courant dans les infrastructures lourdes (télécoms, énergie) et n'indique pas forcément un problème : c'est aussi un pari rationnel sur une demande IA qui continue de croître.",
+        "action": "Aucune action e-commerce directe. À surveiller si tu es aussi investisseur crypto/actions : un accroc de paiement chez un de ces \"neoclouds\" fortement endettés serait un signal d'alerte précoce sur la solidité financière du secteur IA.",
+        "sizing": "Faible",
+        "invalide_si": "Un fournisseur de cloud IA majeur annonce des difficultés à honorer sa dette dans les prochains mois.",
+        "source_name": "TechCrunch AI",
+        "source_url": "https://techcrunch.com/2026/08/28/neocloud-lambda-secures-1b-in-debt-to-buy-more-chips/"
+      },
+      {
+        "conviction": 3,
+        "title": "SALESFORCE ET ANTHROPIC ÉLARGISSENT LEUR PARTENARIAT AVEC CLAUDEFORCE",
+        "en_clair": "Salesforce (un géant des logiciels d'entreprise) intègre Claude directement dans ses outils via un nouveau partenariat baptisé Claudeforce — l'IA s'installe encore plus profondément dans les logiciels que les entreprises utilisent tous les jours.",
+        "fait": "Salesforce et Anthropic ont annoncé un élargissement de leur partenariat pour développer \"Claudeforce\", une intégration qui met Claude directement au cœur des outils Salesforce. Cette annonce est arrivée juste avant les résultats trimestriels de Salesforce, où le PDG a par ailleurs balayé les craintes d'une \"SaaSpocalypse\" (l'idée que l'IA générative rendrait obsolètes les logiciels classiques par abonnement, dits SaaS pour \"Software as a Service\") en affichant des résultats meilleurs que prévu. Le lancement concret s'appelle \"Salesforce in Claude\" : les utilisateurs de Claude pourront directement piloter des actions dans Salesforce depuis une conversation avec l'IA.",
+        "implication_2": "Concrètement, ça veut dire que la frontière entre \"assistant IA\" et \"logiciel métier\" continue de s'effacer : demain, on ne \"cliquera\" plus dans un logiciel de gestion client, on lui parlera directement via une IA comme Claude.",
+        "implication_3": "Salesforce se positionne pour rester incontournable face à la menace que l'IA générative fait peser sur les éditeurs de logiciels classiques ; Anthropic gagne une vitrine massive auprès des grandes entreprises. Les petits éditeurs de logiciels sans partenariat IA fort risquent de paraître dépassés.",
+        "these_opposee": "Ce genre de partenariat \"stratégique\" reste souvent limité en usage réel les premiers mois : l'effet d'annonce dépasse fréquemment l'utilité concrète immédiate pour les clients.",
+        "action": "Aucune action directe pour Shopify, Salesforce n'étant pas ton outil. Retiens juste la tendance : les plateformes e-commerce (Shopify inclus) vont suivre le même chemin d'ici 12-24 mois — anticipe en te familiarisant dès maintenant avec les agents IA dans Claude Code.",
+        "sizing": "Faible",
+        "invalide_si": "Claudeforce est annoncé mais reste sans usage client concret documenté d'ici 6 mois.",
+        "source_name": "Digital Commerce 360",
+        "source_url": "https://www.digitalcommerce360.com/2026/08/27/salesforce-anthropic-claude-partnership-claudeforce/"
+      }
+    ],
+    "watchlist": [
+      "Les entreprises d'IA \"open-weight\" (qui donnent leurs modèles gratuitement) deviennent des cibles de rachat très prisées — TechCrunch.",
+      "Une cadre de Meta part chez OpenAI en pleine tension réglementaire en Inde — à suivre d'ici quelques semaines."
+    ],
+    "trending_repos": [
+      {
+        "nom": "deepseek-ai/deepseek-harness",
+        "type": "repo",
+        "quoi": "Un cadre logiciel (\"harness\") qui transforme tout, y compris le bureau lui-même, en plugin pour construire des agents IA.",
+        "pour_toi": "Juste bon à savoir : très technique, réservé aux développeurs qui construisent leurs propres agents IA, pas un outil clé-en-main pour une boutique.",
+        "popularite": "202 558 étoiles (un indicateur GitHub qui mesure combien de développeurs suivent le projet)",
+        "source_url": "https://github.com/deepseek-ai/deepseek-harness"
+      },
+      {
+        "nom": "guillaumemeyer/watermarks-remover",
+        "type": "repo",
+        "quoi": "Une application qui retire les filigranes (les marques invisibles que certains outils d'IA ajoutent) sur du contenu que tu possèdes déjà.",
+        "pour_toi": "À utiliser seulement sur tes propres créations IA, jamais sur du contenu qui ne t'appartient pas : retirer un filigrane sur le travail de quelqu'un d'autre pose un problème d'éthique et parfois de droit.",
+        "popularite": "19 133 étoiles",
+        "source_url": "https://github.com/guillaumemeyer/watermarks-remover"
+      },
+      {
+        "nom": "Lightricks/LTX-2.5",
+        "type": "modele",
+        "quoi": "Un modèle d'IA gratuit qui transforme une image fixe en vidéo courte.",
+        "pour_toi": "Tu peux transformer une simple photo produit en clip vidéo animé pour tes pubs Meta, sans tournage ni monteur.",
+        "popularite": "2 037 mentions \"j'aime\" et 912 729 téléchargements sur Hugging Face",
+        "source_url": "https://huggingface.co/Lightricks/LTX-2.5"
+      },
+      {
+        "nom": "Qwen/Qwen3.8-27B",
+        "type": "modele",
+        "quoi": "Un modèle d'IA généraliste (texte + image) très téléchargé cette semaine, développé par Alibaba.",
+        "pour_toi": "Juste bon à savoir pour l'instant : un modèle de fond utile aux développeurs, pas un produit fini que tu installerais toi-même.",
+        "popularite": "3,4 millions de téléchargements, 13 172 mentions \"j'aime\"",
+        "source_url": "https://huggingface.co/Qwen/Qwen3.8-27B"
+      },
+      {
+        "nom": "MiniMaxAI/MiniMax-H3",
+        "type": "modele",
+        "quoi": "Un modèle qui génère de la vidéo à partir de texte ou d'image, avec un contrôle fin du mouvement de caméra.",
+        "pour_toi": "Une autre option pour générer des créas vidéo produit sans tournage — à comparer avec LTX-2.5 selon le rendu sur tes propres visuels.",
+        "popularite": "4,8 millions de téléchargements, 4 590 mentions \"j'aime\"",
+        "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-H3"
+      }
+    ],
+    "autres_news": [
+      {
+        "titre": "Un juge fédéral confirme : le blacklistage d'Anthropic était illégal",
+        "en_clair": "Ars Technica détaille la même décision de justice : Anthropic avait refusé de développer des usages militaires létaux et de surveillance de masse, et l'administration l'a puni pour ça — un juge a dit non.",
+        "source_name": "Ars Technica",
+        "source_url": "https://arstechnica.com/tech-policy/2026/08/trump-blacklisting-of-woke-anthropic-deemed-illegal-by-federal-judge/"
+      },
+      {
+        "titre": "Meta limite l'enregistrement non consenti sur ses lunettes IA",
+        "en_clair": "Meta a ajouté une limite empêchant d'enregistrer discrètement quelqu'un en cachant le voyant lumineux de ses lunettes connectées, mais les risques pour la vie privée restent réels.",
+        "source_name": "Ars Technica",
+        "source_url": "https://arstechnica.com/tech-policy/2026/08/meta-tweaks-ai-glasses-to-block-some-creepy-recordings-but-privacy-risks-remain/"
+      },
+      {
+        "titre": "Deux membres du groupe de hackers TeamPCP arrêtés",
+        "en_clair": "Les autorités ont arrêté deux personnes liées à un groupe de pirates informatiques qui a infecté plus de 1 000 entreprises via des attaques de chaîne d'approvisionnement (en piégeant un fournisseur pour atteindre ses clients).",
+        "source_name": "Ars Technica",
+        "source_url": "https://arstechnica.com/security/2026/08/authorities-arrest-2-alleged-members-of-prolific-hacking-group-teampcp/"
+      },
+      {
+        "titre": "OpenAI coupe l'accès de Cursor à ses modèles après son rachat par SpaceX",
+        "en_clair": "OpenAI a décidé d'arrêter de fournir ses modèles à Cursor (un éditeur de code assisté par IA) maintenant que Cursor appartient à SpaceX, un concurrent stratégique dans l'IA.",
+        "source_name": "OpenAI Blog",
+        "source_url": "https://openai.com/index/our-decision-on-cursor-following-its-acquisition-by-spacex"
+      },
+      {
+        "titre": "Amazon améliore le stockage de données pour l'IA sur SageMaker",
+        "en_clair": "Amazon a ajouté deux nouvelles fonctions techniques à son service SageMaker Feature Store pour écrire et retrouver plus vite les données utilisées par des modèles d'IA — un détail technique réservé aux équipes data.",
+        "source_name": "AWS AI Blog",
+        "source_url": "https://aws.amazon.com/blogs/machine-learning/batch-write-and-discover-records-in-amazon-sagemaker-feature-store/"
+      },
+      {
+        "titre": "Decathlon utilise l'IA pour prévoir sa demande produit par produit",
+        "en_clair": "Le géant du sport Decathlon a amélioré de 11 à 15 points la précision de ses prévisions de demande grâce à un modèle d'IA nommé Chronos-2, tout en simplifiant son fonctionnement technique.",
+        "source_name": "AWS AI Blog",
+        "source_url": "https://aws.amazon.com/blogs/machine-learning/how-decathlon-runs-demand-forecasting-at-scale-with-chronos-2/"
+      },
+      {
+        "titre": "Salesforce répartit ses modèles d'IA sur plusieurs data centers pour éviter les pannes",
+        "en_clair": "Salesforce a utilisé une fonction d'Amazon SageMaker pour faire tourner ses modèles d'IA dans plusieurs zones géographiques en même temps, afin qu'une panne locale ne coupe jamais le service.",
+        "source_name": "AWS AI Blog",
+        "source_url": "https://aws.amazon.com/blogs/machine-learning/spreading-the-load-how-salesforce-met-multi-az-ha-with-sagemaker-inference-components/"
+      },
+      {
+        "titre": "\"Toutes les machines vont bientôt parler Claude\"",
+        "en_clair": "Un article de The Rundown AI décrit la tendance de fond : Claude devient le langage commun entre logiciels d'entreprise, une extension du mouvement Claudeforce vu avec Salesforce.",
+        "source_name": "The Rundown AI",
+        "source_url": "https://www.therundown.ai/articles/every-machine-is-about-to-speak-claude"
+      }
+    ]
+  },
+  "crypto": {
+    "phase": "Markup",
+    "recommandation": {
+      "verdict": "ACCUMULER",
+      "alts": "ATTENDRE",
+      "horizon": "2-4 semaines",
+      "raisonnement": "Phase de marché en Markup (hausse active) et flux d'échange faibles, mais le discours ferme du nouveau président de la Fed sur l'inflation fait planer un risque de hausse de taux en septembre. On ajoute sur les replis plutôt qu'au marché."
+    },
+    "trending_alts": [
+      {
+        "ticker": "SOL",
+        "nom": "Solana",
+        "theme": "Gouvernance et adoption institutionnelle",
+        "signal": "Le vote pour doubler la désinflation (réduire plus vite la création de nouveaux jetons SOL) est passé de justesse, le fonds Bitwise Solana ETF a dépassé le milliard de dollars d'encours en moins d'un an, et Charles Schwab ouvre le trading de SOL à ses clients.",
+        "verdict": "ACCUMULER",
+        "timing": "Cette semaine : suivre la mise en œuvre concrète du vote de désinflation"
+      },
+      {
+        "ticker": "ETH",
+        "nom": "Ethereum",
+        "theme": "Flux d'investissement institutionnel",
+        "signal": "Les fonds ETF Ethereum (des produits financiers réglementés qui permettent d'investir sans détenir directement la cryptomonnaie) ont attiré 226 millions de dollars en une seule journée, portant à 1,4 milliard sur 9 séances consécutives — leur meilleure séquence en 10 mois.",
+        "verdict": "ACCUMULER",
+        "timing": "À suivre sur les prochains jours de flux ETF pour confirmer la tendance"
+      },
+      {
+        "ticker": "XRP",
+        "nom": "XRP (Ripple)",
+        "theme": "Mise en bourse d'un véhicule d'investissement",
+        "signal": "Evernorth, une société qui détient un trésor de XRP pour le compte d'investisseurs (un \"XRP treasury\"), a reçu le feu vert du régulateur américain (la SEC) pour viser une cotation au Nasdaq, même si son stock de XRP vaut aujourd'hui moins que ce qu'elle a payé.",
+        "verdict": "SURVEILLER",
+        "timing": "En attente du vote des actionnaires d'Evernorth sur la cotation"
+      }
+    ],
+    "volume_vs_30d": "Le volume d'échange du jour est qualifié de \"faible\" par rapport à la moyenne des 30 derniers jours : le marché avance sans emballement, ce qui limite le risque d'un mouvement de prix brutal dans un sens comme dans l'autre.",
+    "score": {
+      "onchain": {
+        "value": 1,
+        "note": "Des portefeuilles bitcoin inactifs depuis 10 ans ont bougé 40 millions de dollars et ont surtout évité les plateformes d'échange — signe que ces détenteurs ne cherchent pas à vendre en panique."
+      },
+      "cycle": {
+        "value": 1,
+        "note": "Phase de marché détectée : Markup (phase haussière active). Le bitcoin a touché son plus haut niveau en 3 mois avant de souffler."
+      },
+      "macro": {
+        "value": -1,
+        "note": "Kevin Warsh, le nouveau président de la Fed (la banque centrale américaine), a tenu un discours ferme sur l'inflation à Jackson Hole : les marchés obligataires parient désormais sur une hausse des taux en septembre, un vent contraire pour les actifs à risque comme le bitcoin."
+      },
+      "sentiment": {
+        "value": 0,
+        "note": "L'indice Fear & Greed (peur et avidité, un thermomètre du sentiment des investisseurs de 0 à 100) est à 68 — Avidité — mais en léger repli par rapport à sa moyenne de 70 sur 7 jours."
+      },
+      "momentum": {
+        "value": -1,
+        "note": "Le bitcoin recule de 2,8% sur 24h et repasse sous 78 000 $ après le discours de Warsh ; la capitalisation totale du marché crypto perd 4,8% sur la même période."
+      }
+    },
+    "direction": "NEUTRE",
+    "magnitude": "faible",
+    "bear_case": "Si Warsh confirme une hausse de taux en septembre — une probabilité que les marchés obligataires jugent désormais élevée après son discours de Jackson Hole — le dollar et les rendements obligataires monteraient, ce qui pèserait sur le bitcoin. Une cassure sous 75 000 $ avec un volume d'échange en hausse invaliderait la lecture haussière de cycle. Une chute de l'indice Fear & Greed sous 40 signalerait un vrai retournement de sentiment.",
+    "signals": [
+      {
+        "conviction": 4,
+        "title": "LE NOUVEAU PATRON DE LA FED TIENT UN DISCOURS FERME SUR L'INFLATION",
+        "en_clair": "Kevin Warsh, le nouveau président de la banque centrale américaine, a dit que la lutte contre l'inflation n'était pas finie — les marchés parient maintenant sur une hausse des taux en septembre, ce qui a fait reculer le bitcoin.",
+        "fait": "Kevin Warsh, le nouveau président de la Fed (la banque centrale des États-Unis, qui fixe les taux d'intérêt), a prononcé son premier grand discours à Jackson Hole (un rendez-vous annuel où les banquiers centraux du monde entier expliquent leur politique). Il y a consacré une section entière à l'IA, la qualifiant de \"point de bascule de l'histoire\" pour son impact sur l'économie, mais le message retenu par les marchés est resté classique : l'inflation n'est pas encore maîtrisée, et la Fed \"a encore du travail à faire\". Il a volontairement évité de donner des indices précis sur la prochaine décision de taux, préférant un ton \"plus discret\" pour la banque centrale. Résultat : les marchés obligataires ont pris son discours au sérieux et ont revu à la hausse la probabilité d'une hausse des taux en septembre, ce qui a fait chuter l'or de 2,4% et le bitcoin sous les 78 000 $.",
+        "implication_2": "Concrètement, ça veut dire qu'une hausse des taux rendrait l'argent plus cher à emprunter partout dans l'économie, ce qui pousse généralement les investisseurs à vendre les actifs les plus risqués (actions technologiques, cryptomonnaies) pour se réfugier vers des placements plus sûrs et mieux rémunérés.",
+        "implication_3": "Les détenteurs d'obligations et le dollar profitent d'un discours de Fed crédible et ferme ; les investisseurs en cryptomonnaies et en or, eux, encaissent un vent contraire à court terme. Historiquement, un discours de Fed clair (même dur) rassure davantage les marchés qu'un flou prolongé.",
+        "these_opposee": "Warsh a soigneusement évité tout engagement ferme sur la prochaine décision : les marchés pourraient sur-réagir à un discours qui reste, au fond, prudent et ouvert.",
+        "action": "Pas de vente panique : la phase de cycle reste Markup (haussière). Si tu détiens du bitcoin, privilégie les achats sur repli plutôt qu'au marché d'ici la prochaine réunion de la Fed en septembre, et évite d'ouvrir de nouvelles positions à effet de levier.",
+        "sizing": "Moyen",
+        "invalide_si": "La Fed relève effectivement ses taux en septembre ET le bitcoin casse durablement sous 75 000 $ avec un volume d'échange en hausse.",
+        "source_name": "Decrypt",
+        "source_url": "https://decrypt.co/376821/fed-chair-warsh-ai-hinge-point-4-key-things"
+      },
+      {
+        "conviction": 3,
+        "title": "LE VOTE SOLANA POUR RALENTIR LA CRÉATION DE NOUVEAUX JETONS PASSE DE JUSTESSE",
+        "en_clair": "Les validateurs du réseau Solana ont voté pour créer moins de nouveaux jetons SOL à l'avenir (moins de dilution pour les détenteurs actuels), après un vote très serré presque bloqué par la plateforme Kraken.",
+        "fait": "Le réseau Solana (une blockchain concurrente d'Ethereum, connue pour sa rapidité) a voté en faveur d'une proposition appelée \"Double Disinflation\" : elle réduit plus vite le rythme de création de nouveaux jetons SOL, un mécanisme appelé \"désinflation\" (l'inverse de l'inflation monétaire classique — ici, on ralentit la dilution des détenteurs actuels). Le vote est passé d'une très courte majorité, dans un scénario dramatique où la plateforme d'échange Kraken a failli le faire échouer. Une seconde proposition, qui aurait détruit 800 000 $ de jetons par jour (un mécanisme de \"burn\" ou destruction), a en revanche échoué. Suite au vote, les investisseurs ont réagi positivement : le fonds Bitwise Solana ETF (un produit financier réglementé pour investir dans SOL) a franchi le milliard de dollars d'encours géré, une première pour un ETF Solana.",
+        "implication_2": "Concrètement, ça veut dire que moins de nouveaux jetons SOL seront créés à l'avenir : si la demande reste stable, ça devrait légèrement soutenir le prix de SOL sur le long terme, car chaque jeton existant représente une part un peu plus grande du réseau.",
+        "implication_3": "Les détenteurs actuels de SOL gagnent (moins de dilution), et les gestionnaires de fonds comme Bitwise gagnent en légitimité pour proposer plus de produits Solana. Les mineurs de jetons ou validateurs qui dépendaient des récompenses élevées voient leurs futurs revenus réduits.",
+        "these_opposee": "Un vote gagné \"de justesse\" montre une communauté divisée : la gouvernance de Solana reste politiquement fragile, ce qui peut freiner des investisseurs institutionnels prudents.",
+        "action": "Si tu détiens ou envisages du SOL, c'est un signal positif de gouvernance à moyen terme : pas d'urgence à agir, mais un bon moment pour suivre la mise en œuvre technique du changement dans les prochaines semaines.",
+        "sizing": "Faible",
+        "invalide_si": "La mise en œuvre technique du vote est retardée ou annulée par les développeurs du réseau.",
+        "source_name": "Decrypt",
+        "source_url": "https://decrypt.co/376825/solana-sol-disinflation-vote-passes"
+      },
+      {
+        "conviction": 3,
+        "title": "DES BITCOINS DORMANTS DEPUIS 10 ANS BOUGENT SANS PASSER PAR LES PLATEFORMES",
+        "en_clair": "Des détenteurs de bitcoin qui n'avaient rien fait depuis 10 ans ont déplacé 40 millions de dollars, mais sans les envoyer sur des plateformes d'échange — un signe qu'ils ne cherchent pas à vendre.",
+        "fait": "Des portefeuilles bitcoin restés totalement inactifs pendant 10 ans ont soudainement bougé, déplaçant l'équivalent de 40 millions de dollars. Ce type de mouvement inquiète souvent le marché, car un détenteur historique qui \"réveille\" ses pièces peut être en train de préparer une vente massive. Mais l'analyse on-chain (l'étude des transactions visibles publiquement sur la blockchain, le registre de toutes les transactions bitcoin) montre que la plupart de ces fonds ont évité les plateformes d'échange (comme Coinbase ou Binance) où ils auraient pu être vendus contre des dollars. Ce comportement suggère un simple déplacement vers un stockage plus sûr ou une réorganisation de portefeuille, plutôt qu'une intention de vendre.",
+        "implication_2": "Concrètement, ça veut dire que la crainte d'un afflux soudain de bitcoin à vendre sur le marché (ce qui ferait baisser le prix) est atténuée pour ce cas précis : l'argent ne semble pas se diriger vers une vente immédiate.",
+        "implication_3": "Les détenteurs de long terme (les \"HODLers\", ceux qui gardent leurs bitcoins sans les vendre) renforcent l'image d'un marché où l'offre disponible à la vente reste limitée, ce qui est structurellement favorable au prix si la demande se maintient.",
+        "these_opposee": "Éviter les grandes plateformes ne veut pas dire éviter de vendre : ces fonds peuvent tout aussi bien transiter par des échanges de gré à gré (OTC, des transactions privées entre grandes parties) invisibles pour les observateurs on-chain.",
+        "action": "Aucune action à prendre dans l'immédiat : c'est un signal d'ambiance à suivre plutôt qu'un déclencheur. Si tu veux approfondir, surveille les flux vers les plateformes d'échange dans les prochains jours pour voir si ces fonds finissent par y transiter.",
+        "sizing": "Faible",
+        "invalide_si": "Ces mêmes fonds réapparaissent sur une plateforme d'échange majeure dans les prochaines semaines, signalant une vente à venir.",
+        "source_name": "CoinDesk",
+        "source_url": "https://www.coindesk.com/markets/2026/08/28/bitcoin-wallets-untouched-for-10-years-moved-usd40-million-most-avoided-exchanges"
+      }
+    ],
+    "autres_news": [
+      {
+        "titre": "Le fonds Bitwise Solana ETF dépasse le milliard de dollars d'encours",
+        "en_clair": "Le premier fonds ETF Solana à franchir 1 milliard de dollars d'encours géré l'a fait en moins d'un an — un signe que les investisseurs institutionnels adoptent Solana comme le bitcoin ou l'ethereum.",
+        "source_name": "The Block",
+        "source_url": "https://www.theblock.co/news/markets/2026-08-28-bitwise-fund-is-first-solana-etf-to-hit-1-billion-aum-413035"
+      },
+      {
+        "titre": "SBI investit 270 millions de dollars dans la plateforme indonésienne Ajaib",
+        "en_clair": "Le groupe financier japonais SBI prend 20% du capital d'Ajaib pour développer un stablecoin (une cryptomonnaie dont la valeur est stable, ici indexée sur le yen) en Asie du Sud-Est.",
+        "source_name": "The Block",
+        "source_url": "https://www.theblock.co/news/deals/2026-08-28-sbi-holdings-invests-270-million-in-ajaib-taking-20-stake-amid-asia-digital-asset-push-413023"
+      },
+      {
+        "titre": "Le méga-projet IA d'IREN à 25-30 milliards de dollars inquiète les investisseurs",
+        "en_clair": "IREN, une entreprise qui minait du bitcoin et se convertit maintenant au cloud IA, voit son action reculer car les investisseurs doutent du coût de cette reconversion malgré des revenus IA déjà solides.",
+        "source_name": "The Block",
+        "source_url": "https://www.theblock.co/news/business/2026-08-28-irens-25-billion-30-billion-ai-buildout-may-have-spooked-investors-bernstein-says-413016"
+      },
+      {
+        "titre": "Les investisseurs des projets crypto liés à Trump perdent 4,7 milliards de dollars",
+        "en_clair": "Une association de défense des consommateurs (Public Citizen) rapporte que les investisseurs des projets crypto de la famille Trump sont collectivement dans le rouge, alors que Trump lui-même aurait gagné 1,4 milliard de dollars.",
+        "source_name": "The Block",
+        "source_url": "https://www.theblock.co/news/business/2026-08-28-investors-at-least-4-7-billion-underwater-across-trump-crypto-ventures-public-citizen-says-413003"
+      },
+      {
+        "titre": "240 Britanniques ont déclaré plus d'un million de livres de gains en crypto",
+        "en_clair": "Les données fiscales britanniques montrent que 240 personnes ont déclaré chacune plus d'un million de livres de gains en cryptomonnaies, signe que le fisc britannique surveille de plus près ce type de revenus.",
+        "source_name": "The Block",
+        "source_url": "https://www.theblock.co/news/regulation/2026-08-28-uk-tax-crypto-capital-gains-412993"
+      },
+      {
+        "titre": "Des utilisateurs de Kraken brièvement bloqués après un afflux de transactions sanctionnées",
+        "en_clair": "La plateforme d'échange Kraken a temporairement bloqué certains utilisateurs après avoir détecté une vague de transactions liées à des adresses sous sanctions internationales.",
+        "source_name": "CoinDesk",
+        "source_url": "https://www.coindesk.com/business/2026/08/28/kraken-users-briefly-locked-out-after-a-flood-of-sanctioned-crypto-transactions"
+      },
+      {
+        "titre": "Le bitcoin se négocie avec une prime sur Coinbase, du jamais vu depuis longtemps",
+        "en_clair": "Le bitcoin coûte légèrement plus cher sur la plateforme Coinbase que sur les autres, un signal que les investisseurs américains achètent plus agressivement que le reste du monde en ce moment.",
+        "source_name": "CoinDesk",
+        "source_url": "https://www.coindesk.com/markets/2026/08/28/bitcoin-is-trading-at-a-premium-on-coinbase-after-a-long-time"
+      },
+      {
+        "titre": "Charles Schwab élargit son offre crypto au-delà du bitcoin et de l'ethereum",
+        "en_clair": "Le courtier américain Charles Schwab va permettre à ses clients d'acheter aussi du Solana, de l'Avalanche et du Chainlink, sans encore donner de date de lancement précise.",
+        "source_name": "Decrypt",
+        "source_url": "https://decrypt.co/376819/charles-schwab-crypto-trading-bitcoin-ethereum-solana"
+      },
+      {
+        "titre": "Evernorth, une société détenant du XRP, se rapproche d'une cotation au Nasdaq",
+        "en_clair": "Le régulateur américain (la SEC) a donné son feu vert à Evernorth pour organiser un vote d'actionnaires en vue d'une cotation en bourse, même si son stock de XRP a perdu de la valeur depuis son achat.",
+        "source_name": "Decrypt",
+        "source_url": "https://decrypt.co/376840/xrp-treasury-evernorths-clears-sec-nasdaq"
+      },
+      {
+        "titre": "La police britannique saisit 1,4 million de dollars de bitcoin lié à des marchés du dark web",
+        "en_clair": "Des bitcoins liés à d'anciennes places de marché clandestines actives entre 2016 et 2019 ont été saisis par la police britannique, leur détenteur étant décédé avant la confiscation.",
+        "source_name": "Decrypt",
+        "source_url": "https://decrypt.co/376797/uk-police-seize-1-4m-in-bitcoin-traced-to-shuttered-darknet-markets"
+      }
+    ]
+  },
+  "market": {
+    "recession_indicators": {
+      "courbe_taux": {
+        "status": "yellow",
+        "note": "Écart taux 10 ans/2 ans à 0,39 point contre 0,47 la semaine dernière — se resserre, pas encore inversé."
+      },
+      "emploi": {
+        "status": "green",
+        "note": "Inscriptions au chômage en baisse : 203 000 contre 207 000 la semaine précédente — marché de l'emploi solide."
+      },
+      "ism_manuf": {
+        "status": "yellow",
+        "note": "Pas de nouvelle publication cette semaine ; l'incertitude tarifaire (dossier Canada) pèse sur l'industrie US."
+      },
+      "ism_services": {
+        "status": "green",
+        "note": "Secteur le plus dynamique en bourse aujourd'hui (+1,43%) — les services résistent mieux que l'industrie."
+      },
+      "conso_conf": {
+        "status": "green",
+        "note": "Indice de confiance des consommateurs à 55,2 contre 49,5 le mois dernier — nette amélioration du moral des ménages."
+      },
+      "credit_spread": {
+        "status": "green",
+        "note": "Écart de crédit \"high yield\" stable à 6,96 points de base contre 7,0 — aucun stress de crédit visible."
+      },
+      "earnings_rev": {
+        "status": "green",
+        "note": "Microsoft signe sa plus longue série de hausses de l'année et Salesforce bat ses attentes ce trimestre."
+      },
+      "pmi_composite": {
+        "status": "yellow",
+        "note": "Pas de publication cette semaine ; climat mixte entre services solides et industrie sous pression tarifaire."
+      },
+      "retail_sales": {
+        "status": "yellow",
+        "note": "Confiance des ménages en hausse, mais les remises tarifaires profitent aux marges des enseignes, pas aux clients."
+      },
+      "housing": {
+        "status": "yellow",
+        "note": "Mises en chantier à 1 239 000 contre 1 415 000 le mois précédent, prix médian en repli à 393 800 $ contre 403 100 $."
+      }
+    },
+    "recession_score": 2.5,
+    "regime": "Risk-on",
+    "regime_justification": "Les actions américaines sont proches de leurs plus hauts : le S&P 500 et le Nasdaq progressent, et le VIX (l'indice de la peur, qui mesure la volatilité attendue par les investisseurs) est très bas à 14,4 — signe d'une grande confiance, presque de la complaisance. Le nouveau président de la Fed (la banque centrale américaine), Kevin Warsh, a pourtant tenu un discours ferme sur l'inflation à Jackson Hole, ouvrant la porte à une hausse des taux en septembre. L'argent continue donc d'aller vers les actifs risqués (actions, bitcoin), mais la marge de sécurité s'amenuise si la Fed agit vraiment.",
+    "signals": [
+      {
+        "conviction": 4,
+        "title": "LE NOUVEAU PATRON DE LA FED SIGNALE UNE POSSIBLE HAUSSE DES TAUX",
+        "en_clair": "Kevin Warsh, le nouveau président de la banque centrale américaine, a dit que la Fed \"a encore du travail à faire\" contre l'inflation — le marché obligataire lui fait confiance et parie sur une hausse des taux en septembre.",
+        "fait": "Kevin Warsh a prononcé son premier grand discours en tant que président de la Fed (la banque centrale américaine, qui fixe les taux d'intérêt du pays) lors du symposium annuel de Jackson Hole. Le message central : l'inflation n'est pas encore sous contrôle, et la banque centrale doit rester ferme plutôt que de baisser sa garde. Il a par ailleurs consacré une section entière de son discours à l'IA, la qualifiant de \"point de bascule de l'histoire\" pour son poids grandissant sur l'économie. Fait notable : les marchés obligataires (où s'échangent les emprunts d'État, un bon indicateur de la crédibilité perçue d'un banquier central) ont pris son discours au sérieux, ce qui est considéré comme une réussite pour un nouveau président de la Fed. Résultat immédiat : les paris sur une hausse des taux en septembre ont augmenté, l'or a chuté de 2,4% et les actions américaines ont pourtant terminé en légère hausse.",
+        "implication_2": "Concrètement, ça veut dire qu'emprunter de l'argent (crédit immobilier, prêt professionnel, carte de crédit) pourrait redevenir plus cher dans les mois qui viennent si la Fed relève effectivement ses taux, ce qui ralentirait la consommation des ménages américains.",
+        "implication_3": "Les épargnants qui placent leur argent sur des livrets ou obligations à taux fixe profiteraient de meilleurs rendements ; les entreprises endettées et les acheteurs immobiliers à crédit, eux, en pâtiraient. Pour le e-commerce, un ralentissement de la consommation américaine toucherait en premier les boutiques qui vendent aux États-Unis.",
+        "these_opposee": "Warsh a soigneusement évité tout engagement ferme sur la date ou l'ampleur d'une hausse : le marché pourrait sur-interpréter un discours qui reste, au fond, prudent.",
+        "action": "Si tu vends aux États-Unis, surveille tes taux de conversion sur les campagnes Meta ciblant ce marché d'ici la réunion de la Fed en septembre : un discours plus dur que prévu pourrait peser sur le moral d'achat des consommateurs américains.",
+        "sizing": "Moyen",
+        "invalide_si": "La Fed ne relève pas ses taux en septembre malgré ce discours, ou revient sur son ton ferme dans les semaines suivantes.",
+        "source_name": "CNBC",
+        "source_url": "https://www.cnbc.com/2026/08/28/kevin-warsh-jackson-hole-federal-reserve-inflation.html"
+      },
+      {
+        "conviction": 3,
+        "title": "LES ÉTATS-UNIS PRENNENT LE CONTRÔLE DE 65 MILLIARDS DE BARILS DE PÉTROLE VÉNÉZUÉLIEN",
+        "en_clair": "Donald Trump a annoncé un accord permettant aux États-Unis de contrôler d'immenses réserves de pétrole vénézuélien, censé faire baisser le prix de l'essence pour les Américains.",
+        "fait": "Le président américain Donald Trump a annoncé un accord \"historique\" avec le Venezuela donnant aux États-Unis le contrôle de 65 milliards de barils de réserves pétrolières, dans le cadre d'une coentreprise (une structure commune entre les deux pays) censée faire baisser le prix de l'essence pour les automobilistes américains. La présidente par intérim du Venezuela présente cet accord comme un moyen de relancer l'économie de son pays. En parallèle, le prix du pétrole a reculé de 1,9% sur la journée, en partie parce que les exportations de la région du Golfe Persique semblent avoir retrouvé environ deux tiers de leur niveau d'avant-guerre, ce qui détend l'offre mondiale de pétrole.",
+        "implication_2": "Concrètement, ça veut dire qu'un prix du pétrole plus bas ferait baisser les coûts de transport et de logistique un peu partout dans l'économie mondiale, y compris pour l'expédition de marchandises e-commerce.",
+        "implication_3": "Les consommateurs américains gagneraient du pouvoir d'achat sur l'essence, ce qui pourrait légèrement soutenir leurs autres dépenses. Les producteurs de pétrole établis (Arabie saoudite, Russie) perdent en influence si le Venezuela redevient un acteur pétrolier majeur sous contrôle américain.",
+        "these_opposee": "Ce type d'accord géopolitique met souvent des années à se concrétiser sur le terrain : l'effet réel sur le prix de l'essence pourrait être beaucoup plus lent et modeste que l'annonce ne le laisse penser.",
+        "action": "Aucune action e-commerce directe à court terme. Si tu vends aux États-Unis, un carburant moins cher sur plusieurs mois serait un vent favorable pour le pouvoir d'achat de tes clients américains — à garder en tête pour le budget publicitaire du dernier trimestre.",
+        "sizing": "Faible",
+        "invalide_si": "L'accord est bloqué par le Congrès américain ou par une contestation politique au Venezuela dans les prochains mois.",
+        "source_name": "BBC Business",
+        "source_url": "https://www.bbc.co.uk/news/articles/cx2zlwe7qj1o?at_medium=RSS&at_campaign=rss"
+      },
+      {
+        "conviction": 3,
+        "title": "MICROSOFT SIGNE SA PLUS LONGUE SÉRIE DE HAUSSES DE L'ANNÉE",
+        "en_clair": "L'action Microsoft enchaîne sa plus longue série de hausses de l'année, les investisseurs étant rassurés que ses logiciels restent indispensables pour l'IA malgré les craintes sur les dépenses du secteur.",
+        "fait": "L'action Microsoft a enchaîné sa plus longue série de séances en hausse de l'année, alors que les craintes sur les dépenses excessives des entreprises en logiciels d'IA (dites \"AI software fears\") commencent à s'estomper chez les investisseurs. Un analyste souligne que les capacités logicielles de Microsoft (notamment via Azure, son service de cloud, et sa suite Office intégrant l'IA) seront critiques pour l'adoption de l'IA en entreprise dans les années à venir, ce qui justifie sa valorisation boursière. Ce rebond s'inscrit dans un contexte plus large où Salesforce a lui aussi rassuré le marché ce trimestre en qualifiant de \"nonsense\" (absurdité) l'idée d'une \"SaaSpocalypse\" — la crainte que l'IA générative rende obsolètes les logiciels par abonnement classiques.",
+        "implication_2": "Concrètement, ça veut dire que les investisseurs commencent à faire la différence entre les entreprises qui dépensent pour l'IA sans retour visible, et celles comme Microsoft ou Salesforce qui montrent des résultats financiers concrets grâce à l'IA.",
+        "implication_3": "Les grands éditeurs de logiciels établis (Microsoft, Salesforce) regagnent la confiance des marchés, ce qui pourrait réduire la pression sur leurs budgets IA. Les startups qui promettaient de \"tuer\" ces logiciels avec l'IA générative doivent maintenant prouver un avantage concret, pas seulement une promesse.",
+        "these_opposee": "Une série de hausses boursières ne prouve pas que les revenus IA de Microsoft sont durables : une bonne partie de l'optimisme reste spéculative tant que les chiffres d'utilisation réelle ne sont pas détaillés.",
+        "action": "Aucune action e-commerce directe. Si tu es aussi investisseur en actions, ce regain de confiance sur les \"gagnants durables\" de l'IA (plutôt que toutes les valeurs IA sans distinction) est une lecture à garder en tête pour filtrer tes prochains choix.",
+        "sizing": "Faible",
+        "invalide_si": "Microsoft publie des chiffres d'usage IA décevants lors de son prochain trimestre, cassant la dynamique.",
+        "source_name": "MarketWatch",
+        "source_url": "https://www.marketwatch.com/story/microsofts-stock-seals-its-longest-winning-streak-of-the-year-as-ai-software-fears-fade-e5669f5b?mod=mw_rss_topstories"
+      }
+    ],
+    "autres_news": [
+      {
+        "titre": "L'or plonge après le discours ferme de Warsh sur l'inflation",
+        "en_clair": "Le prix de l'or a chuté de 2,4% car le discours de Warsh a fait grimper les paris sur une hausse des taux, ce qui rend l'or (qui ne rapporte pas d'intérêts) moins attractif face aux obligations.",
+        "source_name": "Seeking Alpha",
+        "source_url": "https://seekingalpha.com/news/4638021-gold-plunges-as-warshs-jackson-hole-inflation-concerns-spark-rate-hike-bets?utm_source=feed_news_all&utm_medium=referral&feed_item_type=news"
+      },
+      {
+        "titre": "Salesforce bat ses attentes et écarte la crainte d'une \"SaaSpocalypse\"",
+        "en_clair": "Le PDG de Salesforce a qualifié d'absurde l'idée que l'IA générative rendrait ses logiciels obsolètes, appuyant ses propos sur des résultats trimestriels meilleurs que prévu.",
+        "source_name": "Yahoo Finance",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/saaspocalypse-nonsense-says-salesforce-ceo-040100123.html"
+      },
+      {
+        "titre": "Nvidia a exclu la Chine de ses prévisions de revenus, sans casser sa dynamique",
+        "en_clair": "Nvidia n'a pas compté les revenus potentiels de ses centres de données en Chine dans ses prévisions de 108 milliards de dollars, ce qui pose la question de sa croissance si ce marché reste fermé.",
+        "source_name": "Yahoo Finance",
+        "source_url": "https://finance.yahoo.com/technology/articles/nvidia-nvda-excluded-china-data-032951004.html"
+      },
+      {
+        "titre": "Le risque d'une nouvelle ère de \"répression financière\" grandit selon le Financial Times",
+        "en_clair": "Les gouvernements pourraient de plus en plus forcer les investisseurs à détenir de la dette publique, une pratique appelée \"répression financière\" qui limite les rendements pour financer les déficits.",
+        "source_name": "FT Markets",
+        "source_url": "https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f?syn-25a6b1a6=1"
+      },
+      {
+        "titre": "L'industrie allemande demande à son gouvernement d'être plus ferme avec la Chine",
+        "en_clair": "Les industriels allemands font pression sur le chancelier Merz pour durcir la politique commerciale envers la Chine, signe de tensions commerciales persistantes en Europe.",
+        "source_name": "Yahoo Finance",
+        "source_url": "https://finance.yahoo.com/news/german-industry-presses-merz-tougher-050335957.html"
+      },
+      {
+        "titre": "La Turquie durcit ses règles sur les fonds spéculatifs",
+        "en_clair": "La Turquie renforce l'encadrement des fonds spéculatifs (hedge funds) face à des craintes de manipulation de marché, un signal de nervosité réglementaire dans le pays.",
+        "source_name": "Investing.com",
+        "source_url": "https://www.investing.com/news/stock-market-news/turkey-tightens-hedge-fund-rules-amid-concerns-over-market-manipulation-4881956"
+      },
+      {
+        "titre": "Airbus cherche à vendre sa division spatiale américaine",
+        "en_clair": "Airbus envisage de céder son activité spatiale aux États-Unis après avoir annoncé un accord avec Leonardo et Thales, un recentrage vers des satellites construits en Europe.",
+        "source_name": "FT Markets",
+        "source_url": "https://www.ft.com/content/130a5c43-f7cd-4317-95b8-fe7bc446ec51?syn-25a6b1a6=1"
+      },
+      {
+        "titre": "Dunkin' fait son retour sur un grand marché après 12 ans d'absence",
+        "en_clair": "La chaîne de beignets et cafés Dunkin' revient sur un marché majeur qu'elle avait quitté il y a 12 ans, signe de son ambition d'expansion renouvelée.",
+        "source_name": "Yahoo Finance",
+        "source_url": "https://finance.yahoo.com/small-business/articles/dunkin-comes-back-major-market-161700314.html"
+      }
+    ]
+  },
+  "deeptech": {
+    "signals": [
+      {
+        "conviction": 2,
+        "title": "DES CHERCHEURS RENDENT LES ORDINATEURS QUANTIQUES À ATOMES PLUS FIABLES",
+        "en_clair": "Une étude propose une technique pour réduire les erreurs des ordinateurs quantiques construits avec des atomes individuels — un des obstacles majeurs qui empêche cette technologie d'être utile aujourd'hui.",
+        "fait": "Une équipe de recherche a publié une étude (encore un \"preprint\", c'est-à-dire une publication scientifique pas encore relue et validée par d'autres experts indépendants) sur les \"portes de Rydberg\" (Rydberg gates) — un composant de base des ordinateurs quantiques qui utilisent des atomes individuels piégés par laser (une des approches concurrentes du calcul quantique, différente des puces supraconductrices de Google ou IBM). Le problème visé : ces portes logiques quantiques (l'équivalent des transistors dans un ordinateur classique) souffrent d'erreurs causées par de petites imprécisions de fréquence laser, ce qui limite la fiabilité des calculs. L'étude propose une méthode rendant ces portes plus robustes à ce type d'erreur, sur la base de simulations théoriques — pas encore d'une démonstration sur une vraie machine.",
+        "implication_2": "Concrètement, ça veut dire qu'un des obstacles techniques qui empêche les ordinateurs quantiques d'être utiles pour de vrais problèmes (au-delà des démonstrations en laboratoire) recule un peu — mais on parle encore d'années avant un usage commercial.",
+        "implication_3": "Les entreprises qui misent sur le calcul quantique à atomes (comme QuEra ou Pasqal, des startups spécialisées) bénéficient indirectement de ce type de recherche académique. Les approches concurrentes (puces supraconductrices, photoniques) ne sont pas concernées par cette avancée précise.",
+        "these_opposee": "Ce n'est qu'une simulation théorique non relue par des pairs : l'écart entre \"ça marche sur le papier\" et \"ça marche sur une vraie machine quantique\" est historiquement immense dans ce domaine.",
+        "action": "Aucune action à court terme, c'est un horizon d'investissement de 10 ans ou plus. Si le sujet t'intéresse en tant qu'investisseur, retiens les tickers boursiers du secteur (IonQ, D-Wave) pour une veille de long terme, sans y mettre d'argent sur ce seul signal.",
+        "sizing": "Faible",
+        "invalide_si": "Une équipe indépendante ne parvient pas à reproduire la robustesse annoncée sur une machine réelle dans les 2-3 prochaines années.",
+        "source_name": "arXiv — Quantique",
+        "source_url": "http://arxiv.org/abs/2608.27426v1",
+        "horizon": "10+",
+        "credibilite_score": 1,
+        "peer_reviewed": false,
+        "peer_reviewed_detail": "Preprint arXiv, pas encore relu par des experts indépendants",
+        "financement": false,
+        "financement_detail": "",
+        "prototype": false,
+        "prototype_detail": "Résultats de simulation théorique uniquement, aucune démonstration matérielle publique",
+        "adoption": false,
+        "adoption_detail": "",
+        "investissement_cotes": [
+          "IONQ",
+          "QBTS"
+        ],
+        "investissement_etf": [],
+        "investissement_early": []
+      },
+      {
+        "conviction": 2,
+        "title": "UNE NOUVELLE MÉTHODE RÉDUIT LE COÛT DE PROGRAMMATION DES ORDINATEURS QUANTIQUES",
+        "en_clair": "Des chercheurs proposent une façon plus efficace de traduire des problèmes classiques en instructions pour ordinateur quantique, ce qui pourrait rendre ces machines exploitables plus tôt que prévu.",
+        "fait": "Une étude (preprint arXiv, non encore relu par des pairs) propose une méthode pour traduire plus efficacement des spécifications logiques classiques (des calculs \"normaux\") en circuits quantiques réversibles — l'équivalent, pour un ordinateur quantique, d'écrire un programme utilisable par la machine. Le problème identifié : les algorithmes quantiques promettent des avantages que les ordinateurs classiques ne peuvent pas atteindre, mais faire tourner ces algorithmes sur du matériel quantique \"corrigé d'erreurs\" (une étape technique encore hors de portée aujourd'hui) demande énormément de ressources de calcul pour la traduction elle-même. Les auteurs montrent une façon de réduire ce coût de traduction, ce qui rapproche (un peu) la théorie de la pratique.",
+        "implication_2": "Concrètement, ça veut dire que même quand le matériel quantique sera prêt (dans plusieurs années), il faudra aussi des méthodes efficaces comme celle-ci pour transformer un problème réel en instructions exploitables par la machine — ce n'est pas automatique.",
+        "implication_3": "Les équipes de recherche en \"compilation quantique\" (la traduction de programmes vers du matériel quantique) gagnent un outil de plus ; les fabricants de matériel quantique bénéficient indirectement d'un écosystème logiciel qui progresse en parallèle du matériel.",
+        "these_opposee": "Sans matériel quantique corrigé d'erreurs disponible (probablement pas avant 10 ans), ce type d'avancée logicielle reste un exercice théorique sans application pratique immédiate.",
+        "action": "Aucune action concrète à ce stade, horizon de très long terme. À classer comme une brique technique parmi d'autres dans la course au calcul quantique, sans conséquence sur ton activité.",
+        "sizing": "Faible",
+        "invalide_si": "Le matériel quantique corrigé d'erreurs n'atteint jamais l'échelle nécessaire pour exploiter ce type de méthode, rendant la recherche purement académique.",
+        "source_name": "arXiv — Quantique",
+        "source_url": "http://arxiv.org/abs/2608.27430v1",
+        "horizon": "10+",
+        "credibilite_score": 1,
+        "peer_reviewed": false,
+        "peer_reviewed_detail": "Preprint arXiv, pas encore relu par des experts indépendants",
+        "financement": false,
+        "financement_detail": "",
+        "prototype": false,
+        "prototype_detail": "",
+        "adoption": false,
+        "adoption_detail": "",
+        "investissement_cotes": [],
+        "investissement_etf": [],
+        "investissement_early": []
+      },
+      {
+        "conviction": 2,
+        "title": "L'INFORMATIQUE QUANTIQUE S'INVITE DANS LA RECHERCHE SUR LES PROTÉINES",
+        "en_clair": "Des chercheurs testent l'idée d'utiliser des ordinateurs quantiques pour mieux comprendre la forme des protéines — une piste qui pourrait, très à long terme, accélérer la découverte de nouveaux médicaments.",
+        "fait": "Une étude (preprint arXiv, non encore relu par des pairs) propose un cadre utilisant des circuits quantiques pour calculer l'énergie de différentes formes possibles d'une protéine (un \"ensemble\" de configurations). Les protéines occupent des paysages énergétiques complexes : elles peuvent adopter de nombreuses formes différentes, et trouver les formes les plus stables (celles vers lesquelles elles convergent naturellement) est un calcul extrêmement lourd, aujourd'hui fait avec des simulations classiques coûteuses en temps de calcul (\"dynamique moléculaire\"). L'idée : un ordinateur quantique pourrait un jour accélérer ce type de calcul. C'est une piste théorique, sans démonstration sur du matériel quantique réel pour l'instant.",
+        "implication_2": "Concrètement, ça veut dire que si cette piste aboutit un jour, elle pourrait accélérer la recherche de nouveaux médicaments : comprendre comment une protéine se plie est une étape clé pour concevoir des traitements qui s'y accrochent correctement.",
+        "implication_3": "Les laboratoires pharmaceutiques qui investissent déjà dans le calcul quantique (comme certains partenariats entre grandes entreprises pharma et startups quantiques) gagneraient un avantage si cette piste se confirme. Les biotechs qui misent uniquement sur l'IA classique pour la découverte de médicaments pourraient devoir surveiller cette convergence.",
+        "these_opposee": "Le calcul quantique appliqué à la biologie reste, à ce stade, une promesse répétée depuis des années sans percée pratique : la distance entre la théorie et un vrai médicament découvert de cette façon est immense.",
+        "action": "Aucune action concrète aujourd'hui, horizon de plus de 10 ans. À noter comme thème d'investissement de très long terme si tu veux diversifier une petite poche spéculative vers l'informatique quantique appliquée à la santé, sans conviction forte pour l'instant.",
+        "sizing": "Faible",
+        "invalide_si": "Aucune startup ou laboratoire ne démontre de résultat quantique appliqué à une vraie protéine sur du matériel réel d'ici 5 ans.",
+        "source_name": "arXiv — Biotech",
+        "source_url": "http://arxiv.org/abs/2608.05491v1",
+        "horizon": "10+",
+        "credibilite_score": 1,
+        "peer_reviewed": false,
+        "peer_reviewed_detail": "Preprint arXiv, pas encore relu par des experts indépendants",
+        "financement": false,
+        "financement_detail": "",
+        "prototype": false,
+        "prototype_detail": "",
+        "adoption": false,
+        "adoption_detail": "",
+        "investissement_cotes": [],
+        "investissement_etf": [],
+        "investissement_early": [
+          "Startups combinant calcul quantique et découverte de médicaments — aucun nom cité dans l'étude, à surveiller"
+        ]
+      }
+    ],
+    "autres_news": [
+      {
+        "titre": "Une méthode pour \"lire\" l'empreinte spectrale des théories de jauge sur ordinateur quantique",
+        "en_clair": "Des chercheurs montrent comment extraire des informations physiques détaillées d'un ordinateur quantique sans le biaiser, une brique technique pour la simulation de physique fondamentale.",
+        "source_name": "arXiv — Quantique",
+        "source_url": "http://arxiv.org/abs/2608.27457v1"
+      },
+      {
+        "titre": "Une nouvelle façon de calculer la réponse de systèmes quantiques complexes",
+        "en_clair": "Une étude propose une méthode pour calculer exactement certaines réponses physiques de systèmes quantiques rares, habituellement très difficiles à obtenir même en théorie.",
+        "source_name": "arXiv — Quantique",
+        "source_url": "http://arxiv.org/abs/2608.27446v1"
+      },
+      {
+        "titre": "Comment l'information se propage dans des circuits quantiques aléatoires",
+        "en_clair": "Une recherche affine la façon de mesurer comment l'information se \"brouille\" dans les systèmes quantiques complexes, un sujet lié à la thermalisation et au chaos quantique.",
+        "source_name": "arXiv — Quantique",
+        "source_url": "http://arxiv.org/abs/2608.27440v1"
+      },
+      {
+        "titre": "Une limite théorique sur la fiabilité des approximations utilisées en calcul quantique",
+        "en_clair": "Des chercheurs déterminent combien de temps on peut faire confiance à une méthode d'approximation courante en dynamique quantique avant qu'elle ne devienne trompeuse.",
+        "source_name": "arXiv — Quantique",
+        "source_url": "http://arxiv.org/abs/2608.27399v1"
+      },
+      {
+        "titre": "Un pas de plus vers une cryptographie quantique plus simple à vérifier",
+        "en_clair": "Une étude montre qu'on peut certifier du hasard vraiment aléatoire (utile pour le chiffrement) avec des appareils quantiques moins contraignants que ce qu'on pensait nécessaire.",
+        "source_name": "arXiv — Quantique",
+        "source_url": "http://arxiv.org/abs/2608.27357v1"
+      },
+      {
+        "titre": "Le chaos quantique étudié sous un nouvel angle mathématique",
+        "en_clair": "Des chercheurs relient deux domaines mathématiques différents pour mieux décrire le chaos dans les systèmes quantiques, là où les outils classiques ne suffisent plus.",
+        "source_name": "arXiv — Quantique",
+        "source_url": "http://arxiv.org/abs/2608.27350v1"
+      },
+      {
+        "titre": "Comment les amas de protéines vieillissent et changent de texture",
+        "en_clair": "Une étude modélise comment certains regroupements de molécules dans nos cellules passent d'un état fluide à un état plus solide en vieillissant, un phénomène lié à des maladies neurodégénératives.",
+        "source_name": "arXiv — Biotech",
+        "source_url": "http://arxiv.org/abs/2608.23076v2"
+      },
+      {
+        "titre": "Pourquoi certains motifs génétiques sont plus fréquents que d'autres",
+        "en_clair": "Une recherche explique, grâce à la théorie de l'information, pourquoi certains circuits de régulation génétique reviennent plus souvent que d'autres dans les bactéries et la levure.",
+        "source_name": "arXiv — Biotech",
+        "source_url": "http://arxiv.org/abs/2608.17699v1"
+      },
+      {
+        "titre": "Comment les protéines évoluent vers des formes stables et efficaces",
+        "en_clair": "Une étude sur un modèle simplifié montre comment la sélection naturelle façonne, au fil du temps, des protéines qui se replient facilement vers une forme utile.",
+        "source_name": "arXiv — Biotech",
+        "source_url": "http://arxiv.org/abs/2608.01143v2"
+      }
+    ]
+  },
+  "ecommerce": {
+    "tendance_globale": "Les actions du secteur s'envolent (Klaviyo +9,9%, Amazon +3%, Shopify +2,5%) sauf PayPal qui chute de 12,8%. En coulisses, l'IA s'installe partout dans le commerce en ligne : Amazon revoit son classement de vendeurs autour de l'IA, Salesforce et Anthropic lancent Claudeforce, et un nouveau protocole (WebMCP) laisse des agents IA agir directement sur les sites marchands, Shopify inclus.",
+    "outils": [
+      {
+        "nom": "Lightricks LTX-2.5",
+        "categorie": "video",
+        "quoi": "Un modèle d'IA gratuit qui transforme une image fixe en vidéo courte et fluide.",
+        "pour_toi": "Transforme tes photos produit en clips animés pour tes pubs Meta, sans tournage ni monteur externe à payer.",
+        "comment_tester": "Ouvre la page du modèle sur Hugging Face, teste-le sur une photo produit existante via l'espace de démonstration en ligne, compare le résultat à ta dernière créa vidéo.",
+        "gratuit": true,
+        "source_name": "Hugging Face",
+        "source_url": "https://huggingface.co/Lightricks/LTX-2.5"
+      },
+      {
+        "nom": "video-shotcraft",
+        "categorie": "skill_claude",
+        "quoi": "Un skill (module d'extension) pour Claude Code qui génère des vidéos produit cinématographiques avec des plans et mouvements de caméra prédéfinis.",
+        "pour_toi": "Génère une pub vidéo produit avec de vrais choix de cadrage professionnels directement depuis Claude Code, sans compétence en montage.",
+        "comment_tester": "Clone le repo GitHub, installe le skill dans Claude Code en suivant le README, lance-le sur une fiche produit de ta boutique pour voir le rendu.",
+        "gratuit": true,
+        "source_name": "GitHub",
+        "source_url": "https://github.com/Vincentwei1021/video-shotcraft"
+      },
+      {
+        "nom": "Meta Ads Designer",
+        "categorie": "pub",
+        "quoi": "Un outil qui apprend aux agents IA (ChatGPT, Claude, Cursor) à concevoir de belles publicités Meta/Instagram/Facebook au bon format.",
+        "pour_toi": "Demande directement à Claude de te générer des maquettes de pub Meta au format 4:5 pour tes prochaines campagnes, sans designer.",
+        "comment_tester": "Clone le repo, lis la documentation du prompt fourni, demande à Claude Code de générer une maquette pour ton produit phare actuel.",
+        "gratuit": true,
+        "source_name": "GitHub",
+        "source_url": "https://github.com/aievolutionpl/meta-ads-designer"
+      },
+      {
+        "nom": "dsh-toolbox",
+        "categorie": "produit_gagnant",
+        "quoi": "Une boîte à outils locale pour la recherche de produits, le routage de contexte et la vérification de compatibilité entre plugins IA.",
+        "pour_toi": "Un point de départ technique si tu veux automatiser une partie de ta veille produit avec des scripts plutôt qu'un outil payant tout fait.",
+        "comment_tester": "Clone le repo, lis le README pour identifier le module de recherche produit, lance-le sur une niche que tu connais déjà pour comparer les résultats.",
+        "gratuit": true,
+        "source_name": "GitHub",
+        "source_url": "https://github.com/HiWhaleW/dsh-toolbox"
+      },
+      {
+        "nom": "MerchantBench",
+        "categorie": "analyse_marche",
+        "quoi": "Un référentiel de test qui évalue, sur 365 jours de données, la cohérence d'agents IA gérant une boutique en ligne côté vendeur.",
+        "pour_toi": "Utile pour évaluer un futur agent IA avant de lui confier la gestion d'une partie de ta boutique (stock, prix, service client) — vois comment ces agents sont notés.",
+        "comment_tester": "Clone le repo, parcours les scénarios de test fournis pour comprendre les erreurs typiques des agents IA e-commerce avant d'en adopter un toi-même.",
+        "gratuit": true,
+        "source_name": "GitHub",
+        "source_url": "https://github.com/KhanCold/merchantbench"
+      },
+      {
+        "nom": "Web Scraper Framework",
+        "categorie": "scraping",
+        "quoi": "Un framework flexible pour extraire automatiquement des données de sites web (prix, avis, descriptions produit).",
+        "pour_toi": "Surveille automatiquement les prix et la gamme de tes concurrents directs sans copier-coller manuel chaque semaine.",
+        "comment_tester": "Clone le repo, suis le tutoriel de démarrage rapide, configure-le pour scraper la page catalogue d'un seul concurrent en test.",
+        "gratuit": true,
+        "source_name": "GitHub",
+        "source_url": "https://github.com/Ali-Marandi/Web-Scraper-Framework"
+      },
+      {
+        "nom": "LongHorizon-Harness",
+        "categorie": "automatisation",
+        "quoi": "Un cadre logiciel qui fait tourner des agents IA sur de longues périodes à travers plusieurs applications et la ligne de commande, en gardant le fil de la tâche.",
+        "pour_toi": "Une brique technique pour automatiser des tâches longues et répétitives (mise à jour de fiches produit, suivi de commandes) sans supervision constante.",
+        "comment_tester": "Clone le repo, lis la documentation sur l'exécution \"fresh-context\" (qui garde l'état sans tout recharger), teste-le sur une tâche répétitive simple de ta boutique.",
+        "gratuit": true,
+        "source_name": "GitHub",
+        "source_url": "https://github.com/AMAP-ML/LongHorizon-Harness"
+      },
+      {
+        "nom": "ai-ShopMind",
+        "categorie": "fiches_produit",
+        "quoi": "Un système qui transforme tes descriptions produit en base de connaissances interrogeable, pour répondre automatiquement aux questions clients sur tes produits.",
+        "pour_toi": "Installe un chatbot capable de répondre précisément aux questions produits de tes clients (taille, matière, entretien) à partir de tes propres fiches.",
+        "comment_tester": "Clone le repo, importe une dizaine de fiches produit de ta boutique en suivant le format attendu, pose-lui 3 questions clients types pour juger la qualité des réponses.",
+        "gratuit": true,
+        "source_name": "GitHub",
+        "source_url": "https://github.com/TOPDEV99999/ai-ShopMind"
+      }
+    ],
+    "radar_produits": [
+      {
+        "produit": "PestPro — répulsif à ultrasons « Banish 14+ Pests for Good »",
+        "boutique": "pestprohome.com",
+        "niche": "Maison / anti-nuisibles",
+        "prix": "45 USD (offres en pack, guide à 19 $ et garantie à 23 $ en options)",
+        "statut": "BANGER",
+        "signal": "Boutique créée il y a 11 jours seulement, avec déjà 170 publicités actives : la courbe d'ads (le nombre de pubs Meta qui tournent en même temps, semaine après semaine) est passée de 25 à 128 en deux semaines, soit ×5. Le trafic affiché est à 0 visite/mois : ce n'est pas que personne n'achète, c'est que les outils de mesure n'ont pas encore indexé le site. Ce délai est exactement la fenêtre pendant laquelle on peut repérer un produit avant que tout le monde le voie (leçon « filtre secret sans trafic »). 3 références seulement : une boutique mono-produit qui pousse fort, pas un magasin généraliste.",
+        "stade_marche": "Fenêtre de copie ouverte : lancement tout frais, diffusion au Royaume-Uni (39 % de leurs pubs), Canada (18 %), États-Unis (16 %), Australie (14 %) et Nouvelle-Zélande (13 %). Ils ne diffusent pas en France, ni en Espagne, en Allemagne ou en Italie : tes quatre marchés sont libres de leur côté.",
+        "notoriete": "Le produit (une prise murale qui émet des ultrasons pour faire fuir cafards, souris, punaises, fourmis, araignées, sans produit chimique) existe depuis des années sur Amazon à bas prix ; ce qui est neuf, c'est l'angle marque « sans poison, pour les familles avec enfants et animaux » avec garantie 90 jours. En France, un seul annonceur récent occupe cet angle précis (Nuizoff, 53 jours, 2 pubs) ; le reste du mot-clé « répulsif » est pris par les anti-moustiques (Comme Avant, Puressentiel), qui ne sont pas le même produit.",
+        "ca_jour_estime": "ESTIMATION prudente, pas un chiffre mesuré : le trafic n'est pas encore indexé, donc pas de calcul possible avec la méthode visites × taux de conversion. Repère de la formation : la dépense pub n'est pas visible hors Union européenne (« aux US on peut pas voir le spend »). Avec 170 publicités actives après 11 jours, on est vraisemblablement sur quelques centaines à un ou deux milliers d'euros de pub par jour, donc un chiffre d'affaires de l'ordre de 1 000 à 5 000 € par jour si leur ROAS (ce que rapporte 1 € de pub) tient. À réévaluer dès que TrendTrack affiche le trafic.",
+        "difficulte": "moyen",
+        "difficulte_pourquoi": "Facile côté produit : léger, pas de liquide, pas de taille, compréhension immédiate en 3 secondes, upsells évidents (pack pour plusieurs pièces, guide anti-nuisibles). Moyen côté marketing : le même objet se trouve à 10-15 € sur Amazon, donc il faut vendre la marque et la garantie, pas la prise ; les « preuves » d'efficacité des ultrasons sont contestées, donc attention aux promesses dans les pubs (Meta refuse les allégations trompeuses). Prix vu 45 $ : sous ton panier moyen de 65-70 €, à vendre en pack de 2 ou 3 (une prise par pièce).",
+        "marche_fr": "PARTIEL",
+        "marche_fr_detail": "Requête search_ads « répulsif », France, signal reach, le 29/08 : Nuizoff (2 pubs, 53 jours, 647 000 personnes touchées) attaque les cafards avec un répulsif ; Wedinery (485 jours) vend un répulsif à ultrasons pour animaux ; Comme Avant (8 pubs, 10,7 M touchés) et Puressentiel = anti-moustiques, autre produit. Un annonceur existe sur l'angle exact, mais petit : marché partiel, pas pris.",
+        "ou_lancer": "France en premier : un seul petit concurrent sur l'angle « sans poison », et ta boutique FR fait 90 % de ton volume. Puis Allemagne (aucun concurrent repéré chez eux, boutique DE et coûts déjà en place ; ~90 % des ventes passent par PayPal là-bas). L'Espagne ensuite avec les mêmes créas traduites.",
+        "criteres_ok": [
+          "besoin fort (nuisibles = problème immédiat)",
+          "compréhension immédiate",
+          "simple à utiliser (on branche, c'est tout)",
+          "léger, pas de liquide, douane simple",
+          "upsell possible (pack multi-pièces, guide)",
+          "preuve sociale (7 400 avis affichés)"
+        ],
+        "criteres_ko": [
+          "introuvable en magasin : non, vendu partout (il faut vendre la marque)",
+          "marge ×3-×4 : à vérifier, coût fournisseur d'une prise ultrasons ≈ 3-5 €, donc OK si vendu 45 €"
+        ],
+        "verdict": "GO TEST",
+        "verdict_pourquoi": "C'est le seul candidat du jour qui coche à la fois la fraîcheur (11 jours), l'explosion (×5 en 2 semaines), le mono-produit, un problème fort et un marché français quasi libre. Le risque est marketing (produit banalisé sur Amazon), pas logistique : ça se teste vite et pas cher, en pack de 2-3 pour tenir ton panier moyen.",
+        "budget_test": "Protocole MASTER : CBO (budget de campagne) 100 à 300 € par jour, décision à 48 h sur la marge réelle, soit 200 à 600 € pour savoir.",
+        "lien_boutique": "https://pestprohome.com",
+        "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=pestprohome"
+      },
+      {
+        "produit": "RIIGID V2 — valise en aluminium épais, roues amovibles",
+        "boutique": "riigidukshop.com",
+        "niche": "Voyage / bagagerie premium",
+        "prix": "120 à 280 GBP selon la taille (soit ~140 à 330 €)",
+        "statut": "SANS TRAFIC",
+        "signal": "Nom de domaine créé il y a 31 jours, mais la diffusion de pubs dure depuis 9 semaines (la marque tournait sans doute déjà sur un autre domaine). 763 publicités actives, courbe 430 › 558 › 559 › 601 › 738 : une progression régulière (×1,7 en 4 semaines), pas une explosion — c'est un opérateur qui met du budget avec méthode. Trafic affiché à 0 : le site n'est pas encore indexé par les outils, la fenêtre est ouverte. 8 références (valises, housse, cubes de compression, sac à dos) : catalogue resserré autour d'une seule idée, l'aluminium.",
+        "stade_marche": "Marché des bagages = TAM (taille totale du marché) énorme, exactement ce que la formation demande en premier. Ils diffusent aux États-Unis (40 %), au Royaume-Uni (34 %), en Australie (14 %) et au Canada (13 %) ; rien en France, Espagne, Allemagne, Italie. Mais le segment « valise aluminium » est un marché installé, pas une nouveauté.",
+        "notoriete": "Tout le monde connaît la valise aluminium : RIMOWA l'a rendue iconique (1 256 pubs actives en France, garantie à vie mise en avant). En France, Cabaïa pousse sa nouvelle collection avec 1 844 pubs actives et 2,8 M de personnes touchées ; Armoir (244 jours) et Dot-Drops occupent aussi la place. Le produit n'a rien à expliquer, mais il a beaucoup de voisins.",
+        "ca_jour_estime": "ESTIMATION prudente : trafic non indexé, donc pas de calcul visites × conversion. Avec 763 pubs actives depuis 9 semaines et un ticket de 140 à 330 €, quelques dizaines de commandes par jour suffisent à faire plusieurs milliers d'euros de chiffre d'affaires quotidien — mais la marge dépend d'un coût fournisseur et d'un transport (poids, casse) bien plus lourds qu'un petit produit.",
+        "difficulte": "difficile",
+        "difficulte_pourquoi": "Panier très haut (bon pour ton AOV) mais logistique lourde : colis volumineux, risque de casse et de retours, coût fournisseur élevé qui rend la marge ×3 difficile ; il faut une vraie qualité perçue et des vidéos produit soignées, pas une créa de 15 secondes. Concurrence installée en France : Cabaïa et RIMOWA ne sont pas une « concurrence saine », ce sont des acteurs rentables sur leur terrain (la formation distingue les deux).",
+        "marche_fr": "PRIS",
+        "marche_fr_detail": "Requête search_ads « valise », France, signal reach, le 29/08 : Cabaïa (1 844 pubs actives, 2,8 M touchés, nouvelle collection), RIMOWA (1 256 pubs actives), Armoir (244 jours), Dot-Drops (157 jours), La Redoute. Marché français occupé par des marques installées.",
+        "ou_lancer": "Pas la France en premier (Cabaïa + RIMOWA). Si tu y vas, l'Allemagne d'abord — mais RIMOWA y est chez lui — donc plutôt l'Espagne, où aucun concurrent n'est apparu dans le contrôle et où ta boutique existe. À traiter comme un projet de marque, pas un test de 48 h.",
+        "criteres_ok": [
+          "compréhension immédiate",
+          "effet visuel (l'aluminium se voit en 1 seconde)",
+          "panier élevé, bon pour la marge par commande",
+          "upsell naturel (housse, cubes, sac à dos)"
+        ],
+        "criteres_ko": [
+          "besoin fort : non, c'est un « nice to have » (on a déjà une valise)",
+          "légal/douane/transport : colis lourd et volumineux, casse",
+          "marge ×3-×4 : difficile vu le coût fournisseur",
+          "introuvable en magasin : non"
+        ],
+        "verdict": "A SURVEILLER",
+        "verdict_pourquoi": "Le signal est réel (763 pubs, progression régulière, fenêtre encore ouverte), mais ce n'est pas un produit de test à 48 h : marché français pris par des marques installées, logistique lourde, marge incertaine. À garder en veille pour un éventuel projet de marque bagagerie, pas pour le protocole de testing produit.",
+        "budget_test": "Protocole MASTER : CBO (budget de campagne) 100 à 300 € par jour, décision à 48 h sur la marge réelle, soit 200 à 600 € pour savoir.",
+        "lien_boutique": "https://riigidukshop.com",
+        "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=riigidukshop"
+      },
+      {
+        "produit": "Effortless — robe droite en mélange lin (Linen-Blend Shift Dress)",
+        "boutique": "v8cmtk-f0.myshopify.com",
+        "niche": "Mode femme / lin",
+        "prix": "39.99 USD (affiché « dernier jour -49 % »)",
+        "statut": "BANGER",
+        "signal": "Boutique de 57 jours, 382 publicités actives, courbe 28 › 46 › 220 › 186 › 275 : ×9,8 en 4 semaines, avec un léger creux la semaine dernière puis une reprise. Trafic affiché à 0 : pas encore indexé, fenêtre ouverte. 10 références : catalogue serré autour d'une robe déclinée. Tu l'avais déjà qualifiée dans ta feuille du 26/08 — elle continue de pousser.",
+        "stade_marche": "Diffusion aux États-Unis (29 %), Australie (26 %), Canada (24 %), Royaume-Uni (22 %) ; rien en France, Espagne, Allemagne, Italie. Mais attention au calendrier : une robe en lin se vend en été, et on est fin août en Europe — la saison se termine, sauf en Australie où l'été arrive (ce qui explique sans doute leurs 26 %).",
+        "notoriete": "Produit archi-connu (la robe d'été en lin) : rien à expliquer, mais rien de neuf non plus. En France, le mot « lin » est occupé par des marques de vêtements installées (Charles Tyrwhitt 2 487 pubs, Superdry, Biaotic, Freeman T. Porter), et « robe » par Halara France (1 985 pubs actives), BlueJolie, Cocorico. La boutique tourne encore sur une adresse myshopify.com sans nom de domaine et son catalogue public répond en erreur : signe d'un test en mouvement, pas d'une marque posée.",
+        "ca_jour_estime": "ESTIMATION prudente : trafic non indexé. 382 pubs actives à 40 $ la robe : plusieurs centaines à un millier d'euros de pub par jour est plausible, soit un chiffre d'affaires quotidien de l'ordre de 1 000 à 4 000 € si le ROAS tient — chiffre indicatif, sans donnée de trafic.",
+        "difficulte": "difficile",
+        "difficulte_pourquoi": "Prix 40 $ sous ton panier de 65-70 € : à vendre par 2 ou avec un pack. Tailles = retours et échanges (tu connais le sujet avec le polo). Saisonnalité : lancer une robe d'été en France en septembre, c'est arriver après la bataille ; il faudrait viser l'hémisphère sud ou attendre le printemps. Marché de la mode saturé en France : la différenciation ne peut venir que de la créa et de l'offre.",
+        "marche_fr": "PRIS",
+        "marche_fr_detail": "Requêtes search_ads France, signal reach, le 29/08 : « lin » → Charles Tyrwhitt (2 487 pubs), Superdry (571), Biaotic (221 jours), Freeman T. Porter ; « robe » (contrôle du matin) → Halara France (1 985 pubs actives), BlueJolie, Cocorico. Marché de la mode occupé par des acteurs installés.",
+        "ou_lancer": "Pas maintenant en Europe (fin de saison). Si le produit est retenu, le préparer pour le printemps 2027 en France/Espagne, ou le tester tout de suite en Australie où l'été commence — mais ce n'est pas un de tes marchés existants.",
+        "criteres_ok": [
+          "effet visuel",
+          "compréhension immédiate",
+          "simple (pas de VSL)",
+          "léger, douane simple"
+        ],
+        "criteres_ko": [
+          "besoin fort : non (nice to have)",
+          "introuvable en magasin : non",
+          "marge ×3-×4 à 40 $ : juste",
+          "saisonnalité contre toi en Europe"
+        ],
+        "verdict": "A SURVEILLER",
+        "verdict_pourquoi": "Le signal d'ads est fort et tu l'avais repérée, mais les règles de la formation jouent contre un test maintenant : pas de problème fort, marché FR pris, prix sous ton panier, et surtout mauvais moment de l'année pour l'Europe. À reprendre au printemps si la courbe tient l'hiver (signe d'une vraie marque et pas d'un coup d'été).",
+        "budget_test": "Protocole MASTER : CBO (budget de campagne) 100 à 300 € par jour, décision à 48 h sur la marge réelle, soit 200 à 600 € pour savoir.",
+        "lien_boutique": "https://v8cmtk-f0.myshopify.com",
+        "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=v8cmtk-f0"
+      }
+    ],
+    "nouveautes": [
+      {
+        "theme": "automation",
+        "titre": "WebMCP permet aux agents IA d'agir directement dans les sites web",
+        "quoi": "OpenAI, Shopify et Cloudflare déploient WebMCP, un protocole qui donne aux agents IA une façon structurée d'utiliser un site sans cliquer visuellement.",
+        "pourquoi": "Demain, un client pourrait demander à une IA d'acheter directement sur ta boutique Shopify sans jamais ouvrir ton site — anticipe ce canal.",
+        "source_name": "Search Engine Journal",
+        "source_url": "https://www.searchenginejournal.com/webmcp-connects-ai-agents-actions-inside-websites/587303/"
+      },
+      {
+        "theme": "creatives",
+        "titre": "Meta supprime la possibilité d'exclure certains emplacements publicitaires",
+        "quoi": "Meta passe à un système automatisé qui choisit seul où diffuser tes pubs (Facebook, Instagram, apps partenaires), sans possibilité de bloquer certains emplacements.",
+        "pourquoi": "Tu perds un levier de contrôle fin sur tes campagnes Meta Ads : surveille tes emplacements de diffusion après ce changement pour repérer une dérive de coûts.",
+        "source_name": "Marketing Dive",
+        "source_url": "https://www.marketingdive.com/news/sociable-meta-removes-option-to-exclude-ad-placements/828941/"
+      },
+      {
+        "theme": "creatives",
+        "titre": "L'IA de Meta peut modifier ta créa approuvée sans prévenir",
+        "quoi": "Un cas documenté montre que l'IA publicitaire de Meta a modifié une créa déjà validée par la marque, sans avertissement préalable.",
+        "pourquoi": "Vérifie régulièrement le rendu final de tes créas en ligne : ce que tu as validé au départ n'est plus forcément ce qui est diffusé aujourd'hui.",
+        "source_name": "Search Engine Journal",
+        "source_url": "https://www.searchenginejournal.com/ai-isnt-killing-marketing-accountability-its-exposing-who-never-had-it/586486/"
+      },
+      {
+        "theme": "automation",
+        "titre": "X ouvre une API pour les comptes chatbot d'entreprise",
+        "quoi": "X (ex-Twitter) lance une fonction permettant aux marques de construire leur propre agent de réponse automatique aux clients sur la plateforme.",
+        "pourquoi": "Si tu es présent sur X, tu peux automatiser une partie de ton service client là-bas comme tu le fais déjà avec d'autres canaux.",
+        "source_name": "Social Media Today",
+        "source_url": "https://www.socialmediatoday.com/news/x-launches-api-for-business-chatbot-accounts/829029/"
+      }
+    ],
+    "signals": [
+      {
+        "theme": "marketplace",
+        "conviction": 3,
+        "title": "SALESFORCE ET ANTHROPIC LANCENT CLAUDEFORCE POUR LE COMMERCE",
+        "en_clair": "Salesforce intègre Claude directement dans ses outils via Claudeforce, confirmant que l'IA générative s'installe au cœur des logiciels de gestion client et de vente en ligne.",
+        "fait": "Salesforce et Anthropic élargissent leur partenariat pour développer \"Claudeforce\", une intégration profonde de Claude dans les outils Salesforce, annoncée juste avant des résultats trimestriels meilleurs que prévu pour Salesforce. Le lancement concret s'appelle \"Salesforce in Claude\" : les utilisateurs pourront piloter des actions Salesforce (créer une fiche client, lancer une campagne, analyser des ventes) directement depuis une conversation avec Claude, sans naviguer dans l'interface classique. Salesforce reste un acteur majeur dans le commerce en ligne côté grandes entreprises, notamment via Salesforce Commerce Cloud, une plateforme concurrente de Shopify sur le segment des grandes marques.",
+        "implication_2": "Concrètement, ça veut dire que les grandes plateformes e-commerce concurrentes de Shopify investissent massivement pour rendre l'IA générative pilotable directement depuis une conversation, plutôt qu'un simple chatbot annexe.",
+        "implication_3": "Shopify devra suivre ce mouvement pour rester compétitif face aux plateformes d'entreprise ; les marchands qui adoptent tôt des outils IA dans leur gestion quotidienne (comme Claude Code) prennent une longueur d'avance sur ceux qui restent sur des interfaces classiques.",
+        "these_opposee": "Ce genre d'intégration reste souvent limité en usage réel les premiers mois : l'effet d'annonce dépasse fréquemment l'utilité concrète immédiate pour les vendeurs.",
+        "action": "Pas d'action Salesforce directe puisque tu es sur Shopify. Anticipe la tendance : explore dès maintenant comment Claude Code peut déjà t'aider à piloter des tâches répétitives de ta boutique (fiches produit, réponses client) avant que ça devienne la norme.",
+        "sizing": "Faible",
+        "invalide_si": "Claudeforce reste sans usage client concret documenté d'ici 6 mois.",
+        "source_name": "Digital Commerce 360",
+        "source_url": "https://www.digitalcommerce360.com/2026/08/27/salesforce-anthropic-claude-partnership-claudeforce/"
+      },
+      {
+        "theme": "creatives",
+        "conviction": 4,
+        "title": "META SUPPRIME LE CONTRÔLE MANUEL DES EMPLACEMENTS PUBLICITAIRES",
+        "en_clair": "Meta retire aux annonceurs la possibilité de choisir où leurs pubs s'affichent (Facebook, Instagram, apps partenaires) : c'est désormais un système automatisé qui décide seul.",
+        "fait": "Meta a supprimé l'option qui permettait aux annonceurs d'exclure certains emplacements publicitaires (par exemple, ne pas diffuser sur des applications tierces partenaires, ou se limiter à Instagram Stories). Un système automatisé choisit désormais seul où diffuser chaque publicité parmi tous les emplacements disponibles de Meta (Facebook, Instagram, Messenger, Audience Network et applications partenaires), dans le but affiché d'optimiser les résultats. Les marques n'ont donc plus la main pour décider quelles applications reçoivent leurs promotions, ce qui s'inscrit dans une tendance de fond chez Meta : automatiser toujours plus de décisions publicitaires via l'IA (placement, budget, créa), au détriment du contrôle manuel fin des annonceurs.",
+        "implication_2": "Concrètement, ça veut dire que si tu utilises Meta Ads pour ta boutique, tu ne peux plus exclure des emplacements où tu jugeais que tes pubs performaient mal ou paraissaient mal (par exemple certaines apps de jeu partenaires) : le système décide à ta place.",
+        "implication_3": "Les annonceurs avec de gros historiques de données gagnent, car l'algorithme d'optimisation automatique a plus de données pour bien choisir ; les petits annonceurs avec peu d'historique risquent de voir leur budget dispersé sur des emplacements moins pertinents pour leur produit, sans recours pour les exclure.",
+        "these_opposee": "Meta affirme que l'automatisation totale des emplacements donne historiquement de meilleurs résultats en moyenne, même si elle retire un levier de contrôle fin aux annonceurs expérimentés.",
+        "action": "Surveille de près ton coût par résultat (CPA, le coût pour obtenir une vente ou un lead) sur tes campagnes Meta cette semaine et compare-le à la semaine précédente. Si tu vois une hausse nette, isole les campagnes concernées et envisage d'ajuster ton budget vers d'autres canaux (Klaviyo pour l'emailing, TikTok Ads) le temps que le nouveau système se stabilise.",
+        "sizing": "Moyen",
+        "invalide_si": "Ton coût par résultat sur Meta reste stable ou baisse dans les 2 semaines suivant le changement.",
+        "source_name": "Marketing Dive",
+        "source_url": "https://www.marketingdive.com/news/sociable-meta-removes-option-to-exclude-ad-placements/828941/"
+      },
+      {
+        "theme": "automation",
+        "conviction": 3,
+        "title": "WEBMCP : LES AGENTS IA VONT POUVOIR ACHETER DIRECTEMENT SUR TA BOUTIQUE",
+        "en_clair": "OpenAI, Shopify et Cloudflare déploient un nouveau protocole (WebMCP) qui permet à une IA d'agir directement sur un site web, comme cliquer sur \"Ajouter au panier\", sans passer par une interface visuelle.",
+        "fait": "OpenAI, Shopify et Cloudflare mettent en production WebMCP, un protocole technique (MCP signifie \"Model Context Protocol\", un standard qui permet à une IA de se connecter à des outils et services externes) qui donne aux agents IA une façon structurée d'utiliser un site web — remplir un formulaire, ajouter un produit au panier, valider une commande — sans passer par des clics visuels comme le ferait un humain. Concrètement, un site équipé de WebMCP expose ses actions possibles (\"ajouter au panier\", \"filtrer par taille\") dans un format que les IA comprennent directement, plutôt que de deviner en analysant une page web comme le font aujourd'hui certains outils d'automatisation moins fiables.",
+        "implication_2": "Concrètement, ça veut dire qu'un client pourrait bientôt demander à ChatGPT ou Claude de \"lui trouver et acheter\" un produit précis, et l'IA effectuerait l'achat directement sur ta boutique Shopify sans que le client n'ouvre jamais ton site manuellement.",
+        "implication_3": "Les boutiques Shopify équipées tôt de WebMCP pourraient capter des ventes venues d'agents IA avant leurs concurrentes ; celles qui l'ignorent risquent de devenir invisibles pour ce nouveau canal d'achat assisté par IA à mesure qu'il se développe.",
+        "these_opposee": "L'achat piloté par IA reste marginal aujourd'hui : la plupart des consommateurs continuent d'acheter en naviguant eux-mêmes, et ce comportement pourrait mettre des années à changer en profondeur.",
+        "action": "Vérifie dans les prochains mois si Shopify propose une activation simple de WebMCP pour ta boutique (probablement via une app ou un paramètre natif) et active-la dès qu'elle est disponible, sans développement supplémentaire nécessaire de ton côté.",
+        "sizing": "Faible",
+        "invalide_si": "Shopify ne propose aucune intégration WebMCP accessible aux marchands dans les 12 prochains mois.",
+        "source_name": "Search Engine Journal",
+        "source_url": "https://www.searchenginejournal.com/webmcp-connects-ai-agents-actions-inside-websites/587303/"
+      },
+      {
+        "theme": "operations",
+        "conviction": 2,
+        "title": "LES REMBOURSEMENTS DE DOUANE PROFITENT AUX ENSEIGNES, PAS AUX CLIENTS",
+        "en_clair": "Les grandes enseignes américaines récupèrent de l'argent grâce à des remboursements de droits de douane, mais ça n'améliore pas vraiment le pouvoir d'achat de leurs clients.",
+        "fait": "Plusieurs grandes enseignes américaines (\"big-box retailers\", des magasins de grande surface comme Walmart ou Target) reçoivent des remboursements directs de droits de douane (les taxes payées à l'importation de marchandises), ce qui améliore leurs comptes de résultat. Mais cet argent profite surtout aux marges de ces entreprises plutôt qu'aux consommateurs finaux, qui continuent de faire attention à leur budget dans un contexte de prix encore élevés. Le patron de Burlington (une chaîne de magasins discount) a par ailleurs déclaré qu'utiliser ces remboursements pour baisser les prix était \"la bonne chose à faire\", une position qui n'est pas partagée par toutes les enseignes du secteur.",
+        "implication_2": "Concrètement, ça veut dire que le pouvoir d'achat des consommateurs américains ne s'améliore pas autant que les résultats financiers des grandes enseignes le suggèrent : les clients continuent d'arbitrer serré sur leurs achats.",
+        "implication_3": "Les enseignes qui répercutent une partie de ces remboursements en baisses de prix (comme Burlington) pourraient gagner des parts de marché face aux consommateurs sensibles au prix ; celles qui gardent tout en marge s'exposent à une image moins favorable si le sujet devient public.",
+        "these_opposee": "Les enseignes ont aussi besoin de reconstituer leurs marges après des années de coûts tarifaires élevés : garder ces remboursements peut être une décision de gestion saine, pas nécessairement hostile aux clients.",
+        "action": "Si tu importes des produits ou composants depuis l'étranger pour ta boutique, vérifie si des remboursements de droits de douane similaires s'appliquent à ta situation avant la fin d'année — ça peut représenter une marge additionnelle à réinvestir en pub.",
+        "sizing": "Faible",
+        "invalide_si": "Aucune enseigne ne répercute ces remboursements sur les prix d'ici la fin de l'année, confirmant un pur effet de marge.",
+        "source_name": "Modern Retail",
+        "source_url": "https://www.modernretail.co/operations/big-box-briefing-retailers-get-direct-tariff-relief-their-shoppers-likely-wont/?utm_campaign=modernretaildis&utm_medium=rss&utm_source=general-rss"
+      }
+    ],
+    "autres_news": [
+      {
+        "titre": "Amazon change son classement pour intégrer l'IA dans le commerce",
+        "en_clair": "Amazon revoit la façon dont il classe ses vendeurs pour tenir compte de l'IA dans le commerce, un signe que la compétition entre marketplaces se joue de plus en plus sur ce terrain.",
+        "source_name": "Digital Commerce 360",
+        "source_url": "https://www.digitalcommerce360.com/2026/08/27/ecommerce-trends-amazons-approach-to-ai-commerce/"
+      },
+      {
+        "titre": "YouTube ajoute des liens d'affiliation Amazon dans les vidéos",
+        "en_clair": "Les créateurs de contenu sur YouTube peuvent maintenant taguer des produits Amazon dans leurs vidéos et toucher une commission sur les ventes générées.",
+        "source_name": "Social Media Today",
+        "source_url": "https://www.socialmediatoday.com/news/youtube-adds-amazon-affiliate-links/829031/"
+      },
+      {
+        "titre": "BK Beauty revient sur TikTok Shop après une pause",
+        "en_clair": "La marque de cosmétiques BK Beauty, qui avait quitté TikTok Shop, y retourne après avoir constaté que cette pause avait été de courte durée et coûteuse en visibilité.",
+        "source_name": "Practical Ecommerce",
+        "source_url": "https://www.practicalecommerce.com/bk-beauty-doubles-down-on-tiktok-shop"
+      },
+      {
+        "titre": "La marge de contribution devient la boussole de la croissance e-commerce",
+        "en_clair": "Un article explique que la période la plus chargée de l'année pour un marchand (comme les fêtes) peut aussi être la moins rentable si on ne suit pas sa marge de contribution (ce qui reste après les coûts variables).",
+        "source_name": "Practical Ecommerce",
+        "source_url": "https://www.practicalecommerce.com/contribution-margin-guides-ecommerce-growth"
+      },
+      {
+        "titre": "La guerre commerciale États-Unis/Canada menace les chaînes d'approvisionnement",
+        "en_clair": "Le conflit tarifaire entre les États-Unis et le Canada fait craindre une hausse des coûts pour l'agriculture et les biens de consommation des deux côtés de la frontière.",
+        "source_name": "Supply Chain Dive",
+        "source_url": "https://www.supplychaindive.com/news/us-canada-trade-war-poses-sourcing-risks-for-agriculture-consumer-goods/828967/"
+      },
+      {
+        "titre": "eBay impose une vérification d'authenticité pour les pièces de monnaie de valeur",
+        "en_clair": "eBay oblige désormais les vendeurs de pièces de monnaie chères à les envoyer dans un centre d'authentification avant la vente, pour lutter contre les contrefaçons.",
+        "source_name": "eCommerceBytes",
+        "source_url": "https://www.ecommercebytes.com/2026/08/27/ebay-mandates-authenticity-guarantee-for-high-value-coins/"
+      },
+      {
+        "titre": "Grainger rachète AWM pour 210 millions de dollars",
+        "en_clair": "Le distributeur industriel Grainger rachète une entreprise technologique spécialisée en IA et suivi de chantiers, pour intégrer ces outils à ses services logistiques.",
+        "source_name": "Digital Commerce 360",
+        "source_url": "https://www.digitalcommerce360.com/2026/08/28/grainger-acquisition-awm-210-million/"
+      },
+      {
+        "titre": "Old Navy change de direction marketing après une baisse de trafic estivale",
+        "en_clair": "La marque Old Navy revoit sa stratégie marketing après un été décevant en fréquentation, avec une nouvelle campagne mettant en avant l'artiste Cardi B.",
+        "source_name": "Marketing Dive",
+        "source_url": "https://www.marketingdive.com/news/old-navy-is-rewiring-its-marketing-strategy-after-summer-traffic-bust/829053/"
+      }
+    ],
+    "actions_semaine": [
+      "Compare ton CPA Meta Ads de cette semaine à la semaine dernière suite à la suppression du contrôle des emplacements — ajuste ton budget si ça dérape.",
+      "Clone video-shotcraft et génère une vidéo produit avec Claude Code cette semaine ; compare le coût et le temps à ton monteur actuel."
+    ]
+  }
+}

@@ -20,14 +20,28 @@ mathématiques + un bon marketer. »
 check_credits
 ```
 
-- Chaque page de 100 boutiques coûte ~100 crédits. Le scan du jour = **2 pages
-  = ~200 crédits**, plus 0 à 3 contrôles `search_ads`.
+- Chaque page de 100 boutiques coûte ~100 crédits. Le scan du jour = **3 pages
+  = ~300 crédits**, plus 0 à 3 contrôles `search_ads`.
 - Si `totalRemaining` < 1 000 : **ne lance rien**, mets `radar_produits: []`
   et signale-le dans ton résumé. Badr décide de recharger.
 - Jamais `find_winning_products` : testé le 25/08, il remonte des marques
   installées (JOVS, 1 116 ads) — aucun filtre de fraîcheur.
 
-## 2. Les passes du jour (la passe G — « le filtre secret sans trafic »)
+## 2. Les passes du jour
+
+Trois passes, complémentaires. Le scan complet de Badr en compte 13 (~1 400
+crédits) ; on garde chaque jour celles qui trouvent des choses différentes :
+
+| Passe | Ce qu'elle trouve | Appel |
+|---|---|---|
+| **A1 — fraîcheur** (`03-marche-retour-d-experience-complet.md:180` « quelques jours qu'ils commencent à run […] ça produit Pépite ») | les boutiques récentes qui ont déjà beaucoup d'ads | `search_shops creation_date_from=<J-120> min_active_ads=100 max_products_count=40 sort_by=activeAds limit=100 page=1` |
+| **B1 — toutes neuves** | les plus jeunes, dès 50 ads | `search_shops creation_date_from=<J-90> min_active_ads=50 max_products_count=40 sort_by=createdAt limit=100 page=1` |
+| **G1 — filtre secret sans trafic** (ci-dessous) | les vieux domaines à diffusion neuve, invisibles ailleurs | `search_shops max_monthly_visits=100 min_active_ads=100 sort_by=activeAds limit=100 page=1` |
+
+⚠️ Sans A1/B1, la passe G seule (triée par nombre d'ads) remonte surtout des
+annonceurs installés depuis 6 mois : le 29/08, 0 boutique fraîche sur 155.
+
+### La passe G — « le filtre secret sans trafic »
 
 `05-ecom-data-2.md:56` est un chapitre entier : « 25:04 - Filtre secret sans
 trafic ». `:219` : « on voit vraiment zéro visiteur mais on voit qu'il a 150 ad
@@ -39,15 +53,10 @@ Cette passe **ne filtre pas sur la date de création**, et c'est tout son
 intérêt : elle fait sortir les vieux domaines dont la *diffusion* est neuve
 (cas vérifié : getwildnest.com, domaine de 205 jours, diffusion de 5 semaines).
 
-```
-search_shops  max_monthly_visits=100  min_active_ads=100  sort_by=activeAds  limit=100  page=1
-search_shops  max_monthly_visits=100  min_active_ads=100  sort_by=activeAds  limit=100  page=2
-```
-
-Le lundi seulement, si le solde le permet (> 3 000), ajoute la passe fraîcheur :
-```
-search_shops  creation_date_from=<J-120>  min_active_ads=100  max_products_count=40  sort_by=activeAds  limit=100
-```
+Le lundi seulement, si le solde le permet (> 3 000), ajoute la page 2 de G et
+la passe Triple Whale (`shopify_app_ids=[2982]`, `creation_date_from=<J-120>`,
+`min_active_ads=50`) : le filtre de la leçon elle-même (`05-ecom-data-2.md:203-205`,
+« généralement c'est qu'on commence à scaler »).
 
 **Ne lis pas les réponses** : elles sont trop longues et sont rangées
 automatiquement dans le dossier `tool-results` de la session. Le script les y
@@ -83,9 +92,13 @@ de donnée n'est jamais une preuve de marché libre) · catalogue généraliste
 (compléments, gummies, drops : hors France, arbitrage Badr du 25/08 — la
 réglementation novel food / allégations santé bloque, `⚠️ Hors formation`).
 
-Dans `candidats_AAAA-MM-JJ.md`, dans cet ordre :
+Il écarte aussi les lignes « (catalogue non indexé) » ou sans prix : on
+n'analyse pas un produit qu'on ne peut pas nommer.
+
+Dans `candidats_AAAA-MM-JJ.md` (déjà trié dans cet ordre) :
 1. les **movers** (grosse montée de rang depuis le dernier scan) ;
-2. les **BANGER** puis **EXPLOSE** ;
+2. les boutiques **FRAÎCHES** (domaine ≤ 60 j ou diffusion ≤ 10 semaines) — c'est la fenêtre de copie, `04-ecom-data-1.md:299` « moins de deux mois et qui a beaucoup d'ad active » ;
+3. les **BANGER** puis **EXPLOSE** ;
 3. **variété** : pas deux produits de la même niche, pas deux fois le même opérateur (colonne réseau) ;
 4. jamais un produit analysé dans les 7 derniers jours (déjà retiré) ;
 5. à signal égal, préfère le **mono-produit** (≤ 5 SKU) et le **consommable / réachat** (résilient).
