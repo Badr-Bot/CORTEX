@@ -736,7 +736,57 @@
         "stade_sophistication": 2,
         "awareness": "déjà connu ici",
         "angle_recommande": "Le client français connaît l'objet (prises à ultrasons à 12 € sur Amazon) mais pas la promesse « sans poison ». Attaquer en solution-aware : problème (cafards ou souris malgré le ménage, enfants et animaux à la maison) → mécanisme expliqué (ultrasons à fréquence variable 22-65 kHz, silencieux pour nous) → preuve (avis, garantie 90 jours) → pack 2-3 prises, une par pièce. Avatar : parents et propriétaires 30-60 ans, ciblage large.",
-        "tam": "TAM à confirmer : la catégorie maison/anti-nuisibles est un besoin universel, mais sur le répulsif à ultrasons précis, un seul annonceur à 100+ pubs (PestPro, 170) et un voisin extérieur (Vorgebirge gwia, 434, DE). Pas encore les « 5 concurrents à 100+ pubs » de la formation — bon pour un test, à revérifier avant de scaler."
+        "tam": "TAM à confirmer : la catégorie maison/anti-nuisibles est un besoin universel, mais sur le répulsif à ultrasons précis, un seul annonceur à 100+ pubs (PestPro, 170) et un voisin extérieur (Vorgebirge gwia, 434, DE). Pas encore les « 5 concurrents à 100+ pubs » de la formation — bon pour un test, à revérifier avant de scaler.",
+        "angle_concurrent": "Nuizoff (FR, 77 pubs actives, 53 jours) attaque la honte : « Tu penses que les cafards ne viennent que chez les gens pas propres ? Faux. Ils cherchent juste la chaleur, l'humidité et la nourriture » — puis sans chimie, sans odeur, sans risque pour enfants et animaux, 2 achetés = 1 offert, garantie 90 jours. Original España (ES, 77 pubs) fait du pur descriptif : « repele ratones, cucarachas, hormigas y arañas, solo tienes que enchufarlo, seguro para niños y mascotas ». PestPro lui-même : « Pests leave. And stay gone. » + 7 400 avis. Personne ne parle du propriétaire qui ne fait rien, de la panique au premier cafard, ni de « pourquoi ton ancien répulsif n'a pas marché ».",
+        "pain_points": [
+          {
+            "douleur": "La panique au premier cafard : on pleure, on angoisse, on ne sait pas si c'est le début d'une infestation",
+            "intensite": "forte",
+            "preuve": "Cafard mort, dois-je paniquer ? — étudiante fraîchement arrivée à Paris, immeuble haussmannien, « tout me semblait nickel »",
+            "source_url": "https://www.reddit.com/r/AskFrance/comments/1sp3ug1/cafard_mort_doisje_paniquer/"
+          },
+          {
+            "douleur": "Le propriétaire ou la copropriété ne fait rien : l'infestation dure depuis 2024 malgré les sociétés et les fumigènes, et le locataire est impuissant",
+            "intensite": "forte",
+            "preuve": "Cafards - copropriété - propriétaire ne répond pas : « Une société est passée plusieurs fois pour mettre différents produits, fumigènes etc mais rien »",
+            "source_url": "https://www.reddit.com/r/immobilier/comments/1sjb5fq/cafards_copropriété_propriétaire_ne_répond_pas/"
+          },
+          {
+            "douleur": "Tout essayé, rien ne marche, c'est devenu une phobie : bombes, acide borique, fumigènes",
+            "intensite": "forte",
+            "preuve": "« Je n'en peux plus » — a essayé bombes, granulés d'acide borique, fumigènes ; la situation est devenue une phobie (forum SudCafard)",
+            "source_url": "https://www.sudcafard.fr/les-differents-forums/les-blattes-les-cafards-les-cancrelats/jai-des-cafards-chez-moi-que-faire/"
+          },
+          {
+            "douleur": "Le répulsif à ultrasons acheté n'a rien fait : mal placé (moquette, derrière un meuble, ne traverse pas les murs), 3 semaines sans effet",
+            "intensite": "forte",
+            "preuve": "Un utilisateur rapporte avoir essayé un appareil « pro » à -70 %, trois semaines plus tard aucun effet sur les souris ; « l'emplacement représente 90 % du travail »",
+            "source_url": "https://www.royaltiss.fr/bricolage/ultrasons-repulsifs-souris-mythe-solution-efficace-avis-conseils-comparatif"
+          },
+          {
+            "douleur": "Avec un bébé, peur des produits chimiques : les cafards contaminent jouets et table à langer, mais les aérosols sont interdits",
+            "intensite": "forte",
+            "preuve": "Règle centrale : placer les substances actives hors de portée du bébé et éviter tout aérosol diffusé dans l'air ; contamination possible par les jouets",
+            "source_url": "https://www.pestverdict.com/insectes-rampants/cafards/cafards-danger-bebe-grossesse/"
+          }
+        ],
+        "angles_non_exploites": [
+          {
+            "angle": "« Ton proprio ne fait rien ? Reprends le contrôle ce soir, sans travaux ni autorisation » — le locataire impuissant",
+            "douleur_ciblee": "Le propriétaire / la copropriété ne fait rien, l'infestation dure",
+            "pourquoi_personne": "Nuizoff parle de honte et d'hygiène, PestPro de « pests leave » ; aucune pub n'adresse le blocage n°1 des locataires : dépendre de quelqu'un qui ne bouge pas. Une prise, pas de travaux, pas de permission."
+          },
+          {
+            "angle": "« Ton ancien répulsif n'a pas marché ? Voilà pourquoi » — l'objection frontale (sophistication stade 3)",
+            "douleur_ciblee": "Répulsif à ultrasons déjà acheté et sans effet",
+            "pourquoi_personne": "Les concurrents vendent l'objet comme neuf ; une partie du marché l'a déjà essayé et y croit plus. Expliquer l'emplacement (une prise par pièce, 28 m², jamais derrière un meuble), la fréquence variable 22-65 kHz et la garantie 90 jours transforme le sceptique en client."
+          },
+          {
+            "angle": "« Premier cafard vu : le kit des 10 premières secondes » — l'angle panique, pour ceux qui viennent d'emménager",
+            "douleur_ciblee": "La panique au premier cafard, souvent juste après un emménagement",
+            "pourquoi_personne": "Toutes les pubs ciblent l'infestation installée. Le moment où l'on cherche le plus, c'est le premier cafard (Reddit : « dois-je paniquer ? », « appartement récupéré insalubre »). Angle prévention immédiate + pack studio/2 pièces, audience 20-35 ans qui déménagent."
+          }
+        ]
       }
     ],
     "nouveautes": [

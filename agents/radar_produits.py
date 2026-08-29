@@ -555,6 +555,44 @@ def cmd_candidats(date: str, n: int) -> int:
     return 0
 
 
+def cmd_pubs(mot: str, src: list[str] | None, max_age_hours: float) -> int:
+    """Affiche les pubs concurrentes (copies réelles) trouvées par search_ads
+    dont la requête contient `mot` — pour citer l'angle du concurrent."""
+    dirs = []
+    for pattern in (src or DEFAULT_TOOL_RESULT_GLOBS):
+        dirs.extend(glob.glob(os.path.expanduser(pattern)))
+    dirs.append(str(RAW_DIR))
+    cutoff = time.time() - max_age_hours * 3600
+    trouve = 0
+    for d in dirs:
+        for path in sorted(Path(d).glob("*search_ads*")):
+            if not path.is_file() or path.stat().st_mtime < cutoff:
+                continue
+            payload = _load_payload(path)
+            if not isinstance(payload, dict):
+                continue
+            meta = payload.get("meta") or {}
+            if mot.lower() not in str(meta.get("query", "")).lower():
+                continue
+            print(f"=== requête « {meta.get('query')} » · pays {meta.get('country')} · {payload.get('pagination', {}).get('total')} pubs au total")
+            vus = set()
+            for r in payload.get("data", []):
+                adv = r.get("advertiser") or {}
+                body = ((r.get("content") or {}).get("body") or "").strip()
+                key = (adv.get("name"), body[:80])
+                if not body or key in vus:
+                    continue
+                vus.add(key)
+                trouve += 1
+                print(f"--- {adv.get('name')} | {adv.get('liveAdsCount')} pubs actives | {r.get('daysRunning')} j | "
+                      f"{(r.get('metrics') or {}).get('reach')} touchés | {(r.get('content') or {}).get('landingPageDomain') or ''}")
+                print("   " + body[:700].replace("\n", " ⏎ "))
+    if not trouve:
+        print(f"Aucune pub trouvée pour « {mot} » — lance d'abord search_ads avec ce mot.")
+        return 1
+    return 0
+
+
 def cmd_mark(date: str, domaines: list[str]) -> int:
     RADAR_DIR.mkdir(parents=True, exist_ok=True)
     suivi = mark_analysed(load_suivi(), date, domaines)
@@ -580,11 +618,19 @@ def main(argv: list[str] | None = None) -> int:
     p_mark.add_argument("date")
     p_mark.add_argument("domaines", nargs="+")
 
+    p_pubs = sub.add_parser("pubs", help="copies réelles des pubs concurrentes (search_ads)")
+    p_pubs.add_argument("date")
+    p_pubs.add_argument("mot")
+    p_pubs.add_argument("--src", nargs="*", default=None)
+    p_pubs.add_argument("--max-age-hours", type=float, default=24)
+
     args = parser.parse_args(argv)
     if args.cmd == "extract":
         return cmd_extract(args.date, args.src, args.max_age_hours)
     if args.cmd == "candidats":
         return cmd_candidats(args.date, args.n)
+    if args.cmd == "pubs":
+        return cmd_pubs(args.mot, args.src, args.max_age_hours)
     return cmd_mark(args.date, args.domaines)
 
 

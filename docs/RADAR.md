@@ -223,6 +223,50 @@ Badr a **4 boutiques : FR (~90 % du volume), ES, UK, DE** ; le pays n'est pas un
 - FR `PRIS` → **DE en priorité** (plus gros marché d'Europe, boutique et COGS déjà en place), puis AT/CH avec les mêmes créas allemandes, puis ES ; ⚠️ Allemagne : ~90 % des ventes passent par PayPal (`03-marche-retour-d-experience-complet.md:182`) ;
 - utilise `marches_libres` du brief (pays que la boutique ne cible pas encore) pour proposer l'ordre.
 
+## 4bis. L'enquête : la vraie fiche produit + les vraies douleurs
+
+Leçon `master-acquisition/08-analyse-marketing.md` : avant d'écrire une pub,
+scraper les avis et les forums pour trouver les vrais angles, les objections,
+les douleurs. Ton bac à sable n'a pas de réseau : GitHub Actions le fait pour
+toi.
+
+1. Dès que tu as tes 3 à 6 candidats (après le tri, avant les contrôles
+   France), écris `data/radar/enquete_request_AAAA-MM-JJ.json` :
+   ```json
+   [{"boutique": "pestprohome.com", "produit": "PestPro — répulsif à ultrasons",
+     "mots_cles_fr": ["cafards appartement", "souris dans les murs"],
+     "mots_cles_en": ["cockroaches apartment can't sleep", "ultrasonic pest repeller does it work"]}]
+   ```
+   Les mots-clés sont des **situations vécues** (« cafards appartement »,
+   « souris dans les murs la nuit »), pas des noms de produit : on cherche la
+   douleur, pas la fiche.
+2. `git add data/radar/ && git commit -m "enquête du AAAA-MM-JJ" && git push`
+   — le workflow `radar_enquete.yml` démarre sur ce push.
+3. Attends et tire : `for i in $(seq 1 12); do sleep 30; git pull -q; [ -f data/radar/enquete_AAAA-MM-JJ.md ] && break; done`
+   (en général 2 à 4 minutes). Si le fichier n'arrive pas après 6 minutes,
+   continue sans, en le disant dans le résumé, et compense par WebSearch
+   (forums, avis Amazon/Trustpilot, « site:reddit.com … »).
+4. Lis `data/radar/enquete_AAAA-MM-JJ.md` : pour chaque candidat, la fiche
+   Shopify réelle (titre, prix, description — c'est là qu'on découvre qu'un
+   « Fascial Release » est un complément) puis les posts Reddit classés par
+   intensité (🔴 forte = les gens paient pour que ça s'arrête ; ⚪ faible =
+   simple curiosité). Ne retiens que les **douleurs fortes**, avec citation
+   et lien.
+
+Ce que ça alimente dans chaque fiche pépite :
+
+- `angle_concurrent` : l'angle que le ou les concurrents utilisent, **cité
+  depuis leurs vraies pubs** (les copies sont dans les réponses `search_ads` :
+  `python -m agents.radar_produits pubs AAAA-MM-JJ <mot>` les affiche) — qui,
+  combien de pubs, le hook, la promesse, l'offre.
+- `pain_points` : 3 à 5 douleurs **fortes**, chacune avec la citation exacte et
+  l'URL du post ou de l'avis. Une douleur = quelque chose qui empêche de
+  dormir, fait honte, coûte cher, dure depuis des mois — pas « c'est agaçant ».
+- `angles_non_exploites` : 2 à 3 angles que **personne** ne pousse dans les
+  pubs vues, chacun adossé à une douleur forte de la liste (« le propriétaire
+  ne fait rien → reprends le contrôle sans attendre »). C'est là que se joue
+  la différenciation (leçon 33, stade 2-3).
+
 ## 5. Le contrôle « déjà en France ? » (0 à 3 appels)
 
 Pour chaque produit retenu, si le solde le permet :
@@ -255,6 +299,9 @@ Chaque produit de `ecommerce.radar_produits` est un objet avec ces clés
 | `awareness` | « inconnu ici » ou « déjà connu ici » : le marché de lancement connaît-il le produit ? (§4) |
 | `angle_recommande` | l'angle, l'avatar et le stade de conscience à attaquer, concret. 120-300 caractères. |
 | `tam` | preuve de TAM chiffrée (§4) : annonceurs à 100+ pubs, catégorie. 80-200 caractères. |
+| `angle_concurrent` | l'angle des concurrents, cité depuis leurs pubs réelles (§4bis). 150-400 caractères. |
+| `pain_points` | 3 à 5 objets `{"douleur": "…", "intensite": "forte"|"moyenne", "preuve": "citation exacte", "source_url": "https://…"}` — douleurs fortes d'abord |
+| `angles_non_exploites` | 2 à 3 objets `{"angle": "…", "douleur_ciblee": "…", "pourquoi_personne": "…"}` — chaque angle adossé à une douleur de `pain_points` |
 | `chiffres` | **ne pas remplir** : réinjecté automatiquement à la publication depuis `data/radar/AAAA-MM-JJ.json` (ads actives, courbe, ×4 semaines, âge, semaines de diffusion, visites, pays des pubs, SKU, prix) — le modèle ne retape jamais un chiffre |
 | `marche_fr_detail` | ce que la requête a montré (qui, combien d'ads, depuis quand), ou « non vérifié — solde TrendTrack » |
 | `ou_lancer` | le ou les marchés recommandés et pourquoi (règle §4 « Où lancer ») : « FR d'abord car libre », ou « pas la France (pris par X) → DE puis AT/CH ». 100-250 caractères. |

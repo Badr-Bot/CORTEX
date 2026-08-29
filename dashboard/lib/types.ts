@@ -86,6 +86,9 @@ export interface RadarProduit {
   awareness?: "inconnu ici" | "déjà connu ici"
   angle_recommande?: string
   tam?: string
+  angle_concurrent?: string
+  pain_points?: { douleur: string; intensite: "forte" | "moyenne"; preuve: string; source_url: string }[]
+  angles_non_exploites?: { angle: string; douleur_ciblee: string; pourquoi_personne: string }[]
   /** Chiffres TrendTrack réinjectés à la publication (jamais retapés). */
   chiffres?: {
     ads_actives?: number

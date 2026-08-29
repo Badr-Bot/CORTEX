@@ -1,0 +1,62 @@
+name: CORTEX — Enquête radar
+
+# La routine cloud n'a pas de réseau. Quand elle a choisi ses candidats, elle
+# pousse data/radar/enquete_request_AAAA-MM-JJ.json ; ce workflow (qui a le
+# réseau) va lire la vraie fiche produit de chaque boutique et scraper les
+# douleurs réelles sur Reddit, puis commit enquete_AAAA-MM-JJ.{json,md} sur la
+# même branche. La routine attend, tire, et lit.
+
+on:
+  push:
+    paths:
+      - 'data/radar/enquete_request_*.json'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date de la demande (AAAA-MM-JJ, vide = la plus récente)'
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  enqueter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Déterminer la demande
+        id: cible
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            date="${{ github.event.inputs.date }}"
+          else
+            dernier=$(ls -1 data/radar/enquete_request_*.json 2>/dev/null | sort | tail -1)
+            [ -z "$dernier" ] && { echo "Aucune demande." >&2; exit 1; }
+            date=$(basename "$dernier" .json | sed 's/^enquete_request_//')
+          fi
+          echo "date=$date" >> "$GITHUB_OUTPUT"
+
+      - name: Enquêter (fiche produit + Reddit)
+        run: python -m agents.radar_enquete "${{ steps.cible.outputs.date }}"
+
+      - name: Committer le résultat sur la même branche
+        run: |
+          date="${{ steps.cible.outputs.date }}"
+          git config user.name "cortex-enquete"
+          git config user.email "cortex-enquete@users.noreply.github.com"
+          git add "data/radar/enquete_${date}.json" "data/radar/enquete_${date}.md"
+          git diff --cached --quiet && { echo "Rien de nouveau."; exit 0; }
+          git commit -m "radar: enquête du ${date} (fiche produit + douleurs Reddit)"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

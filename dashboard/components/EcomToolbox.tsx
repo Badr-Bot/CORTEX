@@ -155,6 +155,46 @@ function RadarCard({ p }: { p: RadarProduit }) {
         </div>
       )}
 
+      {/* L'angle du concurrent, les vraies douleurs, les angles libres — leçon 08 */}
+      {(p.angle_concurrent || p.pain_points?.length || p.angles_non_exploites?.length) ? (
+        <div className="bg-black/30 rounded-md p-3 border border-white/5 space-y-2.5">
+          {p.angle_concurrent && (
+            <p className="text-xs text-slate-300 leading-relaxed">
+              <span className="text-red-400/80 font-medium">🥊 Ce que dit le concurrent : </span>{p.angle_concurrent}
+            </p>
+          )}
+          {p.pain_points && p.pain_points.length > 0 && (
+            <div className="space-y-1.5">
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider">😖 Les vraies douleurs (forums, avis)</div>
+              {p.pain_points.map((pp, i) => (
+                <div key={`pp-${i}`} className="text-xs leading-relaxed">
+                  <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border mr-1.5 ${pp.intensite === "forte" ? "border-red-500/40 text-red-300 bg-red-500/10" : "border-amber-500/30 text-amber-300 bg-amber-500/10"}`}>
+                    {pp.intensite}
+                  </span>
+                  <span className="text-slate-200 font-medium">{pp.douleur}</span>
+                  <span className="text-slate-500 italic"> — « {pp.preuve} »</span>
+                  {pp.source_url && (
+                    <a href={pp.source_url} target="_blank" rel="noopener noreferrer" className="ml-1.5 text-indigo-400 hover:text-indigo-300">↗</a>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          {p.angles_non_exploites && p.angles_non_exploites.length > 0 && (
+            <div className="space-y-1.5">
+              <div className="text-[10px] text-emerald-400/80 uppercase tracking-wider">🚀 Angles que personne ne pousse</div>
+              {p.angles_non_exploites.map((a, i) => (
+                <div key={`an-${i}`} className="text-xs leading-relaxed">
+                  <span className="text-emerald-200 font-medium">{a.angle}</span>
+                  <span className="text-slate-400"> · douleur visée : {a.douleur_ciblee}</span>
+                  <span className="text-slate-500 italic"> · {a.pourquoi_personne}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : null}
+
       {/* Critères */}
       {(p.criteres_ok?.length || p.criteres_ko?.length) ? (
         <div className="flex flex-wrap gap-1.5">

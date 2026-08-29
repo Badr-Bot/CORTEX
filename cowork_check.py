@@ -259,6 +259,35 @@ def _check_radar(ecom: dict, r: Report) -> None:
                 r.warn(f"{where} : '{field}' absent — voir docs/RADAR.md §4 (awareness, angle, preuve de TAM)")
         if item.get("awareness") and item["awareness"] not in ("inconnu ici", "déjà connu ici"):
             r.err(f"{where} : awareness doit être 'inconnu ici' ou 'déjà connu ici'")
+
+        # Leçon 08 « Analyse marketing » : l'angle du concurrent et les vraies douleurs.
+        if not item.get("angle_concurrent"):
+            r.warn(f"{where} : 'angle_concurrent' absent — cite l'angle des concurrents depuis leurs pubs réelles")
+        pains = item.get("pain_points")
+        if pains is None:
+            r.warn(f"{where} : 'pain_points' absent — 3 à 5 douleurs fortes avec citation et lien (docs/RADAR.md §4bis)")
+        elif not isinstance(pains, list):
+            r.err(f"{where} : 'pain_points' doit être une liste")
+        else:
+            for j, pp in enumerate(pains, 1):
+                if not isinstance(pp, dict) or not all(pp.get(k) for k in ("douleur", "intensite", "preuve", "source_url")):
+                    r.err(f"{where}.pain_points[{j}] : douleur, intensite, preuve et source_url obligatoires")
+                    continue
+                if pp["intensite"] not in ("forte", "moyenne"):
+                    r.err(f"{where}.pain_points[{j}] : intensite doit être 'forte' ou 'moyenne'")
+                if not str(pp["source_url"]).startswith("http"):
+                    r.err(f"{where}.pain_points[{j}] : source_url invalide — une douleur sans lien est une douleur inventée")
+            if pains and not any(pp.get("intensite") == "forte" for pp in pains if isinstance(pp, dict)):
+                r.warn(f"{where} : aucune douleur 'forte' — Badr veut les douleurs qui gênent beaucoup, pas un peu")
+        angles = item.get("angles_non_exploites")
+        if angles is None:
+            r.warn(f"{where} : 'angles_non_exploites' absent")
+        elif not isinstance(angles, list):
+            r.err(f"{where} : 'angles_non_exploites' doit être une liste")
+        else:
+            for j, a in enumerate(angles, 1):
+                if not isinstance(a, dict) or not all(a.get(k) for k in ("angle", "douleur_ciblee", "pourquoi_personne")):
+                    r.err(f"{where}.angles_non_exploites[{j}] : angle, douleur_ciblee et pourquoi_personne obligatoires")
         if item.get("statut") not in RADAR_STATUTS - {"A SURVEILLER"} and item.get("verdict") == "GO TEST":
             r.warn(f"{where} : GO TEST sur un statut {item.get('statut')} — vérifie que le signal explose vraiment")
         if item.get("verdict") not in RADAR_VERDICTS:
