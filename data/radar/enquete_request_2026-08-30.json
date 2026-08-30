@@ -1,0 +1,32 @@
+[
+  {
+    "boutique": "myseese.com",
+    "produit": "TrueForm Fascial Release",
+    "mots_cles_fr": ["douleur musculaire qui ne part pas", "fascia bloqué dos et jambes", "tensions musculaires chroniques"],
+    "mots_cles_en": ["myofascial pain won't go away", "fascia release tool does it work", "chronic muscle tension relief"]
+  },
+  {
+    "boutique": "dermiqua.com",
+    "produit": "DERMIQUA Actinic Keratosis Correcting Oil",
+    "mots_cles_fr": ["tache rugueuse sur la peau qui ne part pas", "peau abimee par le soleil visage", "keratose actinique traitement maison"],
+    "mots_cles_en": ["rough scaly patch on skin won't go away", "actinic keratosis home treatment", "sun damaged skin spot"]
+  },
+  {
+    "boutique": "sleeppods.co",
+    "produit": "Original Waterproof SleepPods 2026",
+    "mots_cles_fr": ["impossible de dormir a cause du bruit", "ronflement du partenaire insomnie", "ecouteurs pour dormir confortable"],
+    "mots_cles_en": ["can't sleep because of noise", "earbuds for sleeping comfortably", "partner snoring can't fall asleep"]
+  },
+  {
+    "boutique": "nordband.ch",
+    "produit": "Don't Let The Hard Days Win Armband",
+    "mots_cles_fr": ["perte de motivation au quotidien", "bracelet rappel objectif personnel", "traverser une periode difficile mentalement"],
+    "mots_cles_en": ["need daily motivation reminder", "mental health awareness bracelet", "getting through hard days"]
+  },
+  {
+    "boutique": "getfreshreserve.co.uk",
+    "produit": "Fresh Reserve Cordless Vacuum Sealer",
+    "mots_cles_fr": ["aliments qui moisissent trop vite frigo", "garder la nourriture fraiche plus longtemps", "manque de place dans la valise voyage"],
+    "mots_cles_en": ["food goes bad too fast fridge", "keep food fresh longer vacuum seal", "luggage packing space saver bags"]
+  }
+]
