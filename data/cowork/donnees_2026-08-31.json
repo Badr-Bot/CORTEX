@@ -1,12 +1,12 @@
 {
   "date": "2026-08-31",
-  "collecte_le": "2026-08-31 00:09 UTC",
+  "collecte_le": "2026-08-31 05:55 UTC",
   "crypto_dashboard": {
-    "btc_dominance": 59.7,
-    "total_volume_24h": 58039328525.1793,
-    "market_cap_change": -3.6,
-    "btc_price": 77632,
-    "btc_change_24h": -0.7,
+    "btc_dominance": 59.6,
+    "total_volume_24h": 67795990002.312325,
+    "market_cap_change": -2.9,
+    "btc_price": 78005,
+    "btc_change_24h": -0.2,
     "btc_price_source": "CoinGecko",
     "fear_greed_score": 62,
     "fear_greed_label": "Avidité",
@@ -14,14 +14,14 @@
     "fear_greed_avg_7d": 69,
     "open_interest_btc": 0.0,
     "long_short_ratio": 0.5,
-    "mempool_fee": 3,
+    "mempool_fee": 1,
     "liq_longs_24h_usd": 0,
     "liq_shorts_24h_usd": 0,
     "liq_dominance": "N/A",
     "funding_description": "Neutres (0.000%)",
     "exchange_flows": {
       "binance_vol_24h_usd": 0,
-      "top5_exchanges_vol_btc": 129268.2,
+      "top5_exchanges_vol_btc": 155286.4,
       "trend": "faible_volume",
       "pression": "neutre"
     },
@@ -44,19 +44,19 @@
       "raw_price": 26402.424
     },
     "gold": {
-      "price": "$4,507",
-      "change_pct": -2.822276363165963,
-      "raw_price": 4507.2
+      "price": "$4,487",
+      "change_pct": -2.4118133182549615,
+      "raw_price": 4487.3
     },
     "oil": {
-      "price": "$84.7",
-      "change_pct": 2.8654686741136466,
-      "raw_price": 84.72
+      "price": "$85.7",
+      "change_pct": 4.195549069682601,
+      "raw_price": 85.68
     },
     "dxy": {
       "price": "99.6",
-      "change_pct": 0.7319045693489726,
-      "raw_price": 99.644
+      "change_pct": 0.43864071795906245,
+      "raw_price": 99.605
     },
     "vix": {
       "price": "14.4",
@@ -71,152 +71,7 @@
       "change_bps": "+2bps"
     },
     "earnings_week": [],
-    "insider_buys": [
-      {
-        "insider": "Cascade Investment, L.L.C.",
-        "company": "Republic Services, Inc.",
-        "ticker": "RSG",
-        "type": "BUY",
-        "shares": 560100,
-        "value_usd": 123511813,
-        "date": "2026-08-26"
-      },
-      {
-        "insider": "Walsh Colin",
-        "company": "Attovia Therapeutics, Inc.",
-        "ticker": "ATTO",
-        "type": "BUY",
-        "shares": 585000,
-        "value_usd": 10285000,
-        "date": "2026-08-05"
-      },
-      {
-        "insider": "Goldman Sachs Group Inc",
-        "company": "Attovia Therapeutics, Inc.",
-        "ticker": "ATTO",
-        "type": "BUY",
-        "shares": 585000,
-        "value_usd": 10285000,
-        "date": "2026-08-05"
-      },
-      {
-        "insider": "Siemiatkowski Sebastian",
-        "company": "Klarna Group Plc",
-        "ticker": "KLAR",
-        "type": "BUY",
-        "shares": 692506,
-        "value_usd": 9949164,
-        "date": "2026-08-26"
-      },
-      {
-        "insider": "Paine Schwartz Food Chain Fund V Gp, Ltd.",
-        "company": "Suja Life, Inc.",
-        "ticker": "SUJA",
-        "type": "BUY",
-        "shares": 652248,
-        "value_usd": 6097155,
-        "date": "2026-08-26"
-      },
-      {
-        "insider": "Subin Neil S",
-        "company": "Optimum Communications, Inc.",
-        "ticker": "OPTU",
-        "type": "BUY",
-        "shares": 3032354,
-        "value_usd": 2454822,
-        "date": "2026-07-29"
-      },
-      {
-        "insider": "Rady Ernest S",
-        "company": "American Assets Trust, Inc.",
-        "ticker": "AAT",
-        "type": "BUY",
-        "shares": 100000,
-        "value_usd": 2254000,
-        "date": "2026-08-27"
-      },
-      {
-        "insider": "Barrenechea Mark J",
-        "company": "Dick'S Sporting Goods, Inc.",
-        "ticker": "DKS",
-        "type": "BUY",
-        "shares": 17000,
-        "value_usd": 2222240,
-        "date": "2026-08-27"
-      },
-      {
-        "insider": "Grossman Jonas",
-        "company": "Rainier Acquisition Corp",
-        "ticker": "RNAQ",
-        "type": "BUY",
-        "shares": 194375,
-        "value_usd": 1943750,
-        "date": "2026-08-28"
-      },
-      {
-        "insider": "Colombo William J",
-        "company": "Dick'S Sporting Goods, Inc.",
-        "ticker": "DKS",
-        "type": "BUY",
-        "shares": 6100,
-        "value_usd": 785500,
-        "date": "2026-08-26"
-      },
-      {
-        "insider": "Kiai Parsa",
-        "company": "Medifast Inc",
-        "ticker": "MED",
-        "type": "BUY",
-        "shares": 43150,
-        "value_usd": 529157,
-        "date": "2026-08-26"
-      },
-      {
-        "insider": "Eddy Robert W.",
-        "company": "Dick'S Sporting Goods, Inc.",
-        "ticker": "DKS",
-        "type": "BUY",
-        "shares": 4000,
-        "value_usd": 514780,
-        "date": "2026-08-26"
-      },
-      {
-        "insider": "Mazarakis John",
-        "company": "Chicago Atlantic Real Estate Finance, Inc.",
-        "ticker": "REFI",
-        "type": "BUY",
-        "shares": 47711,
-        "value_usd": 508940,
-        "date": "2026-08-26"
-      },
-      {
-        "insider": "Cacioppo James",
-        "company": "Jushi Holdings Inc.",
-        "ticker": "JUSH",
-        "type": "BUY",
-        "shares": 994000,
-        "value_usd": 492000,
-        "date": "2026-08-26"
-      },
-      {
-        "insider": "Black Doug",
-        "company": "Siteone Landscape Supply, Inc.",
-        "ticker": "SITE",
-        "type": "BUY",
-        "shares": 5000,
-        "value_usd": 480650,
-        "date": "2026-08-26"
-      },
-      {
-        "insider": "Mathrani Sandeep",
-        "company": "Dick'S Sporting Goods, Inc.",
-        "ticker": "DKS",
-        "type": "BUY",
-        "shares": 1550,
-        "value_usd": 199783,
-        "date": "2026-08-26"
-      }
-    ],
+    "insider_buys": [],
     "sectors": {
       "technologie": {
         "symbol": "XLK",
@@ -404,7 +259,7 @@
     "yield_curve": 0.39,
     "hy_spread": 6.96,
     "vix": 14.43,
-    "updated_at": "2026-08-31T00:08:52.838470+00:00"
+    "updated_at": "2026-08-31T05:55:16.362750+00:00"
   },
   "ecommerce_dashboard": {
     "stocks": [
@@ -488,10 +343,10 @@
     }
   },
   "ecommerce_themes": {
-    "marketplace": 19,
+    "marketplace": 22,
     "automation": 7,
     "operations": 1,
-    "creatives": 5,
+    "creatives": 6,
     "emailing": 3
   },
   "outils_usages": {
@@ -499,18 +354,18 @@
     "produit_gagnant": 2,
     "analyse_marche": 2,
     "scraping": 8,
-    "pub": 7,
+    "pub": 8,
     "fiches_produit": 1,
     "skill_claude": 12,
     "automatisation": 5
   },
   "compte_news": {
-    "ai": 12,
+    "ai": 11,
     "trending": 45,
-    "crypto": 19,
+    "crypto": 18,
     "market": 45,
-    "deeptech": 0,
-    "ecommerce": 35,
-    "outils": 52
+    "deeptech": 56,
+    "ecommerce": 39,
+    "outils": 53
   }
 }
