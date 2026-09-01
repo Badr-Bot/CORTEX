@@ -462,10 +462,10 @@
         "source_url": "https://www.bbc.co.uk/news/articles/c3v0qrz7z25o?at_medium=RSS&at_campaign=rss"
       },
       {
-        "titre": "Elliott builds stake in French industrial gas group Air Liquide",
-        "en_clair": "Le fonds activiste américain Elliott prend une participation dans Air Liquide, poursuivant sa stratégie de pression sur les grandes entreprises industrielles européennes.",
+        "titre": "Wall Street banks push Big Law to cut fees because of AI",
+        "en_clair": "Goldman Sachs, Morgan Stanley et Citi disent aux cabinets d'avocats que leurs factures doivent baisser, car l'IA rend le travail de routine plus rapide.",
         "source_name": "FT Markets",
-        "source_url": "https://www.ft.com/content/3d30f551-53af-4fab-8271-3f7fd75d5cfd?syn-25a6b1a6=1"
+        "source_url": "https://www.ft.com/content/5240a6ac-b2e8-4897-a0a4-cbc7fc283bc9?syn-25a6b1a6=1"
       },
       {
         "titre": "BYD shares slide as fierce China competition dents first-half earnings",
@@ -480,10 +480,10 @@
         "source_url": "https://www.cnbc.com/2026/08/30/trump-tariff-refunds-walmart-home-depot-target.html"
       },
       {
-        "titre": "Bessent urges Japan to show path to fiscal sustainability, rate hike - NHK reports",
-        "en_clair": "Les États-Unis poussent le Japon à prouver qu'il peut assainir ses finances publiques et à envisager une hausse de taux, un sujet suivi de près par les marchés obligataires mondiaux.",
-        "source_name": "Investing.com",
-        "source_url": "https://www.investing.com/news/stock-market-news/bessent-urges-japan-to-show-path-to-fiscal-sustainability-rate-hike--nhk-reports-4883406"
+        "titre": "Japan's benchmark bond yield hits 3% for first time since 1996",
+        "en_clair": "Le taux d'emprunt de référence du Japon dépasse 3% pour la première fois depuis 1996, alors que le secrétaire au Trésor américain Bessent pousse la Banque du Japon à relever ses taux.",
+        "source_name": "FT Markets",
+        "source_url": "https://www.ft.com/content/e6f5f97a-b199-444e-aaec-b8199359b08e?syn-25a6b1a6=1"
       }
     ]
   },
@@ -491,17 +491,17 @@
     "signals": [
       {
         "conviction": 2,
-        "title": "UNE IA APPREND À CORRIGER LES ERREURS DES ORDINATEURS QUANTIQUES PLUS EFFICACEMENT",
-        "en_clair": "Des chercheurs utilisent l'intelligence artificielle pour mieux corriger les erreurs des ordinateurs quantiques, un problème qui empêche encore ces machines d'être vraiment utiles.",
-        "fait": "Un ordinateur quantique (une machine qui calcule avec des bits quantiques, ou qubits, capables d'être dans plusieurs états à la fois, ce qui promet une puissance de calcul énorme pour certains problèmes) souffre d'un défaut majeur : ses qubits sont extrêmement sensibles aux perturbations (chaleur, vibrations, ondes électromagnétiques) et génèrent donc beaucoup d'erreurs de calcul. Pour compenser, les chercheurs utilisent des 'codes correcteurs d'erreurs quantiques' : plusieurs qubits physiques sont combinés pour former un qubit 'logique' plus fiable, un peu comme on répète un message plusieurs fois pour être sûr qu'il passe malgré du bruit sur la ligne. Cette étude propose un nouveau système, basé sur des réseaux de neurones (une technique d'intelligence artificielle), pour décoder ces codes correcteurs plus vite et avec moins de calcul, en particulier pour des codes complexes 'concaténés' (empilés en plusieurs couches). Résultat espéré : des ordinateurs quantiques plus fiables sans matériel de correction d'erreurs énorme en plus.",
-        "implication_2": "Concrètement, ça veut dire que si cette approche se confirme sur du vrai matériel quantique (pas seulement en simulation), elle pourrait accélérer le moment où les ordinateurs quantiques deviennent assez fiables pour résoudre des problèmes utiles en pratique (chimie, matériaux, cryptographie), plutôt que de rester des prototypes de recherche.",
-        "implication_3": "Les entreprises qui investissent le plus dans le calcul quantique (IBM, Google, IonQ, et les laboratoires soutenus par les gouvernements) bénéficieraient les premières d'une meilleure correction d'erreurs, pendant que celles qui pariaient sur des approches alternatives moins tolérantes aux erreurs pourraient prendre du retard.",
-        "these_opposee": "C'est une étude théorique (un article de recherche, pas encore relu par des pairs ni testé sur du vrai matériel quantique à grande échelle) : l'écart entre une bonne idée sur le papier et une amélioration réelle mesurable sur une machine physique reste souvent immense en informatique quantique.",
-        "action": "Aucune action d'investissement immédiate ; à ajouter à une liste de suivi si Badr s'intéresse au thème de l'informatique quantique comme thèse d'investissement à long terme, sans y mettre de capital tant que la technologie reste expérimentale.",
+        "title": "UNE JONCTION JOSEPHSON AMÉLIORE UN COMPOSANT CLÉ DES ORDINATEURS QUANTIQUES IBM",
+        "en_clair": "Des chercheurs trouvent une façon plus propre de fabriquer un composant essentiel des ordinateurs quantiques à supraconducteurs, ceux utilisés par IBM et Google.",
+        "fait": "Les ordinateurs quantiques à supraconducteurs (la technologie utilisée par IBM et Google, qui refroidit des circuits électroniques à des températures proches du zéro absolu) reposent sur un composant appelé jonction Josephson : une fine barrière isolante entre deux supraconducteurs, qui sert de brique de base pour créer et manipuler les qubits (les bits quantiques). Un des défis techniques de ce domaine est de dissiper plusieurs photons à la fois, une opération nécessaire pour stabiliser certains types de qubits dits 'bosoniques', ce qui se faisait jusqu'ici en pompant de l'énergie dans le circuit d'une façon qui créait des effets secondaires indésirables (des 'termes non linéaires parasites', un bruit qui perturbe le calcul). Cette étude propose à la place d'utiliser une jonction Josephson alimentée par une tension continue (un courant électrique constant, plus simple qu'un pompage oscillant), ce qui limiterait ces effets secondaires. C'est le genre d'amélioration technique incrémentale, discrète mais nécessaire, qui finit par rendre le matériel quantique plus fiable une fois accumulée avec d'autres progrès similaires.",
+        "implication_2": "Concrètement, ça veut dire un pas de plus vers des qubits plus stables et plus faciles à fabriquer à grande échelle, ce qui est l'un des principaux obstacles empêchant aujourd'hui les ordinateurs quantiques de dépasser les ordinateurs classiques sur des problèmes utiles.",
+        "implication_3": "Les fabricants de matériel quantique à supraconducteurs (IBM, Google, et des start-ups comme Rigetti) bénéficieraient les premiers de ce type d'avancée technique s'ils l'intègrent à leurs prochaines générations de puces, pendant que les approches concurrentes (qubits à ions piégés, photoniques) ne seraient pas directement concernées.",
+        "these_opposee": "C'est une proposition théorique testée sur le papier ou en simulation à ce stade (article de recherche, pas encore relu par des pairs) ; le passage à une implémentation matérielle réelle et fiable à grande échelle prend souvent plusieurs années en informatique quantique.",
+        "action": "Aucune action d'investissement immédiate ; à suivre comme un indicateur de plus de la vitesse d'innovation dans le matériel quantique à supraconducteurs, utile seulement pour une thèse d'investissement de très long terme.",
         "sizing": "Faible",
-        "invalide_si": "Si des tests indépendants sur du matériel quantique réel ne montrent aucune amélioration significative par rapport aux méthodes de décodage existantes dans les 12 prochains mois.",
+        "invalide_si": "Si des tests sur du matériel réel ne parviennent pas à reproduire une réduction mesurable des effets parasites dans les 12 à 24 prochains mois.",
         "source_name": "arXiv — Quantique",
-        "source_url": "http://arxiv.org/abs/2608.28571v1",
+        "source_url": "http://arxiv.org/abs/2608.31154v1",
         "horizon": "10+",
         "credibilite_score": 1,
         "peer_reviewed": false,
@@ -513,66 +513,63 @@
         "adoption": false,
         "adoption_detail": "",
         "investissement_cotes": [
-          "IBM",
-          "IONQ"
+          "IBM"
         ],
         "investissement_etf": [],
         "investissement_early": []
       },
       {
         "conviction": 2,
-        "title": "IBM RÉDUIT LES ERREURS DE SES ORDINATEURS QUANTIQUES SANS PLUS DE CALCUL",
-        "en_clair": "Une étude sur du vrai matériel IBM montre comment réduire les erreurs des ordinateurs quantiques tout en utilisant moins de ressources de calcul.",
-        "fait": "Cette étude a été menée directement sur du matériel quantique IBM réel (des ordinateurs quantiques supraconducteurs, c'est-à-dire refroidis à des températures proches du zéro absolu pour fonctionner), et non en simulation. Les chercheurs ont combiné plusieurs techniques — le choix soigné des qubits utilisés, l'ajustement de la profondeur des circuits de calcul, et une méthode dite d'extrapolation à bruit nul (qui consiste à mesurer un résultat à différents niveaux de bruit puis à extrapoler ce que serait le résultat sans bruit du tout) — pour réduire les erreurs tout en respectant un budget de calcul limité (le nombre de fois qu'on doit répéter une mesure, appelé 'shots'). L'intérêt principal est pratique : ces techniques ne demandent pas d'attendre une nouvelle génération de matériel quantique plus puissant, elles permettent de mieux exploiter le matériel déjà existant aujourd'hui.",
-        "implication_2": "Concrètement, ça veut dire qu'on peut obtenir des résultats plus fiables sur les ordinateurs quantiques d'aujourd'hui sans attendre les futures générations de machines, ce qui raccourcit potentiellement le délai avant des applications quantiques réellement utiles en entreprise.",
-        "implication_3": "IBM et les utilisateurs de son cloud quantique (Qiskit, sa plateforme de programmation quantique) bénéficieraient directement de ces techniques si elles sont intégrées à leurs outils, ce qui renforcerait la position d'IBM face à Google ou IonQ sur le calcul quantique pratique à court terme.",
-        "these_opposee": "Ces techniques d'atténuation d'erreur ne remplacent pas une vraie correction d'erreur quantique complète : elles rendent le matériel actuel un peu plus utilisable, mais ne résolvent pas le problème de fond qui empêche encore le calcul quantique de dépasser largement les ordinateurs classiques sur des tâches utiles.",
-        "action": "Aucune action d'investissement immédiate ; à suivre comme indicateur de la maturité progressive du matériel IBM, utile seulement pour une thèse d'investissement de très long terme sur le calcul quantique.",
+        "title": "DES CHERCHEURS PROUVENT QU'ON PEUT GÉNÉRER DU 'VRAI HASARD' QUANTIQUE VÉRIFIABLE",
+        "en_clair": "Une nouvelle méthode permettrait de prouver, avec un simple ordinateur classique, qu'un nombre aléatoire généré par un ordinateur quantique est vraiment aléatoire — utile pour la cryptographie et les jeux d'argent en ligne.",
+        "fait": "Générer un nombre 'vraiment' aléatoire (pas seulement une suite de chiffres qui semble aléatoire mais qui pourrait être prédite si on connaît la méthode utilisée) est un problème central en cryptographie (protection des données), dans les loteries et jeux d'argent en ligne, et dans la sécurité informatique en général. Cette étude propose un protocole où un ordinateur quantique peut prouver, face à un vérificateur classique (un ordinateur normal, sans capacité quantique), que le nombre qu'il a généré est bien aléatoire et non manipulé — sans que ce vérificateur ait besoin d'un équipement spécial ni d'une interaction complexe en plusieurs étapes. Le protocole s'appuie sur des travaux antérieurs (Yamakawa et Zhandry) qui prouvent mathématiquement qu'un ordinateur classique ne peut pas simuler ce résultat, ce qui constitue la preuve de 'vraie' aléatoire quantique.",
+        "implication_2": "Concrètement, ça veut dire qu'à terme, des services en ligne (loteries, casinos, systèmes de sécurité) pourraient utiliser un générateur de nombres aléatoires quantique et prouver publiquement, de façon vérifiable par n'importe qui, que les résultats ne sont pas truqués — un argument de confiance fort pour ces industries.",
+        "implication_3": "Les entreprises qui vendent déjà des services de génération de nombres aléatoires quantiques (start-ups spécialisées, ou les grands acteurs du cloud quantique comme IBM et Google) pourraient valoriser cette preuve de confiance comme argument commercial, en particulier auprès des régulateurs de jeux d'argent et des institutions financières.",
+        "these_opposee": "Le protocole reste théorique et repose sur des hypothèses de sécurité cryptographique qui, bien que solides sur le papier, n'ont pas encore été testées en conditions réelles à grande échelle ; l'écart entre la preuve mathématique et un déploiement commercial fiable reste important.",
+        "action": "Aucune action directe pour Badr ; à noter comme signal de plus que les applications commerciales concrètes de l'informatique quantique, au-delà du calcul pur, commencent à émerger, avec un horizon encore lointain.",
         "sizing": "Faible",
-        "invalide_si": "Si IBM ou d'autres laboratoires ne parviennent pas à reproduire ces gains d'efficacité sur d'autres générations de leur matériel quantique dans l'année qui suit.",
+        "invalide_si": "Si aucune entreprise ne propose de service commercial basé sur ce type de protocole dans les 3 prochaines années.",
         "source_name": "arXiv — Quantique",
-        "source_url": "http://arxiv.org/abs/2608.28535v1",
+        "source_url": "http://arxiv.org/abs/2608.31112v1",
         "horizon": "10+",
-        "credibilite_score": 2,
+        "credibilite_score": 1,
         "peer_reviewed": false,
         "peer_reviewed_detail": "",
         "financement": false,
         "financement_detail": "",
-        "prototype": true,
-        "prototype_detail": "Expériences réalisées directement sur du matériel quantique supraconducteur IBM réel, pas seulement en simulation.",
+        "prototype": false,
+        "prototype_detail": "",
         "adoption": false,
         "adoption_detail": "",
-        "investissement_cotes": [
-          "IBM"
-        ],
+        "investissement_cotes": [],
         "investissement_etf": [],
         "investissement_early": []
       }
     ],
     "autres_news": [
       {
-        "titre": "How Long-Range Tails Reshape Non-Hermitian Spectra",
-        "en_clair": "Des physiciens montrent que des approximations courantes en physique quantique peuvent complètement rater juste car elles ignorent des effets à longue portée — un rappel que la théorie doit encore être affinée avant des applications fiables.",
+        "titre": "Quantum Simulation of Markovian and Non-Markovian Open Quantum Dynamics in Heavy-Ion Collisions",
+        "en_clair": "Des physiciens utilisent un ordinateur quantique pour simuler des collisions entre noyaux atomiques lourds, un calcul trop complexe pour les ordinateurs classiques actuels.",
         "source_name": "arXiv — Quantique",
-        "source_url": "http://arxiv.org/abs/2608.28577v1"
+        "source_url": "http://arxiv.org/abs/2608.31173v1"
       },
       {
-        "titre": "Quantum Fourier transform toolbox",
-        "en_clair": "Une nouvelle boîte à outils facilite le calcul quantique pour des structures mathématiques jusqu'ici trop complexes à programmer efficacement, une brique de base pour de futurs algorithmes quantiques.",
+        "titre": "Efficient search for excitable zero-modes in constrained systems",
+        "en_clair": "Des chercheurs trouvent une méthode plus rapide pour repérer des états particuliers dans des systèmes quantiques très contraints, une brique utile pour mieux comprendre certains matériaux exotiques.",
         "source_name": "arXiv — Quantique",
-        "source_url": "http://arxiv.org/abs/2608.28573v1"
+        "source_url": "http://arxiv.org/abs/2608.31165v1"
       },
       {
-        "titre": "Exact quantification of nonlocal magic",
-        "en_clair": "Des chercheurs répondent enfin à une question ouverte sur la 'magie' quantique, la ressource qui rend un ordinateur quantique vraiment plus puissant qu'un ordinateur classique.",
+        "titre": "Tunable Exceptional Points for Quantum Sensing in a Spin-Orbit-Angular-Momentum Coupled BEC",
+        "en_clair": "Une nouvelle méthode pourrait rendre certains capteurs quantiques beaucoup plus sensibles aux petites perturbations, utile pour détecter des signaux très faibles.",
         "source_name": "arXiv — Quantique",
-        "source_url": "http://arxiv.org/abs/2608.28563v1"
+        "source_url": "http://arxiv.org/abs/2608.31095v1"
       },
       {
-        "titre": "Modifying van der Waals Materials via Cavity Vacuum Fluctuations",
-        "en_clair": "Des physiciens montrent qu'on peut modifier les propriétés de matériaux ultra-fins sans aucune source d'énergie extérieure, juste avec le vide quantique — une piste pour des matériaux programmables à la demande.",
+        "titre": "Phase-noise induced many-body interference suppression in Gaussian Boson Sampling",
+        "en_clair": "Des chercheurs montrent comment le bruit affecte un type de calcul quantique (l'échantillonnage de bosons), une étape importante pour savoir si cette technique tiendra ses promesses.",
         "source_name": "arXiv — Quantique",
-        "source_url": "http://arxiv.org/abs/2608.28521v1"
+        "source_url": "http://arxiv.org/abs/2608.31089v1"
       },
       {
         "titre": "RNA-like Polyelectrolyte in a Viral Capsid: Molecular Dynamics with Explicit Electrostatic Interactions",
@@ -877,17 +874,17 @@
       {
         "conviction": 2,
         "theme": "marketplace",
-        "title": "SHEIN ENTRE ENFIN EN BOURSE À HONG KONG, DANS UN CONTEXTE MOINS FAVORABLE QU'ESPÉRÉ",
-        "en_clair": "Après des années à vouloir entrer en bourse à New York ou Londres, Shein se lance finalement à Hong Kong, levant 1,74 milliard de dollars mais avec moins d'enthousiasme que prévu.",
-        "fait": "Shein (le géant chinois de la mode ultra-rapide et ultra-bon marché, un concurrent indirect de beaucoup de boutiques e-commerce sur le prix) a fixé le prix de son introduction en bourse à Hong Kong en dessous du haut de la fourchette prévue, levant tout de même 1,74 milliard de dollars. L'entreprise a longtemps cherché à entrer en bourse à New York, puis à Londres, avant de se rabattre sur Hong Kong après des années de blocages réglementaires et politiques liés à des critiques sur ses conditions de travail et son impact environnemental. Cette introduction en bourse, bien que réussie financièrement, intervient dans un contexte où l'image de Shein s'est ternie ces dernières années, ce qui pourrait limiter sa valorisation boursière à long terme par rapport à ce qu'elle espérait initialement.",
-        "implication_2": "Concrètement, ça veut dire que Shein va devoir rendre des comptes financiers publics beaucoup plus détaillés qu'avant (obligation légale des entreprises cotées), ce qui pourrait révéler davantage d'informations sur ses marges et ses coûts réels — des données précieuses pour comprendre comment une entreprise de cette taille tient des prix aussi bas.",
-        "implication_3": "Les petites boutiques qui se battent sur le prix face à Shein auront plus de mal à rivaliser frontalement une fois l'entreprise encore plus visible et scrutée médiatiquement ; celles qui misent sur la qualité, la rapidité de livraison locale ou une vraie identité de marque restent moins exposées à cette concurrence directe.",
-        "these_opposee": "Une introduction en bourse sous le haut de la fourchette de prix et dans une place financière secondaire peut aussi être lue comme un signe de faiblesse plutôt que de force, et ne change rien à l'activité opérationnelle quotidienne de Shein à court terme.",
+        "title": "SHEIN CHUTE DE 9% POUR SES DÉBUTS EN BOURSE À HONG KONG",
+        "en_clair": "Après des années à vouloir entrer en bourse à New York ou Londres, Shein a fini par arriver à Hong Kong — et ses actions ont chuté de 9% dès le premier jour de cotation.",
+        "fait": "Shein (le géant chinois de la mode ultra-rapide et ultra-bon marché, un concurrent indirect de beaucoup de boutiques e-commerce sur le prix) a fait ses débuts en bourse à Hong Kong, et ses actions ont chuté de 9% dès le premier jour de cotation. L'entreprise a longtemps cherché à entrer en bourse à New York, puis à Londres, avant de se rabattre sur Hong Kong après des années de blocages réglementaires et politiques liés à des critiques sur ses conditions de travail et son impact environnemental. Le New York Times résume ce début poussif comme le signe qu'un modèle de mode ultra-rapide et ultra-bon marché pourrait être 'laissé pour compte' par les investisseurs, dans un contexte où l'image de Shein s'est ternie ces dernières années.",
+        "implication_2": "Concrètement, ça veut dire que le marché boursier semble douter de la capacité de Shein à défendre ses marges face à la concurrence (notamment Temu) et à la pression réglementaire croissante sur le modèle de la mode ultra-rapide — un doute qui pourrait aussi peser sur la valorisation d'autres acteurs du même modèle.",
+        "implication_3": "Les petites boutiques qui se battent sur le prix face à Shein pourraient voir un peu de répit si les investisseurs poussent Shein à relever ses prix pour rassurer sur ses marges ; à l'inverse, si Shein double d'agressivité commerciale pour prouver sa résilience, la pression sur le prix resterait forte pour tout le secteur.",
+        "these_opposee": "Un mauvais premier jour de cotation ne présage pas forcément d'une mauvaise performance à long terme : beaucoup d'entreprises ont connu des débuts difficiles en bourse avant de se redresser une fois les résultats trimestriels réels publiés.",
         "action": "Aucune action directe nécessaire ; à utiliser comme repère de contexte concurrentiel plutôt qu'un vrai signal d'investissement ou de changement de stratégie immédiat pour la boutique de Badr.",
         "sizing": "Faible",
-        "invalide_si": "Si l'action Shein chute fortement dans les semaines suivant son introduction en bourse, signe que le marché juge son modèle économique fragile une fois exposé à l'examen public.",
-        "source_name": "Plateformes (Google News)",
-        "source_url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQalUwUzZ5X25wVFgyN2dnX2tJd0MyM1YxbFoxdXZfbXpEUmdEVWpRNWhxOUNhM1BSTjljb0M4VWhJb3c3MTlaNzMxb2tldzdpM3VaQ3RIMkVFckhTcVExM0lWNDZBemY3dDlwWURmMFlyZC1sdGljTTdJbjUycncxTUJPb3dWZEV1NnN3NlV2ZnBRRTI2ZW4zdnYtVGVlRTJUNGtRTU14ZVF0eEp0cldOaTNMcXY0d0FRaFY1eU13?oc=5"
+        "invalide_si": "Si l'action Shein se redresse fortement dans les semaines suivant son introduction en bourse, signe que la chute du premier jour n'était qu'un ajustement technique.",
+        "source_name": "BBC Business",
+        "source_url": "https://www.bbc.co.uk/news/articles/c3v0qrz7z25o?at_medium=RSS&at_campaign=rss"
       },
       {
         "conviction": 2,
@@ -922,17 +919,17 @@
       {
         "conviction": 2,
         "theme": "operations",
-        "title": "AMAZON FAIT PAYER LES VENDEURS QUI VEULENT LIVRER ENCORE PLUS VITE",
-        "en_clair": "Amazon propose désormais aux vendeurs de payer un supplément pour une livraison encore plus rapide que la livraison le jour même, une nouvelle façon de faire monter les frais logistiques.",
-        "fait": "Amazon a lancé une nouvelle option appelée SSD (Sub Same-Day Shipping, littéralement 'livraison en dessous du jour même'), qui permet aux vendeurs de payer un supplément pour offrir une livraison encore plus rapide que sa déjà rapide livraison le jour même. C'est un signal de la course à la vitesse de livraison qui continue de s'intensifier dans le e-commerce grand public, où Amazon fixe la norme que les autres boutiques en ligne doivent ensuite égaler dans l'esprit des consommateurs, même sans avoir la même infrastructure logistique. Pour les vendeurs sur Amazon, cette option représente un coût supplémentaire à arbitrer contre le bénéfice potentiel d'une meilleure conversion ou d'un meilleur classement dans les résultats de recherche Amazon, qui favorisent parfois les offres avec livraison plus rapide.",
-        "implication_2": "Concrètement, ça veut dire que les attentes des consommateurs en matière de rapidité de livraison continuent de monter, ce qui met une pression indirecte sur toutes les boutiques en ligne, y compris celles qui ne vendent pas sur Amazon, pour au moins communiquer clairement des délais de livraison compétitifs.",
-        "implication_3": "Les vendeurs Amazon qui ont les moyens de payer ce supplément pourraient gagner en visibilité et en taux de conversion, creusant l'écart avec les vendeurs plus petits qui ne peuvent pas se permettre ce coût additionnel — un exemple de plus où Amazon fait payer plus cher pour rester compétitif sur sa propre plateforme.",
-        "these_opposee": "Une majorité de clients reste sensible au prix final plutôt qu'à quelques heures de délai de livraison en moins ; pour beaucoup de catégories de produits, l'impact réel sur les ventes de cette option ultra-rapide pourrait être limité face à son coût.",
-        "action": "Pour Badr, qui vend sur Shopify plutôt que sur Amazon : plutôt que d'essayer de rivaliser sur la vitesse pure, communiquer clairement et honnêtement les délais de livraison réels sur les fiches produit, un levier de conversion simple souvent négligé.",
+        "title": "DOLLAR GENERAL DÉPLOIE L'IA DANS SES ENTREPÔTS ET MAGASINS",
+        "en_clair": "La chaîne de magasins Dollar General installe de l'intelligence artificielle dans ses centres de distribution et ses points de vente pour mieux gérer ses stocks.",
+        "fait": "Dollar General (une grande chaîne américaine de magasins discount) déploie l'intelligence artificielle à la fois dans ses centres de distribution et directement dans ses magasins, en s'appuyant sur la plateforme de gestion de chaîne d'approvisionnement de Relex Solutions. L'objectif est de mieux anticiper la demande, réduire les ruptures de stock et les surstocks, et automatiser une partie des décisions de réassort qui étaient auparavant prises manuellement par des équipes locales. C'est un exemple de plus de l'IA qui sort du strict cadre du marketing et du service client pour s'attaquer à des problèmes très concrets de logistique et de gestion de stock, là où les gains financiers directs (moins de produits périmés ou invendus, moins de ruptures qui font perdre des ventes) sont souvent plus faciles à mesurer que pour une IA génératrice de contenu.",
+        "implication_2": "Concrètement, ça veut dire que la gestion de stock assistée par IA (prévision de la demande, réassort automatique) devient un standard chez les grandes chaînes, ce qui rend les outils équivalents plus accessibles et moins chers pour les boutiques plus petites au fil du temps, à mesure que la technologie se démocratise.",
+        "implication_3": "Les fournisseurs de logiciels de gestion de stock spécialisés (comme Relex Solutions, mais aussi des apps Shopify équivalentes plus abordables) gagnent en crédibilité et en clients grâce à ce type de déploiement chez un grand acteur ; les boutiques qui gèrent encore leur stock 'à l'instinct' risquent de perdre en compétitivité face à celles qui commencent à s'outiller.",
+        "these_opposee": "Les grands déploiements d'IA en logistique chez les géants du retail ne sont pas toujours transposables tels quels à une petite boutique : le volume de données nécessaire pour qu'une prévision de demande soit fiable est souvent hors de portée d'une boutique avec peu d'historique de ventes.",
+        "action": "Si la boutique de Badr commence à avoir plusieurs mois d'historique de ventes, tester une app Shopify de prévision de stock/réassort (catégorie 'inventory forecasting') plutôt que de continuer à commander au feeling, en particulier avant la période de forte demande de fin d'année.",
         "sizing": "Faible",
-        "invalide_si": "Si Amazon rapporte que très peu de vendeurs adoptent cette option SSD dans les mois qui suivent son lancement, signe d'un intérêt limité malgré l'annonce.",
-        "source_name": "eCommerceBytes",
-        "source_url": "https://www.ecommercebytes.com/2026/08/29/amazon-lets-sellers-pay-extra-for-ssd-sub-same-day-shipping/"
+        "invalide_si": "Si Dollar General rapporte, dans ses résultats trimestriels suivants, que ce déploiement n'a pas réduit ses ruptures de stock ni ses surstocks de façon mesurable.",
+        "source_name": "Supply Chain Dive",
+        "source_url": "https://www.supplychaindive.com/news/dollar-general-deploys-ai-across-distribution-centers-stores/828966/"
       }
     ],
     "autres_news": [
@@ -973,16 +970,16 @@
         "source_url": "https://www.supplychaindive.com/news/williams-sonoma-to-spread-tariff-refunds-to-vendors-employees/829090/"
       },
       {
-        "titre": "Dollar General deploys AI across distribution centers, stores",
-        "en_clair": "La chaîne Dollar General déploie l'intelligence artificielle dans ses entrepôts et magasins pour mieux gérer ses stocks.",
-        "source_name": "Supply Chain Dive",
-        "source_url": "https://www.supplychaindive.com/news/dollar-general-deploys-ai-across-distribution-centers-stores/828966/"
-      },
-      {
         "titre": "Pinterest sets date for annual marketing showcase",
         "en_clair": "Pinterest annonce la date de son évènement annuel pour présenter ses nouveautés publicitaires et tendances aux marketeurs.",
         "source_name": "Social Media Today",
         "source_url": "https://www.socialmediatoday.com/news/pinterest-sets-date-for-annual-marketing-showcase/829137/"
+      },
+      {
+        "titre": "Heritage Grocers appoints logistics executive",
+        "en_clair": "Heritage Grocers nomme un nouveau directeur logistique pour piloter le transport et la distribution de cette chaîne d'épicerie hispanique et ethnique.",
+        "source_name": "Supply Chain Dive",
+        "source_url": "https://www.supplychaindive.com/news/heritage-grocers-appoints-logistics-executive/829073/"
       }
     ],
     "actions_semaine": [
