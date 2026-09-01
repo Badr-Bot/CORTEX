@@ -1,12 +1,12 @@
 {
   "date": "2026-09-01",
-  "collecte_le": "2026-09-01 00:57 UTC",
+  "collecte_le": "2026-09-01 05:29 UTC",
   "crypto_dashboard": {
     "btc_dominance": 59.2,
-    "total_volume_24h": 79409845891.52118,
-    "market_cap_change": -0.4,
-    "btc_price": 78632,
-    "btc_change_24h": 0.9,
+    "total_volume_24h": 77688353285.29231,
+    "market_cap_change": -0.3,
+    "btc_price": 78816,
+    "btc_change_24h": 1.1,
     "btc_price_source": "CoinGecko",
     "fear_greed_score": 69,
     "fear_greed_label": "Avidité",
@@ -21,7 +21,7 @@
     "funding_description": "Neutres (0.000%)",
     "exchange_flows": {
       "binance_vol_24h_usd": 0,
-      "top5_exchanges_vol_btc": 191296.8,
+      "top5_exchanges_vol_btc": 184603.4,
       "trend": "faible_volume",
       "pression": "neutre"
     },
@@ -44,19 +44,19 @@
       "raw_price": 26370.889
     },
     "gold": {
-      "price": "$4,502",
-      "change_pct": -2.081249184463482,
-      "raw_price": 4502.5
+      "price": "$4,475",
+      "change_pct": -2.9155910362930264,
+      "raw_price": 4475.3
     },
     "oil": {
-      "price": "$86.7",
-      "change_pct": 5.3873282257083694,
-      "raw_price": 86.66
+      "price": "$86.9",
+      "change_pct": 4.046450377110014,
+      "raw_price": 86.91
     },
     "dxy": {
-      "price": "99.4",
-      "change_pct": 0.22083291317938294,
-      "raw_price": 99.389
+      "price": "99.5",
+      "change_pct": 0.3459056070996405,
+      "raw_price": 99.503
     },
     "vix": {
       "price": "14.9",
@@ -179,6 +179,15 @@
         "shares": 69000,
         "value_usd": 218199,
         "date": "2026-08-30"
+      },
+      {
+        "insider": "Jaros Carey F.",
+        "company": "Grocery Outlet Holding Corp.",
+        "ticker": "GO",
+        "type": "BUY",
+        "shares": 15000,
+        "value_usd": 175500,
+        "date": "2026-08-27"
       },
       {
         "insider": "Oldenkamp Jeffrey P.",
@@ -388,19 +397,19 @@
       "reason": ""
     },
     {
+      "ticker": "ARM",
+      "name": "Architecture puces IA",
+      "price": 241.91,
+      "change_1d": -5.2,
+      "change_5d": -0.6,
+      "reason": ""
+    },
+    {
       "ticker": "MSTR",
       "name": "Bitcoin trésorerie",
       "price": 132.94,
       "change_1d": 4.4,
       "change_5d": 11.5,
-      "reason": ""
-    },
-    {
-      "ticker": "AMZN",
-      "name": "Cloud / E-commerce",
-      "price": 259.77,
-      "change_1d": -2.5,
-      "change_5d": 0.4,
       "reason": ""
     }
   ],
@@ -431,7 +440,7 @@
     "yield_curve": 0.41,
     "hy_spread": 7.02,
     "vix": 14.92,
-    "updated_at": "2026-09-01T00:56:52.869450+00:00"
+    "updated_at": "2026-09-01T05:28:57.461495+00:00"
   },
   "ecommerce_dashboard": {
     "stocks": [
@@ -515,10 +524,10 @@
     }
   },
   "ecommerce_themes": {
-    "marketplace": 25,
-    "operations": 5,
-    "automation": 17,
-    "creatives": 21,
+    "marketplace": 28,
+    "operations": 4,
+    "automation": 15,
+    "creatives": 23,
     "emailing": 9
   },
   "outils_usages": {
@@ -532,12 +541,12 @@
     "automatisation": 5
   },
   "compte_news": {
-    "ai": 35,
+    "ai": 74,
     "trending": 45,
-    "crypto": 77,
+    "crypto": 82,
     "market": 47,
-    "deeptech": 63,
-    "ecommerce": 77,
+    "deeptech": 64,
+    "ecommerce": 79,
     "outils": 48
   }
 }
