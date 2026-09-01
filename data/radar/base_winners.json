@@ -6656,5 +6656,201 @@
   ],
   "testable": true,
   "raison_non_testable": ""
+ },
+ "sleepynights.fr": {
+  "boutique": "sleepynights.fr",
+  "produit": "The Cloud – Le Tapis Doux Comme un Nuage",
+  "niche": "Décoration / confort à la maison",
+  "prix": "149.95 EUR",
+  "trouve_le": "2026-09-01",
+  "maj_le": "2026-09-01",
+  "source": "radar quotidien",
+  "statut": "SANS TRAFIC",
+  "chiffres": {
+   "ads_actives": 104,
+   "courbe_ads": "92 > 94 > 95 > 115 > 128",
+   "acceleration": 1.4,
+   "delta_ads_7j": 11,
+   "age_jours": 8,
+   "cree_le": "2026-08-24",
+   "semaines_diffusion": 26,
+   "visites_mois": 0,
+   "pays_pub": "DK 68%, NL 32%",
+   "fr_dans_leurs_pubs": "non ciblée",
+   "marches_libres": "FR/ES/DE/IT/GB",
+   "nb_skus": 6,
+   "prix": "149.95 EUR",
+   "prix_eur": 149.95,
+   "statut": "SANS TRAFIC",
+   "priorite": 63,
+   "reseau": "",
+   "techno_scaling": false
+  },
+  "marches": {
+   "FR": "LIBRE",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": 1,
+  "awareness": "problem aware",
+  "decalage_marche": "aligné",
+  "angle_recommande": "Angle 'pieds froids sur carrelage ou parquet froid en hiver' pour locataires et propriétaires 25-50 ans en appartement ancien sans chauffage au sol ; vidéo avant/après (main ou pied sur le sol nu vs sur le tapis), preuve sensorielle du moelleux, audience large en France à l'approche de l'automne-hiver.",
+  "ou_lancer": "France d'abord : aucun concurrent direct identifié sur ce tapis précis, et la boutique elle-même ne cible pas encore la France (diffusion limitée DK/NL).",
+  "verdict_cortex": "GO TEST",
+  "verdict_pourquoi": "Fenêtre encore ouverte (8 jours de diffusion, 0 concurrent direct trouvé en France, croissance ×1,4 en un mois) mais le prix élevé par rapport à l'AOV habituel et le poids du produit demandent un test prudent avant de scaler.",
+  "tam": "TAM incertain à ce stade : la boutique d'origine ne compte que 104 pubs actives et 8 jours de diffusion, pas encore de concurrent à 100+ pubs identifié pour confirmer un marché large.",
+  "recurrent": "non",
+  "difficulte": "moyen",
+  "ca_jour_estime": "Estimation prudente : le trafic du site n'est pas encore indexé (0 visite affichée), donc pas de calcul classique trafic × conversion possible. À titre d'ordre de grandeur, une boutique avec ce volume de publicités actives (100-130) tourne en général entre quelques dizaines et quelques centaines d'euros de chiffre d'affaires par jour en phase de test — à vérifier une fois le trafic indexé.",
+  "budget_test": "CBO 100-300 € par jour, décision à 48 h : 200-600 € pour savoir",
+  "angle_concurrent": "Aucun concurrent direct trouvé en France sur ce tapis précis. Les pubs voisines de la niche 'cocooning' vendent sur l'émotion pure sans argument thermique : La Berge (tapis de bain) promet un 'moment de pur bonheur' et joue la découverte tardive ('Si seulement j'avais découvert ça plus tôt... Mon portefeuille me remercie déjà !'). Le boulevard reste ouvert sur l'angle fonctionnel 'fini les pieds froids'.",
+  "pain_points": [
+   {
+    "douleur": "Sol carrelé ou parquet froid en hiver sans chauffage au sol : certains habitants doivent garder chaussons ou chaussures fermées à l'intérieur toute la journée.",
+    "intensite": "moyenne",
+    "preuve": "Carrelage froid sans plancher chauffant",
+    "source_url": "https://www.forumconstruire.com/construire/topic-372703-carrelage-froid-plancher-chauffant.php"
+   },
+   {
+    "douleur": "Doute sur l'efficacité réelle d'un tapis contre le froid, les gens cherchent une confirmation avant d'acheter.",
+    "intensite": "moyenne",
+    "preuve": "J'ai froid dans mon bureau ! Un tapis est-il réellement efficace ?",
+    "source_url": "https://forum.quechoisir.org/j-ai-froid-dans-mon-bureau-un-tapis-est-il-reellement-efficace-t286599.html"
+   },
+   {
+    "douleur": "Recherche active et récurrente de solutions pour un sol trop froid aux pieds, signe d'un inconfort quotidien répété.",
+    "intensite": "moyenne",
+    "preuve": "Sol très froid aux pieds : quelles solutions pour + de confort ?",
+    "source_url": "https://www.mesdepanneurs.fr/blog/sol-froid-solutions"
+   }
+  ],
+  "angles_non_exploites": [
+   {
+    "angle": "Comparer directement 'main sur le sol nu vs main sur le tapis' avec un thermomètre pour prouver l'écart de température ressentie.",
+    "douleur_ciblee": "Doute sur l'efficacité réelle d'un tapis contre le froid.",
+    "pourquoi_personne": "Les pubs concurrentes vendent l'émotion ('moment de bonheur') mais jamais une preuve chiffrée ou sensorielle."
+   },
+   {
+    "angle": "Cibler les locataires d'appartements anciens sans chauffage au sol, un public précis plutôt qu'un message générique 'déco'.",
+    "douleur_ciblee": "Sol carrelé froid obligeant à garder chaussons ou chaussures à l'intérieur.",
+    "pourquoi_personne": "Les concurrents généralistes (tapis de bain, litière) ne parlent pas du tout du confort thermique au salon."
+   }
+  ],
+  "marches_detail": {
+   "FR": "LIBRE — 17 pubs actives trouvées sur 'tapis doux nuage' mais aucune sur ce produit précis (tapis de bain et tapis de litière uniquement, catégories différentes)."
+  },
+  "lien_boutique": "https://sleepynights.fr",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=sleepynights",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-09-01",
+    "ads": 104,
+    "courbe": "92 > 94 > 95 > 115 > 128",
+    "statut": "SANS TRAFIC"
+   }
+  ],
+  "testable": true,
+  "raison_non_testable": ""
+ },
+ "livsono.com": {
+  "boutique": "livsono.com",
+  "produit": "HYDRO-X1 Nødvannfilter (1500 litres)",
+  "niche": "Sécurité domestique / préparation aux coupures d'eau",
+  "prix": "499 NOK",
+  "trouve_le": "2026-09-01",
+  "maj_le": "2026-09-01",
+  "source": "radar quotidien",
+  "statut": "BANGER",
+  "chiffres": {
+   "ads_actives": 60,
+   "courbe_ads": "21 > 24 > 37 > 46 > 60",
+   "acceleration": 2.9,
+   "delta_ads_7j": 30,
+   "age_jours": 5,
+   "cree_le": "2026-08-27",
+   "semaines_diffusion": 8,
+   "visites_mois": 0,
+   "pays_pub": "SE 100%",
+   "fr_dans_leurs_pubs": "non ciblée",
+   "marches_libres": "FR/ES/DE/IT/GB",
+   "nb_skus": 1,
+   "prix": "499 NOK",
+   "prix_eur": 42.91,
+   "statut": "BANGER",
+   "priorite": 72,
+   "reseau": "",
+   "techno_scaling": false
+  },
+  "marches": {
+   "FR": "PARTIEL",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": 2,
+  "awareness": "unaware",
+  "decalage_marche": "en retard",
+  "angle_recommande": "Angle 'se préparer avant la prochaine coupure d'eau' pour foyers avec enfants ou personnes âgées, 30-60 ans, sensibles à l'actualité (tensions internationales, canicules, restrictions locales) ; client unaware/problem aware → vidéo qui pose d'abord le risque concret (une coupure de quelques heures = panique), explique ensuite le mécanisme de filtration, puis l'offre.",
+  "ou_lancer": "France d'abord (marché partiel, un seul annonceur qui exécute mal) ; traduire et localiser la créa depuis la version suédoise/norvégienne d'origine.",
+  "verdict_cortex": "GO TEST",
+  "verdict_pourquoi": "Croissance publicitaire la plus forte des 12 candidats du jour (×2,9 en un mois), fenêtre encore ouverte (5 jours de diffusion, marché français quasi vierge sur cet angle) et sujet en résonance avec l'actualité géopolitique. Le risque principal est la pédagogie nécessaire pour un public qui ne sait pas encore qu'il a besoin du produit.",
+  "tam": "TAM incertain à ce stade : seulement 60 pubs actives et 5 jours de diffusion pour la boutique d'origine, aucun concurrent à 100+ pubs identifié sur ce type de produit précis.",
+  "recurrent": "non",
+  "difficulte": "moyen",
+  "ca_jour_estime": "Estimation prudente, non calculable classiquement car le trafic du site n'est pas encore indexé (0 visite affichée). À titre d'ordre de grandeur, un volume de 60 publicités actives en 5 jours avec une telle accélération correspond en général, chez des boutiques comparables, à un début de scale entre quelques dizaines et quelques centaines d'euros de chiffre d'affaires par jour.",
+  "budget_test": "CBO 100-300 € par jour, décision à 48 h : 200-600 € pour savoir",
+  "angle_concurrent": "Le seul annonceur retrouvé en France (BoutiqueFortune NOR) diffuse deux publicités sans texte d'accroche visible, signe d'une exécution minimale. Aucun discours structuré autour du risque de coupure d'eau n'a été identifié en France à ce jour — le terrain est presque vierge sur cet angle.",
+  "pain_points": [
+   {
+    "douleur": "Une coupure d'eau de quelques heures suffit à provoquer une vraie panique dans un foyer ou un quartier.",
+    "intensite": "forte",
+    "preuve": "24 hours of no running water can cause this much panic and havoc",
+    "source_url": "https://forums.anandtech.com/threads/multiple-towns-totally-out-of-water.2546141"
+   },
+   {
+    "douleur": "Achats de panique sur l'eau en bouteille dès qu'une restriction ou une alerte est annoncée.",
+    "intensite": "moyenne",
+    "preuve": "Panic buying",
+    "source_url": "https://en.wikipedia.org/wiki/Panic_buying"
+   },
+   {
+    "douleur": "Les tensions géopolitiques et les crises locales de l'eau nourrissent une inquiétude croissante sur la sécurité de l'approvisionnement.",
+    "intensite": "moyenne",
+    "preuve": "2025 Iran water crisis protests",
+    "source_url": "https://en.wikipedia.org/wiki/2025_Iran_water_crisis_protests"
+   }
+  ],
+  "angles_non_exploites": [
+   {
+    "angle": "Utiliser l'actualité récente (tensions internationales, restrictions locales d'eau) comme accroche d'ouverture plutôt qu'un argument générique 'prepper'.",
+    "douleur_ciblee": "Inquiétude croissante sur la sécurité de l'approvisionnement en eau.",
+    "pourquoi_personne": "Le seul annonceur trouvé en France ne pousse aucun message narratif, juste une pub sans texte."
+   },
+   {
+    "angle": "Angle familial : 'si l'eau coupe ce soir, comment tu donnes à boire à tes enfants ?' plutôt qu'un discours survivaliste.",
+    "douleur_ciblee": "Panique en cas de coupure d'eau.",
+    "pourquoi_personne": "Le positionnement actuel (BoutiqueFortune NOR) ne cible aucun avatar précis."
+   }
+  ],
+  "marches_detail": {
+   "FR": "PARTIEL — 2 pubs actives trouvées (BoutiqueFortune NOR), sans texte d'accroche, la plus récente il y a plusieurs mois : exécution faible, place à prendre."
+  },
+  "lien_boutique": "https://livsono.com",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=livsono",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-09-01",
+    "ads": 60,
+    "courbe": "21 > 24 > 37 > 46 > 60",
+    "statut": "BANGER"
+   }
+  ],
+  "testable": true,
+  "raison_non_testable": ""
  }
 }
