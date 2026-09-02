@@ -718,95 +718,13 @@
         "budget_test": "CBO 100-300€ par jour, décision à 48h : 200-600€ pour savoir",
         "lien_boutique": "https://ovyrek.com",
         "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=ovyrek"
-      },
-      {
-        "produit": "6-in-1 Home Monitor — moniteur domestique multifonction (audio, vidéo, température)",
-        "boutique": "talknest.co",
-        "niche": "Sécurité domestique / moniteur bébé connecté",
-        "prix": "79 USD",
-        "statut": "SANS TRAFIC",
-        "signal": "La boutique talknest.co (origine США) diffuse ce moniteur domestique depuis seulement 15 jours, avec 62 publicités actives d'emblée — trop récent pour calculer une courbe sur 4 semaines, mais un démarrage direct à ce niveau est un signal fort. Le trafic affiché est à 0 visite/mois, un décalage de mesure classique pour un site aussi jeune : la fenêtre pour copier l'offre est encore ouverte. La diffusion actuelle cible uniquement les États-Unis (100%) : aucune pub sur la France n'a été trouvée.",
-        "stade_marche": "Tout début de phase de scale (15 jours d'existence, seulement 1 semaine de diffusion mesurée), encore trop jeune pour juger d'un plateau ou d'une accélération. La catégorie 'moniteur bébé/domestique' est déjà connue en France (marques comme Momcozy), mais ce produit multi-fonction précis (6 usages en 1 appareil) n'a pas encore de concurrent direct identifié sur le marché français.",
-        "notoriete": "La catégorie générale (moniteur bébé connecté) est déjà bien identifiée en France, portée par des marques comme Momcozy ; en revanche, aucun concurrent direct ne vend spécifiquement ce format '6 fonctions en 1 appareil' en France, en Allemagne ou en Espagne à ce stade.",
-        "ca_jour_estime": "Non estimable précisément — trafic pas encore indexé (0 visite affichée). Ordre de grandeur d'après le nombre de publicités actives (62, produit jeune de 15 jours) : démarrage prudent probable, de l'ordre de quelques dizaines de commandes par jour si la traction se confirme dans les prochaines semaines — estimation à prendre avec précaution.",
-        "difficulte": "moyen",
-        "difficulte_pourquoi": "Produit électronique (retours et questions techniques SAV à anticiper), prix (79$, environ 73€) proche de l'AOV habituel de Badr (65-70€), ce qui est plutôt favorable. Le principal frein est la confiance : les pain points identifiés montrent que les parents craignent justement les bugs et faux positifs des moniteurs connectés, un point à adresser frontalement dans la créa plutôt qu'à ignorer.",
-        "marche_fr": "PARTIEL",
-        "marche_fr_detail": "Recherche Meta Ad Library 'moniteur bébé caméra' en France : 11 publicités actives, dominées par Momcozy_fr (10 pubs, promo -25% code BDMS25, marque déjà installée en France) et Twistshake (1 pub). Momcozy reste un acteur récent sur le volume observé (pas de publicité à plus de 100 pubs) : le marché reste ouvert à un nouvel entrant avec un angle différent.",
-        "marches": {
-          "FR": "PARTIEL",
-          "DE": "PARTIEL",
-          "ES": "PARTIEL",
-          "GB": "A VERIFIER"
-        },
-        "marches_detail": {
-          "FR": "PARTIEL — 11 pubs actives, 2 annonceurs : Momcozy_fr (10 pubs, promo -25%, marque connue) et Twistshake (1 pub) ; aucun acteur à plus de 100 pubs.",
-          "DE": "PARTIEL — 1 pub active trouvée, de la marque premium Nanit.de (« Das intelligenteste Babyphone », argument rassurance/sécurité), diffusée depuis 213 jours.",
-          "ES": "PARTIEL — 1 pub active trouvée, de la page CREATE (catalogue large d'appareils bébé incluant une caméra de surveillance), diffusée depuis 26 jours.",
-          "GB": "A VERIFIER — la recherche 'baby monitor camera' a renvoyé une majorité de résultats hors sujet (applications de lecture de romans) ; un contrôle plus ciblé serait nécessaire avant de trancher pour ce marché."
-        },
-        "stade_sophistication": 2,
-        "awareness": "déjà connu ici",
-        "decalage_marche": "aligné",
-        "angle_recommande": "Cibler les parents de jeunes enfants 25-40 ans en s'attaquant frontalement à la peur du bug/faux positif des moniteurs connus (angle de réassurance technique + fiabilité), plutôt que le message générique 'tranquillité d'esprit' déjà utilisé par tous les concurrents.",
-        "tam": "TAM incertain : aucun annonceur à 100+ publicités actives identifié sur FR/DE/ES ; catégorie dominée en image de marque par Momcozy (France) et Nanit (Allemagne, positionnement premium) mais avec peu de volume publicitaire actif mesuré.",
-        "angle_concurrent": "Momcozy_fr mise uniquement sur la promotion prix (« -25% avec le code BDMS25 »), sans argument de réassurance. Nanit.de, en Allemagne, joue au contraire la carte de la confiance technique (« Keine Sensoren oder Elektroden | Hochgradig gesichert | Besser schlafen mit nanit » — pas de capteurs ni d'électrodes, hautement sécurisé, mieux dormir avec Nanit). En Espagne, CREATE présente un large catalogue d'appareils bébé sans message différenciant particulier.",
-        "pain_points": [
-          {
-            "douleur": "Une mère a cru que son bébé avait disparu du berceau à cause d'un bug d'affichage du moniteur, une panique documentée par la presse.",
-            "intensite": "forte",
-            "preuve": "Mom 'nearly pukes' when she looks at baby monitor and sees empty crib: 'My baby disappeared'",
-            "source_url": "https://news.yahoo.com/mom-nearly-pukes-she-looks-203113647.html"
-          },
-          {
-            "douleur": "Des parents ont arrêté d'utiliser leur moniteur bébé après un incident qui leur a fait perdre confiance dans l'appareil.",
-            "intensite": "moyenne",
-            "preuve": "stopped using baby monitor",
-            "source_url": "https://www.aol.com/stopped-using-baby-monitor-second-115901200.html"
-          },
-          {
-            "douleur": "Une photo alarmante capturée par un moniteur bébé, devenue virale, illustre à quel point ces appareils peuvent générer une peur intense chez les parents.",
-            "intensite": "moyenne",
-            "preuve": "scary baby monitor photo",
-            "source_url": "https://globalnews.ca/news/6182730/scary-baby-monitor-photo/"
-          }
-        ],
-        "angles_non_exploites": [
-          {
-            "angle": "Adresser honnêtement la peur des bugs/faux positifs et expliquer concrètement comment ce modèle 6-en-1 les évite (redondance audio+vidéo+température), plutôt que vendre uniquement la 'tranquillité d'esprit' comme tous les concurrents.",
-            "douleur_ciblee": "Peur qu'un bug du moniteur cache un vrai problème ou déclenche une fausse alerte.",
-            "pourquoi_personne": "Aucune des pubs vues (Momcozy, Nanit, CREATE) n'aborde frontalement le risque de bug ; elles vendent toutes une promesse de sérénité sans jamais évoquer ce qui pourrait mal tourner."
-          },
-          {
-            "angle": "Positionner le produit comme un moniteur pour toute la maison (personne âgée à domicile, adolescent, animal) et pas seulement pour bébé, en s'appuyant sur ses 6 fonctions.",
-            "douleur_ciblee": "Besoin de surveiller un proche vulnérable (pas seulement un nourrisson) en son absence.",
-            "pourquoi_personne": "Tous les concurrents identifiés (Momcozy, Nanit, CREATE) restent positionnés uniquement sur le marché du bébé, sans élargir au reste du foyer."
-          }
-        ],
-        "recurrent": "non",
-        "ou_lancer": "France d'abord : marché partiel avec un seul acteur (Momcozy) qui ne dépasse pas le stade 2 de sophistication, angle de différenciation clair disponible sur la fiabilité.",
-        "criteres_ok": [
-          "besoin fort (sécurité/tranquillité)",
-          "compréhension immédiate",
-          "upsell possible (accessoires, abonnement app)",
-          "preuve sociale disponible (catégorie déjà validée par des marques connues)"
-        ],
-        "criteres_ko": [
-          "marge à confirmer (79$, coûts composants électroniques)",
-          "SAV attendu (produit électronique = questions techniques et retours)"
-        ],
-        "verdict": "GO TEST",
-        "verdict_pourquoi": "Marché français seulement partiellement occupé (Momcozy en promo prix, pas d'argument de fiabilité), angle de différenciation clair et sourcé (peur des bugs), mais produit encore très jeune (15 jours) et électronique donc plus risqué côté SAV : test à budget prudent avant de scaler.",
-        "budget_test": "CBO 100-200€ par jour, décision à 48h : 200-400€ pour savoir",
-        "lien_boutique": "https://talknest.co",
-        "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=talknest"
       }
     ],
     "radar_ecartes": [
       {
         "produit": "Cotton Flannel",
         "boutique": "shopcaliora.co.uk / shopcaliorano.com",
-        "raison": "Produit non identifiable avec certitude à partir du titre TrendTrack seul (vêtement en flanelle ou linge de maison ?) ; vendu simultanément par deux domaines quasi identiques (signal de duplication typique d'un test multi-boutiques). Marché FR peu occupé (1 seul annonceur générique, Amazon Essentials) mais sans preuve de douleur forte sourcée pour trancher aujourd'hui — à revoir avec une vraie fiche produit."
+        "raison": "Produit non identifiable avec certitude à partir du titre TrendTrack seul (vêtement en flanelle ou linge de maison ?) ; vendu simultanément par deux domaines quasi identiques (signal de duplication typique d'un test multi-boutiques). La vraie fiche confirme que la boutique vend aussi un « Castor Oil Detox Kit » (produit ingérable, hors périmètre selon les règles de Badr) : profil de boutique généraliste/test, pas assez de preuve de douleur forte sourcée pour trancher aujourd'hui."
       },
       {
         "produit": "Sushi Socks – 5 Pairs in a Takeaway Box",
@@ -817,6 +735,11 @@
         "produit": "Viva Labs Time Reverse Cream (All-In-One)",
         "boutique": "vivalaboratories.com",
         "raison": "Marché France saturé : 203 publicités actives sur 'crème anti-âge rides visage', au moins 10 annonceurs sérieux identifiés (Sarah Martin 6 pubs, Alaena Cosmétique 4 pubs, Velloriya 3 pubs) — catégorie cosmétique anti-âge à un stade de sophistication élevé (3-4), demanderait un mécanisme totalement inédit pour se différencier. Contrôles DE/ES/GB non réalisés aujourd'hui, budget d'enquête concentré sur les 2 candidats les mieux sourcés."
+      },
+      {
+        "produit": "6-in-1 Home Monitor (nom TrendTrack)",
+        "boutique": "talknest.co",
+        "raison": "Écarté après vérification de la vraie fiche produit : la boutique vend en réalité des traducteurs IA (« Talkbuddy - AI Translator », « AI Bluetooth Translator ») et non un moniteur domestique — le titre remonté par TrendTrack ne correspond pas au catalogue réel de la boutique aujourd'hui. Analyse retirée par prudence (piège du type « Fascial Release » documenté dans docs/RADAR.md) ; à revérifier demain si le produit réapparaît sur un scan."
       }
     ],
     "nouveautes": [
