@@ -3938,7 +3938,9 @@
  },
  "sushisock.com": {
   "premiere_vue": "2026-09-01",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-02"
+  ],
   "derniere_vue": "2026-09-02",
   "statut": "SANS TRAFIC",
   "produit": "Sushi Socks – 5 Pairs in a Takeaway Box",
@@ -3991,7 +3993,9 @@
  },
  "vivalaboratories.com": {
   "premiere_vue": "2026-09-01",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-02"
+  ],
   "derniere_vue": "2026-09-02",
   "statut": "SANS TRAFIC",
   "produit": "Viva Labs Time Reverse Cream (All-In-One)",
@@ -4260,7 +4264,9 @@
  },
  "ovyrek.com": {
   "premiere_vue": "2026-09-02",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-02"
+  ],
   "derniere_vue": "2026-09-02",
   "statut": "BANGER",
   "produit": "Ovyrek Nødhammer",
@@ -4490,7 +4496,9 @@
  },
  "shopcaliora.co.uk": {
   "premiere_vue": "2026-09-02",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-02"
+  ],
   "derniere_vue": "2026-09-02",
   "statut": "SANS TRAFIC",
   "produit": "Cotton Flannel",
@@ -4550,7 +4558,9 @@
  },
  "talknest.co": {
   "premiere_vue": "2026-09-02",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-02"
+  ],
   "derniere_vue": "2026-09-02",
   "statut": "SANS TRAFIC",
   "produit": "6-in-1 Home Monitor",

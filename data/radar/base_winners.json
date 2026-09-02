@@ -6927,5 +6927,207 @@
   "testable": true,
   "raison_non_testable": "",
   "notion_page_id": "3ce91197-e08c-815a-b6b0-c7200fe35214"
+ },
+ "ovyrek.com": {
+  "boutique": "ovyrek.com",
+  "produit": "Ovyrek Nødhammer — marteau brise-vitre et coupe-ceinture de sécurité pour voiture",
+  "niche": "Sécurité automobile / équipement d'urgence",
+  "prix": "549 NOK",
+  "trouve_le": "2026-09-02",
+  "maj_le": "2026-09-02",
+  "source": "radar quotidien",
+  "statut": "BANGER",
+  "chiffres": {
+   "ads_actives": 93,
+   "courbe_ads": "25 > 23 > 14 > 36 > 84",
+   "acceleration": 3.4,
+   "delta_ads_7j": 133,
+   "age_jours": 12,
+   "cree_le": "2026-08-21",
+   "semaines_diffusion": 8,
+   "visites_mois": 0,
+   "pays_pub": "FI 54%, SE 46%",
+   "fr_dans_leurs_pubs": "non ciblée",
+   "marches_libres": "FR/ES/DE/IT/GB",
+   "nb_skus": 2,
+   "prix": "549 NOK",
+   "prix_eur": 47.21,
+   "statut": "BANGER",
+   "priorite": 75,
+   "reseau": "",
+   "techno_scaling": false
+  },
+  "marches": {
+   "FR": "PARTIEL",
+   "DE": "PARTIEL",
+   "ES": "PARTIEL",
+   "GB": "PARTIEL"
+  },
+  "stade_sophistication": 2,
+  "awareness": "inconnu ici",
+  "decalage_marche": "en retard",
+  "angle_recommande": "Angle sécurité familiale : parent ou conducteur au quotidien 25-55 ans, scénario 'coincé après un accident ou dans une voiture qui coule', démonstration choc du marteau qui brise la vitre et coupe la ceinture, preuve visuelle immédiate, audience large en France (marché quasi vierge).",
+  "ou_lancer": "France d'abord : marché quasi vierge (1 seul petit annonceur, 57 jours de diffusion, aucun acteur installé) — pas besoin de chercher un autre marché de lancement.",
+  "verdict_cortex": "GO TEST",
+  "verdict_pourquoi": "Marché français quasiment vierge avec une croissance internationale forte (×3,4 en 4 semaines), produit simple à comprendre et à filmer, budget de test limité vu le prix bas du produit. Le risque principal est une marge serrée à confirmer une fois les coûts d'achat et de livraison connus.",
+  "tam": "TAM incertain à ce stade : aucun annonceur à 100+ publicités actives identifié sur FR/DE/ES/GB pour ce type de produit ; le marché est dispersé entre petits acteurs (marques de sécurité routière, blogs) plutôt que dominé par un gros acteur.",
+  "recurrent": "non",
+  "difficulte": "facile",
+  "ca_jour_estime": "Estimation prudente : le trafic du site n'est pas encore indexé (0 visite affichée), donc pas de calcul classique trafic × taux de conversion possible. À titre d'ordre de grandeur, une boutique avec ce volume de publicités actives (93, en forte accélération) tourne généralement entre quelques dizaines et une centaine de commandes par jour en phase de montée — à confirmer une fois le trafic indexé.",
+  "budget_test": "CBO 100-300€ par jour, décision à 48h : 200-600€ pour savoir",
+  "angle_concurrent": "En Allemagne, Verkehrswissen mise sur un angle éducatif rassurant (« So befreist du dich nach einem Unfall aus dem Auto » — comment se libérer après un accident) tandis que Homebbc.de pousse une promo agressive à -50%. En France, le seul annonceur (TOIAE) reste sur une simple liste de fonctionnalités avec des coches. Au Royaume-Uni, Myfairypalace et BEAM Lab jouent la peur concrète (« Safe Hammer Glass Breaker Under Water », « How To Escape A Sinking Car »).",
+  "pain_points": [
+   {
+    "douleur": "Se retrouver piégé par sa propre ceinture de sécurité coincée après un accident, au point de manquer d'étouffement, est une expérience traumatisante et documentée dans la presse.",
+    "intensite": "forte",
+    "preuve": "I want to thank rescuers who stopped me being strangled by my seat belt",
+    "source_url": "https://www.pressreader.com/uk/derby-telegraph/20220510/281590949152934"
+   },
+   {
+    "douleur": "Un enfant mal attaché ou pris au piège dans sa ceinture à l'arrière peut manquer de s'étouffer en quelques secondes, un danger que beaucoup de parents ignorent.",
+    "intensite": "forte",
+    "preuve": "local mother learns of hidden danger in back seat when son nearly chokes",
+    "source_url": "https://www.cbsnews.com/losangeles/news/local-mother-learns-of-hidden-danger-in-back-seat-when-son-nearly-chokes"
+   },
+   {
+    "douleur": "Le grand public sous-estime la fréquence des dangers liés à la ceinture de sécurité et ne sait pas quels réflexes de sécurité adopter en cas d'urgence.",
+    "intensite": "moyenne",
+    "preuve": "easy seat belt safety checks to protect your children and avoid tragedy",
+    "source_url": "https://www.consumerreports.org/car-safety/easy-seat-belt-safety-checks-to-protect-your-children-and-avoid-tragedy"
+   }
+  ],
+  "angles_non_exploites": [
+   {
+    "angle": "Cibler spécifiquement les parents avec sièges auto enfant à l'arrière, sur le risque d'étouffement en cas de blocage de la ceinture — aucune des pubs vues ne parle des enfants.",
+    "douleur_ciblee": "Un enfant peut manquer de s'étouffer avec sa ceinture en quelques secondes.",
+    "pourquoi_personne": "Toutes les pubs actuelles (FR, DE, ES, GB) s'adressent au conducteur adulte générique, jamais spécifiquement aux parents de jeunes enfants."
+   },
+   {
+    "angle": "Angle 'voiture qui tombe à l'eau', avec témoignage ou reconstitution d'une sortie de route dans un fossé ou une rivière — un seul concurrent (BEAM Lab, UK) l'exploite, avec une seule publicité.",
+    "douleur_ciblee": "Se retrouver piégé dans une voiture qui coule sans pouvoir sortir à temps.",
+    "pourquoi_personne": "La quasi-totalité des annonceurs se concentrent sur le scénario 'accident classique + vitre bloquée', laissant le scénario immersion quasiment inexploité."
+   }
+  ],
+  "marches_detail": {
+   "FR": "PARTIEL — 1 pub active trouvée (TOIAE, « Marteau de secours et coupe-ceinture »), diffusée depuis 57 jours, aucun acteur dominant.",
+   "DE": "PARTIEL — 10 pubs actives, 2 annonceurs sérieux : Verkehrswissen (5 pubs, contenu éducatif « comment se libérer après un accident », récent, 12 jours) et Homebbc.de (4 pubs, « Auto-Nothammer mit Gurtschneider », -50% de réduction, diffuse depuis 377 jours) ; Safetyblog (1 pub, mise en avant recommandation ADAC/TÜV).",
+   "ES": "PARTIEL — 3 pubs actives, 1 seul annonceur sérieux : SafetyFirst 24 (« Recomendado por RACC »), diffuse depuis 20 jours.",
+   "GB": "PARTIEL — 10 pubs actives, 7 annonceurs distincts mais tous petits : Myfairypalace (3 pubs, « Safe Hammer Glass Breaker Under Water »), Shimmer07 UK (2 pubs, « 2-in-1 SafeHammer », diffuse depuis 240 jours), et 5 autres annonceurs à 1 pub chacun, aucun dominant."
+  },
+  "lien_boutique": "https://ovyrek.com",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=ovyrek",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-09-02",
+    "ads": 93,
+    "courbe": "25 > 23 > 14 > 36 > 84",
+    "statut": "BANGER"
+   }
+  ],
+  "testable": true,
+  "raison_non_testable": ""
+ },
+ "talknest.co": {
+  "boutique": "talknest.co",
+  "produit": "6-in-1 Home Monitor — moniteur domestique multifonction (audio, vidéo, température)",
+  "niche": "Sécurité domestique / moniteur bébé connecté",
+  "prix": "79 USD",
+  "trouve_le": "2026-09-02",
+  "maj_le": "2026-09-02",
+  "source": "radar quotidien",
+  "statut": "SANS TRAFIC",
+  "chiffres": {
+   "ads_actives": 62,
+   "courbe_ads": "62",
+   "acceleration": null,
+   "delta_ads_7j": null,
+   "age_jours": 15,
+   "cree_le": "2026-08-18",
+   "semaines_diffusion": 1,
+   "visites_mois": 0,
+   "pays_pub": "US 100%",
+   "fr_dans_leurs_pubs": "non ciblée",
+   "marches_libres": "FR/ES/DE/IT/GB",
+   "nb_skus": 4,
+   "prix": "79 USD",
+   "prix_eur": 72.68,
+   "statut": "SANS TRAFIC",
+   "priorite": 55,
+   "reseau": "",
+   "techno_scaling": false
+  },
+  "marches": {
+   "FR": "PARTIEL",
+   "DE": "PARTIEL",
+   "ES": "PARTIEL",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": 2,
+  "awareness": "déjà connu ici",
+  "decalage_marche": "aligné",
+  "angle_recommande": "Cibler les parents de jeunes enfants 25-40 ans en s'attaquant frontalement à la peur du bug/faux positif des moniteurs connus (angle de réassurance technique + fiabilité), plutôt que le message générique 'tranquillité d'esprit' déjà utilisé par tous les concurrents.",
+  "ou_lancer": "France d'abord : marché partiel avec un seul acteur (Momcozy) qui ne dépasse pas le stade 2 de sophistication, angle de différenciation clair disponible sur la fiabilité.",
+  "verdict_cortex": "GO TEST",
+  "verdict_pourquoi": "Marché français seulement partiellement occupé (Momcozy en promo prix, pas d'argument de fiabilité), angle de différenciation clair et sourcé (peur des bugs), mais produit encore très jeune (15 jours) et électronique donc plus risqué côté SAV : test à budget prudent avant de scaler.",
+  "tam": "TAM incertain : aucun annonceur à 100+ publicités actives identifié sur FR/DE/ES ; catégorie dominée en image de marque par Momcozy (France) et Nanit (Allemagne, positionnement premium) mais avec peu de volume publicitaire actif mesuré.",
+  "recurrent": "non",
+  "difficulte": "moyen",
+  "ca_jour_estime": "Non estimable précisément — trafic pas encore indexé (0 visite affichée). Ordre de grandeur d'après le nombre de publicités actives (62, produit jeune de 15 jours) : démarrage prudent probable, de l'ordre de quelques dizaines de commandes par jour si la traction se confirme dans les prochaines semaines — estimation à prendre avec précaution.",
+  "budget_test": "CBO 100-200€ par jour, décision à 48h : 200-400€ pour savoir",
+  "angle_concurrent": "Momcozy_fr mise uniquement sur la promotion prix (« -25% avec le code BDMS25 »), sans argument de réassurance. Nanit.de, en Allemagne, joue au contraire la carte de la confiance technique (« Keine Sensoren oder Elektroden | Hochgradig gesichert | Besser schlafen mit nanit » — pas de capteurs ni d'électrodes, hautement sécurisé, mieux dormir avec Nanit). En Espagne, CREATE présente un large catalogue d'appareils bébé sans message différenciant particulier.",
+  "pain_points": [
+   {
+    "douleur": "Une mère a cru que son bébé avait disparu du berceau à cause d'un bug d'affichage du moniteur, une panique documentée par la presse.",
+    "intensite": "forte",
+    "preuve": "Mom 'nearly pukes' when she looks at baby monitor and sees empty crib: 'My baby disappeared'",
+    "source_url": "https://news.yahoo.com/mom-nearly-pukes-she-looks-203113647.html"
+   },
+   {
+    "douleur": "Des parents ont arrêté d'utiliser leur moniteur bébé après un incident qui leur a fait perdre confiance dans l'appareil.",
+    "intensite": "moyenne",
+    "preuve": "stopped using baby monitor",
+    "source_url": "https://www.aol.com/stopped-using-baby-monitor-second-115901200.html"
+   },
+   {
+    "douleur": "Une photo alarmante capturée par un moniteur bébé, devenue virale, illustre à quel point ces appareils peuvent générer une peur intense chez les parents.",
+    "intensite": "moyenne",
+    "preuve": "scary baby monitor photo",
+    "source_url": "https://globalnews.ca/news/6182730/scary-baby-monitor-photo/"
+   }
+  ],
+  "angles_non_exploites": [
+   {
+    "angle": "Adresser honnêtement la peur des bugs/faux positifs et expliquer concrètement comment ce modèle 6-en-1 les évite (redondance audio+vidéo+température), plutôt que vendre uniquement la 'tranquillité d'esprit' comme tous les concurrents.",
+    "douleur_ciblee": "Peur qu'un bug du moniteur cache un vrai problème ou déclenche une fausse alerte.",
+    "pourquoi_personne": "Aucune des pubs vues (Momcozy, Nanit, CREATE) n'aborde frontalement le risque de bug ; elles vendent toutes une promesse de sérénité sans jamais évoquer ce qui pourrait mal tourner."
+   },
+   {
+    "angle": "Positionner le produit comme un moniteur pour toute la maison (personne âgée à domicile, adolescent, animal) et pas seulement pour bébé, en s'appuyant sur ses 6 fonctions.",
+    "douleur_ciblee": "Besoin de surveiller un proche vulnérable (pas seulement un nourrisson) en son absence.",
+    "pourquoi_personne": "Tous les concurrents identifiés (Momcozy, Nanit, CREATE) restent positionnés uniquement sur le marché du bébé, sans élargir au reste du foyer."
+   }
+  ],
+  "marches_detail": {
+   "FR": "PARTIEL — 11 pubs actives, 2 annonceurs : Momcozy_fr (10 pubs, promo -25%, marque connue) et Twistshake (1 pub) ; aucun acteur à plus de 100 pubs.",
+   "DE": "PARTIEL — 1 pub active trouvée, de la marque premium Nanit.de (« Das intelligenteste Babyphone », argument rassurance/sécurité), diffusée depuis 213 jours.",
+   "ES": "PARTIEL — 1 pub active trouvée, de la page CREATE (catalogue large d'appareils bébé incluant une caméra de surveillance), diffusée depuis 26 jours.",
+   "GB": "A VERIFIER — la recherche 'baby monitor camera' a renvoyé une majorité de résultats hors sujet (applications de lecture de romans) ; un contrôle plus ciblé serait nécessaire avant de trancher pour ce marché."
+  },
+  "lien_boutique": "https://talknest.co",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=talknest",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-09-02",
+    "ads": 62,
+    "courbe": "62",
+    "statut": "SANS TRAFIC"
+   }
+  ],
+  "testable": true,
+  "raison_non_testable": ""
  }
 }
