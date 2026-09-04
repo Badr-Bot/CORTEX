@@ -1,16 +1,16 @@
 {
   "date": "2026-09-04",
-  "collecte_le": "2026-09-03 23:44 UTC",
+  "collecte_le": "2026-09-04 04:55 UTC",
   "crypto_dashboard": {
-    "btc_dominance": 59.4,
-    "total_volume_24h": 105912684626.7557,
-    "market_cap_change": 2.3,
-    "btc_price": 81309,
-    "btc_change_24h": 5.5,
+    "btc_dominance": 59.3,
+    "total_volume_24h": 107394212166.14108,
+    "market_cap_change": 1.2,
+    "btc_price": 81065,
+    "btc_change_24h": 4.3,
     "btc_price_source": "CoinGecko",
-    "fear_greed_score": 65,
+    "fear_greed_score": 74,
     "fear_greed_label": "Avidité",
-    "fear_greed_trend": "en baisse",
+    "fear_greed_trend": "en hausse",
     "fear_greed_avg_7d": 67,
     "open_interest_btc": 0.0,
     "long_short_ratio": 0.5,
@@ -21,7 +21,7 @@
     "funding_description": "Neutres (0.000%)",
     "exchange_flows": {
       "binance_vol_24h_usd": 0,
-      "top5_exchanges_vol_btc": 264102.4,
+      "top5_exchanges_vol_btc": 271327.0,
       "trend": "faible_volume",
       "pression": "neutre"
     },
@@ -29,7 +29,7 @@
       "phase": "Markup",
       "emoji": "🟢",
       "conseil": "Phase haussière active — tenir ou ajouter sur replis",
-      "cycle_score": 2
+      "cycle_score": 1
     }
   },
   "market_dashboard": {
@@ -44,19 +44,19 @@
       "raw_price": 26584.06
     },
     "gold": {
-      "price": "$4,522",
-      "change_pct": 2.040125476743915,
-      "raw_price": 4521.5
+      "price": "$4,520",
+      "change_pct": 2.006273837196173,
+      "raw_price": 4520.0
     },
     "oil": {
-      "price": "$91.8",
-      "change_pct": 7.077891791044768,
-      "raw_price": 91.83
+      "price": "$91.7",
+      "change_pct": 6.868003731343284,
+      "raw_price": 91.65
     },
     "dxy": {
       "price": "99.0",
-      "change_pct": -0.4032988031781258,
-      "raw_price": 99.029
+      "change_pct": -0.4103389319118991,
+      "raw_price": 99.022
     },
     "vix": {
       "price": "14.3",
@@ -80,6 +80,15 @@
         "shares": 534000,
         "value_usd": 119104891,
         "date": "2026-09-01"
+      },
+      {
+        "insider": "Knight Lester B",
+        "company": "Aon Plc",
+        "ticker": "AON",
+        "type": "BUY",
+        "shares": 20000,
+        "value_usd": 6549688,
+        "date": "2026-09-02"
       },
       {
         "insider": "Paine Schwartz Food Chain Fund V Gp, Ltd.",
@@ -143,15 +152,6 @@
         "shares": 20780,
         "value_usd": 999990,
         "date": "2026-09-01"
-      },
-      {
-        "insider": "Batista De Lima Filho Pedro",
-        "company": "Axia Energia S.A.",
-        "ticker": "AXIA",
-        "type": "BUY",
-        "shares": 93600,
-        "value_usd": 961272,
-        "date": "2026-08-31"
       },
       {
         "insider": "Rakolta John Jr",
@@ -373,43 +373,43 @@
   },
   "market_hot_stocks": [
     {
-      "ticker": "MSTR",
-      "name": "Bitcoin trésorerie",
-      "price": 144.82,
-      "change_1d": 17.6,
-      "change_5d": 17.6,
+      "ticker": "MDB",
+      "name": "Base de données",
+      "price": 375.4,
+      "change_1d": -13.5,
+      "change_5d": -7.6,
       "reason": ""
     },
     {
-      "ticker": "SNOW",
-      "name": "Data Cloud",
-      "price": 356.47,
-      "change_1d": 16.6,
-      "change_5d": 13.0,
-      "reason": ""
-    },
-    {
-      "ticker": "HOOD",
-      "name": "Brokerage",
-      "price": 124.72,
-      "change_1d": 16.6,
-      "change_5d": 14.9,
-      "reason": ""
-    },
-    {
-      "ticker": "COIN",
-      "name": "Exchange crypto",
-      "price": 192.7,
-      "change_1d": 10.1,
-      "change_5d": 6.0,
+      "ticker": "DDOG",
+      "name": "Observabilité",
+      "price": 209.23,
+      "change_1d": -6.5,
+      "change_5d": -8.1,
       "reason": ""
     },
     {
       "ticker": "PLTR",
       "name": "Data / Défense IA",
-      "price": 182.53,
-      "change_1d": 7.7,
-      "change_5d": 2.8,
+      "price": 169.46,
+      "change_1d": -5.8,
+      "change_5d": -4.5,
+      "reason": ""
+    },
+    {
+      "ticker": "CRWD",
+      "name": "Cybersécurité",
+      "price": 203.42,
+      "change_1d": -5.4,
+      "change_5d": 7.5,
+      "reason": ""
+    },
+    {
+      "ticker": "NET",
+      "name": "Réseau cloud",
+      "price": 272.74,
+      "change_1d": -4.5,
+      "change_5d": -4.3,
       "reason": ""
     }
   ],
@@ -440,7 +440,7 @@
     "yield_curve": 0.43,
     "hy_spread": 7.18,
     "vix": 14.32,
-    "updated_at": "2026-09-03T23:44:41.493804+00:00"
+    "updated_at": "2026-09-04T04:55:50.019259+00:00"
   },
   "ecommerce_dashboard": {
     "stocks": [
@@ -524,29 +524,29 @@
     }
   },
   "ecommerce_themes": {
-    "marketplace": 29,
-    "creatives": 26,
+    "marketplace": 32,
     "operations": 9,
-    "automation": 20,
-    "emailing": 14
+    "automation": 21,
+    "creatives": 27,
+    "emailing": 12
   },
   "outils_usages": {
     "video": 14,
     "produit_gagnant": 1,
     "analyse_marche": 2,
     "scraping": 6,
-    "pub": 24,
+    "pub": 23,
     "fiches_produit": 1,
-    "skill_claude": 12,
+    "skill_claude": 11,
     "automatisation": 4
   },
   "compte_news": {
-    "ai": 49,
+    "ai": 78,
     "trending": 45,
-    "crypto": 79,
-    "market": 43,
-    "deeptech": 63,
-    "ecommerce": 98,
-    "outils": 64
+    "crypto": 73,
+    "market": 48,
+    "deeptech": 64,
+    "ecommerce": 101,
+    "outils": 62
   }
 }
