@@ -1,0 +1,32 @@
+[
+  {
+    "boutique": "bellanell.com",
+    "produit": "Nordiska Steg — chaussures pour pieds enflés, larges et douloureux",
+    "mots_cles_fr": ["pieds enflés le soir", "pieds qui font mal en marchant toute la journée", "chaussures trop serrées pieds larges"],
+    "mots_cles_en": ["swollen feet at night", "feet hurt after standing all day", "shoes too tight wide feet"]
+  },
+  {
+    "boutique": "lambrieshop.com",
+    "produit": "Fargeskiftende foundation — fond de teint qui change de couleur selon la peau",
+    "mots_cles_fr": ["trouver la bonne teinte de fond de teint", "fond de teint trop clair ou trop foncé", "fond de teint qui ne matche pas la peau"],
+    "mots_cles_en": ["foundation shade too light or too dark", "can't find right foundation shade match", "foundation doesn't match skin tone"]
+  },
+  {
+    "boutique": "plum-smile.com",
+    "produit": "Purple Whitening Mouthwash — bain de bouche violet blanchissant",
+    "mots_cles_fr": ["dents jaunies par le café et le thé", "envie de dents plus blanches sans aller chez le dentiste", "bain de bouche blanchissant efficace ou pas"],
+    "mots_cles_en": ["yellow teeth from coffee and tea", "teeth whitening without a dentist", "purple mouthwash teeth whitening does it actually work"]
+  },
+  {
+    "boutique": "getmilawellness.com",
+    "produit": "BARE WIPES — lingettes bien-être intime",
+    "mots_cles_fr": ["irritation intime après le sport", "démangeaisons zone intime", "lingettes intimes naturelles sans parfum"],
+    "mots_cles_en": ["intimate itching after workout", "feminine hygiene wipes natural", "vaginal irritation after exercise"]
+  },
+  {
+    "boutique": "pupster.org",
+    "produit": "Pupster Diffuser Calm Cloud — diffuseur calmant pour chien anxieux",
+    "mots_cles_fr": ["chien anxieux qui aboie sans arrêt", "chien stressé par les feux d'artifice", "chien qui détruit tout seul à la maison"],
+    "mots_cles_en": ["dog anxiety barking all the time", "dog stressed by fireworks", "dog separation anxiety destroying house"]
+  }
+]
