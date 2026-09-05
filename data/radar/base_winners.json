@@ -7439,5 +7439,304 @@
   "testable": true,
   "raison_non_testable": "",
   "notion_page_id": "3d191197-e08c-81a0-b35c-e1f2d37f7103"
+ },
+ "plum-smile.com": {
+  "boutique": "plum-smile.com",
+  "produit": "Purple Whitening Mouthwash",
+  "niche": "Beauté / hygiène bucco-dentaire",
+  "prix": "34.99 USD",
+  "trouve_le": "2026-09-05",
+  "maj_le": "2026-09-05",
+  "source": "radar quotidien",
+  "statut": "BANGER",
+  "chiffres": {
+   "ads_actives": 54,
+   "courbe_ads": "10 > 31",
+   "acceleration": 3.1,
+   "delta_ads_7j": 210,
+   "age_jours": 11,
+   "cree_le": "2026-08-25",
+   "semaines_diffusion": 2,
+   "visites_mois": 0,
+   "pays_pub": "US 100%",
+   "fr_dans_leurs_pubs": "non ciblée",
+   "marches_libres": "FR/ES/DE/IT/GB",
+   "nb_skus": 1,
+   "prix": "34.99 USD",
+   "prix_eur": 32.19,
+   "statut": "BANGER",
+   "priorite": 74,
+   "reseau": "",
+   "techno_scaling": false
+  },
+  "marches": {
+   "FR": "PARTIEL",
+   "DE": "PRIS",
+   "ES": "PARTIEL",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": 2,
+  "awareness": "solution aware",
+  "decalage_marche": "aligné",
+  "angle_recommande": "Avatar 25-40 ans qui boit beaucoup de café ou de thé, stade solution aware (connaît déjà les bandes et kits blanchissants) : montrer l'effet immédiat en vidéo avant/après filmée devant un miroir plutôt que promettre un blanchiment permanent, positionné comme le rituel du soir avant un rendez-vous ou une photo.",
+  "ou_lancer": "France en premier : marché PARTIEL avec seulement 4 concurrents sérieux et aucun dominant, alors que 90% du volume de Badr y est déjà. L'Allemagne est saturée par un réseau de pages clonées, à éviter pour l'instant.",
+  "verdict_cortex": "GO TEST",
+  "verdict_pourquoi": "Marché français encore ouvert (PARTIEL, aucun acteur dominant), boutique très fraîche (11 jours) avec une accélération nette des pubs (×3,1 en 4 semaines), produit simple à comprendre et à filmer. Le principal risque est la marge sur un produit liquide vendu autour de 32 €.",
+  "tam": "TAM incertain à 100+ pubs par annonceur (aucun acteur du échantillon ne dépasse ce seuil), mais catégorie active : 113 pubs actives rien qu'en Allemagne sur le mot-clé, 7 annonceurs distincts en France.",
+  "recurrent": "oui",
+  "difficulte": "moyen",
+  "ca_jour_estime": "Estimation : trafic affiché à 0, donc non estimable précisément à ce stade (délai de mise à jour des données de trafic). Ordre de grandeur d'après le volume de pubs : avec 54 pubs actives et une accélération ×3,1 en 4 semaines sur une boutique de 11 jours, la marque teste probablement encore son offre plutôt que de scaler massivement — quelques centaines d'euros de chiffre d'affaires par jour semble un ordre de grandeur raisonnable si le produit confirme.",
+  "budget_test": "CBO 100-150 € par jour, décision à 48h : 200-300 € pour savoir",
+  "angle_concurrent": "En France, White Smile occupe le terrain du bain de bouche à proprement parler avec « Le bain de bouche qui fait parler de lui » (3 pubs depuis 27 jours) ; Oh MySmile et Id-blanchiments vendent plutôt des kits sans peroxyde avec garantie de remboursement à 30 jours, un angle différent (kit ponctuel vs rinçage quotidien). En Allemagne, le réseau Xynex-e martèle juste « Frische Mundspülung » (bain de bouche frais), sans angle blanchiment explicite dans le titre de la pub.",
+  "pain_points": [
+   {
+    "douleur": "Des dents jaunies par le café et le thé qui poussent à éviter de sourire ou de montrer ses dents en photo, par gêne.",
+    "intensite": "forte",
+    "preuve": "Un client qui buvait beaucoup de soda avait les dents jaunes au point de ne plus jamais sourire en montrant ses dents, par gêne — un avis relevé lors de la recherche sur les bains de bouche blanchissants violets.",
+    "source_url": "https://www.amazon.com/DR-DENT-Purple-Mouthwash-Teeth-Whitening/dp/B0GYWJ7KCR"
+   },
+   {
+    "douleur": "Envie d'un résultat rapide avant un rendez-vous, une réunion ou une séance photo, sans passer par un blanchiment chez le dentiste, cher et long.",
+    "intensite": "moyenne",
+    "preuve": "Le produit est présenté comme utilisable juste avant un rendez-vous, une réunion ou une séance photo, pour être sous son meilleur jour en quelques minutes.",
+    "source_url": "https://www.amazon.com/DR-DENT-Purple-Mouthwash-Teeth-Whitening/dp/B0GYWJ7KCR"
+   },
+   {
+    "douleur": "Déception une fois compris que l'effet n'est qu'optique et temporaire (quelques heures à une journée), pas un vrai blanchiment qui retire les taches.",
+    "intensite": "moyenne",
+    "preuve": "Le bain de bouche violet est un produit correcteur de teinte optique, pas un produit blanchissant : il ne retire aucune tache et l'effet dure de quelques heures à une journée.",
+    "source_url": "https://vantura.store/blogs/news/does-purple-mouthwash-actually-work"
+   }
+  ],
+  "angles_non_exploites": [
+   {
+    "angle": "Montrer l'effet en vidéo de 15 secondes filmée en temps réel devant un miroir, chrono à l'écran, sans coupe ni filtre.",
+    "douleur_ciblee": "Envie d'un résultat rapide avant une occasion précise.",
+    "pourquoi_personne": "Les concurrents français promettent l'effet en texte (« 30 secondes et ça se voit ») mais aucun ne filme la preuve en temps réel sans coupe."
+   },
+   {
+    "angle": "Assumer ouvertement que l'effet est temporaire et cosmétique, façon « astuce du dimanche soir avant la semaine », plutôt que de laisser croire à un vrai blanchiment.",
+    "douleur_ciblee": "Déception une fois l'effet réel compris.",
+    "pourquoi_personne": "Tous les concurrents identifiés vendent l'illusion d'un blanchiment réel ; aucun n'assume la mécanique de correction de teinte comme argument de vente honnête et différenciant."
+   }
+  ],
+  "marches_detail": {
+   "FR": "PARTIEL — 36 pubs actives estimées, 7 annonceurs dans l'échantillon (4 sérieux) : Oh MySmile 4 pubs (kit sans peroxyde), Smiléa 3 pubs, White Smile 3 pubs (« Le bain de bouche qui fait parler de lui », le concurrent au format le plus proche), Id-blanchiments 2 pubs. Aucun acteur dominant.",
+   "DE": "PRIS — 113 pubs actives estimées sur « Mundspülung Zähne aufhellen ». Un réseau d'au moins 14 pages Facebook différentes (Xynex-e, Pellendorf-DO, Muenchnner, Bluemenart, Lrckeqxzwk, Paulineast, entre autres) diffuse mot pour mot la même publicité « Frische Mundspülung » — un cas typique de saturation par un seul opérateur multipliant les pages, décrit dans la formation comme « 15+ annonceurs avec le même message, en tant que débutant ce n'est pas conseillé ».",
+   "ES": "PARTIEL — seulement 3 pubs actives estimées sur « enjuague bucal blanqueador », 2 annonceurs : MyBlanq (2 pubs, « Tu no lo notas. Ellos sí. ») et PurpleShot (1 pub, « Dientes blancos en 30 segundos », nom de marque très proche du positionnement violet). Marché quasiment vierge mais déjà un concurrent avec un nom presque identique."
+  },
+  "lien_boutique": "https://plum-smile.com",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=plum-smile",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-09-05",
+    "ads": 54,
+    "courbe": "10 > 31",
+    "statut": "BANGER"
+   }
+  ],
+  "testable": true,
+  "raison_non_testable": "",
+  "notion_page_id": "3d291197-e08c-81e1-b86d-d0819f989df1"
+ },
+ "getmilawellness.com": {
+  "boutique": "getmilawellness.com",
+  "produit": "BARE WIPES",
+  "niche": "Beauté / bien-être intime",
+  "prix": "34.9 USD",
+  "trouve_le": "2026-09-05",
+  "maj_le": "2026-09-05",
+  "source": "radar quotidien",
+  "statut": "SANS TRAFIC",
+  "chiffres": {
+   "ads_actives": 426,
+   "courbe_ads": "213 > 338 > 364 > 286 > 330",
+   "acceleration": 1.5,
+   "delta_ads_7j": 15,
+   "age_jours": 44,
+   "cree_le": "2026-07-23",
+   "semaines_diffusion": 26,
+   "visites_mois": 0,
+   "pays_pub": "US 100%",
+   "fr_dans_leurs_pubs": "non ciblée",
+   "marches_libres": "FR/ES/DE/IT/GB",
+   "nb_skus": 2,
+   "prix": "34.9 USD",
+   "prix_eur": 32.11,
+   "statut": "SANS TRAFIC",
+   "priorite": 69,
+   "reseau": "",
+   "techno_scaling": false
+  },
+  "marches": {
+   "FR": "PARTIEL",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": 2,
+  "awareness": "problem aware",
+  "decalage_marche": "en retard",
+  "angle_recommande": "Avatar femme sportive 20-40 ans (salle de sport, running), stade problem aware : mécaniser le problème (sueur + frottement = irritation), présenter la lingette comme un geste nomade simple entre deux activités, preuve sociale à l'appui.",
+  "ou_lancer": "France en premier : marché PARTIEL, aucun concurrent direct sur le format lingette post-sport, et 90% du volume de Badr y est déjà.",
+  "verdict_cortex": "GO TEST",
+  "verdict_pourquoi": "Marché français quasiment vierge sur ce format précis, produit facile à expédier et sans contrainte réglementaire, boutique déjà validée en volume aux États-Unis (426 pubs actives depuis 26 semaines). Le principal risque est de trouver un angle visuel assez fort pour capter l'attention en pub.",
+  "tam": "TAM incertain : aucun acteur à 100+ pubs identifié sur « lingettes intimes » en France (Saforelle en tête avec 6 pubs dans l'échantillon) ; la catégorie hygiène intime plus large reste active avec plusieurs marques établies (Saforelle, Puressentiel, Mascaraad).",
+  "recurrent": "oui",
+  "difficulte": "facile",
+  "ca_jour_estime": "Estimation : trafic affiché à 0, non estimable précisément (délai de données probable vu le volume de pubs). Ordre de grandeur d'après le nombre d'ads : avec 426 pubs actives depuis 26 semaines, la boutique tourne déjà en volume significatif sur son marché actuel, probablement plusieurs milliers de dollars de chiffre d'affaires par jour aux États-Unis.",
+  "budget_test": "CBO 100-150 € par jour, décision à 48h : 200-300 € pour savoir",
+  "angle_concurrent": "Les acteurs présents vendent des produits adjacents mais pas des lingettes intimes en direct : Saforelle (marque pharmacie établie) mise sur la confiance médicale avec un format lavant classique ; Mascaraad vend une brume intime en spray (« Brume intime ») plutôt qu'une lingette ; Secrets de l'incontinence cible les fuites urinaires, un problème différent.",
+  "pain_points": [
+   {
+    "douleur": "Irritation et démangeaisons intimes après le sport, causées par la sueur et le frottement dans des vêtements serrés ou peu respirants.",
+    "intensite": "forte",
+    "preuve": "Sweat can create moisture and friction, especially in tight or non-breathable clothing, which may cause redness, itchiness, or discomfort.",
+    "source_url": "https://nuawoman.com/blog/post-workout-intimate-hygiene-what-you-should-and-shouldnt-do-to-avoid-irritation/"
+   },
+   {
+    "douleur": "Peur d'utiliser des produits d'hygiène intime classiques qui perturbent l'équilibre naturel de la zone et aggravent l'irritation plutôt que de la calmer.",
+    "intensite": "moyenne",
+    "preuve": "pH friendly wipes can be used to cleanse and soothe sensitive skin without disrupting natural balance.",
+    "source_url": "https://www.waterwipes.com/community/feminine-care/exercise-sweat-and-intimate-care-what-you-need-to-know"
+   },
+   {
+    "douleur": "Ne pas pouvoir se rafraîchir rapidement juste après le sport avant de reprendre ses activités (travail, sortie), ce qui prolonge l'inconfort.",
+    "intensite": "moyenne",
+    "preuve": "Getting the V-zone cool, clean and sweat-free as soon as your workout ends is the key trick to avoiding post-workout irritation.",
+    "source_url": "https://nuawoman.com/blog/post-workout-intimate-hygiene-what-you-should-and-shouldnt-do-to-avoid-irritation/"
+   }
+  ],
+  "angles_non_exploites": [
+   {
+    "angle": "Cibler spécifiquement les femmes sportives (post-sport, salle de sport, running) plutôt que l'hygiène intime générale au quotidien.",
+    "douleur_ciblee": "Irritation après le sport.",
+    "pourquoi_personne": "Saforelle et les autres marques présentes parlent d'hygiène intime au quotidien ; aucune ne possède le moment précis « juste après l'entraînement »."
+   },
+   {
+    "angle": "Format nomade à glisser dans le sac de sport, mis en avant comme un geste discret entre deux activités de la journée.",
+    "douleur_ciblee": "Impossibilité de se rafraîchir rapidement après le sport.",
+    "pourquoi_personne": "Les marques présentes vendent des flacons ou des sprays pensés pour la maison, pas un format conçu spécifiquement pour l'extérieur ou la salle de sport."
+   }
+  ],
+  "marches_detail": {
+   "FR": "PARTIEL — 27 pubs actives estimées, 9 annonceurs (4 sérieux) : Saforelle 6 pubs (marque pharmacie, format lavant), Mascaraad 4 pubs (« Brume intime », spray pas lingette), Harmova 3 pubs, Secrets de l'incontinence 2 pubs (fuites urinaires). Aucun concurrent direct au format lingette identifié."
+  },
+  "lien_boutique": "https://getmilawellness.com",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=getmilawellness",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-09-05",
+    "ads": 426,
+    "courbe": "213 > 338 > 364 > 286 > 330",
+    "statut": "SANS TRAFIC"
+   }
+  ],
+  "testable": true,
+  "raison_non_testable": "",
+  "notion_page_id": "3d291197-e08c-81d1-a77d-ea0b8cc1091f"
+ },
+ "pupster.org": {
+  "boutique": "pupster.org",
+  "produit": "Pupster Diffuser — Calm Cloud",
+  "niche": "Animalerie / bien-être canin",
+  "prix": "49 USD",
+  "trouve_le": "2026-09-05",
+  "maj_le": "2026-09-05",
+  "source": "radar quotidien",
+  "statut": "SANS TRAFIC",
+  "chiffres": {
+   "ads_actives": 57,
+   "courbe_ads": "51",
+   "acceleration": null,
+   "delta_ads_7j": null,
+   "age_jours": 10,
+   "cree_le": "2026-08-26",
+   "semaines_diffusion": 1,
+   "visites_mois": 0,
+   "pays_pub": "US 100%",
+   "fr_dans_leurs_pubs": "non ciblée",
+   "marches_libres": "FR/ES/DE/IT/GB",
+   "nb_skus": 3,
+   "prix": "49 USD",
+   "prix_eur": 45.08,
+   "statut": "SANS TRAFIC",
+   "priorite": 55,
+   "reseau": "",
+   "techno_scaling": false
+  },
+  "marches": {
+   "FR": "PARTIEL",
+   "DE": "A VERIFIER",
+   "ES": "A VERIFIER",
+   "GB": "A VERIFIER"
+  },
+  "stade_sophistication": 1,
+  "awareness": "problem aware",
+  "decalage_marche": "en retard",
+  "angle_recommande": "Avatar propriétaire de chien anxieux (aboiement, destruction, anxiété de séparation), stade problem aware : mécaniser le problème (le chien reste seul → stress → aboiements/dégâts → gêne pour les voisins et culpabilité du propriétaire), présenter le diffuseur comme une solution simple sans médicament.",
+  "ou_lancer": "France en premier : marché quasiment vierge (1 seul concurrent, lancé il y a 3 jours), et Badr peut lancer une boutique dédiée rapidement si besoin.",
+  "verdict_cortex": "GO TEST",
+  "verdict_pourquoi": "Fenêtre la plus fraîche du jour (boutique de 10 jours, 1 semaine de diffusion) sur un marché français quasiment vierge. Le principal risque est le manque de recul sur les données (trop tôt pour juger l'accélération réelle) : à surveiller de près sur 48h.",
+  "tam": "TAM à confirmer : un seul concurrent identifié en France, très récent. Le marché plus large des produits apaisants pour animaux existe depuis longtemps aux États-Unis et au Royaume-Uni (Adaptil, Thunderease) avec un mécanisme de phéromones différent, preuve que la catégorie a une vraie demande de fond.",
+  "recurrent": "oui",
+  "difficulte": "moyen",
+  "ca_jour_estime": "Non estimable — trafic pas encore indexé et diffusion trop récente (1 semaine) pour extrapoler une tendance fiable. À ce stade, seul le nombre de pubs (57 en une semaine) suggère un lancement encore exploratoire côté acheteur.",
+  "budget_test": "CBO 100-150 € par jour, décision à 48h : 200-300 € pour savoir",
+  "angle_concurrent": "Un seul concurrent direct identifié : Mon Animal et Moi avec « Calmisto », un diffuseur de bien-être pour chien et chat, en ligne depuis seulement 3 jours — l'angle marketing n'est pas encore fixé, la place reste ouverte pour un positionnement plus fort sur l'anxiété de séparation précisément.",
+  "pain_points": [
+   {
+    "douleur": "Chien qui aboie sans arrêt ou détruit la maison quand il reste seul, au point de déranger les voisins et de créer un vrai conflit de voisinage.",
+    "intensite": "forte",
+    "preuve": "Dogs can sometimes resort to destructive behaviour, continuous barking or howling when there is no one around to stop them doing so.",
+    "source_url": "https://www.southderbyshire.gov.uk/assets/attach/11215/Preventing-Dog-Barking.pdf"
+   },
+   {
+    "douleur": "Scepticisme des propriétaires après avoir déjà essayé des solutions apaisantes similaires sans résultat clair.",
+    "intensite": "moyenne",
+    "preuve": "One reviewer noted they hadn't noticed any improvements with a calming pheromone diffuser and said it was a shame it didn't work.",
+    "source_url": "https://www.walmart.com/ip/Dog-Calming-Pheromone-Diffuser-Refill-Vet-Recommended-Relieve-Separation-Anxiety-Stress-Barking-Chewing-Fear-Fireworks-Thunderstorms/16576610765"
+   },
+   {
+    "douleur": "Chien stressé par les feux d'artifice ou l'orage, sans solution immédiate à disposition au moment de la crise.",
+    "intensite": "forte",
+    "preuve": "Le produit concurrent est positionné explicitement pour soulager l'anxiété de séparation, les aboiements, la peur des feux d'artifice et des orages.",
+    "source_url": "https://www.walmart.com/ip/Dog-Calming-Pheromone-Diffuser-Refill-Vet-Recommended-Relieve-Separation-Anxiety-Stress-Barking-Chewing-Fear-Fireworks-Thunderstorms/16576610765"
+   }
+  ],
+  "angles_non_exploites": [
+   {
+    "angle": "Montrer un vétérinaire ou un comportementaliste canin qui explique le mécanisme du produit, plutôt qu'une simple promesse de calme sur l'emballage.",
+    "douleur_ciblee": "Scepticisme après avoir essayé des solutions similaires sans résultat.",
+    "pourquoi_personne": "Le seul concurrent identifié (Calmisto) ne montre aucune preuve d'expert dans sa pub, juste le packaging du produit."
+   },
+   {
+    "angle": "Caler les publicités sur des pics d'anxiété précis (feux d'artifice du 14 juillet, orages d'été) plutôt qu'un message générique anti-stress à l'année.",
+    "douleur_ciblee": "Chien stressé par les feux d'artifice ou l'orage.",
+    "pourquoi_personne": "Aucun concurrent français ne fait de ciblage saisonnier ou événementiel ; tout le monde reste sur un message anti-anxiété générique permanent."
+   }
+  ],
+  "marches_detail": {
+   "FR": "PARTIEL — 1 pub active estimée, 1 seul annonceur sérieux : Mon Animal et Moi avec « Calmisto, diffuseur de bien-être pour chien et chat », lancé il y a 3 jours seulement. Aucun acteur installé."
+  },
+  "lien_boutique": "https://pupster.org",
+  "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=pupster",
+  "verdict_badr": "",
+  "notes_badr": "",
+  "historique": [
+   {
+    "date": "2026-09-05",
+    "ads": 57,
+    "courbe": "51",
+    "statut": "SANS TRAFIC"
+   }
+  ],
+  "testable": true,
+  "raison_non_testable": "",
+  "notion_page_id": "3d291197-e08c-81f4-82b8-d812f424c13e"
  }
 }

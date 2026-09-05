@@ -1775,7 +1775,9 @@
  },
  "lambrieshop.com": {
   "premiere_vue": "2026-08-29",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-05"
+  ],
   "derniere_vue": "2026-09-05",
   "statut": "BANGER",
   "produit": "Fargeskiftende foundation",
@@ -1948,7 +1950,8 @@
  "riigidukshop.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [
-   "2026-08-29"
+   "2026-08-29",
+   "2026-09-05"
   ],
   "derniere_vue": "2026-09-05",
   "statut": "SANS TRAFIC",
@@ -2196,7 +2199,9 @@
  },
  "deseoabsolutoit.com": {
   "premiere_vue": "2026-08-29",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-05"
+  ],
   "derniere_vue": "2026-09-05",
   "statut": "SANS TRAFIC",
   "produit": "Pack 1x Deseo Absoluto",
@@ -5545,7 +5550,9 @@
  },
  "pupster.org": {
   "premiere_vue": "2026-09-04",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-05"
+  ],
   "derniere_vue": "2026-09-05",
   "statut": "SANS TRAFIC",
   "produit": "Pupster Diffuser - Calm Cloud",
@@ -5663,7 +5670,9 @@
  },
  "bellanell.com": {
   "premiere_vue": "2026-09-05",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-05"
+  ],
   "derniere_vue": "2026-09-05",
   "statut": "BANGER",
   "produit": "Nordiska Steg – Skorna för svullna, breda och ömma fötter",
@@ -5703,7 +5712,9 @@
  },
  "plum-smile.com": {
   "premiere_vue": "2026-09-05",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-05"
+  ],
   "derniere_vue": "2026-09-05",
   "statut": "BANGER",
   "produit": "Purple Whitening Mouthwash",
@@ -5733,7 +5744,9 @@
  },
  "getmilawellness.com": {
   "premiere_vue": "2026-09-05",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-05"
+  ],
   "derniere_vue": "2026-09-05",
   "statut": "SANS TRAFIC",
   "produit": "BARE WIPES",
@@ -5773,7 +5786,9 @@
  },
  "everstepnorge.com": {
   "premiere_vue": "2026-09-05",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-05"
+  ],
   "derniere_vue": "2026-09-05",
   "statut": "SANS TRAFIC",
   "produit": "EverStep™ – Støtte som holder deg i bevegelse",
