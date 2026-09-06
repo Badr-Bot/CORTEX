@@ -4677,10 +4677,10 @@
  "sleeppods.co": {
   "boutique": "sleeppods.co",
   "produit": "Original Waterproof SleepPods 2026 (Upgraded Bass & Sound)",
-  "niche": "Écouteurs sans fil pour dormir",
+  "niche": "Écouteurs / gadgets sommeil",
   "prix": "28.99 GBP",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-30",
+  "maj_le": "2026-09-06",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
@@ -4697,52 +4697,58 @@
    "FR": "PARTIEL",
    "DE": "A VERIFIER",
    "ES": "A VERIFIER",
-   "GB": "PRIS"
+   "GB": "A VERIFIER"
   },
   "stade_sophistication": 2,
-  "awareness": "inconnu ici",
-  "decalage_marche": "en retard",
-  "angle_recommande": "Cibler les mauvais dormeurs gênés par le bruit (ronflement du/de la partenaire, voisinage) ou mal à l'aise avec des écouteurs classiques sur le côté : vidéo qui montre le format plat porté en dormant sur le côté, promesse « dors enfin sur le côté sans gêne ».",
-  "ou_lancer": "France en premier : le marché est PARTIEL (petits acteurs, aucun dominant), la place est ouverte pour une marque qui démontre vraiment le confort du produit.",
+  "awareness": "solution aware",
+  "decalage_marche": "aligné",
+  "angle_recommande": "Cibler les couples et les personnes qui dorment sur le côté, gênées par des écouteurs classiques qui font mal ou tombent — audience large 25-45 ans, hook sur la douleur à l'oreille plutôt que sur la fiche technique, en montrant le confort en position latérale.",
+  "ou_lancer": "France d'abord : le marché est PARTIEL (concurrence naissante, pas dominante), ce qui reste jouable pour un premier test.",
   "verdict_cortex": "GO TEST",
-  "verdict_pourquoi": "Signal TrendTrack solide (x2,5 en 4 semaines, 422 pubs actives, trafic encore à 0) et marché FR confirmé PARTIEL (3-4 petits acteurs, aucun dominant) via Meta Ad Library. Douleur réelle et documentée (mal aux oreilles en dormant sur le côté) mais recherche de douleurs incomplète (l'enquête approfondie n'est pas arrivée à temps aujourd'hui) : valide l'angle avec 2-3 créas avant de scaler.",
-  "tam": "TAM incertain sur le mot-clé précis : aucun annonceur français à 100+ pubs actives repéré sur « écouteurs sommeil » ; les acteurs identifiés opèrent surtout au Royaume-Uni et en Scandinavie.",
+  "verdict_pourquoi": "Fenêtre encore ouverte (0 trafic visible, croissance ×2,2 en 4 semaines), marché français encore PARTIEL avec une concurrence naissante et pas dominante, et un vrai besoin (douleur à l'oreille en dormant sur le côté) déjà documenté. Le risque principal est la qualité perçue du produit, à vérifier avant de scaler.",
+  "tam": "TAM incertain : le plus gros concurrent identifié (Lunyva) plafonne à 18 pubs, aucun annonceur à 100+ pubs trouvé sur ce marché précis.",
   "recurrent": "non",
   "difficulte": "moyen",
-  "ca_jour_estime": "Estimation (méthode : trafic affiché ×5 à ×10, taux de conversion 2-3%, prix 28,99 £) : trafic officiellement à 0, donc non estimable par cette méthode ; ordre de grandeur d'après le nombre de pubs (422 actives) : plusieurs dizaines de commandes par jour probables pour l'annonceur d'origine, à confirmer une fois le trafic indexé.",
-  "budget_test": "CBO 100-150 € par jour, décision à 48 h : 200-300 € pour savoir (prix unitaire bas, teste en pack de 2 pour l'AOV).",
-  "angle_concurrent": "Naali pousse sa gamme « Dream » avec un ton produit direct (« De bonnes nuits vous attendent ») ; Loop (marque connue de bouchons d'oreille) communique surtout sur sa politique de retour (« Retours faciles sous 100 jours ») plutôt que sur le produit lui-même ; aucun des deux ne parle explicitement du confort en dormant sur le côté.",
+  "ca_jour_estime": "Non estimable avec précision — le trafic n'est pas encore indexé par les outils de mesure. Ordre de grandeur d'après le nombre de publicités (estimation très grossière, à confirmer par un test) : 388 pubs actives avec une croissance ×2,2 en 4 semaines correspond à une boutique qui commence à bien scaler, comparable à un début de succès plutôt qu'à un test encore incertain.",
+  "budget_test": "CBO 100-300 € par jour, décision à 48 h : 200-600 € pour savoir.",
+  "angle_concurrent": "Lunyva mise sur l'angle couple (« le seul truc qui a sauvé nos nuits, et notre couple ») et sur « dormez avec de la musique sans jamais déranger personne » ; Lullance et Cabellia restent sur la douleur physique (« plus jamais d'écouteurs pour dormir », « dormez sans douleur »). Aucun ne mise sur l'étanchéité ni la puissance des basses, les deux arguments de SleepPods.",
   "pain_points": [
    {
-    "douleur": "Les écouteurs classiques font mal aux oreilles quand on dort sur le côté, au point de réveiller la nuit.",
+    "douleur": "Les écouteurs classiques font mal à l'oreille en dormant sur le côté, au point que certains renoncent et dorment sur le dos.",
     "intensite": "forte",
-    "preuve": "they make my ears feel extremely sore and painful, and the pain wakes me up during the night",
-    "source_url": "https://forums.tomsguide.com/threads/soundcore-sleep-a20-earbuds.533123/post-2050801"
+    "preuve": "too uncomfortable to use on their side, so ended up sleeping on their back instead",
+    "source_url": "https://forums.anandtech.com/threads/comfortable-headphones-earbuds-for-sleeping.1864996/post-20234894"
    },
    {
-    "douleur": "Peur d'acheter des écouteurs de sommeil qui tombent vite en panne ou ont une mauvaise autonomie.",
+    "douleur": "Des clients de ce type de produit se plaignent d'une qualité perçue comme bas de gamme, un point de vigilance sur le choix du fournisseur.",
     "intensite": "moyenne",
-    "preuve": "buzzing noise in calls, faulty chargers, and weak battery life",
+    "preuve": "absolute rubbish, total cheap China product",
     "source_url": "https://www.trustpilot.com/review/sleeppods.se"
+   },
+   {
+    "douleur": "Le bruit d'un partenaire qui écoute de la musique ou une vidéo au lit empêche l'autre de dormir, une source de tension de couple.",
+    "intensite": "moyenne",
+    "preuve": "Dormez avec de la musique sans jamais déranger personne",
+    "source_url": "https://www.facebook.com/ads/library/?id=1756746652289198"
    }
   ],
   "angles_non_exploites": [
    {
-    "angle": "Montrer concrètement le format plat sur une vraie tête qui dort sur le côté, sans embout qui dépasse.",
-    "douleur_ciblee": "mal aux oreilles en dormant sur le côté",
-    "pourquoi_personne": "Les concurrents FR trouvés (Naali, Loop) montrent surtout le packaging ou une promesse générique, pas une démonstration du confort réel en position de sommeil."
+    "angle": "Montrer le produit du point de vue du ou de la partenaire qui dort à côté, plutôt que de la personne qui porte les écouteurs.",
+    "douleur_ciblee": "le bruit qui empêche l'autre de dormir",
+    "pourquoi_personne": "toutes les pubs vues (Lunyva, Lullance) parlent à la personne qui écoute, aucune ne montre le soulagement du partenaire à côté."
    },
    {
-    "angle": "Mettre en avant une garantie ou un SAV réactif dès la publicité, pour désamorcer la peur de la panne.",
-    "douleur_ciblee": "peur d'acheter un produit électronique qui tombe vite en panne",
-    "pourquoi_personne": "Aucun concurrent identifié ne communique sur la fiabilité ou la garantie dans son accroche publicitaire."
+    "angle": "Un angle frontal « dispute de couple à cause du bruit nocturne, résolue simplement ».",
+    "douleur_ciblee": "tensions de couple liées au bruit la nuit",
+    "pourquoi_personne": "Lunyva évoque le couple en une phrase vague, sans creuser frontalement la dispute réelle."
    }
   ],
   "marches_detail": {
-   "FR": "PARTIEL — 69 pubs actives sur « écouteurs sommeil », mais seulement 3-4 annonceurs pertinents (Naali, Lullance, Loop) sans dominant, le reste hors-sujet.",
-   "DE": "non vérifié — le marché FR a suffi pour trancher (PARTIEL, pépite pour la France).",
-   "ES": "non vérifié — le marché FR a suffi pour trancher (PARTIEL, pépite pour la France).",
-   "GB": "déjà ciblé par l'annonceur d'origine lui-même (38% de ses pubs, son marché principal)."
+   "FR": "PARTIEL — 3 annonceurs pertinents (Lunyva 18 pubs depuis ~5 semaines, Lullance et Cabellia 1 pub chacun depuis ~1 semaine), aucun dominant.",
+   "DE": "non vérifié — la France est déjà PARTIEL (jouable), pas besoin d'aller chercher un autre marché aujourd'hui.",
+   "ES": "non vérifié — idem.",
+   "GB": "non vérifié — c'est pourtant l'un des marchés d'origine de la marque (40 % de ses pubs) : à surveiller si un test France ne suffit pas."
   },
   "lien_boutique": "https://sleeppods.co",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=sleeppods",
@@ -4757,6 +4763,12 @@
    },
    {
     "date": "2026-08-30",
+    "ads": 458,
+    "courbe": "169 > 177 > 252 > 254 > 444",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-06",
     "ads": 458,
     "courbe": "169 > 177 > 252 > 254 > 444",
     "statut": "BANGER"
@@ -6536,10 +6548,10 @@
  "getfreshreserve.co.uk": {
   "boutique": "getfreshreserve.co.uk",
   "produit": "Fresh Reserve Cordless Vacuum Sealer",
-  "niche": "Petit électroménager cuisine (conservation des aliments)",
+  "niche": "Électroménager cuisine / anti-gaspillage",
   "prix": "69.99 GBP",
   "trouve_le": "2026-08-30",
-  "maj_le": "2026-08-30",
+  "maj_le": "2026-09-06",
   "source": "radar quotidien",
   "statut": "BANGER",
   "chiffres": {
@@ -6566,52 +6578,58 @@
    "FR": "PARTIEL",
    "DE": "A VERIFIER",
    "ES": "A VERIFIER",
-   "GB": "PRIS"
+   "GB": "A VERIFIER"
   },
   "stade_sophistication": 2,
-  "awareness": "inconnu ici",
-  "decalage_marche": "en retard",
-  "angle_recommande": "Cibler les gens qui jettent régulièrement des restes ou des produits frais périmés (familles, jeunes actifs qui cuisinent en lot) : vidéo qui montre la mise sous vide en 10 secondes et la différence de fraîcheur après une semaine, promesse « ne jette plus jamais tes restes ».",
-  "ou_lancer": "France en premier : le seul concurrent trouvé est un généraliste qui ne défend pas le produit, la place est donc ouverte pour une marque dédiée avec une vraie démonstration produit.",
+  "awareness": "problem aware",
+  "decalage_marche": "aligné",
+  "angle_recommande": "Cibler les familles qui jettent régulièrement de la nourriture périmée — audience 30-55 ans, parents, hook sur l'argent gaspillé chaque année plutôt que sur la fiche technique de l'appareil, en insistant sur le côté sans fil (une main, pas de prise) que Prunelle ne met pas en avant.",
+  "ou_lancer": "France d'abord : le marché y est PARTIEL avec un seul concurrent qui débute à peine (2 jours), une fenêtre encore large avant que Prunelle ne s'installe.",
   "verdict_cortex": "GO TEST",
-  "verdict_pourquoi": "Produit vérifié et légitime (vraie fiche produit trouvée : kit de mise sous vide avec sacs réutilisables, pas un produit détourné comme cela peut arriver sur ce type de nom générique). Diffusion en forte hausse (×2 en 4 semaines, 358 pubs actives) et marché FR quasi vierge (1 seul concurrent généraliste, pas dédié). Douleur du gaspillage alimentaire universelle et documentée.",
-  "tam": "TAM incertain sur le mot-clé précis testé : aucun annonceur français à 100+ pubs actives repéré sur ce produit précis ; l'annonceur d'origine diffuse principalement en Australie et au Royaume-Uni.",
-  "recurrent": "non",
+  "verdict_pourquoi": "Le TAM est prouvé à l'international (441 pubs chez Love your Kitchen), la France n'a qu'un seul concurrent qui vient de démarrer, et le besoin (gaspillage alimentaire coûteux) est réel et documenté. Le prix plus élevé demande une argumentation de valeur solide, mais la marge potentielle est là.",
+  "tam": "TAM prouvé : l'annonceur australien Love your Kitchen fait tourner 441 publicités actives dans le monde sur exactement ce problème.",
+  "recurrent": "oui",
   "difficulte": "moyen",
-  "ca_jour_estime": "Estimation : trafic officiellement à 0, donc non estimable par la méthode habituelle (trafic ×5-10 × conversion 2-3% × prix) ; ordre de grandeur d'après le volume de pubs (342 actives, prix 69,99 £) : probablement plusieurs dizaines de commandes par jour pour l'annonceur d'origine, à confirmer.",
+  "ca_jour_estime": "Non estimable avec précision — trafic pas encore indexé. Ordre de grandeur d'après le nombre de publicités (estimation très grossière) : 386 pubs actives et une croissance ×2,3 en 4 semaines indiquent un produit qui scale déjà activement en Australie et au Royaume-Uni.",
   "budget_test": "CBO 100-300 € par jour, décision à 48 h : 200-600 € pour savoir.",
-  "angle_concurrent": "2echoix.fr, seul concurrent FR trouvé, vend l'appareil noyé dans une pub carrousel multi-produits (machine à glaçons, plaque à induction, grill électrique) sans mettre en avant un bénéfice précis lié à la conservation des aliments.",
+  "angle_concurrent": "En France, Prunelle vient de lancer 7 publicités (depuis 2 jours) sur le message générique « Conservez plus. Jeter moins. ». À l'international, l'annonceur Love your Kitchen (Australie) fait tourner 441 publicités actives sur « Stop Throwing Away $5,500+ Every Year » — la promesse anti-gaspillage chiffrée est un thème déjà éprouvé à grande échelle, prêt à être localisé pour la France.",
   "pain_points": [
    {
-    "douleur": "Jeter de la nourriture qui s'est abîmée trop vite au frigo coûte cher et frustre au quotidien.",
+    "douleur": "Le coût récurrent des sacs sous vide jetables plombe le budget des ménages qui veulent conserver leurs aliments plus longtemps.",
     "intensite": "forte",
-    "preuve": "We don't waste nearly as many leftovers anymore",
-    "source_url": "https://www.huffpost.com/entry/vacuum-food-sealer-amazon-sale_l_691c9025e4b073def3ee4e1c"
+    "preuve": "the bags are pricey",
+    "source_url": "https://tvwbb.com/threads/foodsaver-vacuum-sealers-any-good-so-many-bad-reviews.2927/"
    },
    {
-    "douleur": "Les sacs sous vide à usage unique des machines classiques coûtent cher à racheter sans arrêt.",
+    "douleur": "La nourriture qui moisit trop vite au réfrigérateur pousse à jeter beaucoup plus que voulu, ce qui coûte cher chaque année.",
+    "intensite": "forte",
+    "preuve": "Stop Throwing Away $5,500+ Every Year",
+    "source_url": "https://www.facebook.com/ads/library/?id=948506977578883"
+   },
+   {
+    "douleur": "Les machines sous vide classiques sont jugées peu fiables par une partie des acheteurs, qui cherchent une alternative plus simple.",
     "intensite": "moyenne",
-    "preuve": "zero ongoing cost unlike countertop sealers that force you to buy proprietary plastic rolls",
-    "source_url": "https://getfreshreserve.com/products/fresh-reserve-cordless-vacuum-sealer-kit"
+    "preuve": "FoodSaver vacuum sealers any good? So many bad reviews",
+    "source_url": "https://tvwbb.com/threads/foodsaver-vacuum-sealers-any-good-so-many-bad-reviews.2927/"
    }
   ],
   "angles_non_exploites": [
    {
-    "angle": "Calculer et afficher l'économie réelle en euros par mois pour une famille type, plutôt que de vendre juste « garde les aliments frais ».",
-    "douleur_ciblee": "jeter de la nourriture coûte cher",
-    "pourquoi_personne": "L'unique concurrent FR repéré (2echoix.fr) vend l'appareil noyé dans un carrousel de 5 produits de cuisine différents, sans argument économique chiffré."
+    "angle": "Mettre en avant l'usage sans fil, à une main, contre les machines encombrantes à brancher.",
+    "douleur_ciblee": "les machines sous vide classiques jugées peu pratiques",
+    "pourquoi_personne": "Prunelle et Love your Kitchen restent sur le message générique anti-gaspillage, aucun ne parle de la contrainte du fil ou de l'encombrement."
    },
    {
-    "angle": "Mettre en avant le « zéro sac jetable à racheter » comme argument écologique et économique.",
-    "douleur_ciblee": "sacs à usage unique qui coûtent cher à racheter",
-    "pourquoi_personne": "Les concurrents généralistes vendent l'appareil seul, sans insister sur les sacs réutilisables comme différenciateur."
+    "angle": "Afficher, comme Love your Kitchen le fait à l'international, une estimation chiffrée du gaspillage annuel du foyer en euros.",
+    "douleur_ciblee": "le coût invisible du gaspillage alimentaire",
+    "pourquoi_personne": "Prunelle, le concurrent français, ne chiffre pas encore le bénéfice — seul l'annonceur australien le fait."
    }
   ],
   "marches_detail": {
-   "FR": "PARTIEL — 1 seul revendeur généraliste trouvé (2echoix.fr), pas de campagne dédiée à ce produit précis.",
-   "DE": "non vérifié — le marché FR a suffi pour trancher (PARTIEL, pépite pour la France).",
-   "ES": "non vérifié — le marché FR a suffi pour trancher (PARTIEL, pépite pour la France).",
-   "GB": "déjà ciblé par l'annonceur d'origine (20% de ses pubs) — marché déjà travaillé par eux-mêmes."
+   "FR": "PARTIEL — Prunelle, 7 pubs actives, lancées il y a 2 jours seulement, message « Conservez plus. Jeter moins. ».",
+   "DE": "non vérifié — la France est déjà PARTIEL et jouable, pas besoin de chercher ailleurs aujourd'hui.",
+   "ES": "non vérifié — idem.",
+   "GB": "non vérifié — c'est pourtant l'un des marchés d'origine de la marque (24 % de ses pubs), à surveiller si le test France ne suffit pas."
   },
   "lien_boutique": "https://getfreshreserve.co.uk",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=getfreshreserve",
@@ -6620,6 +6638,12 @@
   "historique": [
    {
     "date": "2026-08-30",
+    "ads": 358,
+    "courbe": "168 > 175 > 262 > 241 > 342",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-06",
     "ads": 358,
     "courbe": "168 > 175 > 262 > 241 > 342",
     "statut": "BANGER"
@@ -6632,10 +6656,10 @@
  "nordband.ch": {
   "boutique": "nordband.ch",
   "produit": "Don't Let The Hard Days Win Armband",
-  "niche": "Bijouterie / accessoire à message (soutien émotionnel)",
+  "niche": "Bijoux motivants / bien-être",
   "prix": "29.99 CHF",
   "trouve_le": "2026-08-30",
-  "maj_le": "2026-08-30",
+  "maj_le": "2026-09-06",
   "source": "radar quotidien",
   "statut": "BANGER",
   "chiffres": {
@@ -6659,61 +6683,61 @@
    "techno_scaling": false
   },
   "marches": {
-   "FR": "PRIS",
-   "DE": "LIBRE",
+   "FR": "LIBRE",
+   "DE": "A VERIFIER",
    "ES": "A VERIFIER",
    "GB": "A VERIFIER"
   },
-  "stade_sophistication": 3,
-  "awareness": "déjà connu ici",
-  "decalage_marche": "déjà éduqué",
-  "angle_recommande": "Ne pas copier le message générique « motivation du quotidien » déjà saturé : assumer un angle deuil ou soutien émotionnel fort (perte d'un proche, maladie), avec une créa qui raconte une vraie histoire, ciblée sur un public adulte 30-55 ans.",
-  "ou_lancer": "Allemagne d'abord (marché libre confirmé sur Meta Ad Library), puis Autriche et Suisse germanophone avec les mêmes créas ; éviter la France, déjà occupée par plusieurs marques de bracelets à message.",
-  "verdict_cortex": "A SURVEILLER",
-  "verdict_pourquoi": "Signal TrendTrack fort (×2,1 en 4 semaines, 450 pubs actives) mais marché FR déjà PRIS (au moins 6 marques positionnées sur le bracelet à message). L'Allemagne ressort LIBRE sur Meta Ad Library, mais ce concept exact est vendu depuis des années par plusieurs marques établies ailleurs (Etsy, TikTok Shop) : être premier sur Meta en Allemagne ne veut pas dire être premier sur le concept. À tester seulement avec un angle très différenciant (deuil assumé), pas en copie directe.",
-  "tam": "TAM prouvé à l'international : au moins 6 marques établies (MantraBand, Hope Rings, Memorial Bracelets, Mint & Lily, ClayCali, StoryJewellery) vendent ce concept précis depuis plusieurs années.",
+  "stade_sophistication": 1,
+  "awareness": "unaware",
+  "decalage_marche": "en retard",
+  "angle_recommande": "Cibler les personnes qui traversent une épreuve (deuil, maladie d'un proche, rechute) ou celles qui veulent l'offrir en cadeau à quelqu'un dans cette situation — audience 25-55 ans en France, en copiant l'angle d'origine (raconter l'histoire et le sens du bracelet) puisque le marché français ne connaît pas encore le concept.",
+  "ou_lancer": "France en premier : le marché y est totalement libre, alors que la marque diffuse déjà en Allemagne, en Suède et au Danemark.",
+  "verdict_cortex": "GO TEST",
+  "verdict_pourquoi": "Marché français totalement libre, produit simple et peu risqué à faire fabriquer et expédier, et une douleur émotionnelle réelle et documentée. Le principal risque est créatif : sans une bonne histoire, ce reste un bijou générique parmi d'autres.",
+  "tam": "TAM incertain : plusieurs petits vendeurs (Etsy, eBay, Walmart) proposent déjà la même citation, mais aucun gros annonceur Meta identifié — niche à valider par un petit test.",
   "recurrent": "non",
   "difficulte": "facile",
-  "ca_jour_estime": "Estimation : trafic à 0 donc non estimable par la méthode habituelle ; ordre de grandeur d'après le volume de pubs (450 actives, prix 29,99 CHF soit environ 32 €) : probablement plusieurs dizaines de commandes par jour pour l'opérateur, réparties sur ses domaines miroirs.",
-  "budget_test": "Si testé : CBO 50-100 € par jour en Allemagne avec l'angle deuil différenciant, décision à 48-72 h : 100-300 € pour savoir.",
-  "angle_concurrent": "Sailbrace vend l'angle « cadeau pour sportif » (« A Perfect Gift for Every Runner/Cyclist/Tennis Player », « Trusted by 12,000+ Cyclists »), Blvckpearl pousse « More Than Just a Bracelet », TopAstuce.com mise sur l'énergie et l'hématite (« Les hommes forts portent l'hématite tous les jours ») : aucun n'assume frontalement l'angle deuil ou soutien émotionnel fort trouvé dans les vrais avis clients des marques internationales.",
+  "ca_jour_estime": "Non estimable avec précision — trafic pas encore indexé. Ordre de grandeur d'après le nombre de publicités (estimation très grossière) : 529 pubs actives et un réseau de 5 domaines miroirs suggèrent une opération déjà rentable dans plusieurs pays d'Europe du Nord, mais rien ne garantit que ça se transpose telle quelle en France.",
+  "budget_test": "CBO 100-300 € par jour, décision à 48 h : 200-600 € pour savoir.",
+  "angle_concurrent": "Aucun annonceur structuré trouvé en France. À l'international, des vendeurs artisanaux (Etsy, eBay) vendent la même citation comme cadeau générique pour quelqu'un qui traverse une période difficile, sans histoire de marque ni créa travaillée.",
   "pain_points": [
    {
-    "douleur": "Traverser une période très difficile (deuil, maladie d'un proche) et vouloir un objet tangible qui aide à tenir.",
+    "douleur": "Les personnes qui traversent un deuil ou une période difficile cherchent un rappel physique et discret pour tenir bon au quotidien.",
     "intensite": "forte",
-    "preuve": "Got mine July 1st. Mom died August 12th. Took it to hospice room. Held it tight during final breaths. Never removed since.",
-    "source_url": "https://www.memorialbracelets.com/message-products/don-t-let-the-hard-days-win"
+    "preuve": "There are good days and hard days for me — even now. Don't let the hard days win.",
+    "source_url": "https://www.goodreads.com/quotes/7634831-don-t-let-the-hard-days-win"
    },
    {
-    "douleur": "Une période difficile (études, rupture, dépression) qui donne l'impression de ne pas être soutenu au quotidien.",
-    "intensite": "forte",
-    "preuve": "College has been so tough on her, she called me in tears after reading what was inside, she hasn't taken it off. She said its her reminder how loved she is back home.",
-    "source_url": "https://www.mantrabrand.com/products/don-t-let-the-hard-days-win"
-   },
-   {
-    "douleur": "Besoin d'un rappel physique et discret de sa propre force au quotidien.",
+    "douleur": "Ce type de bracelet est déjà recherché comme cadeau pour quelqu'un qui traverse une épreuve, preuve que le besoin est réel.",
     "intensite": "moyenne",
-    "preuve": "I never take this bracelet off. It gives me strength when I need it the most.",
-    "source_url": "https://hoperings.com/products/hard-days-bracelet"
+    "preuve": "Don't Let The Hard Days Win Bracelet, Motivational Gift",
+    "source_url": "https://www.walmart.com/ip/17333871648"
+   },
+   {
+    "douleur": "Plusieurs vendeurs indépendants et artisanaux le proposent déjà séparément, signe d'une demande organique sans marque dominante.",
+    "intensite": "moyenne",
+    "preuve": "Don't Let The Hard Days Win Armband für Damen Herren Handarbeit geflochtenes Armband",
+    "source_url": "https://www.ebay.de/itm/286754208851"
    }
   ],
   "angles_non_exploites": [
    {
-    "angle": "Angle deuil et perte d'un proche assumé frontalement, avec une créa dédiée plutôt qu'un message « motivation » générique.",
-    "douleur_ciblee": "traverser un deuil ou la maladie d'un proche",
-    "pourquoi_personne": "Les concurrents identifiés (Sailbrace, Blvckpearl) restent sur un angle « cadeau sportif » générique, aucun n'assume l'angle deuil/soutien émotionnel fort trouvé dans les vrais avis clients."
+    "angle": "Raconter l'histoire d'origine nordique de la marque plutôt qu'une simple citation motivante générique.",
+    "douleur_ciblee": "le marché français ne connaît pas encore la marque",
+    "pourquoi_personne": "les vendeurs Etsy/eBay vendent la citation seule, sans histoire de marque ni preuve sociale construite."
    },
    {
-    "angle": "Message caché à l'intérieur du bracelet (une carte, un mot) plutôt qu'un simple bijou gravé.",
-    "douleur_ciblee": "besoin d'un rappel physique de son propre soutien au quotidien",
-    "pourquoi_personne": "La plupart des concurrents FR vendent un bijou seul, sans l'expérience de déballage/message qui a fait le succès des marques internationales (MantraBand, Memorial Bracelets)."
+    "angle": "Cibler les aidants familiaux (les proches d'une personne malade) plutôt que la personne en difficulté elle-même.",
+    "douleur_ciblee": "l'épuisement de ceux qui soutiennent un proche",
+    "pourquoi_personne": "toutes les offres actuelles s'adressent à la personne qui souffre, aucune ne parle à l'entourage."
    }
   ],
   "marches_detail": {
-   "FR": "PRIS — 39 pubs actives, au moins 6 annonceurs dont Sailbrace (9 pubs, « Trusted by 12,000+ Cyclists ») et Blvckpearl (6 pubs, « More Than Just a Bracelet »).",
-   "DE": "LIBRE — recherche Meta Ad Library Allemagne sur « Motivations Armband Erinnerung » : 0 pub active trouvée.",
-   "ES": "non vérifié — le marché DE a suffi pour trancher (LIBRE, pépite pour l'Allemagne).",
-   "GB": "non vérifié — le marché DE a suffi pour trancher (LIBRE, pépite pour l'Allemagne)."
+   "FR": "LIBRE — 2 résultats seulement sur « bracelet motivant », tous les deux hors sujet, aucun concurrent réel identifié.",
+   "DE": "non vérifié — le produit y est déjà diffusé par la marque elle-même (20 % de ses pubs), donc pas une pépite pour l'Allemagne, mais France déjà libre.",
+   "ES": "non vérifié — pas nécessaire, la France est déjà LIBRE.",
+   "GB": "non vérifié — pas nécessaire, la France est déjà LIBRE."
   },
   "lien_boutique": "https://nordband.ch",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=nordband",
@@ -6722,6 +6746,12 @@
   "historique": [
    {
     "date": "2026-08-30",
+    "ads": 450,
+    "courbe": "203 > 210 > 273 > 366 > 436",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-06",
     "ads": 450,
     "courbe": "203 > 210 > 273 > 366 > 436",
     "statut": "BANGER"

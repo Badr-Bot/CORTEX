@@ -1946,7 +1946,8 @@
  "sleeppods.co": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [
-   "2026-08-30"
+   "2026-08-30",
+   "2026-09-06"
   ],
   "derniere_vue": "2026-09-06",
   "statut": "BANGER",
@@ -2035,7 +2036,8 @@
  "getfreshreserve.co.uk": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [
-   "2026-08-30"
+   "2026-08-30",
+   "2026-09-06"
   ],
   "derniere_vue": "2026-09-06",
   "statut": "BANGER",
@@ -3482,7 +3484,8 @@
  "nordband.ch": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [
-   "2026-08-30"
+   "2026-08-30",
+   "2026-09-06"
   ],
   "derniere_vue": "2026-09-06",
   "statut": "BANGER",
@@ -6109,7 +6112,9 @@
  },
  "myolife.shop": {
   "premiere_vue": "2026-09-06",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-06"
+  ],
   "derniere_vue": "2026-09-06",
   "statut": "BANGER",
   "produit": "The Preserve Stack",
