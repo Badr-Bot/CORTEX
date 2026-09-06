@@ -1,0 +1,20 @@
+[
+  {
+    "boutique": "sleeppods.co",
+    "produit": "Original Waterproof SleepPods — écouteurs sans fil pour dormir",
+    "mots_cles_fr": ["mal aux oreilles dormir avec écouteurs", "impossible dormir sur le côté avec écouteurs classiques", "écouteurs qui tombent en dormant"],
+    "mots_cles_en": ["ear pain sleeping with earbuds side sleeper", "earbuds fall out while sleeping", "can't sleep with regular earbuds in ear"]
+  },
+  {
+    "boutique": "nordband.ch",
+    "produit": "Don't Let The Hard Days Win Armband — bracelet motivant",
+    "mots_cles_fr": ["deuil difficile porter quelque chose en mémoire", "rappel quotidien pour tenir bon dans les moments difficiles", "bracelet pour rester sobre au quotidien"],
+    "mots_cles_en": ["grief bracelet reminder to keep going", "sobriety reminder bracelet hard days", "mental health awareness bracelet daily reminder"]
+  },
+  {
+    "boutique": "getfreshreserve.co.uk",
+    "produit": "Fresh Reserve Cordless Vacuum Sealer — machine sous vide sans fil",
+    "mots_cles_fr": ["nourriture qui moisit trop vite au frigo", "sacs sous vide jetables trop chers", "gaspillage alimentaire restes qui se gâtent"],
+    "mots_cles_en": ["food spoils too fast in the fridge", "vacuum sealer bags too expensive disposable", "leftovers go bad quickly food waste"]
+  }
+]
