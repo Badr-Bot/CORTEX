@@ -23,13 +23,14 @@
  "mindsparkl.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-08-29": 19,
    "2026-08-30": 20,
-   "2026-09-01": 19
+   "2026-09-01": 19,
+   "2026-09-07": 54
   }
  },
  "botheloquent.com": {
@@ -45,7 +46,7 @@
  "us.jennahorganics.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Protein Power | Complete Plant Protein from 10 Organic Sources",
   "rangs": {
@@ -55,7 +56,8 @@
    "2026-09-02": 147,
    "2026-09-04": 151,
    "2026-09-05": 150,
-   "2026-09-06": 149
+   "2026-09-06": 149,
+   "2026-09-07": 248
   }
  },
  "uk.healora.com": {
@@ -71,18 +73,19 @@
  "xps00k-a4.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-08-30",
-  "statut": "BANGER",
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
   "produit": "Eugénie Neutral Fully Pleated Ruffled Mini Dress",
   "rangs": {
    "2026-08-29": 42,
-   "2026-08-30": 40
+   "2026-08-30": 40,
+   "2026-09-07": 93
   }
  },
  "reports.astrotalk.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
@@ -91,7 +94,8 @@
    "2026-09-02": 41,
    "2026-09-04": 35,
    "2026-09-05": 40,
-   "2026-09-06": 39
+   "2026-09-06": 39,
+   "2026-09-07": 62
   }
  },
  "goda-for-him.muvost.com": {
@@ -108,7 +112,7 @@
  "tabu.co": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
@@ -116,7 +120,8 @@
    "2026-08-30": 49,
    "2026-09-04": 39,
    "2026-09-05": 44,
-   "2026-09-06": 40
+   "2026-09-06": 40,
+   "2026-09-07": 63
   }
  },
  "milainika.com": {
@@ -172,7 +177,7 @@
  "adminrs.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Boho Butterfly-print Shirt Dress",
   "rangs": {
@@ -182,13 +187,14 @@
    "2026-09-02": 123,
    "2026-09-04": 134,
    "2026-09-05": 139,
-   "2026-09-06": 133
+   "2026-09-06": 133,
+   "2026-09-07": 203
   }
  },
  "getreviv.in": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
@@ -196,7 +202,8 @@
    "2026-09-02": 81,
    "2026-09-04": 80,
    "2026-09-05": 86,
-   "2026-09-06": 85
+   "2026-09-06": 85,
+   "2026-09-07": 131
   }
  },
  "tierhood.com": {
@@ -347,14 +354,15 @@
  "thepurest.co.th": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Sicilian Orange Slimming Elixir",
   "rangs": {
    "2026-08-29": 137,
    "2026-09-04": 100,
    "2026-09-05": 101,
-   "2026-09-06": 93
+   "2026-09-06": 93,
+   "2026-09-07": 141
   }
  },
  "sg.polene-paris.com": {
@@ -402,13 +410,14 @@
  "sa.plixlife.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Pineapple De-Pigmentation Face Wash, Serum & Moisturizer Combo",
   "rangs": {
    "2026-08-29": 150,
    "2026-08-30": 146,
-   "2026-09-01": 135
+   "2026-09-01": 135,
+   "2026-09-07": 253
   }
  },
  "tradesmannutrition.co.nz": {
@@ -497,13 +506,14 @@
  "hoperings.nl": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "\"Zwem Tegen De Stroom In\" Ring",
   "rangs": {
    "2026-08-29": 160,
    "2026-08-30": 151,
-   "2026-09-01": 134
+   "2026-09-01": 134,
+   "2026-09-07": 263
   }
  },
  "myfrido.co.uk": {
@@ -668,25 +678,27 @@
  "marsmen.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
-  "statut": "SANS TRAFIC",
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-08-29": 179,
    "2026-08-30": 162,
-   "2026-09-01": 137
+   "2026-09-01": 137,
+   "2026-09-07": 275
   }
  },
  "parkwayhyundaivalencia.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-08-29": 180,
    "2026-08-30": 163,
-   "2026-09-01": 138
+   "2026-09-01": 138,
+   "2026-09-07": 262
   }
  },
  "itsmyhumehealth.com": {
@@ -866,13 +878,14 @@
  "get.purdyandfigg.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
-  "statut": "SANS TRAFIC",
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
   "produit": "Signature Refill Pack",
   "rangs": {
    "2026-08-29": 198,
    "2026-08-30": 169,
-   "2026-09-01": 139
+   "2026-09-01": 139,
+   "2026-09-07": 274
   }
  },
  "beste-store.com": {
@@ -1076,13 +1089,14 @@
  "de.dogfriendlyco.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Anti-Zug-Ring",
   "rangs": {
    "2026-08-29": 222,
    "2026-08-30": 185,
-   "2026-09-01": 149
+   "2026-09-01": 149,
+   "2026-09-07": 289
   }
  },
  "buvanha.de": {
@@ -1141,37 +1155,40 @@
  "on-kuwait.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Cloud 6",
   "rangs": {
    "2026-08-29": 233,
    "2026-08-30": 194,
-   "2026-09-01": 155
+   "2026-09-01": 155,
+   "2026-09-07": 288
   }
  },
  "shop-beauty.dior.ae": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "DIOR LIP GLOW OIL",
   "rangs": {
    "2026-08-29": 234,
    "2026-08-30": 195,
-   "2026-09-01": 156
+   "2026-09-01": 156,
+   "2026-09-07": 285
   }
  },
  "shop-beauty.dior.com.kw": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "MISS DIOR ESSENCE 1ML - SAMPLE",
   "rangs": {
    "2026-08-29": 235,
    "2026-08-30": 196,
-   "2026-09-01": 157
+   "2026-09-01": 157,
+   "2026-09-07": 284
   }
  },
  "gymshark-eur.myshopify.com": {
@@ -1188,13 +1205,14 @@
  "shop.trendingcustom.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Shiny Effect Class Of 2026 2027 Senior 2D Flat - Personalized Acrylic Block Plaque - Gradu",
   "rangs": {
    "2026-08-29": 237,
    "2026-08-30": 197,
-   "2026-09-01": 143
+   "2026-09-01": 143,
+   "2026-09-07": 254
   }
  },
  "alo.app.link": {
@@ -1357,13 +1375,14 @@
  "us-burga.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "12 O'clock - Samsung Galaxy A37 5G Case",
   "rangs": {
    "2026-08-29": 254,
    "2026-08-30": 206,
-   "2026-09-01": 159
+   "2026-09-01": 159,
+   "2026-09-07": 294
   }
  },
  "fr.checkout.gymshark.com": {
@@ -1665,19 +1684,20 @@
  "sg.jshealthvitamins.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-01",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Detox + Debloat Formula - 1 Month Supply",
   "rangs": {
    "2026-08-29": 289,
    "2026-08-30": 235,
-   "2026-09-01": 176
+   "2026-09-01": 176,
+   "2026-09-07": 323
   }
  },
  "luno-japan.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "LUNO™ Pro",
   "rangs": {
@@ -1687,7 +1707,8 @@
    "2026-09-02": 3,
    "2026-09-04": 2,
    "2026-09-05": 2,
-   "2026-09-06": 2
+   "2026-09-06": 2,
+   "2026-09-07": 3
   }
  },
  "v8cmtk-f0.myshopify.com": {
@@ -1708,14 +1729,15 @@
   "analyse_le": [
    "2026-08-29"
   ],
-  "derniere_vue": "2026-09-02",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Banish 14+ Pests for Good",
   "rangs": {
    "2026-08-29": 3,
    "2026-08-30": 5,
    "2026-09-01": 2,
-   "2026-09-02": 6
+   "2026-09-02": 6,
+   "2026-09-07": 9
   }
  },
  "fortiumlaburuguay.myshopify.com": {
@@ -1742,7 +1764,7 @@
  "orveline.quebec": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Attelle™ EMS Hallux Valgus",
   "rangs": {
@@ -1752,20 +1774,22 @@
    "2026-09-02": 7,
    "2026-09-04": 5,
    "2026-09-05": 7,
-   "2026-09-06": 5
+   "2026-09-06": 5,
+   "2026-09-07": 11
   }
  },
  "tierrafertilarg.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-05",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "ACTIVADOR RAPIDO DE RAICES",
   "rangs": {
    "2026-08-29": 8,
    "2026-08-30": 8,
    "2026-09-01": 4,
-   "2026-09-05": 42
+   "2026-09-05": 42,
+   "2026-09-07": 64
   }
  },
  "pavuni.com": {
@@ -1914,7 +1938,7 @@
  "snapshield.co.uk": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "snapguard",
   "rangs": {
@@ -1924,14 +1948,15 @@
    "2026-09-02": 36,
    "2026-09-04": 32,
    "2026-09-05": 34,
-   "2026-09-06": 29
+   "2026-09-06": 29,
+   "2026-09-07": 41
   }
  },
  "lunipet.ro": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
-  "statut": "BANGER",
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
   "produit": "E-book: Cele 5 greșeli pe care le fac stăpânii de pisici și care le scurtează viața",
   "rangs": {
    "2026-08-29": 24,
@@ -1940,7 +1965,8 @@
    "2026-09-02": 42,
    "2026-09-04": 45,
    "2026-09-05": 52,
-   "2026-09-06": 48
+   "2026-09-06": 48,
+   "2026-09-07": 65
   }
  },
  "sleeppods.co": {
@@ -1949,15 +1975,16 @@
    "2026-08-30",
    "2026-09-06"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
-  "produit": "Original Waterproof SleepPods™ 2026 (Upgraded Bass & Sound)",
+  "produit": "Original Waterproof SleepPods™ 2026",
   "rangs": {
    "2026-08-29": 25,
    "2026-08-30": 23,
    "2026-09-01": 22,
    "2026-09-02": 34,
-   "2026-09-06": 28
+   "2026-09-06": 28,
+   "2026-09-07": 47
   }
  },
  "riigidukshop.com": {
@@ -1966,7 +1993,7 @@
    "2026-08-29",
    "2026-09-05"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "RIIGID V2 THICKER ALUMINIUM & REMOVEABLE WHEELS",
   "rangs": {
@@ -1976,13 +2003,14 @@
    "2026-09-02": 32,
    "2026-09-04": 29,
    "2026-09-05": 32,
-   "2026-09-06": 31
+   "2026-09-06": 31,
+   "2026-09-07": 51
   }
  },
  "81akdz-tm.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "RELICS — المحفظة المعدنية",
   "rangs": {
@@ -1992,7 +2020,8 @@
    "2026-09-02": 73,
    "2026-09-04": 105,
    "2026-09-05": 105,
-   "2026-09-06": 99
+   "2026-09-06": 99,
+   "2026-09-07": 142
   }
  },
  "airgourmand.store": {
@@ -2009,7 +2038,7 @@
  "nordband.at": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Don't Let The Hard Days Win Armband",
   "rangs": {
@@ -2019,7 +2048,8 @@
    "2026-09-02": 27,
    "2026-09-04": 26,
    "2026-09-05": 19,
-   "2026-09-06": 15
+   "2026-09-06": 15,
+   "2026-09-07": 25
   }
  },
  "nordband.nl": {
@@ -2039,7 +2069,7 @@
    "2026-08-30",
    "2026-09-06"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Fresh Reserve Cordless Vacuum Sealer",
   "rangs": {
@@ -2049,7 +2079,8 @@
    "2026-09-02": 31,
    "2026-09-04": 27,
    "2026-09-05": 28,
-   "2026-09-06": 24
+   "2026-09-06": 24,
+   "2026-09-07": 40
   }
  },
  "yr1ts4-0z.myshopify.com": {
@@ -2164,7 +2195,7 @@
  "anclayluzsrl.shop": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "jeune-france",
   "rangs": {
@@ -2173,13 +2204,14 @@
    "2026-09-01": 44,
    "2026-09-02": 59,
    "2026-09-05": 131,
-   "2026-09-06": 114
+   "2026-09-06": 114,
+   "2026-09-07": 161
   }
  },
  "au.ristal.co": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "House Numbers | Illuminated & Solar-Powered",
   "rangs": {
@@ -2189,17 +2221,19 @@
    "2026-09-02": 52,
    "2026-09-04": 57,
    "2026-09-05": 59,
-   "2026-09-06": 56
+   "2026-09-06": 56,
+   "2026-09-07": 83
   }
  },
  "lakagn2026.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-08-29",
-  "statut": "SANS TRAFIC",
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
   "produit": "FINI LES DOULEURS DENTAIRES INSUPPORTABLES EN QUELQUES SECONDES",
   "rangs": {
-   "2026-08-29": 45
+   "2026-08-29": 45,
+   "2026-09-07": 106
   }
  },
  "mais0nova.com": {
@@ -2223,7 +2257,7 @@
   "analyse_le": [
    "2026-09-05"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Pack 1x Deseo Absoluto",
   "rangs": {
@@ -2233,7 +2267,8 @@
    "2026-09-02": 39,
    "2026-09-04": 34,
    "2026-09-05": 38,
-   "2026-09-06": 35
+   "2026-09-06": 35,
+   "2026-09-07": 57
   }
  },
  "lumiereleggings.com": {
@@ -2254,7 +2289,7 @@
  "variteccl.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "ATOM Audifonos para sordo",
   "rangs": {
@@ -2264,7 +2299,8 @@
    "2026-09-02": 56,
    "2026-09-04": 73,
    "2026-09-05": 67,
-   "2026-09-06": 65
+   "2026-09-06": 65,
+   "2026-09-07": 99
   }
  },
  "macabost.com": {
@@ -2359,21 +2395,22 @@
   "analyse_le": [
    "2026-09-01"
   ],
-  "derniere_vue": "2026-09-05",
-  "statut": "EN BAISSE",
-  "produit": "The Cloud – Le Tapis Doux Comme un Nuage",
+  "derniere_vue": "2026-09-07",
+  "statut": "SOUS LE FILTRE",
+  "produit": "Surmatelas Sleepy Nights Original",
   "rangs": {
    "2026-08-29": 61,
    "2026-08-30": 56,
    "2026-09-01": 53,
    "2026-09-04": 103,
-   "2026-09-05": 98
+   "2026-09-05": 98,
+   "2026-09-07": 139
   }
  },
  "tropcosmetics.ae": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Trop™ All-Day Liquid Blush",
   "rangs": {
@@ -2383,7 +2420,8 @@
    "2026-09-02": 74,
    "2026-09-04": 41,
    "2026-09-05": 45,
-   "2026-09-06": 42
+   "2026-09-06": 42,
+   "2026-09-07": 70
   }
  },
  "dimaeg.shop": {
@@ -2467,7 +2505,7 @@
  "titanexofficiel.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "TitaneX® – Poêle antiadhérente titane",
   "rangs": {
@@ -2476,7 +2514,8 @@
    "2026-09-02": 64,
    "2026-09-04": 58,
    "2026-09-05": 61,
-   "2026-09-06": 58
+   "2026-09-06": 58,
+   "2026-09-07": 86
   }
  },
  "velorabylumea.com": {
@@ -2509,7 +2548,7 @@
  "falmaran-au.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "(catalogue non indexé)",
   "rangs": {
@@ -2519,7 +2558,8 @@
    "2026-09-02": 60,
    "2026-09-04": 131,
    "2026-09-05": 114,
-   "2026-09-06": 108
+   "2026-09-06": 108,
+   "2026-09-07": 173
   }
  },
  "holdsterdanmark.com": {
@@ -2576,7 +2616,7 @@
  "fi.officialgumea.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "3D-muotoileva legging – Push-up- ja selluliittivaikutus",
   "rangs": {
@@ -2586,13 +2626,14 @@
    "2026-09-02": 126,
    "2026-09-04": 132,
    "2026-09-05": 132,
-   "2026-09-06": 124
+   "2026-09-06": 124,
+   "2026-09-07": 190
   }
  },
  "farmalab-arg.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EXPLOSE",
   "produit": "Hepatex | Restauración Hepática",
   "rangs": {
@@ -2602,13 +2643,14 @@
    "2026-09-02": 125,
    "2026-09-04": 133,
    "2026-09-05": 134,
-   "2026-09-06": 127
+   "2026-09-06": 127,
+   "2026-09-07": 191
   }
  },
  "greenfy-store.myshopify.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "VitaMan Power (خلطة طبيعية لتعزيز الصحة و القدرة الذكورية)",
   "rangs": {
@@ -2618,13 +2660,14 @@
    "2026-09-02": 128,
    "2026-09-04": 107,
    "2026-09-05": 107,
-   "2026-09-06": 100
+   "2026-09-06": 100,
+   "2026-09-07": 197
   }
  },
  "serellia.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "The Ukola Toddler Pillow",
   "rangs": {
@@ -2634,7 +2677,8 @@
    "2026-09-02": 101,
    "2026-09-04": 102,
    "2026-09-05": 103,
-   "2026-09-06": 95
+   "2026-09-06": 95,
+   "2026-09-07": 108
   }
  },
  "rapidcart01.myshopify.com": {
@@ -2720,7 +2764,7 @@
  "getpawcore.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "PawCore™ - 12 Months All Natural Flea and Tick Tags for Dogs",
   "rangs": {
@@ -2730,7 +2774,8 @@
    "2026-09-02": 107,
    "2026-09-04": 116,
    "2026-09-05": 116,
-   "2026-09-06": 125
+   "2026-09-06": 125,
+   "2026-09-07": 192
   }
  },
  "elemntllabs.com": {
@@ -2874,7 +2919,7 @@
   "analyse_le": [
    "2026-09-01"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Magnetic Cube Track Train Set, Build-Your-Own Railway for Kids",
   "rangs": {
@@ -2884,7 +2929,8 @@
    "2026-09-02": 109,
    "2026-09-04": 111,
    "2026-09-05": 109,
-   "2026-09-06": 104
+   "2026-09-06": 104,
+   "2026-09-07": 162
   }
  },
  "pestpulse.co": {
@@ -3007,7 +3053,7 @@
  "ciriel.co.uk": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Ciriel FineHeat 3 - Cordless Hot Brush",
   "rangs": {
@@ -3017,7 +3063,8 @@
    "2026-09-02": 131,
    "2026-09-04": 106,
    "2026-09-05": 106,
-   "2026-09-06": 91
+   "2026-09-06": 91,
+   "2026-09-07": 71
   }
  },
  "aerathletics.com": {
@@ -3092,12 +3139,13 @@
  "ventas.enerva.uy": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-08-30",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Cardo Mariano | Detox de hígado",
   "rangs": {
    "2026-08-29": 131,
-   "2026-08-30": 133
+   "2026-08-30": 133,
+   "2026-09-07": 246
   }
  },
  "artmasterclass-east.com": {
@@ -3114,8 +3162,8 @@
  "de.gethumantra.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
-  "statut": "EXPLOSE",
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
   "produit": "Probierpaket",
   "rangs": {
    "2026-08-29": 139,
@@ -3124,27 +3172,29 @@
    "2026-09-02": 146,
    "2026-09-04": 148,
    "2026-09-05": 147,
-   "2026-09-06": 143
+   "2026-09-06": 143,
+   "2026-09-07": 237
   }
  },
  "shop.trybotanic.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-04",
-  "statut": "STABLE",
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
   "produit": "Batana Oil",
   "rangs": {
    "2026-08-29": 140,
    "2026-08-30": 137,
    "2026-09-01": 126,
    "2026-09-02": 148,
-   "2026-09-04": 153
+   "2026-09-04": 153,
+   "2026-09-07": 232
   }
  },
  "alwaysfitus.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "Vitamins B6 | B9 | B12 + B Complex in capsules – Energy, metabolism and daily balance.",
   "rangs": {
@@ -3154,7 +3204,8 @@
    "2026-09-02": 154,
    "2026-09-04": 152,
    "2026-09-05": 151,
-   "2026-09-06": 146
+   "2026-09-06": 146,
+   "2026-09-07": 239
   }
  },
  "serenium.com": {
@@ -3253,7 +3304,7 @@
  "crossandhelm.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "Cross & Helm",
   "rangs": {
@@ -3262,7 +3313,8 @@
    "2026-09-01": 142,
    "2026-09-02": 165,
    "2026-09-04": 160,
-   "2026-09-06": 156
+   "2026-09-06": 156,
+   "2026-09-07": 269
   }
  },
  "gigglepal.com": {
@@ -3304,7 +3356,7 @@
  "barrio.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "Honduras",
   "rangs": {
@@ -3314,7 +3366,8 @@
    "2026-09-02": 164,
    "2026-09-04": 159,
    "2026-09-05": 160,
-   "2026-09-06": 157
+   "2026-09-06": 157,
+   "2026-09-07": 280
   }
  },
  "shapermen.shop": {
@@ -3344,7 +3397,7 @@
  "ourocart.shop": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "🔥💪Advanced Acoustic Shockwave Therapy",
   "rangs": {
@@ -3353,7 +3406,8 @@
    "2026-09-02": 122,
    "2026-09-04": 113,
    "2026-09-05": 113,
-   "2026-09-06": 105
+   "2026-09-06": 105,
+   "2026-09-07": 163
   }
  },
  "v0gh1c-8v.myshopify.com": {
@@ -3403,7 +3457,7 @@
  "latam.plaud.ai": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "Plaud Note Pro",
   "rangs": {
@@ -3413,15 +3467,16 @@
    "2026-09-02": 174,
    "2026-09-04": 166,
    "2026-09-05": 165,
-   "2026-09-06": 162
+   "2026-09-06": 162,
+   "2026-09-07": 297
   }
  },
  "sarabmusic.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
-  "produit": "(PRE-ORDER) Good Grief White Birch Vinyl + Signed Insert + Seed Paper",
+  "produit": "Good Grief White Birch Vinyl + Signed Insert + Seed Paper",
   "rangs": {
    "2026-08-29": 280,
    "2026-08-30": 226,
@@ -3429,7 +3484,8 @@
    "2026-09-02": 178,
    "2026-09-04": 162,
    "2026-09-05": 162,
-   "2026-09-06": 165
+   "2026-09-06": 165,
+   "2026-09-07": 286
   }
  },
  "myorynna.com": {
@@ -3446,7 +3502,7 @@
  "buy.lymphoria.co": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "Lymphoria Drainage Drops",
   "rangs": {
@@ -3456,7 +3512,8 @@
    "2026-09-02": 181,
    "2026-09-04": 174,
    "2026-09-05": 170,
-   "2026-09-06": 168
+   "2026-09-06": 168,
+   "2026-09-07": 305
   }
  },
  "torqjapan.myshopify.com": {
@@ -3487,7 +3544,7 @@
    "2026-08-30",
    "2026-09-06"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Don't Let The Hard Days Win Armband",
   "rangs": {
@@ -3495,7 +3552,8 @@
    "2026-09-01": 25,
    "2026-09-02": 25,
    "2026-09-05": 20,
-   "2026-09-06": 17
+   "2026-09-06": 17,
+   "2026-09-07": 7
   }
  },
  "modellee.com": {
@@ -3512,19 +3570,20 @@
  "kairo.gr": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-04",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Συσκευή εισπνοών για μικρούς και μεγάλους - Έκπτωση 30% 🎉",
   "rangs": {
    "2026-08-30": 32,
-   "2026-09-04": 141
+   "2026-09-04": 141,
+   "2026-09-07": 213
   }
  },
  "levirafr.com": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
-  "statut": "SANS TRAFIC",
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
   "produit": "Pack Essentiel",
   "rangs": {
    "2026-08-30": 43,
@@ -3532,13 +3591,14 @@
    "2026-09-02": 94,
    "2026-09-04": 97,
    "2026-09-05": 95,
-   "2026-09-06": 81
+   "2026-09-06": 81,
+   "2026-09-07": 103
   }
  },
  "wwqzbw-mu.myshopify.com": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Boquilla De Alta Presion De Agua",
   "rangs": {
@@ -3547,7 +3607,8 @@
    "2026-09-02": 49,
    "2026-09-04": 54,
    "2026-09-05": 57,
-   "2026-09-06": 54
+   "2026-09-06": 54,
+   "2026-09-07": 79
   }
  },
  "nfb1yd-xf.myshopify.com": {
@@ -3674,7 +3735,7 @@
  "bionaturalguatemala.myshopify.com": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "Neuropatly 2",
   "rangs": {
@@ -3683,7 +3744,8 @@
    "2026-09-02": 133,
    "2026-09-04": 138,
    "2026-09-05": 140,
-   "2026-09-06": 136
+   "2026-09-06": 136,
+   "2026-09-07": 208
   }
  },
  "thekiddospace.ie": {
@@ -3699,7 +3761,7 @@
  "luckyjoescarclub.com": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "THE GOLDEN TICKET PACK",
   "rangs": {
@@ -3708,7 +3770,8 @@
    "2026-09-02": 104,
    "2026-09-04": 114,
    "2026-09-05": 111,
-   "2026-09-06": 98
+   "2026-09-06": 98,
+   "2026-09-07": 152
   }
  },
  "onyxsalvador.myshopify.com": {
@@ -3765,7 +3828,7 @@
  "liftella.co": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "BootyLift™ Mid-Low Rise Stretch Wide-Leg Jeans",
   "rangs": {
@@ -3774,13 +3837,14 @@
    "2026-09-02": 157,
    "2026-09-04": 156,
    "2026-09-05": 154,
-   "2026-09-06": 154
+   "2026-09-06": 154,
+   "2026-09-07": 264
   }
  },
  "luzyna.store": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "Drena+ Linfático Líquido",
   "rangs": {
@@ -3789,13 +3853,14 @@
    "2026-09-02": 169,
    "2026-09-04": 163,
    "2026-09-05": 163,
-   "2026-09-06": 160
+   "2026-09-06": 160,
+   "2026-09-07": 287
   }
  },
  "karseellro.myshopify.com": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Karseell Ulei de Argan Marocan 50 ML",
   "rangs": {
@@ -3804,19 +3869,21 @@
    "2026-09-02": 172,
    "2026-09-04": 165,
    "2026-09-05": 156,
-   "2026-09-06": 161
+   "2026-09-06": 161,
+   "2026-09-07": 292
   }
  },
  "bebysh.com": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "Dissolvant de poils d'animaux Bebysh",
   "rangs": {
    "2026-08-30": 223,
    "2026-09-01": 167,
-   "2026-09-06": 163
+   "2026-09-06": 163,
+   "2026-09-07": 300
   }
  },
  "uk.xnote.ai": {
@@ -3834,8 +3901,8 @@
  "princessroomus.com": {
   "premiere_vue": "2026-08-30",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
-  "statut": "A SURVEILLER",
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
   "produit": "Baby Vanity",
   "rangs": {
    "2026-08-30": 229,
@@ -3843,7 +3910,8 @@
    "2026-09-02": 182,
    "2026-09-04": 173,
    "2026-09-05": 171,
-   "2026-09-06": 169
+   "2026-09-06": 169,
+   "2026-09-07": 322
   }
  },
  "fr.libernovo.com": {
@@ -3871,7 +3939,7 @@
  "scalora.fi": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Vahvistava Hiusöljy",
   "rangs": {
@@ -3879,7 +3947,8 @@
    "2026-09-02": 15,
    "2026-09-04": 10,
    "2026-09-05": 10,
-   "2026-09-06": 8
+   "2026-09-06": 8,
+   "2026-09-07": 15
   }
  },
  "neoraoficial.com": {
@@ -3918,7 +3987,7 @@
  "petpivoe.com": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "AutoScooper 12 Cat Litter Box",
   "rangs": {
@@ -3926,7 +3995,8 @@
    "2026-09-02": 33,
    "2026-09-04": 30,
    "2026-09-05": 33,
-   "2026-09-06": 25
+   "2026-09-06": 25,
+   "2026-09-07": 46
   }
  },
  "restoralabs.online": {
@@ -3976,25 +4046,27 @@
  "02i1pf-nj.myshopify.com": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-04",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Cat Moon T‑Shirt - \"Main Character Energy\" Graphic Tee",
   "rangs": {
    "2026-09-01": 34,
    "2026-09-02": 47,
-   "2026-09-04": 52
+   "2026-09-04": 52,
+   "2026-09-07": 109
   }
  },
  "novemin.com": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-04",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Dúo de jarras de acero inoxidable",
   "rangs": {
    "2026-09-01": 41,
    "2026-09-02": 58,
-   "2026-09-04": 62
+   "2026-09-04": 62,
+   "2026-09-07": 105
   }
  },
  "pl.nolavy.com": {
@@ -4014,20 +4086,21 @@
  "parkwaygardensapts.com": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-01": 51,
    "2026-09-04": 75,
    "2026-09-05": 73,
-   "2026-09-06": 135
+   "2026-09-06": 135,
+   "2026-09-07": 206
   }
  },
  "kirkssoap.com": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EXPLOSE",
   "produit": "Fragrance Free &#8211; Traditional Castile Bar Soap",
   "rangs": {
@@ -4035,26 +4108,28 @@
    "2026-09-02": 150,
    "2026-09-04": 150,
    "2026-09-05": 141,
-   "2026-09-06": 148
+   "2026-09-06": 148,
+   "2026-09-07": 242
   }
  },
  "moresong.com": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
-  "statut": "SANS TRAFIC",
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
   "produit": "Personalized Song",
   "rangs": {
    "2026-09-01": 64,
    "2026-09-02": 82,
    "2026-09-04": 87,
-   "2026-09-06": 153
+   "2026-09-06": 153,
+   "2026-09-07": 267
   }
  },
  "mosly.pl": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Listki piorące Mosly – do 120 prań",
   "rangs": {
@@ -4062,7 +4137,8 @@
    "2026-09-02": 84,
    "2026-09-04": 89,
    "2026-09-05": 88,
-   "2026-09-06": 80
+   "2026-09-06": 80,
+   "2026-09-07": 125
   }
  },
  "shopcaliorano.com": {
@@ -4112,7 +4188,7 @@
  "om.laurusaroma.com": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "حكاية لورس أروما – البكج العلاجي الكامل",
   "rangs": {
@@ -4120,7 +4196,8 @@
    "2026-09-02": 86,
    "2026-09-04": 90,
    "2026-09-05": 89,
-   "2026-09-06": 82
+   "2026-09-06": 82,
+   "2026-09-07": 127
   }
  },
  "probfashion.shop": {
@@ -4207,7 +4284,7 @@
  "officialnord.com": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "NORD Heritage Box",
   "rangs": {
@@ -4215,7 +4292,8 @@
    "2026-09-02": 117,
    "2026-09-04": 59,
    "2026-09-05": 62,
-   "2026-09-06": 59
+   "2026-09-06": 59,
+   "2026-09-07": 87
   }
  },
  "vivalaboratories.com": {
@@ -4244,12 +4322,13 @@
  "aunclic.vip": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-02",
-  "statut": "BANGER",
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
   "produit": "LLAVE GRIFO ROTACION 1080° GRADOS",
   "rangs": {
    "2026-09-01": 109,
-   "2026-09-02": 80
+   "2026-09-02": 80,
+   "2026-09-07": 155
   }
  },
  "9nuxqr-jz.myshopify.com": {
@@ -4329,12 +4408,13 @@
  "financialsmash.com": {
   "premiere_vue": "2026-09-01",
   "analyse_le": [],
-  "derniere_vue": "2026-09-02",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-01": 146,
-   "2026-09-02": 168
+   "2026-09-02": 168,
+   "2026-09-07": 281
   }
  },
  "dogfriendlyco.myshopify.com": {
@@ -4427,11 +4507,12 @@
  "sottiva.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-02",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "(catalogue non indexé)",
   "rangs": {
-   "2026-09-02": 4
+   "2026-09-02": 4,
+   "2026-09-07": 6
   }
  },
  "bunioncare.co": {
@@ -4468,13 +4549,14 @@
  "emprendeinvitaciones.shop": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Pack +100 Invitaciones Premium Editables + Curso + 4 Bonos de Regalo",
   "rangs": {
    "2026-09-02": 20,
    "2026-09-05": 14,
-   "2026-09-06": 4
+   "2026-09-06": 4,
+   "2026-09-07": 30
   }
  },
  "somerwell.shop": {
@@ -4493,14 +4575,15 @@
  "tielacosmetics.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Perfume Nourishing Body Cream Sunset",
   "rangs": {
    "2026-09-02": 24,
    "2026-09-04": 18,
    "2026-09-05": 18,
-   "2026-09-06": 14
+   "2026-09-06": 14,
+   "2026-09-07": 24
   }
  },
  "ovyrek.com": {
@@ -4508,37 +4591,40 @@
   "analyse_le": [
    "2026-09-02"
   ],
-  "derniere_vue": "2026-09-02",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Ovyrek Nødhammer",
   "rangs": {
-   "2026-09-02": 29
+   "2026-09-02": 29,
+   "2026-09-07": 35
   }
  },
  "dogharnessreview.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
-  "statut": "BANGER",
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 30,
    "2026-09-04": 24,
    "2026-09-05": 23,
-   "2026-09-06": 20
+   "2026-09-06": 20,
+   "2026-09-07": 38
   }
  },
  "happyflopscol.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 37,
    "2026-09-04": 33,
    "2026-09-05": 35,
-   "2026-09-06": 32
+   "2026-09-06": 32,
+   "2026-09-07": 52
   }
  },
  "fortsentinel.com": {
@@ -4546,25 +4632,27 @@
   "analyse_le": [
    "2026-09-04"
   ],
-  "derniere_vue": "2026-09-04",
-  "statut": "SANS TRAFIC",
-  "produit": "Emergency Solar Power Bank",
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Fort Sentinel 4-in-1 Emergency Radio",
   "rangs": {
    "2026-09-02": 40,
-   "2026-09-04": 36
+   "2026-09-04": 36,
+   "2026-09-07": 48
   }
  },
  "cedarplantersusa.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 44,
    "2026-09-04": 42,
    "2026-09-05": 49,
-   "2026-09-06": 46
+   "2026-09-06": 46,
+   "2026-09-07": 68
   }
  },
  "graceease.com": {
@@ -4593,26 +4681,28 @@
  "buynovum.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-05",
-  "statut": "BANGER",
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
   "produit": "Women No Show High Waist Underwear",
   "rangs": {
    "2026-09-02": 50,
    "2026-09-04": 44,
-   "2026-09-05": 46
+   "2026-09-05": 46,
+   "2026-09-07": 96
   }
  },
  "housemax.shop": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "2-in-1 Spray Wiper 💫49% OFF SALE🎁",
   "rangs": {
    "2026-09-02": 54,
    "2026-09-04": 55,
    "2026-09-05": 58,
-   "2026-09-06": 55
+   "2026-09-06": 55,
+   "2026-09-07": 81
   }
  },
  "studios-flora.com": {
@@ -4666,38 +4756,41 @@
   "analyse_le": [
    "2026-09-04"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Lunora™ Dream Projector",
   "rangs": {
    "2026-09-02": 66,
    "2026-09-04": 70,
    "2026-09-05": 70,
-   "2026-09-06": 67
+   "2026-09-06": 67,
+   "2026-09-07": 100
   }
  },
  "sunterraharbor.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 67,
-   "2026-09-06": 69
+   "2026-09-06": 69,
+   "2026-09-07": 101
   }
  },
  "getjuici.co.uk": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 68,
    "2026-09-04": 76,
    "2026-09-05": 74,
-   "2026-09-06": 70
+   "2026-09-06": 70,
+   "2026-09-07": 107
   }
  },
  "heartlune.com": {
@@ -4726,14 +4819,15 @@
   "analyse_le": [
    "2026-09-04"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "PureDerm Retinol Body Lotion",
   "rangs": {
    "2026-09-02": 76,
    "2026-09-04": 84,
    "2026-09-05": 82,
-   "2026-09-06": 74
+   "2026-09-06": 74,
+   "2026-09-07": 119
   }
  },
  "kimex-group.com": {
@@ -4776,14 +4870,15 @@
  "ca.medexpress.co": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 89,
    "2026-09-04": 88,
    "2026-09-05": 91,
-   "2026-09-06": 86
+   "2026-09-06": 86,
+   "2026-09-07": 132
   }
  },
  "shopcaliora.co.uk": {
@@ -4791,49 +4886,53 @@
   "analyse_le": [
    "2026-09-02"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Cotton Flannel",
   "rangs": {
    "2026-09-02": 91,
    "2026-09-04": 93,
    "2026-09-05": 92,
-   "2026-09-06": 87
+   "2026-09-06": 87,
+   "2026-09-07": 133
   }
  },
  "outilsnordix.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 93,
    "2026-09-04": 95,
    "2026-09-05": 112,
-   "2026-09-06": 107
+   "2026-09-06": 107,
+   "2026-09-07": 169
   }
  },
  "mx.controltech.website": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-02",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "Audífono Manos Libres PTT para Walkie Talkie | Auricular con Micrófono para Radio Baofeng",
   "rangs": {
-   "2026-09-02": 100
+   "2026-09-02": 100,
+   "2026-09-07": 207
   }
  },
  "fvkcby-xb.myshopify.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "✨✨LAST DAY SAVE 49% ⏰Stylish Denim Dress With Organza Sleeve Panels.",
   "rangs": {
    "2026-09-02": 105,
    "2026-09-04": 135,
-   "2026-09-06": 134
+   "2026-09-06": 134,
+   "2026-09-07": 204
   }
  },
  "importsks.com.br": {
@@ -4861,11 +4960,12 @@
   "analyse_le": [
    "2026-09-02"
   ],
-  "derniere_vue": "2026-09-02",
-  "statut": "SANS TRAFIC",
+  "derniere_vue": "2026-09-07",
+  "statut": "SOUS LE FILTRE",
   "produit": "6-in-1 Home Monitor",
   "rangs": {
-   "2026-09-02": 116
+   "2026-09-02": 116,
+   "2026-09-07": 166
   }
  },
  "todoventascol.myshopify.com": {
@@ -4899,26 +4999,28 @@
  "nuture.com.br": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 121,
    "2026-09-05": 153,
-   "2026-09-06": 152
+   "2026-09-06": 152,
+   "2026-09-07": 201
   }
  },
  "craft-hub.co": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 127,
    "2026-09-04": 136,
    "2026-09-05": 136,
-   "2026-09-06": 128
+   "2026-09-06": 128,
+   "2026-09-07": 196
   }
  },
  "luminadaily.co": {
@@ -4955,14 +5057,15 @@
  "lireaofficiel.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EXPLOSE",
   "produit": "2 sachets supplémentaires",
   "rangs": {
    "2026-09-02": 135,
    "2026-09-04": 137,
    "2026-09-05": 137,
-   "2026-09-06": 131
+   "2026-09-06": 131,
+   "2026-09-07": 194
   }
  },
  "sunfit.fi": {
@@ -4989,24 +5092,26 @@
  "guardsurvival.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 143,
    "2026-09-04": 145,
    "2026-09-05": 149,
-   "2026-09-06": 109
+   "2026-09-06": 109,
+   "2026-09-07": 175
   }
  },
  "tr.xnote.ai": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-02",
-  "statut": "SANS TRAFIC",
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
   "produit": "(catalogue non indexé)",
   "rangs": {
-   "2026-09-02": 144
+   "2026-09-02": 144,
+   "2026-09-07": 29
   }
  },
  "dermasoul.nl": {
@@ -5054,13 +5159,14 @@
  "superlabargentina.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "Complejo de Magnesio",
   "rangs": {
    "2026-09-02": 158,
    "2026-09-05": 155,
-   "2026-09-06": 155
+   "2026-09-06": 155,
+   "2026-09-07": 266
   }
  },
  "us.coziya-outdoor.com": {
@@ -5100,12 +5206,13 @@
  "ciriel.de": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-04",
-  "statut": "STABLE",
+  "derniere_vue": "2026-09-07",
+  "statut": "EXPLOSE",
   "produit": "Ciriel - AirBrush™ Pro | Drahtlose Stylingbürste",
   "rangs": {
    "2026-09-02": 171,
-   "2026-09-04": 154
+   "2026-09-04": 154,
+   "2026-09-07": 243
   }
  },
  "galli.co.in": {
@@ -5121,14 +5228,15 @@
  "trypurestream.com": {
   "premiere_vue": "2026-09-02",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EXPLOSE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-02": 179,
    "2026-09-04": 170,
    "2026-09-05": 164,
-   "2026-09-06": 159
+   "2026-09-06": 159,
+   "2026-09-07": 278
   }
  },
  "trylyara.com": {
@@ -5136,13 +5244,14 @@
   "analyse_le": [
    "2026-09-04"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Lyara GrowthPulse For Teens & Kids",
   "rangs": {
    "2026-09-04": 3,
    "2026-09-05": 5,
-   "2026-09-06": 3
+   "2026-09-06": 3,
+   "2026-09-07": 8
   }
  },
  "ruedaturbo.com": {
@@ -5241,25 +5350,27 @@
  "crochetacademy.shop": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Halloween Crochet Bouquet Pattern 🎃👻 - Ghost, Bat, Pumpkin",
   "rangs": {
    "2026-09-04": 20,
    "2026-09-05": 21,
-   "2026-09-06": 19
+   "2026-09-06": 19,
+   "2026-09-07": 28
   }
  },
  "venalyslab.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Venalys™ Collagen Cushion Support Capsules",
   "rangs": {
    "2026-09-04": 21,
    "2026-09-05": 24,
-   "2026-09-06": 130
+   "2026-09-06": 130,
+   "2026-09-07": 115
   }
  },
  "newroyalkhalta.myshopify.com": {
@@ -5278,13 +5389,14 @@
   "analyse_le": [
    "2026-09-04"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "HYDRO-X1 Nødvandfilter",
   "rangs": {
    "2026-09-04": 25,
    "2026-09-05": 25,
-   "2026-09-06": 18
+   "2026-09-06": 18,
+   "2026-09-07": 23
   }
  },
  "belle-surprise.com": {
@@ -5302,25 +5414,27 @@
  "happypetssuomi.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-04": 31,
    "2026-09-05": 29,
-   "2026-09-06": 22
+   "2026-09-06": 22,
+   "2026-09-07": 37
   }
  },
  "logicshopsv.myshopify.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "AlivioPie® Medias de Compresión Ortopédicas",
   "rangs": {
    "2026-09-04": 40,
    "2026-09-05": 68,
-   "2026-09-06": 64
+   "2026-09-06": 64,
+   "2026-09-07": 98
   }
  },
  "glowynorge.com": {
@@ -5350,12 +5464,13 @@
  "fairshhare.myshopify.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Ultimate Leak Repair Cream | BUY 1 GET 1 FREE | Flexible Seal That Handles Sun, Rain & Col",
   "rangs": {
    "2026-09-04": 49,
-   "2026-09-06": 33
+   "2026-09-06": 33,
+   "2026-09-07": 21
   }
  },
  "hierbafuera.myshopify.com": {
@@ -5385,37 +5500,40 @@
  "redectrc.com.br": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EXPLOSE",
   "produit": "CTRC Prestes Maia",
   "rangs": {
    "2026-09-04": 60,
    "2026-09-05": 63,
-   "2026-09-06": 60
+   "2026-09-06": 60,
+   "2026-09-07": 195
   }
  },
  "cervani.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "AO MEU FILHO | SEMPRE UNIDOS | PULSEIRA DE COURO",
   "rangs": {
    "2026-09-04": 61,
    "2026-09-05": 60,
-   "2026-09-06": 57
+   "2026-09-06": 57,
+   "2026-09-07": 84
   }
  },
  "killx.store": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "All-in-One Pest Control Combo | Rodent, Cockroach, Ant & Lizard Repellent Spray for Comple",
   "rangs": {
    "2026-09-04": 63,
    "2026-09-05": 64,
-   "2026-09-06": 62
+   "2026-09-06": 62,
+   "2026-09-07": 90
   }
  },
  "gw0upg-5g.myshopify.com": {
@@ -5431,24 +5549,26 @@
  "theblvdapt.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-05",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-04": 65,
-   "2026-09-05": 65
+   "2026-09-05": 65,
+   "2026-09-07": 91
   }
  },
  "euforiaencasa.myshopify.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-04": 66,
    "2026-09-05": 41,
-   "2026-09-06": 61
+   "2026-09-06": 61,
+   "2026-09-07": 88
   }
  },
  "happypetsnorge.com": {
@@ -5464,13 +5584,14 @@
  "northcollectives.fr": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Guirlandes de cèdre ultra-réalistes (1+1 offerte)",
   "rangs": {
    "2026-09-04": 77,
    "2026-09-05": 66,
-   "2026-09-06": 88
+   "2026-09-06": 88,
+   "2026-09-07": 156
   }
  },
  "zinebody.online": {
@@ -5506,23 +5627,25 @@
  "everpawstudio.co": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-04",
-  "statut": "SANS TRAFIC",
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
   "produit": "Renaissance Inspired Oil Painting Portrait",
   "rangs": {
-   "2026-09-04": 94
+   "2026-09-04": 94,
+   "2026-09-07": 151
   }
  },
  "importstore-ecu.myshopify.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "FlexTrim Pro: Banda elastica de resistencia. Tu GYM portable",
   "rangs": {
    "2026-09-04": 96,
    "2026-09-05": 94,
-   "2026-09-06": 79
+   "2026-09-06": 79,
+   "2026-09-07": 80
   }
  },
  "sakeron.com": {
@@ -5540,13 +5663,14 @@
  "vitalora-ufficiale.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Vitalora™ - Spray per l'Igiene Orale di Cani e Gatti",
   "rangs": {
    "2026-09-04": 101,
    "2026-09-05": 102,
-   "2026-09-06": 94
+   "2026-09-06": 94,
+   "2026-09-07": 143
   }
  },
  "careefy.in": {
@@ -5563,13 +5687,14 @@
  "smilehealthtoday.org": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-04": 110,
    "2026-09-05": 108,
-   "2026-09-06": 103
+   "2026-09-06": 103,
+   "2026-09-07": 158
   }
  },
  "zaymi.myshopify.com": {
@@ -5585,37 +5710,40 @@
  "trykoanna.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-04": 117,
    "2026-09-05": 117,
-   "2026-09-06": 111
+   "2026-09-06": 111,
+   "2026-09-07": 176
   }
  },
  "moonmama.store": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "The Crescent Nursing Bra",
   "rangs": {
    "2026-09-04": 119,
    "2026-09-05": 118,
-   "2026-09-06": 112
+   "2026-09-06": 112,
+   "2026-09-07": 218
   }
  },
  "tcb1ki-h0.myshopify.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "قفل الإنذار ضد السرقة",
   "rangs": {
    "2026-09-04": 121,
    "2026-09-05": 121,
-   "2026-09-06": 115
+   "2026-09-06": 115,
+   "2026-09-07": 181
   }
  },
  "oragel.store": {
@@ -5623,13 +5751,14 @@
   "analyse_le": [
    "2026-09-04"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Oragel™",
   "rangs": {
    "2026-09-04": 122,
    "2026-09-05": 122,
-   "2026-09-06": 117
+   "2026-09-06": 117,
+   "2026-09-07": 180
   }
  },
  "bassshopec.com": {
@@ -5680,25 +5809,27 @@
   "analyse_le": [
    "2026-09-05"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Pupster Diffuser - Calm Cloud",
   "rangs": {
    "2026-09-04": 130,
    "2026-09-05": 127,
-   "2026-09-06": 119
+   "2026-09-06": 119,
+   "2026-09-07": 184
   }
  },
  "official-rodwave.com": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EXPLOSE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-04": 139,
    "2026-09-05": 138,
-   "2026-09-06": 132
+   "2026-09-06": 132,
+   "2026-09-07": 140
   }
  },
  "kidootoys.com": {
@@ -5714,13 +5845,14 @@
  "titanosklep.pl": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EXPLOSE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-04": 144,
    "2026-09-05": 148,
-   "2026-09-06": 144
+   "2026-09-06": 144,
+   "2026-09-07": 225
   }
  },
  "doulia-boutique.store": {
@@ -5737,36 +5869,39 @@
  "pomara.shop": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-05",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Pomara Organic Pomegranate Extract",
   "rangs": {
    "2026-09-04": 155,
-   "2026-09-05": 152
+   "2026-09-05": 152,
+   "2026-09-07": 247
   }
  },
  "xnote.com.tr": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "STABLE",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-04": 167,
    "2026-09-05": 161,
-   "2026-09-06": 158
+   "2026-09-06": 158,
+   "2026-09-07": 259
   }
  },
  "store.enduramind.net": {
   "premiere_vue": "2026-09-04",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "Dr. Love's Magnesium",
   "rangs": {
    "2026-09-04": 171,
    "2026-09-05": 169,
-   "2026-09-06": 166
+   "2026-09-06": 166,
+   "2026-09-07": 303
   }
  },
  "treatmentshealth.com": {
@@ -5784,22 +5919,24 @@
  "tryinsplus.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-05",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "✂️🌿5-Blade Stainless Steel Herb Scissors with Cleaning Brush & Protective Cover",
   "rangs": {
-   "2026-09-05": 4
+   "2026-09-05": 4,
+   "2026-09-07": 12
   }
  },
  "stegfri.dk": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Stegfri™ 2 stk.",
   "rangs": {
    "2026-09-05": 8,
-   "2026-09-06": 6
+   "2026-09-06": 6,
+   "2026-09-07": 13
   }
  },
  "bellanell.com": {
@@ -5817,12 +5954,13 @@
  "killxspray.myshopify.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-05": 16,
-   "2026-09-06": 13
+   "2026-09-06": 13,
+   "2026-09-07": 14
   }
  },
  "owlfx.community": {
@@ -5839,11 +5977,12 @@
  "vantashoes.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-05",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Bota Raven - Botas de Calle Todo Terreno",
   "rangs": {
-   "2026-09-05": 30
+   "2026-09-05": 30,
+   "2026-09-07": 45
   }
  },
  "plum-smile.com": {
@@ -5851,34 +5990,37 @@
   "analyse_le": [
    "2026-09-05"
   ],
-  "derniere_vue": "2026-09-06",
-  "statut": "BANGER",
+  "derniere_vue": "2026-09-07",
+  "statut": "SOUS LE FILTRE",
   "produit": "Purple Whitening Mouthwash",
   "rangs": {
    "2026-09-05": 31,
-   "2026-09-06": 23
+   "2026-09-06": 23,
+   "2026-09-07": 53
   }
  },
  "ovyrit.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Ovyrit - SafeClip",
   "rangs": {
    "2026-09-05": 37,
-   "2026-09-06": 30
+   "2026-09-06": 30,
+   "2026-09-07": 34
   }
  },
  "desirescardgame.co.uk": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Sip, Strip & Surrender",
   "rangs": {
    "2026-09-05": 47,
-   "2026-09-06": 43
+   "2026-09-06": 43,
+   "2026-09-07": 73
   }
  },
  "getmilawellness.com": {
@@ -5886,12 +6028,13 @@
   "analyse_le": [
    "2026-09-05"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "BARE WIPES",
   "rangs": {
    "2026-09-05": 50,
-   "2026-09-06": 41
+   "2026-09-06": 41,
+   "2026-09-07": 69
   }
  },
  "hepatexarg.myshopify.com": {
@@ -5907,12 +6050,13 @@
  "sr820p-q0.myshopify.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Magnesium Complex 8 en 1 - 60 Cápsulas",
   "rangs": {
    "2026-09-05": 75,
-   "2026-09-06": 71
+   "2026-09-06": 71,
+   "2026-09-07": 167
   }
  },
  "kiwear.com": {
@@ -5930,23 +6074,25 @@
   "analyse_le": [
    "2026-09-05"
   ],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "EverStep™ – Støtte som holder deg i bevegelse",
   "rangs": {
    "2026-09-05": 80,
-   "2026-09-06": 77
+   "2026-09-06": 77,
+   "2026-09-07": 123
   }
  },
  "flexitrener.store": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Flexitrener™ Training Program",
   "rangs": {
    "2026-09-05": 83,
-   "2026-09-06": 75
+   "2026-09-06": 75,
+   "2026-09-07": 120
   }
  },
  "turkmirasitr.com": {
@@ -5962,56 +6108,61 @@
  "comercializadoraokiosv.myshopify.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "MENS ONE RAINBOW LIGHT",
   "rangs": {
    "2026-09-05": 85,
-   "2026-09-06": 78
+   "2026-09-06": 78,
+   "2026-09-07": 121
   }
  },
  "miravna-hr.myshopify.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Serum za kožu s Cyperus Rotundus",
   "rangs": {
    "2026-09-05": 87,
-   "2026-09-06": 53
+   "2026-09-06": 53,
+   "2026-09-07": 75
   }
  },
  "hidefitr.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "HideFit | Vücut Düzeltici Korse",
   "rangs": {
    "2026-09-05": 96,
-   "2026-09-06": 84
+   "2026-09-06": 84,
+   "2026-09-07": 128
   }
  },
  "explori.store": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Set x12 Utensillios Explori - Mango de Madera",
   "rangs": {
    "2026-09-05": 99,
-   "2026-09-06": 76
+   "2026-09-06": 76,
+   "2026-09-07": 122
   }
  },
  "shop.americancoachingacademy.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "30 PE Activity Cards",
   "rangs": {
    "2026-09-05": 123,
-   "2026-09-06": 116
+   "2026-09-06": 116,
+   "2026-09-07": 170
   }
  },
  "wardlowandsons.com": {
@@ -6037,34 +6188,37 @@
  "vitasolvenutrition.myshopify.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "NAD+ADVANCED CATA-Kor: Energía celular premium para sentirte joven, alerta y vibrante.",
   "rangs": {
    "2026-09-05": 133,
-   "2026-09-06": 126
+   "2026-09-06": 126,
+   "2026-09-07": 193
   }
  },
  "txehot.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Women's Fashion Leopard Print Straight-Leg Wide Pants",
   "rangs": {
    "2026-09-05": 142,
-   "2026-09-06": 138
+   "2026-09-06": 138,
+   "2026-09-07": 219
   }
  },
  "trybareform.co": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Bareform™ Meniscus Brace",
   "rangs": {
    "2026-09-05": 143,
-   "2026-09-06": 140
+   "2026-09-06": 140,
+   "2026-09-07": 221
   }
  },
  "shopfuse.co": {
@@ -6081,23 +6235,25 @@
  "usereviva.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EXPLOSE",
   "produit": "Protocolo dos 90 Dias",
   "rangs": {
    "2026-09-05": 158,
-   "2026-09-06": 147
+   "2026-09-06": 147,
+   "2026-09-07": 234
   }
  },
  "goodgeermagnesium.com": {
   "premiere_vue": "2026-09-05",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Magnesium Bisglycinate Gummies",
   "rangs": {
    "2026-09-05": 159,
-   "2026-09-06": 151
+   "2026-09-06": 151,
+   "2026-09-07": 202
   }
  },
  "punguza.shop": {
@@ -6135,51 +6291,56 @@
  "eternadzz.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Aspirateur SONASHI Poussière Balai à Main 3 en 1",
   "rangs": {
-   "2026-09-06": 34
+   "2026-09-06": 34,
+   "2026-09-07": 44
   }
  },
  "reviflora.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "UroControl",
   "rangs": {
-   "2026-09-06": 37
+   "2026-09-06": 37,
+   "2026-09-07": 59
   }
  },
  "getflexibrace.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "FlexiBrace™ - Pain-Free Movement & Stability",
   "rangs": {
-   "2026-09-06": 47
+   "2026-09-06": 47,
+   "2026-09-07": 102
   }
  },
  "tqtn7i-hb.myshopify.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "BANGER",
   "produit": "Buy 1 Get 1 Free Laser Measure Tape 3 in 1 With Digital Display Recharge",
   "rangs": {
-   "2026-09-06": 50
+   "2026-09-06": 50,
+   "2026-09-07": 60
   }
  },
  "reserveharperspoint.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "(catalogue non indexé)",
   "rangs": {
-   "2026-09-06": 63
+   "2026-09-06": 63,
+   "2026-09-07": 92
   }
  },
  "koreans-essence.com": {
@@ -6195,101 +6356,111 @@
  "8uhqhg-3y.myshopify.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "NAD+ Firming Serum",
   "rangs": {
-   "2026-09-06": 83
+   "2026-09-06": 83,
+   "2026-09-07": 113
   }
  },
  "zenlabstore.myshopify.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "Zen Lab Capsaicina Activa® - Reactiva tu Circulación Natural",
   "rangs": {
-   "2026-09-06": 96
+   "2026-09-06": 96,
+   "2026-09-07": 148
   }
  },
  "trybonvoyage.shop": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "FREE Travel Carry Case",
   "rangs": {
-   "2026-09-06": 102
+   "2026-09-06": 102,
+   "2026-09-07": 149
   }
  },
  "cpxthx-a0.myshopify.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "EN BAISSE",
   "produit": "CerviTech • Sistema de Alinear y Descompresión Cervical",
   "rangs": {
-   "2026-09-06": 106
+   "2026-09-06": 106,
+   "2026-09-07": 165
   }
  },
  "tryodorable.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Odorable Deodorizing Persimmon Soap",
   "rangs": {
-   "2026-09-06": 113
+   "2026-09-06": 113,
+   "2026-09-07": 178
   }
  },
  "piletaenorden.myshopify.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "CHAU-ALGAS",
   "rangs": {
-   "2026-09-06": 121
+   "2026-09-06": 121,
+   "2026-09-07": 182
   }
  },
  "novyve.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Card Anti-Scanare RFID/NFC – CardProtector",
   "rangs": {
-   "2026-09-06": 122
+   "2026-09-06": 122,
+   "2026-09-07": 189
   }
  },
  "store.mileyofficial.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "Bass Persuades - Ruby Vinyl (Store Exclusive)",
   "rangs": {
-   "2026-09-06": 137
+   "2026-09-06": 137,
+   "2026-09-07": 217
   }
  },
  "cdvqar-ug.myshopify.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "[Name Customization] Striped Travel Toiletry Bag, Zippered Makeup Bag - Personalized Name ",
   "rangs": {
-   "2026-09-06": 141
+   "2026-09-06": 141,
+   "2026-09-07": 222
   }
  },
  "theretrorealm.com": {
   "premiere_vue": "2026-09-06",
   "analyse_le": [],
-  "derniere_vue": "2026-09-06",
+  "derniere_vue": "2026-09-07",
   "statut": "SANS TRAFIC",
   "produit": "RETRO REALM — Max Card (40,000 Games)",
   "rangs": {
-   "2026-09-06": 150
+   "2026-09-06": 150,
+   "2026-09-07": 216
   }
  },
  "switchtoiphone.in": {
@@ -6300,6 +6471,1526 @@
   "produit": "(catalogue non indexé)",
   "rangs": {
    "2026-09-06": 167
+  }
+ },
+ "shoptruemeds.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 1
+  }
+ },
+ "rivelina.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 2
+  }
+ },
+ "covexia.eu": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Cuscino in Gel Covexia™",
+  "rangs": {
+   "2026-09-07": 4
+  }
+ },
+ "katlyma.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 5
+  }
+ },
+ "maplena.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 10
+  }
+ },
+ "sdmi7us2ogu8i2et-78996570264.shopifypreview.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "باك متكامل 2 في 1 لتغذية وحماية نباتاتك: تغذية قوية وعلاج فعّال ضد الفطريات، الحشرات والأم",
+  "rangs": {
+   "2026-09-07": 16
+  }
+ },
+ "shopelvara.nl": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Elvara™ Astaxanthin 12mg",
+  "rangs": {
+   "2026-09-07": 17
+  }
+ },
+ "naughtycubes.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "[FREE EBOOK] 100 Hot Positions Ebook",
+  "rangs": {
+   "2026-09-07": 18
+  }
+ },
+ "vibramfivefinger.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 19
+  }
+ },
+ "comodea-home.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Comodea™ Ciotola Ortopedica",
+  "rangs": {
+   "2026-09-07": 20
+  }
+ },
+ "luveaparis.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 22
+  }
+ },
+ "benistie.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 26
+  }
+ },
+ "getruffs.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 27
+  }
+ },
+ "us.lumus.lifestyle": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 31
+  }
+ },
+ "tryaltrix.com.ar": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "NAD+ Resveratrol Advanced",
+  "rangs": {
+   "2026-09-07": 32
+  }
+ },
+ "ortopedikal.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 33
+  }
+ },
+ "mydoovo.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Doovo™ Abundance Bracelet",
+  "rangs": {
+   "2026-09-07": 36
+  }
+ },
+ "apexmen-il.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 39
+  }
+ },
+ "helloreliva.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "RelivaNeck™ 3-in-1 Device",
+  "rangs": {
+   "2026-09-07": 42
+  }
+ },
+ "senseroots.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "The 15-Day Bladder Control Transformation (E-book)",
+  "rangs": {
+   "2026-09-07": 43
+  }
+ },
+ "libraryofalexandria.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EXPLOSE",
+  "produit": "The Complete Books of Enoch (Vols 1–3 + Giants)",
+  "rangs": {
+   "2026-09-07": 49
+  }
+ },
+ "saintvenik.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EXPLOSE",
+  "produit": "Cadena Cuban Link 8mm",
+  "rangs": {
+   "2026-09-07": 50
+  }
+ },
+ "nuclever.it": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 55
+  }
+ },
+ "getclairmont.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Clairmont® Pure Copper Water Bottles - V2 Hand-Hammered Edition",
+  "rangs": {
+   "2026-09-07": 56
+  }
+ },
+ "oakandweston.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Oak & Weston Muscle Stretch Shirt",
+  "rangs": {
+   "2026-09-07": 58
+  }
+ },
+ "elvariap.shop": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Large Silicone Dish Drying Mat 23x17 Inch, Fast Drying Kitchen Counter Pad with Drainage E",
+  "rangs": {
+   "2026-09-07": 61
+  }
+ },
+ "scandicbeam.se": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "ScandicBeam™ – Se det du aldrig kommer åt",
+  "rangs": {
+   "2026-09-07": 66
+  }
+ },
+ "kidscalp.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "DogZen Chews",
+  "rangs": {
+   "2026-09-07": 67
+  }
+ },
+ "tervi.store": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Postra™",
+  "rangs": {
+   "2026-09-07": 72
+  }
+ },
+ "zybrox.online": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Anti-blue Progressive Far And Near Dual-Use Reading Glass",
+  "rangs": {
+   "2026-09-07": 74
+  }
+ },
+ "neatcell-official.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SOUS LE FILTRE",
+  "produit": "NEATCELL — Fade Tattoos & Dark Spots at Home",
+  "rangs": {
+   "2026-09-07": 76
+  }
+ },
+ "tokyokits.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Itachi Jersey",
+  "rangs": {
+   "2026-09-07": 77
+  }
+ },
+ "sawumi.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "Persimmon Body Wash",
+  "rangs": {
+   "2026-09-07": 78
+  }
+ },
+ "900ganchosvirais.com.br": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 82
+  }
+ },
+ "pawdys.co.uk": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Pawdys No-Pull Dog Harness",
+  "rangs": {
+   "2026-09-07": 85
+  }
+ },
+ "meta-bella.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Metabella Citrus Bergamot with Olive Leaf – Heart, Cholesterol & Healthy Blood Sugar Suppo",
+  "rangs": {
+   "2026-09-07": 89
+  }
+ },
+ "nextsize.de": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 94
+  }
+ },
+ "lusig.se": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Lusig™ Anti-Drag Hundsele",
+  "rangs": {
+   "2026-09-07": 95
+  }
+ },
+ "eu.tenniix.ai": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Tenniix Basic",
+  "rangs": {
+   "2026-09-07": 97
+  }
+ },
+ "useriverwell.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 104
+  }
+ },
+ "barelabs.co": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 110
+  }
+ },
+ "framelo.shop": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 111
+  }
+ },
+ "norbray.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "500 Word Adventure Book",
+  "rangs": {
+   "2026-09-07": 112
+  }
+ },
+ "shopevotech.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "3 in 1 Screen Protector - iPhone",
+  "rangs": {
+   "2026-09-07": 114
+  }
+ },
+ "kw.diesel.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 116
+  }
+ },
+ "riyaasatlifestyle.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Lemon Yellow Multicolour Floral Printed Pure Crepe Cape Set with Sequins, Cut Dana and Mir",
+  "rangs": {
+   "2026-09-07": 117
+  }
+ },
+ "pay.cleaningday.co": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 118
+  }
+ },
+ "pestpatrolbrand.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "PestPatrol - Stop Bed Bugs Before They Take Over Your Home",
+  "rangs": {
+   "2026-09-07": 124
+  }
+ },
+ "mistlycare.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Mistly+ | מכשיר אדים חכם לעיניים יבשות",
+  "rangs": {
+   "2026-09-07": 126
+  }
+ },
+ "puremivo.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 129
+  }
+ },
+ "onemartly.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EXPLOSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 130
+  }
+ },
+ "norelloslo.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Abito Mini Hvit med Blomsterknapper og Eksentriske Blomsterærmer",
+  "rangs": {
+   "2026-09-07": 134
+  }
+ },
+ "staydries.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Staydries Boxers",
+  "rangs": {
+   "2026-09-07": 135
+  }
+ },
+ "neurorootlabs.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "R-Alpha Lipoic Acid Softgels (600mg)",
+  "rangs": {
+   "2026-09-07": 136
+  }
+ },
+ "zois-fragrance.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 137
+  }
+ },
+ "ebgkf4-02.myshopify.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "Nura | Gotas para el equilibrio tiroideo",
+  "rangs": {
+   "2026-09-07": 138
+  }
+ },
+ "vivalyo.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Vivalyo GrillMeister Pro™",
+  "rangs": {
+   "2026-09-07": 144
+  }
+ },
+ "zenirev.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Ciglia magnetiche Zenirev™ senza colla",
+  "rangs": {
+   "2026-09-07": 145
+  }
+ },
+ "fanaticospormantosoficial.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Camisa Flamengo 2026/27 Edição Especial",
+  "rangs": {
+   "2026-09-07": 146
+  }
+ },
+ "carderio.shop": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "CARDERIO Wallet",
+  "rangs": {
+   "2026-09-07": 147
+  }
+ },
+ "orelin-dom.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "DRAINANT LYMPHATIQUE",
+  "rangs": {
+   "2026-09-07": 150
+  }
+ },
+ "naqshcanvas.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "آيات النور · بازل",
+  "rangs": {
+   "2026-09-07": 153
+  }
+ },
+ "sccbold.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "White Nieve with White Signature Borders",
+  "rangs": {
+   "2026-09-07": 154
+  }
+ },
+ "rideminibiker.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "MiniBiker Bike Seat",
+  "rangs": {
+   "2026-09-07": 157
+  }
+ },
+ "novacareca.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Garantía de por vida",
+  "rangs": {
+   "2026-09-07": 159
+  }
+ },
+ "try-vayro.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "VAYRO | Original Magnetic Wellness Ring",
+  "rangs": {
+   "2026-09-07": 160
+  }
+ },
+ "thefleececompany.it": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "Federa in Mussola (set da 2)",
+  "rangs": {
+   "2026-09-07": 164
+  }
+ },
+ "curleaparis.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Complete Definition Set",
+  "rangs": {
+   "2026-09-07": 168
+  }
+ },
+ "kaizenfrance.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "E-book - Cuisine & Longévité",
+  "rangs": {
+   "2026-09-07": 171
+  }
+ },
+ "noseway.ro": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 172
+  }
+ },
+ "zentiendacoshop.myshopify.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "BANGER",
+  "produit": "CEPILLO ALISADOR",
+  "rangs": {
+   "2026-09-07": 174
+  }
+ },
+ "getinolyo.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Sangle rotulienne - Inolyo",
+  "rangs": {
+   "2026-09-07": 177
+  }
+ },
+ "ytpkrg-9j.myshopify.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Thrive Mart™ - Transparent Waterproof Glue + Free Brush © ( BUY 1 GET 1 FREE )",
+  "rangs": {
+   "2026-09-07": 179
+  }
+ },
+ "theglowbrush.se": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "TheGlowBrush™ – Pussigheten bort innan kaffet är klart",
+  "rangs": {
+   "2026-09-07": 183
+  }
+ },
+ "plusplv.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Sculptiva™",
+  "rangs": {
+   "2026-09-07": 185
+  }
+ },
+ "shadelabnorge.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "ShadeLab Phlush Stift – En farge som alltid passer hudtonen din",
+  "rangs": {
+   "2026-09-07": 186
+  }
+ },
+ "lipomaroc.shop": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "lipo ear ringing",
+  "rangs": {
+   "2026-09-07": 187
+  }
+ },
+ "fleecesociety.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "the secret sheers — fleece-lined sheer tights, deep shades",
+  "rangs": {
+   "2026-09-07": 188
+  }
+ },
+ "vivirencristo.shop": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Oraciones en Audio",
+  "rangs": {
+   "2026-09-07": 198
+  }
+ },
+ "tendertoa.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Waterproof Micro‑Fork Eyebrow Pencil, Long‑Lasting Brow Pen 💧✨",
+  "rangs": {
+   "2026-09-07": 199
+  }
+ },
+ "dieganclothing.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "KILLER TIME T-SHIRT",
+  "rangs": {
+   "2026-09-07": 200
+  }
+ },
+ "au.ultimea.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Poseidon D80 7.1 Soundbar",
+  "rangs": {
+   "2026-09-07": 205
+  }
+ },
+ "atlea.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 209
+  }
+ },
+ "norqil.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 210
+  }
+ },
+ "nookwarmvibe.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 211
+  }
+ },
+ "canorstudios.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SOUS LE FILTRE",
+  "produit": "Canor Studio 700c Bike",
+  "rangs": {
+   "2026-09-07": 212
+  }
+ },
+ "presentgivers.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EXPLOSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 214
+  }
+ },
+ "lambrie.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EXPLOSE",
+  "produit": "Color Changing Foundation",
+  "rangs": {
+   "2026-09-07": 215
+  }
+ },
+ "hyggefoot.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "The Cabin Clogs®",
+  "rangs": {
+   "2026-09-07": 220
+  }
+ },
+ "shoppingmart-9968.myshopify.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "{Pack of 2} Women Solid Color The Shoulder & Crossbody Bag",
+  "rangs": {
+   "2026-09-07": 223
+  }
+ },
+ "gladysbags.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Bolso de hombro vintage",
+  "rangs": {
+   "2026-09-07": 224
+  }
+ },
+ "sheertex.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EXPLOSE",
+  "produit": "Black Classic Sheer Rip-Resist Tights – 4” Waistband",
+  "rangs": {
+   "2026-09-07": 226
+  }
+ },
+ "blumenshop-online.de": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Hochzeits- & Event-Testbox – Blumenqualität vorab testen",
+  "rangs": {
+   "2026-09-07": 227
+  }
+ },
+ "pagaencasach.store": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 228
+  }
+ },
+ "amaada.cauriko.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 229
+  }
+ },
+ "veste-brincando-2.myshopify.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Kit Boneca Aninha Bailarina",
+  "rangs": {
+   "2026-09-07": 230
+  }
+ },
+ "try-scalplab.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "ScalpLab Hair Regrowth Brush Serum",
+  "rangs": {
+   "2026-09-07": 231
+  }
+ },
+ "lovelia-shop.nl": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "OEAK BH | Jelly technology",
+  "rangs": {
+   "2026-09-07": 233
+  }
+ },
+ "terpsfanbox.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Terrapins FanBox Membership '26-27",
+  "rangs": {
+   "2026-09-07": 235
+  }
+ },
+ "shopamua.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "Amua Vitaldrops™",
+  "rangs": {
+   "2026-09-07": 236
+  }
+ },
+ "veylora.com.mx": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Sérum Péptido de Seda Coreano™",
+  "rangs": {
+   "2026-09-07": 238
+  }
+ },
+ "myhaima.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 240
+  }
+ },
+ "cosalia-home.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "Cosalia® Comedero Ortopédico",
+  "rangs": {
+   "2026-09-07": 241
+  }
+ },
+ "aus.beelinehoneys.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Black butt Honey TA +70",
+  "rangs": {
+   "2026-09-07": 244
+  }
+ },
+ "tooldance.ai": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "ToolDance X1 - VIP Reservation",
+  "rangs": {
+   "2026-09-07": 245
+  }
+ },
+ "trystriva.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "Striva Dual Zone™ - RGB Monitor Light Bar",
+  "rangs": {
+   "2026-09-07": 249
+  }
+ },
+ "ohmysmile.fr": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "Bain de Bouche Booster de Blancheur Violet",
+  "rangs": {
+   "2026-09-07": 250
+  }
+ },
+ "pleene.uk": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "Pleene EasyRest™ Duvet",
+  "rangs": {
+   "2026-09-07": 251
+  }
+ },
+ "taveriax.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 252
+  }
+ },
+ "uk.myhumehealth.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Hume Band",
+  "rangs": {
+   "2026-09-07": 255
+  }
+ },
+ "novstor.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 256
+  }
+ },
+ "neuropur.de": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 257
+  }
+ },
+ "ca.nobltravel.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 258
+  }
+ },
+ "sereiabeauty.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "Sereia K-Lift™ Instant Lift Serum",
+  "rangs": {
+   "2026-09-07": 260
+  }
+ },
+ "evolutionxstprime.ca": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 261
+  }
+ },
+ "uk.swedencare.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 265
+  }
+ },
+ "everkids.shop": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "Organic Folinic Active Kids",
+  "rangs": {
+   "2026-09-07": 268
+  }
+ },
+ "inkontats.it": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "Bracciale Freccia e Treccia",
+  "rangs": {
+   "2026-09-07": 270
+  }
+ },
+ "vitaeonlab.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "5 en 1 - Complejo de Vitamina B",
+  "rangs": {
+   "2026-09-07": 271
+  }
+ },
+ "herbioticsglucofort.com.pk": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Glucofort",
+  "rangs": {
+   "2026-09-07": 272
+  }
+ },
+ "us.cfab.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "The Muslin Blanket - 100% Muslin Cotton",
+  "rangs": {
+   "2026-09-07": 273
+  }
+ },
+ "tryolivetta.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "Children's Encyclopedia \"100k WHYS\" - Build Your Child's Ultimate Brain",
+  "rangs": {
+   "2026-09-07": 276
+  }
+ },
+ "leanflexmen.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 277
+  }
+ },
+ "esprit.com.co": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 279
+  }
+ },
+ "homartgo.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 282
+  }
+ },
+ "skinsolutionsuae.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EXPLOSE",
+  "produit": "Super Whitening Combo Package",
+  "rangs": {
+   "2026-09-07": 283
+  }
+ },
+ "sabro-dogs.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Orthopedic Dog Bed in Premium Vegan Leather - KUDDE",
+  "rangs": {
+   "2026-09-07": 290
+  }
+ },
+ "glitterbels-europe.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Glitterbels Hema Free - No Wipe Topcoat (17ml)",
+  "rangs": {
+   "2026-09-07": 291
+  }
+ },
+ "rituel.se": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "PDRN Collagen Volume Balm",
+  "rangs": {
+   "2026-09-07": 293
+  }
+ },
+ "adyro.eu": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "PRIMO 2.0",
+  "rangs": {
+   "2026-09-07": 295
+  }
+ },
+ "glowiedeutschland.de": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "PDRN Collagen Mask (4 Stk.)",
+  "rangs": {
+   "2026-09-07": 296
+  }
+ },
+ "koriderm.co": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "Koriderm™ Time Reverse Cream (All-In-One)",
+  "rangs": {
+   "2026-09-07": 298
+  }
+ },
+ "grandikids.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "Culottes d'apprentissages",
+  "rangs": {
+   "2026-09-07": 299
+  }
+ },
+ "kiddie-lah.sg": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "Sockzy",
+  "rangs": {
+   "2026-09-07": 301
+  }
+ },
+ "6eaedp-z7.myshopify.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "\"A Toddler Thing\" Cloud Soft Nappies (5-Pack) — Gentle, Hand Wash Basics for Baby's Delica",
+  "rangs": {
+   "2026-09-07": 302
+  }
+ },
+ "au.3wliners.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "3W All Weather Auto Mats For Tesla Model Y L 2026 RHD",
+  "rangs": {
+   "2026-09-07": 304
+  }
+ },
+ "omni.tenniix.ai": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "Tenniix OMNI World's First AI Multi-Racket Robot Deposit Reservation",
+  "rangs": {
+   "2026-09-07": 306
+  }
+ },
+ "moodylenses.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 307
+  }
+ },
+ "mindpagewise.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 308
+  }
+ },
+ "borealeco.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "SANS TRAFIC",
+  "produit": "Beige Ravello Trainer",
+  "rangs": {
+   "2026-09-07": 309
+  }
+ },
+ "bonpoint.jp": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 310
+  }
+ },
+ "alavora.co": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "Alavora® PDRN Volufiline Collagen Volume Stick",
+  "rangs": {
+   "2026-09-07": 311
+  }
+ },
+ "pubblienne.it": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 312
+  }
+ },
+ "worldrockday.com.br": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "EN BAISSE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 313
+  }
+ },
+ "woodupp.no": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "Akupanel | 240",
+  "rangs": {
+   "2026-09-07": 314
+  }
+ },
+ "objectci.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 315
+  }
+ },
+ "celticandco.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 316
+  }
+ },
+ "carlanogues.info": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 317
+  }
+ },
+ "bupbes.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "MEREDITH MINI DRESS (TEAL)",
+  "rangs": {
+   "2026-09-07": 318
+  }
+ },
+ "us.anycubic3d.com": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 319
+  }
+ },
+ "goodevas.cz": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "STABLE",
+  "produit": "Lezecká sestava Montessori 4v1: Trojúhelník Piklerové + Lezecký oblouk + Skluzavka + Polšt",
+  "rangs": {
+   "2026-09-07": 320
+  }
+ },
+ "theproteingirl.net": {
+  "premiere_vue": "2026-09-07",
+  "analyse_le": [],
+  "derniere_vue": "2026-09-07",
+  "statut": "A SURVEILLER",
+  "produit": "(catalogue non indexé)",
+  "rangs": {
+   "2026-09-07": 321
   }
  }
 }

@@ -5,19 +5,19 @@
   "niche": "Maison / anti-nuisibles",
   "prix": "45 USD (offres en pack ; guide à 19 $ et garantie à 23 $ en options)",
   "trouve_le": "2026-08-29",
-  "maj_le": "2026-08-29",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 170,
-   "courbe_ads": "25 > 128",
-   "acceleration": 5.1,
-   "delta_ads_7j": 412,
-   "age_jours": 11,
+   "ads_actives": 169,
+   "courbe_ads": "25 > 138 > 173",
+   "acceleration": 6.9,
+   "delta_ads_7j": 25,
+   "age_jours": 20,
    "cree_le": "2026-08-18",
-   "semaines_diffusion": 2,
+   "semaines_diffusion": 3,
    "visites_mois": 0,
-   "pays_pub": "GB 39%, CA 18%, US 16%, AU 14%, NZ 13%",
+   "pays_pub": "US 24%, CA 22%, GB 21%, AU 17%, NZ 16%",
    "fr_dans_leurs_pubs": "non ciblée",
    "marches_libres": "FR/ES/DE/IT",
    "nb_skus": 3,
@@ -25,7 +25,9 @@
    "statut": "BANGER",
    "priorite": 90,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "prix_eur": 55.11,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -49,6 +51,12 @@
     "date": "2026-08-29",
     "ads": 170,
     "courbe": "25 > 128",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 169,
+    "courbe": "25 > 138 > 173",
     "statut": "BANGER"
    }
   ],
@@ -132,17 +140,23 @@
   "niche": "Maison / literie",
   "prix": "39,95 EUR",
   "trouve_le": "2026-08-25",
-  "maj_le": "2026-08-25",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
-  "statut": "BANGER",
+  "statut": "EN BAISSE",
   "chiffres": {
-   "ads_actives": 3373,
-   "age_jours": 115,
-   "visites_mois": 0.0,
-   "pays_pub": "US, CA, AU, GB, DE",
-   "prix": "39,95 EUR",
+   "ads_actives": 2394,
+   "age_jours": 128,
+   "visites_mois": 0,
+   "pays_pub": "US 27%, CA 10%",
+   "prix": "39.95 EUR",
    "prix_eur": 39.95,
-   "statut": "BANGER"
+   "statut": "EN BAISSE",
+   "courbe_ads": "3104 > 3245 > 3163 > 2415 > 2128",
+   "acceleration": 0.7,
+   "delta_ads_7j": -12,
+   "semaines_diffusion": 5,
+   "nb_skus": 2,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -179,10 +193,16 @@
     "ads": 3373,
     "courbe": null,
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 2394,
+    "courbe": "3104 > 3245 > 3163 > 2415 > 2128",
+    "statut": "EN BAISSE"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "courbe en baisse",
   "notion_page_id": "3cb91197-e08c-811b-8b57-ea68c1a246e2"
  },
  "tryhappyharvest.com": {
@@ -505,18 +525,23 @@
   "niche": "Sante / complements",
   "prix": "39,99 USD",
   "trouve_le": "2026-08-25",
-  "maj_le": "2026-08-25",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
-  "statut": "EXPLOSE",
+  "statut": "STABLE",
   "chiffres": {
-   "ads_actives": 1557,
-   "age_jours": 69,
-   "visites_mois": 2058.0,
-   "pays_pub": "US, CA, GB, AU, NZ",
-   "prix": "39,99 USD",
+   "ads_actives": 1256,
+   "age_jours": 82,
+   "visites_mois": 2058,
+   "pays_pub": "US 22%, GB 21%, CA 20%, NZ 19%, AU 18%",
+   "prix": "39.99 USD",
    "prix_eur": 36.79,
-   "statut": "EXPLOSE",
-   "alertes": "INGERABLE — complément alimentaire, écarté par ta règle"
+   "statut": "STABLE",
+   "alertes": "INGERABLE - critère 6",
+   "courbe_ads": "869 > 822 > 1136 > 1269 > 1233",
+   "acceleration": 1.4,
+   "delta_ads_7j": -3,
+   "semaines_diffusion": 16,
+   "nb_skus": 5
   },
   "marches": {
    "FR": "A VERIFIER",
@@ -553,10 +578,16 @@
     "ads": 1557,
     "courbe": null,
     "statut": "EXPLOSE"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 1256,
+    "courbe": "869 > 822 > 1136 > 1269 > 1233",
+    "statut": "STABLE"
    }
   ],
   "testable": false,
-  "raison_non_testable": "ingérable",
+  "raison_non_testable": "contrôle pays pas encore fait + ingérable",
   "notion_page_id": "3cb91197-e08c-8163-bb58-f4d95ac63429"
  },
  "thegiftnorth.com": {
@@ -862,18 +893,23 @@
   "niche": "",
   "prix": "79.99 EUR",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 288,
-   "courbe_ads": "3 > 34 > 166 > 262 > 286",
-   "acceleration": 95.3,
+   "ads_actives": 332,
+   "courbe_ads": "34 > 166 > 262 > 292 > 322",
+   "acceleration": 9.5,
    "pays_pub": "IT 100%",
-   "nb_skus": 4,
-   "prix": "79.99 EUR",
-   "prix_eur": 79.99,
-   "statut": "BANGER"
+   "nb_skus": 5,
+   "prix": "36.9 EUR",
+   "prix_eur": 36.9,
+   "statut": "BANGER",
+   "delta_ads_7j": 10,
+   "age_jours": 93,
+   "semaines_diffusion": 5,
+   "visites_mois": 0,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -906,6 +942,12 @@
     "date": "2026-08-26",
     "ads": 288,
     "courbe": "3 > 34 > 166 > 262 > 286",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 332,
+    "courbe": "34 > 166 > 262 > 292 > 322",
     "statut": "BANGER"
    }
   ],
@@ -976,18 +1018,23 @@
   "niche": "",
   "prix": "49.99 EUR",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 481,
-   "courbe_ads": "9 > 51 > 127 > 307 > 452",
-   "acceleration": 50.2,
-   "pays_pub": "FR 47%, BE 18%, LU 15%, CA 15%",
-   "nb_skus": 4,
+   "ads_actives": 464,
+   "courbe_ads": "51 > 127 > 307 > 465 > 439",
+   "acceleration": 8.6,
+   "pays_pub": "FR 49%, CA 20%, BE 15%, LU 12%",
+   "nb_skus": 6,
    "prix": "49.99 EUR",
    "prix_eur": 49.99,
-   "statut": "BANGER"
+   "statut": "BANGER",
+   "delta_ads_7j": -6,
+   "age_jours": 39,
+   "semaines_diffusion": 6,
+   "visites_mois": 0,
+   "alertes": "même courbe d'ads sur 2 domaines - un seul annonceur"
   },
   "marches": {
    "FR": "PRIS",
@@ -1020,6 +1067,12 @@
     "date": "2026-08-26",
     "ads": 481,
     "courbe": "9 > 51 > 127 > 307 > 452",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 464,
+    "courbe": "51 > 127 > 307 > 465 > 439",
     "statut": "BANGER"
    }
   ],
@@ -1375,18 +1428,23 @@
   "niche": "",
   "prix": "38.99 USD",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
-  "statut": "BANGER",
+  "statut": "MORT",
   "chiffres": {
-   "ads_actives": 743,
-   "courbe_ads": "49 > 27 > 219 > 668 > 742",
-   "acceleration": 15.1,
-   "pays_pub": "non indexe",
-   "nb_skus": 2,
-   "prix": "38.99 USD",
-   "prix_eur": 35.87,
-   "statut": "BANGER"
+   "ads_actives": 0,
+   "courbe_ads": "27 > 219 > 668 > 327 > 6",
+   "acceleration": 0.2,
+   "pays_pub": "",
+   "nb_skus": 16,
+   "prix": "199.99 USD",
+   "prix_eur": 183.99,
+   "statut": "SOUS LE FILTRE",
+   "delta_ads_7j": -98,
+   "age_jours": 53,
+   "semaines_diffusion": 5,
+   "visites_mois": 0,
+   "alertes": "pays de diffusion non indexés"
   },
   "marches": {
    "FR": "LIBRE",
@@ -1420,10 +1478,16 @@
     "ads": 743,
     "courbe": "49 > 27 > 219 > 668 > 742",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 0,
+    "courbe": "27 > 219 > 668 > 327 > 6",
+    "statut": "MORT"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "courbe mort",
   "a_verifier": "pays de diffusion non indexes - marches libres inconnus",
   "notion_page_id": "3cc91197-e08c-8120-a018-d06717083a7d"
  },
@@ -1490,18 +1554,23 @@
   "niche": "",
   "prix": "12 USD",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 119,
-   "courbe_ads": "9 > 35 > 73 > 108 > 119",
-   "acceleration": 13.2,
-   "pays_pub": "AU 21%, CA 21%, US 21%, NZ 20%, GB 16%",
+   "ads_actives": 78,
+   "courbe_ads": "35 > 73 > 108 > 110 > 94",
+   "acceleration": 2.7,
+   "pays_pub": "CA 21%, US 21%, AU 20%, NZ 19%, GB 18%",
    "nb_skus": 3,
    "prix": "12 USD",
    "prix_eur": 11.04,
-   "statut": "BANGER"
+   "statut": "BANGER",
+   "delta_ads_7j": -15,
+   "age_jours": 63,
+   "semaines_diffusion": 7,
+   "visites_mois": 0,
+   "alertes": "même courbe d'ads sur 2 domaines - un seul annonceur"
   },
   "marches": {
    "FR": "A VERIFIER",
@@ -1535,6 +1604,12 @@
     "ads": 119,
     "courbe": "9 > 35 > 73 > 108 > 119",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 78,
+    "courbe": "35 > 73 > 108 > 110 > 94",
+    "statut": "BANGER"
    }
   ],
   "testable": false,
@@ -1547,18 +1622,23 @@
   "niche": "",
   "prix": "79.99 EUR",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
-  "statut": "BANGER",
+  "statut": "EN BAISSE",
   "chiffres": {
-   "ads_actives": 228,
-   "courbe_ads": "26 > 73 > 199 > 286 > 275",
-   "acceleration": 10.6,
+   "ads_actives": 135,
+   "courbe_ads": "199 > 286 > 256 > 118 > 135",
+   "acceleration": 0.7,
    "pays_pub": "ES 100%",
-   "nb_skus": 6,
-   "prix": "79.99 EUR",
-   "prix_eur": 79.99,
-   "statut": "BANGER"
+   "nb_skus": 25,
+   "prix": "39.9 EUR",
+   "prix_eur": 39.9,
+   "statut": "EN BAISSE",
+   "delta_ads_7j": 14,
+   "age_jours": 89,
+   "semaines_diffusion": 6,
+   "visites_mois": 0,
+   "alertes": "catalogue 25 SKU - généraliste"
   },
   "marches": {
    "FR": "PARTIEL",
@@ -1592,10 +1672,16 @@
     "ads": 228,
     "courbe": "26 > 73 > 199 > 286 > 275",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 135,
+    "courbe": "199 > 286 > 256 > 118 > 135",
+    "statut": "EN BAISSE"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "courbe en baisse",
   "notion_page_id": "3cc91197-e08c-81f2-b0d9-e891b1782d6c"
  },
  "velmadora-pt.com": {
@@ -2402,18 +2488,23 @@
   "niche": "",
   "prix": "39.99 USD",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 79,
-   "courbe_ads": "15 > 39 > 58 > 71 > 92",
-   "acceleration": 6.1,
+   "ads_actives": 118,
+   "courbe_ads": "39 > 58 > 71 > 92 > 93",
+   "acceleration": 2.4,
    "pays_pub": "SE 100%",
    "nb_skus": 2,
    "prix": "39.99 USD",
    "prix_eur": 36.79,
-   "statut": "BANGER"
+   "statut": "BANGER",
+   "delta_ads_7j": 1,
+   "age_jours": 28,
+   "semaines_diffusion": 6,
+   "visites_mois": 0,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -2447,6 +2538,12 @@
     "ads": 79,
     "courbe": "15 > 39 > 58 > 71 > 92",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 118,
+    "courbe": "39 > 58 > 71 > 92 > 93",
+    "statut": "BANGER"
    }
   ],
   "testable": true,
@@ -2459,18 +2556,23 @@
   "niche": "",
   "prix": "39.9 EUR",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 59,
-   "courbe_ads": "9 > 14 > 33 > 54 > 54",
-   "acceleration": 6.0,
-   "pays_pub": "ES 81%, IT 19%",
+   "ads_actives": 125,
+   "courbe_ads": "14 > 33 > 54 > 69 > 121",
+   "acceleration": 8.6,
+   "pays_pub": "ES 71%, IT 29%",
    "nb_skus": 9,
    "prix": "39.9 EUR",
    "prix_eur": 39.9,
-   "statut": "BANGER"
+   "statut": "BANGER",
+   "delta_ads_7j": 75,
+   "age_jours": 55,
+   "semaines_diffusion": 6,
+   "visites_mois": 0,
+   "alertes": "cosmétique - réglementaire à vérifier"
   },
   "marches": {
    "FR": "A VERIFIER",
@@ -2503,6 +2605,12 @@
     "date": "2026-08-26",
     "ads": 59,
     "courbe": "9 > 14 > 33 > 54 > 54",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 125,
+    "courbe": "14 > 33 > 54 > 69 > 121",
     "statut": "BANGER"
    }
   ],
@@ -3029,18 +3137,23 @@
   "niche": "",
   "prix": "91 USD",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
-  "statut": "BANGER",
+  "statut": "MORT",
   "chiffres": {
-   "ads_actives": 52,
-   "courbe_ads": "11 > 11 > 28 > 41 > 50",
-   "acceleration": 4.5,
-   "pays_pub": "GB 40%, US 40%, CA 21%",
+   "ads_actives": 38,
+   "courbe_ads": "11 > 28 > 41 > 38 > 26",
+   "acceleration": 2.4,
+   "pays_pub": "CA 42%, GB 37%, US 22%",
    "nb_skus": 4,
    "prix": "91 USD",
    "prix_eur": 83.72,
-   "statut": "BANGER"
+   "statut": "SOUS LE FILTRE",
+   "delta_ads_7j": -32,
+   "age_jours": 44,
+   "semaines_diffusion": 5,
+   "visites_mois": 0,
+   "alertes": ""
   },
   "marches": {
    "FR": "LIBRE",
@@ -3074,10 +3187,16 @@
     "ads": 52,
     "courbe": "11 > 11 > 28 > 41 > 50",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 38,
+    "courbe": "11 > 28 > 41 > 38 > 26",
+    "statut": "MORT"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "courbe mort",
   "notion_page_id": "3ce91197-e08c-8190-869b-e190537fc165"
  },
  "hazelstep.com": {
@@ -3371,18 +3490,23 @@
   "niche": "",
   "prix": "160 USD",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 215,
-   "courbe_ads": "59 > 96 > 131 > 158 > 199",
-   "acceleration": 3.4,
-   "pays_pub": "SE 66%, AU 9%, CA 9%, NZ 8%, US 8%",
+   "ads_actives": 385,
+   "courbe_ads": "131 > 158 > 245 > 342 > 385",
+   "acceleration": 2.9,
+   "pays_pub": "SE 100%",
    "nb_skus": 1,
-   "prix": "160 USD",
-   "prix_eur": 147.2,
-   "statut": "BANGER"
+   "prix": "120 USD",
+   "prix_eur": 110.4,
+   "statut": "BANGER",
+   "delta_ads_7j": 13,
+   "age_jours": 67,
+   "semaines_diffusion": 19,
+   "visites_mois": 0,
+   "alertes": ""
   },
   "marches": {
    "FR": "A VERIFIER",
@@ -3415,6 +3539,12 @@
     "date": "2026-08-26",
     "ads": 215,
     "courbe": "59 > 96 > 131 > 158 > 199",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 385,
+    "courbe": "131 > 158 > 245 > 342 > 385",
     "statut": "BANGER"
    }
   ],
@@ -3653,19 +3783,23 @@
   "niche": "",
   "prix": "29.9 EUR",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "EXPLOSE",
   "chiffres": {
-   "ads_actives": 414,
-   "courbe_ads": "121 > 154 > 259 > 362 > 393",
-   "acceleration": 3.2,
-   "pays_pub": "FR 39%, BE 27%, CA 26%, LU 7%",
-   "nb_skus": 7,
+   "ads_actives": 583,
+   "courbe_ads": "154 > 259 > 362 > 441 > 537",
+   "acceleration": 3.5,
+   "pays_pub": "FR 38%, BE 29%, CA 27%, LU 5%",
+   "nb_skus": 8,
    "prix": "29.9 EUR",
    "prix_eur": 29.9,
    "statut": "EXPLOSE",
-   "alertes": "INGERABLE — complément alimentaire, écarté par ta règle"
+   "alertes": "",
+   "delta_ads_7j": 22,
+   "age_jours": 114,
+   "semaines_diffusion": 19,
+   "visites_mois": 1818
   },
   "marches": {
    "FR": "A VERIFIER",
@@ -3699,10 +3833,16 @@
     "ads": 414,
     "courbe": "121 > 154 > 259 > 362 > 393",
     "statut": "EXPLOSE"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 583,
+    "courbe": "154 > 259 > 362 > 441 > 537",
+    "statut": "EXPLOSE"
    }
   ],
   "testable": false,
-  "raison_non_testable": "contrôle pays pas encore fait + prix 29.9 € sous l'AOV + ingérable",
+  "raison_non_testable": "contrôle pays pas encore fait + prix 29.9 € sous l'AOV",
   "notion_page_id": "3ce91197-e08c-813e-807a-ce635d7abca3"
  },
  "wellsmaison.store": {
@@ -4053,18 +4193,23 @@
   "niche": "",
   "prix": "149 USD",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 752,
-   "courbe_ads": "256 > 308 > 340 > 630 > 754",
-   "acceleration": 2.9,
-   "pays_pub": "US 8%, CA 5%, AU 5%, IT 4%, PT 4%, ES 4%",
+   "ads_actives": 901,
+   "courbe_ads": "308 > 340 > 630 > 781 > 916",
+   "acceleration": 3.0,
+   "pays_pub": "US 10%, CA 5%, AU 4%, PT 4%, ES 4%, IT 4%",
    "nb_skus": 11,
    "prix": "149 USD",
    "prix_eur": 137.08,
-   "statut": "BANGER"
+   "statut": "BANGER",
+   "delta_ads_7j": 17,
+   "age_jours": 60,
+   "semaines_diffusion": 26,
+   "visites_mois": 0,
+   "alertes": ""
   },
   "marches": {
    "FR": "A VERIFIER",
@@ -4097,6 +4242,12 @@
     "date": "2026-08-26",
     "ads": 752,
     "courbe": "256 > 308 > 340 > 630 > 754",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 901,
+    "courbe": "308 > 340 > 630 > 781 > 916",
     "statut": "BANGER"
    }
   ],
@@ -4680,18 +4831,23 @@
   "niche": "Écouteurs / gadgets sommeil",
   "prix": "28.99 GBP",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-09-06",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 458,
-   "courbe_ads": "169 > 177 > 252 > 254 > 444",
-   "acceleration": 2.6,
-   "pays_pub": "GB 46%, FI 21%, DK 18%, SE 16%",
+   "ads_actives": 389,
+   "courbe_ads": "177 > 252 > 254 > 422 > 389",
+   "acceleration": 2.2,
+   "pays_pub": "GB 40%, FI 23%, DK 20%, SE 17%",
    "nb_skus": 3,
    "prix": "28.99 GBP",
    "prix_eur": 33.92,
-   "statut": "BANGER"
+   "statut": "BANGER",
+   "delta_ads_7j": -8,
+   "age_jours": 29,
+   "semaines_diffusion": 5,
+   "visites_mois": 0,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -4771,6 +4927,12 @@
     "date": "2026-09-06",
     "ads": 458,
     "courbe": "169 > 177 > 252 > 254 > 444",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 389,
+    "courbe": "177 > 252 > 254 > 422 > 389",
     "statut": "BANGER"
    }
   ],
@@ -4898,18 +5060,23 @@
   "niche": "",
   "prix": "29.9 EUR",
   "trouve_le": "2026-08-26",
-  "maj_le": "2026-08-26",
+  "maj_le": "2026-09-07",
   "source": "tableaux Drive (import)",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 482,
-   "courbe_ads": "183 > 311 > 367 > 418 > 480",
-   "acceleration": 2.6,
-   "pays_pub": "FR 64%, FI 36%",
-   "nb_skus": 18,
+   "ads_actives": 615,
+   "courbe_ads": "311 > 367 > 418 > 518 > 618",
+   "acceleration": 2.0,
+   "pays_pub": "FR 70%, FI 30%",
+   "nb_skus": 19,
    "prix": "29.9 EUR",
    "prix_eur": 29.9,
-   "statut": "BANGER"
+   "statut": "BANGER",
+   "delta_ads_7j": 19,
+   "age_jours": 87,
+   "semaines_diffusion": 21,
+   "visites_mois": 0,
+   "alertes": ""
   },
   "marches": {
    "FR": "A VERIFIER",
@@ -4942,6 +5109,12 @@
     "date": "2026-08-26",
     "ads": 482,
     "courbe": "183 > 311 > 367 > 418 > 480",
+    "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 615,
+    "courbe": "311 > 367 > 418 > 518 > 618",
     "statut": "BANGER"
    }
   ],
@@ -6551,19 +6724,19 @@
   "niche": "Électroménager cuisine / anti-gaspillage",
   "prix": "69.99 GBP",
   "trouve_le": "2026-08-30",
-  "maj_le": "2026-09-06",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 358,
-   "courbe_ads": "168 > 175 > 262 > 241 > 342",
-   "acceleration": 2.0,
-   "delta_ads_7j": 42,
-   "age_jours": 16,
+   "ads_actives": 441,
+   "courbe_ads": "175 > 262 > 241 > 356 > 414",
+   "acceleration": 2.4,
+   "delta_ads_7j": 16,
+   "age_jours": 24,
    "cree_le": "2026-08-14",
-   "semaines_diffusion": 19,
+   "semaines_diffusion": 5,
    "visites_mois": 0,
-   "pays_pub": "AU 80%, GB 20%",
+   "pays_pub": "AU 69%, GB 31%",
    "fr_dans_leurs_pubs": "non ciblée",
    "marches_libres": "FR/ES/DE/IT",
    "nb_skus": 10,
@@ -6572,7 +6745,8 @@
    "statut": "BANGER",
    "priorite": 72,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -6647,6 +6821,12 @@
     "ads": 358,
     "courbe": "168 > 175 > 262 > 241 > 342",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 441,
+    "courbe": "175 > 262 > 241 > 356 > 414",
+    "statut": "BANGER"
    }
   ],
   "testable": true,
@@ -6659,19 +6839,19 @@
   "niche": "Bijoux motivants / bien-être",
   "prix": "29.99 CHF",
   "trouve_le": "2026-08-30",
-  "maj_le": "2026-09-06",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 450,
-   "courbe_ads": "203 > 210 > 273 > 366 > 436",
-   "acceleration": 2.1,
-   "delta_ads_7j": 19,
-   "age_jours": 9,
+   "ads_actives": 540,
+   "courbe_ads": "210 > 273 > 366 > 449 > 518",
+   "acceleration": 2.5,
+   "delta_ads_7j": 15,
+   "age_jours": 17,
    "cree_le": "2026-08-21",
-   "semaines_diffusion": 10,
+   "semaines_diffusion": 11,
    "visites_mois": 0,
-   "pays_pub": "SE 29%, DK 22%, DE 17%, FI 12%, BE 10%, NL 10%",
+   "pays_pub": "SE 30%, DE 20%, DK 19%, BE 16%, NL 16%",
    "fr_dans_leurs_pubs": "non ciblée",
    "marches_libres": "FR/ES/IT/GB",
    "nb_skus": 1,
@@ -6680,7 +6860,8 @@
    "statut": "BANGER",
    "priorite": 73,
    "reseau": "2 domaines miroirs : 1tn34i-ut.myshopify.com",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": "même courbe d'ads sur 5 domaines - un seul annonceur"
   },
   "marches": {
    "FR": "LIBRE",
@@ -6755,6 +6936,12 @@
     "ads": 450,
     "courbe": "203 > 210 > 273 > 366 > 436",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 540,
+    "courbe": "210 > 273 > 366 > 449 > 518",
+    "statut": "BANGER"
    }
   ],
   "testable": true,
@@ -6767,28 +6954,29 @@
   "niche": "Décoration / confort à la maison",
   "prix": "149.95 EUR",
   "trouve_le": "2026-09-01",
-  "maj_le": "2026-09-01",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
-  "statut": "SANS TRAFIC",
+  "statut": "MORT",
   "chiffres": {
-   "ads_actives": 104,
-   "courbe_ads": "92 > 94 > 95 > 115 > 128",
-   "acceleration": 1.4,
-   "delta_ads_7j": 11,
-   "age_jours": 8,
+   "ads_actives": 42,
+   "courbe_ads": "94 > 95 > 115 > 124 > 72",
+   "acceleration": 0.8,
+   "delta_ads_7j": -42,
+   "age_jours": 14,
    "cree_le": "2026-08-24",
-   "semaines_diffusion": 26,
+   "semaines_diffusion": 5,
    "visites_mois": 0,
-   "pays_pub": "DK 68%, NL 32%",
+   "pays_pub": "NL 89%, DK 11%",
    "fr_dans_leurs_pubs": "non ciblée",
    "marches_libres": "FR/ES/DE/IT/GB",
    "nb_skus": 6,
-   "prix": "149.95 EUR",
-   "prix_eur": 149.95,
-   "statut": "SANS TRAFIC",
+   "prix": "94.95 EUR",
+   "prix_eur": 94.95,
+   "statut": "SOUS LE FILTRE",
    "priorite": 63,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": ""
   },
   "marches": {
    "FR": "LIBRE",
@@ -6854,10 +7042,16 @@
     "ads": 104,
     "courbe": "92 > 94 > 95 > 115 > 128",
     "statut": "SANS TRAFIC"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 42,
+    "courbe": "94 > 95 > 115 > 124 > 72",
+    "statut": "MORT"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "courbe mort",
   "notion_page_id": "3ce91197-e08c-8119-bc76-c278a50b0776"
  },
  "livsono.com": {
@@ -6965,19 +7159,19 @@
   "niche": "Sécurité automobile / équipement d'urgence",
   "prix": "549 NOK",
   "trouve_le": "2026-09-02",
-  "maj_le": "2026-09-02",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 93,
-   "courbe_ads": "25 > 23 > 14 > 36 > 84",
-   "acceleration": 3.4,
-   "delta_ads_7j": 133,
-   "age_jours": 12,
+   "ads_actives": 60,
+   "courbe_ads": "25 > 23 > 14 > 36 > 89",
+   "acceleration": 3.6,
+   "delta_ads_7j": 147,
+   "age_jours": 17,
    "cree_le": "2026-08-21",
-   "semaines_diffusion": 8,
+   "semaines_diffusion": 5,
    "visites_mois": 0,
-   "pays_pub": "FI 54%, SE 46%",
+   "pays_pub": "FI 79%, IT 8%, DE 7%",
    "fr_dans_leurs_pubs": "non ciblée",
    "marches_libres": "FR/ES/DE/IT/GB",
    "nb_skus": 2,
@@ -6986,7 +7180,8 @@
    "statut": "BANGER",
    "priorite": 75,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -7055,6 +7250,12 @@
     "ads": 93,
     "courbe": "25 > 23 > 14 > 36 > 84",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 60,
+    "courbe": "25 > 23 > 14 > 36 > 89",
+    "statut": "BANGER"
    }
   ],
   "testable": true,
@@ -7067,17 +7268,17 @@
   "niche": "Sécurité domestique / moniteur bébé connecté",
   "prix": "79 USD",
   "trouve_le": "2026-09-02",
-  "maj_le": "2026-09-02",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
-  "statut": "SANS TRAFIC",
+  "statut": "MORT",
   "chiffres": {
-   "ads_actives": 62,
-   "courbe_ads": "62",
-   "acceleration": null,
-   "delta_ads_7j": null,
-   "age_jours": 15,
+   "ads_actives": 22,
+   "courbe_ads": "71 > 22",
+   "acceleration": 0.3,
+   "delta_ads_7j": -69,
+   "age_jours": 20,
    "cree_le": "2026-08-18",
-   "semaines_diffusion": 1,
+   "semaines_diffusion": 2,
    "visites_mois": 0,
    "pays_pub": "US 100%",
    "fr_dans_leurs_pubs": "non ciblée",
@@ -7085,10 +7286,11 @@
    "nb_skus": 4,
    "prix": "79 USD",
    "prix_eur": 72.68,
-   "statut": "SANS TRAFIC",
+   "statut": "SOUS LE FILTRE",
    "priorite": 55,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -7157,10 +7359,16 @@
     "ads": 62,
     "courbe": "62",
     "statut": "SANS TRAFIC"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 22,
+    "courbe": "71 > 22",
+    "statut": "MORT"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par le radar + courbe mort",
   "notion_page_id": "3d091197-e08c-81c8-9b81-fd4ef94d369d",
   "note_cortex": "Écarté le 2026-09-02 : la vraie fiche produit de talknest.co montre des traducteurs IA (Talkbuddy AI Translator), pas un moniteur domestique. Le titre TrendTrack ne correspond pas au catalogue réel. Page Notion créée par erreur le 2026-09-03, corrigée le jour même."
  },
@@ -7170,19 +7378,19 @@
   "niche": "Maison / préparation aux urgences",
   "prix": "349 DKK",
   "trouve_le": "2026-09-04",
-  "maj_le": "2026-09-04",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
   "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 84,
-   "courbe_ads": "21 > 24 > 37 > 46 > 72",
-   "acceleration": 3.4,
-   "delta_ads_7j": 57,
-   "age_jours": 4,
+   "ads_actives": 106,
+   "courbe_ads": "24 > 37 > 46 > 84 > 106",
+   "acceleration": 4.4,
+   "delta_ads_7j": 26,
+   "age_jours": 7,
    "cree_le": "2026-08-31",
-   "semaines_diffusion": 8,
+   "semaines_diffusion": 5,
    "visites_mois": 0,
-   "pays_pub": "SE 71%, DK 29%",
+   "pays_pub": "SE 77%, DK 23%",
    "fr_dans_leurs_pubs": "non ciblée",
    "marches_libres": "FR/ES/DE/IT/GB",
    "nb_skus": 1,
@@ -7191,7 +7399,8 @@
    "statut": "BANGER",
    "priorite": 75,
    "reseau": "2 domaines miroirs : livsono.com",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": "même courbe d'ads sur 2 domaines - un seul annonceur"
   },
   "marches": {
    "FR": "LIBRE",
@@ -7260,6 +7469,12 @@
     "ads": 84,
     "courbe": "21 > 24 > 37 > 46 > 72",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 106,
+    "courbe": "24 > 37 > 46 > 84 > 106",
+    "statut": "BANGER"
    }
   ],
   "testable": true,
@@ -7272,17 +7487,17 @@
   "niche": "Sommeil / décoration chambre enfant",
   "prix": "34.99 USD",
   "trouve_le": "2026-09-04",
-  "maj_le": "2026-09-04",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
   "statut": "SANS TRAFIC",
   "chiffres": {
-   "ads_actives": 72,
-   "courbe_ads": "44 > 62 > 62 > 63 > 69",
+   "ads_actives": 71,
+   "courbe_ads": "44 > 62 > 62 > 63 > 70",
    "acceleration": 1.6,
-   "delta_ads_7j": 10,
-   "age_jours": 4,
+   "delta_ads_7j": 11,
+   "age_jours": 7,
    "cree_le": "2026-08-31",
-   "semaines_diffusion": 26,
+   "semaines_diffusion": 5,
    "visites_mois": 0,
    "pays_pub": "AU 39%, US 22%, CA 21%, GB 18%",
    "fr_dans_leurs_pubs": "non ciblée",
@@ -7293,7 +7508,8 @@
    "statut": "SANS TRAFIC",
    "priorite": 65,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -7362,6 +7578,12 @@
     "ads": 72,
     "courbe": "44 > 62 > 62 > 63 > 69",
     "statut": "SANS TRAFIC"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 71,
+    "courbe": "44 > 62 > 62 > 63 > 70",
+    "statut": "SANS TRAFIC"
    }
   ],
   "testable": true,
@@ -7374,15 +7596,15 @@
   "niche": "Préparation aux urgences / électronique",
   "prix": "49.99 USD",
   "trouve_le": "2026-09-04",
-  "maj_le": "2026-09-04",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
-  "statut": "SANS TRAFIC",
+  "statut": "BANGER",
   "chiffres": {
-   "ads_actives": 254,
-   "courbe_ads": "120 > 27 > 228",
-   "acceleration": 1.9,
-   "delta_ads_7j": 744,
-   "age_jours": 13,
+   "ads_actives": 275,
+   "courbe_ads": "120 > 27 > 249",
+   "acceleration": 2.1,
+   "delta_ads_7j": 822,
+   "age_jours": 16,
    "cree_le": "2026-08-22",
    "semaines_diffusion": 3,
    "visites_mois": 0,
@@ -7390,12 +7612,13 @@
    "fr_dans_leurs_pubs": "non ciblée",
    "marches_libres": "FR/ES/DE/IT/GB",
    "nb_skus": 3,
-   "prix": "49.99 USD",
-   "prix_eur": 45.99,
-   "statut": "SANS TRAFIC",
+   "prix": "99.99 USD",
+   "prix_eur": 91.99,
+   "statut": "BANGER",
    "priorite": 71,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -7464,6 +7687,12 @@
     "ads": 254,
     "courbe": "120 > 27 > 228",
     "statut": "SANS TRAFIC"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 275,
+    "courbe": "120 > 27 > 249",
+    "statut": "BANGER"
    }
   ],
   "testable": true,
@@ -7476,28 +7705,29 @@
   "niche": "Beauté / hygiène bucco-dentaire",
   "prix": "34.99 USD",
   "trouve_le": "2026-09-05",
-  "maj_le": "2026-09-05",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
-  "statut": "BANGER",
+  "statut": "MORT",
   "chiffres": {
-   "ads_actives": 54,
-   "courbe_ads": "10 > 31",
-   "acceleration": 3.1,
-   "delta_ads_7j": 210,
-   "age_jours": 11,
+   "ads_actives": 0,
+   "courbe_ads": "10 > 30",
+   "acceleration": 3.0,
+   "delta_ads_7j": 200,
+   "age_jours": 13,
    "cree_le": "2026-08-25",
    "semaines_diffusion": 2,
    "visites_mois": 0,
-   "pays_pub": "US 100%",
+   "pays_pub": "",
    "fr_dans_leurs_pubs": "non ciblée",
    "marches_libres": "FR/ES/DE/IT/GB",
    "nb_skus": 1,
    "prix": "34.99 USD",
    "prix_eur": 32.19,
-   "statut": "BANGER",
+   "statut": "SOUS LE FILTRE",
    "priorite": 74,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": "pays de diffusion non indexés"
   },
   "marches": {
    "FR": "PARTIEL",
@@ -7565,10 +7795,16 @@
     "ads": 54,
     "courbe": "10 > 31",
     "statut": "BANGER"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 0,
+    "courbe": "10 > 30",
+    "statut": "MORT"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "courbe mort",
   "notion_page_id": "3d291197-e08c-81e1-b86d-d0819f989df1"
  },
  "getmilawellness.com": {
@@ -7577,17 +7813,17 @@
   "niche": "Beauté / bien-être intime",
   "prix": "34.9 USD",
   "trouve_le": "2026-09-05",
-  "maj_le": "2026-09-05",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
   "statut": "SANS TRAFIC",
   "chiffres": {
-   "ads_actives": 426,
-   "courbe_ads": "213 > 338 > 364 > 286 > 330",
-   "acceleration": 1.5,
-   "delta_ads_7j": 15,
-   "age_jours": 44,
+   "ads_actives": 433,
+   "courbe_ads": "213 > 338 > 364 > 286 > 355",
+   "acceleration": 1.7,
+   "delta_ads_7j": 24,
+   "age_jours": 46,
    "cree_le": "2026-07-23",
-   "semaines_diffusion": 26,
+   "semaines_diffusion": 5,
    "visites_mois": 0,
    "pays_pub": "US 100%",
    "fr_dans_leurs_pubs": "non ciblée",
@@ -7598,7 +7834,8 @@
    "statut": "SANS TRAFIC",
    "priorite": 69,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -7664,6 +7901,12 @@
     "ads": 426,
     "courbe": "213 > 338 > 364 > 286 > 330",
     "statut": "SANS TRAFIC"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 433,
+    "courbe": "213 > 338 > 364 > 286 > 355",
+    "statut": "SANS TRAFIC"
    }
   ],
   "testable": true,
@@ -7676,15 +7919,15 @@
   "niche": "Animalerie / bien-être canin",
   "prix": "49 USD",
   "trouve_le": "2026-09-05",
-  "maj_le": "2026-09-05",
+  "maj_le": "2026-09-07",
   "source": "radar quotidien",
   "statut": "SANS TRAFIC",
   "chiffres": {
-   "ads_actives": 57,
-   "courbe_ads": "51",
+   "ads_actives": 60,
+   "courbe_ads": "54",
    "acceleration": null,
    "delta_ads_7j": null,
-   "age_jours": 10,
+   "age_jours": 12,
    "cree_le": "2026-08-26",
    "semaines_diffusion": 1,
    "visites_mois": 0,
@@ -7697,7 +7940,8 @@
    "statut": "SANS TRAFIC",
    "priorite": 55,
    "reseau": "",
-   "techno_scaling": false
+   "techno_scaling": false,
+   "alertes": ""
   },
   "marches": {
    "FR": "PARTIEL",
@@ -7762,6 +8006,12 @@
     "date": "2026-09-05",
     "ads": 57,
     "courbe": "51",
+    "statut": "SANS TRAFIC"
+   },
+   {
+    "date": "2026-09-07",
+    "ads": 60,
+    "courbe": "54",
     "statut": "SANS TRAFIC"
    }
   ],
