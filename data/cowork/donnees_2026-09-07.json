@@ -1,17 +1,17 @@
 {
   "date": "2026-09-07",
-  "collecte_le": "2026-09-06 23:24 UTC",
+  "collecte_le": "2026-09-07 05:03 UTC",
   "crypto_dashboard": {
     "btc_dominance": 59.2,
-    "total_volume_24h": 67899319561.9854,
-    "market_cap_change": -2.0,
-    "btc_price": 80220,
-    "btc_change_24h": 0.5,
+    "total_volume_24h": 70844233513.12653,
+    "market_cap_change": -3.1,
+    "btc_price": 79717,
+    "btc_change_24h": -0.2,
     "btc_price_source": "CoinGecko",
-    "fear_greed_score": 73,
+    "fear_greed_score": 71,
     "fear_greed_label": "Avidité",
     "fear_greed_trend": "en hausse",
-    "fear_greed_avg_7d": 68,
+    "fear_greed_avg_7d": 70,
     "open_interest_btc": 0.0,
     "long_short_ratio": 0.5,
     "mempool_fee": 1,
@@ -21,7 +21,7 @@
     "funding_description": "Neutres (0.000%)",
     "exchange_flows": {
       "binance_vol_24h_usd": 0,
-      "top5_exchanges_vol_btc": 162521.1,
+      "top5_exchanges_vol_btc": 168128.3,
       "trend": "faible_volume",
       "pression": "neutre"
     },
@@ -54,9 +54,9 @@
       "raw_price": 91.48
     },
     "dxy": {
-      "price": "99.1",
-      "change_pct": -0.5407845891441773,
-      "raw_price": 99.131
+      "price": "99.2",
+      "change_pct": -0.5056687067322212,
+      "raw_price": 99.166
     },
     "vix": {
       "price": "14.5",
@@ -71,89 +71,7 @@
       "change_bps": "+3bps"
     },
     "earnings_week": [],
-    "insider_buys": [
-      {
-        "insider": "De Angoitia Alfonso",
-        "company": "Liberty Latin America Ltd.",
-        "ticker": "LILA",
-        "type": "BUY",
-        "shares": 476190,
-        "value_usd": 9978488,
-        "date": "2026-08-31"
-      },
-      {
-        "insider": "Taneja Rajat",
-        "company": "Msci Inc.",
-        "ticker": "MSCI",
-        "type": "BUY",
-        "shares": 1786,
-        "value_usd": 1000160,
-        "date": "2026-09-02"
-      },
-      {
-        "insider": "Cherry Brian N",
-        "company": "Atara Biotherapeutics, Inc.",
-        "ticker": "ATRA",
-        "type": "BUY",
-        "shares": 104166,
-        "value_usd": 999994,
-        "date": "2026-09-04"
-      },
-      {
-        "insider": "Donegal Mutual Insurance Co",
-        "company": "Donegal Group Inc",
-        "ticker": "DGICA",
-        "type": "BUY",
-        "shares": 19595,
-        "value_usd": 381768,
-        "date": "2026-09-02"
-      },
-      {
-        "insider": "McDonald Damien",
-        "company": "Enovis Corp",
-        "ticker": "ENOV",
-        "type": "BUY",
-        "shares": 13035,
-        "value_usd": 249620,
-        "date": "2026-09-04"
-      },
-      {
-        "insider": "Apeiron Investment Group Ltd.",
-        "company": "Enhanced Group Inc.",
-        "ticker": "ENHA",
-        "type": "BUY",
-        "shares": 133107,
-        "value_usd": 209779,
-        "date": "2026-09-02"
-      },
-      {
-        "insider": "Schlacks William J.",
-        "company": "Equipmentshare.Com Inc",
-        "ticker": "EQPT",
-        "type": "BUY",
-        "shares": 10000,
-        "value_usd": 177900,
-        "date": "2026-09-02"
-      },
-      {
-        "insider": "Fang Shu-Hua",
-        "company": "Taiwan Semiconductor Manufacturing Co Ltd",
-        "ticker": "TSM",
-        "type": "BUY",
-        "shares": 2000,
-        "value_usd": 154180,
-        "date": "2026-07-02"
-      },
-      {
-        "insider": "Engert Oliver",
-        "company": "Enovis Corp",
-        "ticker": "ENOV",
-        "type": "BUY",
-        "shares": 7598,
-        "value_usd": 149971,
-        "date": "2026-09-02"
-      }
-    ],
+    "insider_buys": [],
     "sectors": {
       "technologie": {
         "symbol": "XLK",
@@ -341,7 +259,7 @@
     "yield_curve": 0.41,
     "hy_spread": 7.15,
     "vix": 14.53,
-    "updated_at": "2026-09-06T23:24:35.815311+00:00"
+    "updated_at": "2026-09-07T05:03:36.133173+00:00"
   },
   "ecommerce_dashboard": {
     "stocks": [
@@ -426,27 +344,27 @@
   },
   "ecommerce_themes": {
     "marketplace": 21,
-    "automation": 8,
+    "automation": 9,
     "creatives": 3,
-    "emailing": 5
+    "emailing": 4
   },
   "outils_usages": {
-    "video": 14,
+    "video": 15,
     "produit_gagnant": 1,
     "analyse_marche": 2,
     "scraping": 5,
-    "pub": 6,
+    "pub": 4,
     "fiches_produit": 1,
     "skill_claude": 11,
     "automatisation": 6
   },
   "compte_news": {
-    "ai": 19,
+    "ai": 16,
     "trending": 45,
-    "crypto": 16,
-    "market": 43,
-    "deeptech": 51,
+    "crypto": 19,
+    "market": 34,
+    "deeptech": 61,
     "ecommerce": 37,
-    "outils": 46
+    "outils": 45
   }
 }
