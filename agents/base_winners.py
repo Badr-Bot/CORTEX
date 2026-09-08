@@ -525,10 +525,26 @@ def notion_contenu(entree: dict) -> str:
     return "\n".join(L).strip()
 
 
+VERDICTS_WINNER = ("à tester", "en test", "testé - winner")
+
+
+def est_winner(entree: dict) -> bool:
+    """Un winner, et rien d'autre, a sa ligne dans la BASE WINNERS Notion (Badr, 08/09/2026 :
+    « je veux avoir que des winners dans le tableau de Notion, pas de produit écarté ou qui
+    servent à rien »). Winner = Badr l'a marqué à tester / en test / testé - winner, ou la
+    grille de la formation a été passée en entier (`qualifie_formation`, posé par Sophia
+    après vérification). Un GO TEST du radar n'est PAS un winner : c'est un candidat."""
+    return (entree.get("verdict_badr") in VERDICTS_WINNER) or bool(entree.get("qualifie_formation"))
+
+
 def notion_export(base: dict, date: str) -> list[dict]:
-    """Ce qu'il faut pousser dans Notion : les entrées touchées ce jour ou jamais créées."""
+    """Ce qu'il faut pousser dans Notion : les WINNERS touchés ce jour ou jamais créés.
+    Les candidats (GO TEST / A SURVEILLER / ECARTER sans verdict de Badr) ne sortent jamais
+    d'ici — ils vivent dans base_winners.json et dans le rapport."""
     out = []
     for dom, e in sorted(base.items()):
+        if not est_winner(e):
+            continue
         if e.get("maj_le") != date and e.get("notion_page_id"):
             continue
         out.append({

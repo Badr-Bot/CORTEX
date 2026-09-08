@@ -18,6 +18,7 @@ def test_notion_proprietes_ne_touche_jamais_aux_colonnes_de_badr():
     assert props["🇫🇷 FR"] == "🟡 PARTIEL" and props["🎚 Stade (1 libre → 5 saturé)"].startswith("2 ·")
     assert props["🔥 Statut"] == "🔥 BANGER" and props["🤖 Verdict CORTEX"] == "✅ GO TEST"
     assert not any("MON VERDICT" in k or "MES NOTES" in k for k in props)
+    base["pestprohome.com"]["verdict_badr"] = "à tester"
     assert notion_export(base, "2026-08-29")[0]["icon"] == "🔥"
     # Badr, 29/08 : « éviter le vide dans les cellules » et « je vois pas quand ça dépasse deux lignes »
     textes = [v for k, v in props.items() if isinstance(v, str) and not k.startswith("date:")]
@@ -73,8 +74,22 @@ def test_la_fiche_page_porte_le_detail_long():
     assert "## Taille du marché (TAM)" in fiche
 
 
+def test_notion_export_ne_pousse_jamais_un_candidat_qui_n_est_pas_winner():
+    # Badr, 08/09/2026 : la BASE WINNERS ne contient que des winners. Un GO TEST du radar
+    # sans verdict de Badr ni grille de la formation reste un candidat : rien dans Notion.
+    base = upsert({}, _pepite(), "2026-08-29", "radar quotidien")
+    assert base["pestprohome.com"]["verdict_cortex"] == "GO TEST"
+    assert notion_export(base, "2026-08-29") == []
+    base["pestprohome.com"]["qualifie_formation"] = True
+    assert [i["action"] for i in notion_export(base, "2026-08-29")] == ["create"]
+    base["pestprohome.com"]["qualifie_formation"] = False
+    base["pestprohome.com"]["verdict_badr"] = "écarté"
+    assert notion_export(base, "2026-08-29") == []
+
+
 def test_notion_export_cree_puis_ne_repousse_que_les_touches():
     base = upsert({}, _pepite(), "2026-08-29", "radar quotidien")
+    base["pestprohome.com"]["verdict_badr"] = "à tester"
     assert [i["action"] for i in notion_export(base, "2026-08-29")] == ["create"]
     # une fois la page connue et rien de neuf ce jour-là : rien à pousser
     base["pestprohome.com"]["notion_page_id"] = "26ab1f9f-4c5f-80b1-8d3b-d10a6b1d2f4e"

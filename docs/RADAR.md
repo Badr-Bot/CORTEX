@@ -433,6 +433,19 @@ Une seule liste, en deux endroits qui disent la même chose :
   ou « testé - mort » n'est plus proposé (le script `candidats` l'exclut et
   `est_testable` le refuse).
 
+**RÈGLE DU 08/09/2026 (Badr : « je veux avoir que des winners dans le tableau
+Notion, pas de produit écarté ou qui servent à rien ») — la BASE WINNERS ne
+contient QUE des winners.** Un winner = un produit qui a passé **la grille de la
+formation** en entier (leçon 29 : 9 critères ; MASTER PRODUCT FORMULA : 7 non
+négociables ; leçon 31 : métriques) avec ses preuves, et dont MON VERDICT vaut
+« 🧪 à tester », « ⏳ en test » ou « 🏆 testé - winner ». **Un candidat du radar
+(GO TEST, A SURVEILLER, ECARTER) n'est PAS un winner** : il vit dans
+`base_winners.json`, dans le rapport du jour et dans la base d'archive
+« 🗄 CORTEX — Candidats vus », **jamais** dans la BASE WINNERS. `notion_export`
+ne renvoie donc que les winners ; si tu te retrouves à créer une page Notion
+pour un produit sans verdict de Badr ni grille remplie, tu te trompes de base.
+Le 08/09, les ~130 lignes non-winners ont été déplacées dans l'archive.
+
 ### Tous les jours : synchroniser Notion (connecteur Notion, ~6 appels)
 
 Charge les outils : ToolSearch
@@ -507,9 +520,9 @@ Charge les outils : ToolSearch
    et écris-les dans `ecommerce.radar_produits` du rapport du lundi (même
    format ; l'enquête et les contrôles France pour chacun — budget crédits
    oblige, priorise les 3 meilleurs pour l'enquête complète).
-4. La synchro Notion quotidienne (ci-dessus) pousse alors toutes les lignes
-   rafraîchies : statuts à jour, les morts passent `Testable` à non et restent
-   visibles dans Notion (Badr filtre la vue comme il veut).
+4. La synchro Notion quotidienne (ci-dessus) ne pousse que les **winners**
+   rafraîchis (statuts à jour). Les autres lignes de `base_winners.json` ne vont
+   nulle part dans Notion : elles sont la mémoire du radar, pas la vue de Badr.
 
 ## 7. Après avoir écrit le rapport
 
