@@ -2530,8 +2530,8 @@
   "marches_detail": {},
   "lien_boutique": "https://tervi.store",
   "lien_adlibrary": "",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté — déjà vérifié en profondeur lors d'une session antérieure (trou complété), non retenu comme winner. Motif détaillé non conservé dans ce cycle ; redemander une vérification complète si Badr veut le rouvrir.",
   "historique": [
    {
     "date": "2026-08-26",
@@ -2546,8 +2546,8 @@
     "statut": "BANGER"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3ce91197-e08c-81a5-af66-f2adb7e3802f"
  },
  "covexia.eu": {
@@ -4908,8 +4908,8 @@
   },
   "lien_boutique": "https://sleeppods.co",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=sleeppods",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté — déjà vérifié en profondeur lors d'une session antérieure (trou complété), non retenu comme winner. Motif détaillé non conservé dans ce cycle ; redemander une vérification complète si Badr veut le rouvrir.",
   "historique": [
    {
     "date": "2026-08-26",
@@ -4936,8 +4936,8 @@
     "statut": "BANGER"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3ce91197-e08c-810c-9366-d24566e27ea5"
  },
  "shop.udamia.com": {
@@ -6807,8 +6807,8 @@
   },
   "lien_boutique": "https://getfreshreserve.co.uk",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=getfreshreserve",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : le produit réel actuel du site (« Aero Vacuum Kit », compression de bagages de voyage) diffère du nom Notion (scelleuse alimentaire). Marché ultra-saturé (stade 5) : Ekster (grande marque, 841 ads actives, 38M reach) domine largement, plus de 1800 ads actives au total sur « compression bags ».",
   "historique": [
    {
     "date": "2026-08-30",
@@ -6829,8 +6829,8 @@
     "statut": "BANGER"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3cc91197-e08c-817f-a174-d2c759b163d4"
  },
  "nordband.ch": {
@@ -6922,8 +6922,8 @@
   },
   "lien_boutique": "https://nordband.ch",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=nordband",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : aucune vraie demande de marché prouvée pour un bracelet motivationnel autonome — seuls 8 résultats Trendtrack sur « motivational wristband », tous d'une seule marque australienne où le bracelet n'est qu'un accessoire inclus dans un pack de livre de développement personnel. Site nordband.ch lui-même mal traduit/cassé (« Translation missing »).",
   "historique": [
    {
     "date": "2026-08-30",
@@ -6944,8 +6944,8 @@
     "statut": "BANGER"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3ce91197-e08c-819a-8b7d-e4274b464f62"
  },
  "sleepynights.fr": {
@@ -7139,8 +7139,8 @@
   },
   "lien_boutique": "https://livsono.com",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=livsono",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : DONNÉE PÉRIMÉE — le site livsono.com ne vend pas de filtre à eau, il vend « Lindro », la même crème anti-frottement cutané que livsodk.com (même marque, deux domaines). Fiche CORTEX fausse pour ce domaine.",
   "historique": [
    {
     "date": "2026-09-01",
@@ -7149,8 +7149,8 @@
     "statut": "BANGER"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3ce91197-e08c-815a-b6b0-c7200fe35214"
  },
  "ovyrek.com": {
@@ -7242,8 +7242,8 @@
   },
   "lien_boutique": "https://ovyrek.com",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=ovyrek",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : TAM quasi nul sur Trendtrack (0 résultat sur formulation générique « escape hammer »), seulement 60 ads actives pour la marque, site multilingue mal exécuté (allemand/suédois mélangés).",
   "historique": [
    {
     "date": "2026-09-02",
@@ -7258,8 +7258,8 @@
     "statut": "BANGER"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3d091197-e08c-81e0-82d4-ca068bf6790a"
  },
  "talknest.co": {
@@ -7461,8 +7461,8 @@
   },
   "lien_boutique": "https://livsodk.com",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=livsodk",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : DONNÉE PÉRIMÉE — le site livsodk.com ne vend plus de filtre à eau, il vend « Lindro », une crème anti-frottement cutané. Fiche CORTEX fausse pour ce domaine, ne pas s'y fier.",
   "historique": [
    {
     "date": "2026-09-04",
@@ -7477,8 +7477,8 @@
     "statut": "BANGER"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3d191197-e08c-8174-8732-ce78caaa638b"
  },
  "getlunora.store": {
@@ -7570,8 +7570,8 @@
   },
   "lien_boutique": "https://getlunora.store",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=getlunora",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : statut SANS TRAFIC — aucune preuve de traction réelle.",
   "historique": [
    {
     "date": "2026-09-04",
@@ -7586,8 +7586,8 @@
     "statut": "SANS TRAFIC"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3d191197-e08c-81bf-ab99-dad33884ed29"
  },
  "fortsentinel.com": {
@@ -7679,8 +7679,8 @@
   },
   "lien_boutique": "https://fortsentinel.com",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=fortsentinel",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : TAM vérifié énorme mais marché saturé (stade 4-5) — dizaines de concurrents établis avec le même angle « EMP/coupure de courant » (Ekster, Bluromi, Chiclify, Durysch, Bestetter...). Le verdict CORTEX lui-même dit A SURVEILLER, pas GO TEST.",
   "historique": [
    {
     "date": "2026-09-04",
@@ -7695,8 +7695,8 @@
     "statut": "BANGER"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3d191197-e08c-81a0-b35c-e1f2d37f7103"
  },
  "plum-smile.com": {
@@ -7893,8 +7893,8 @@
   },
   "lien_boutique": "https://getmilawellness.com",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=getmilawellness",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : statut SANS TRAFIC — aucune preuve de traction réelle, TAM non prouvé.",
   "historique": [
    {
     "date": "2026-09-05",
@@ -7909,8 +7909,8 @@
     "statut": "SANS TRAFIC"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3d291197-e08c-81d1-a77d-ea0b8cc1091f"
  },
  "pupster.org": {
@@ -7999,8 +7999,8 @@
   },
   "lien_boutique": "https://pupster.org",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=pupster",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : statut SANS TRAFIC, stade 1 sans preuve — aucune traction vérifiable.",
   "historique": [
    {
     "date": "2026-09-05",
@@ -8015,8 +8015,8 @@
     "statut": "SANS TRAFIC"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3d291197-e08c-81f4-82b8-d812f424c13e"
  },
  "kidscalp.com": {
@@ -8118,8 +8118,8 @@
   },
   "lien_boutique": "https://kidscalp.com",
   "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=kidscalp",
-  "verdict_badr": "",
-  "notes_badr": "",
+  "verdict_badr": "écarté",
+  "notes_badr": "Écarté 07/09/2026 : le domaine Notion (kidscalp.com) redirige vers trydogzen.com — produit ingéré par l'animal avec allégation comportementale forte (« traite l'agressivité »), catégorie à risque par prudence sauf mandat explicite de Badr.",
   "historique": [
    {
     "date": "2026-09-07",
@@ -8128,8 +8128,8 @@
     "statut": "BANGER"
    }
   ],
-  "testable": true,
-  "raison_non_testable": "",
+  "testable": false,
+  "raison_non_testable": "écarté par Badr",
   "notion_page_id": "3d491197-e08c-81cb-ad08-e0d9c223d7c6"
  }
 }
