@@ -745,92 +745,14 @@
         "budget_test": "CBO 100-300 € par jour, décision à 48 h : 200-600 € pour savoir.",
         "lien_boutique": "https://henningbelts.no",
         "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=henningbelts"
-      },
-      {
-        "produit": "Comodea™ Ciotola Ortopedica — gamelle ergonomique pour chien",
-        "boutique": "comodea-home.com",
-        "niche": "Animalerie — accessoires chien",
-        "prix": "36.9 EUR",
-        "statut": "BANGER",
-        "signal": "Le nombre de publicités actives est passé de 34 à 322 en cinq semaines (×9,5 sur le dernier mois), un volume déjà conséquent pour une boutique de 94 jours qui ne diffuse activement que depuis 5 semaines. Toutes ses publicités visent l'Italie (100%), la France n'étant pas encore ciblée. Le trafic affiché à 0 visite/mois montre que la boutique n'est pas encore repérée par les outils de veille classiques.",
-        "stade_marche": "En pleine explosion sur le marché italien (100% de ses pubs) où la boutique diffuse depuis 5 semaines. En France, le marché est déjà installé autour d'un acteur dominant (HÔMA, plusieurs dizaines de pubs actives sur l'angle exact « mal au cou/dos »), mais l'Allemagne n'a qu'un seul concurrent très récent et peu visible.",
-        "notoriete": "Les gamelles ergonomiques/anti-glouton pour chien sont déjà bien connues en France, où HÔMA a construit une vraie notoriété sur l'angle « mal au cou » ; en Allemagne, l'angle existe à peine (un seul concurrent très récent), donc le produit lui-même reste à faire découvrir.",
-        "ca_jour_estime": "Non estimable avec précision (trafic à 0) ; avec 322 publicités actives (l'une des plus fortes diffusions vues aujourd'hui) et un prix de 36,9€, l'ordre de grandeur se situe probablement entre 1 000 et 3 000€ de chiffre d'affaires par jour pour la boutique globale (estimation, calibration maison, à prendre avec prudence vu le volume élevé de pubs).",
-        "difficulte": "moyen",
-        "difficulte_pourquoi": "Le produit est un consommable non alimentaire pour animaux (gamelle), donc peu de risque réglementaire à l'export ; le vrai défi est de rester sur un discours de confort/ergonomie sans franchir la ligne d'une allégation de santé vétérinaire (qui demanderait des preuves cliniques), et de se différencier d'un concurrent français déjà installé (HÔMA) en misant sur l'Allemagne où l'angle est encore peu exploité.",
-        "marche_fr": "PRIS",
-        "marches": {
-          "FR": "PRIS",
-          "DE": "PARTIEL",
-          "ES": "A VERIFIER",
-          "GB": "A VERIFIER"
-        },
-        "stade_sophistication": 2,
-        "awareness": "problem aware",
-        "decalage_marche": "en retard",
-        "angle_recommande": "Reprendre l'angle « douleur au cou/dos » déjà testé en Allemagne par un petit acteur, mais l'appuyer avec la preuve scientifique (étude Glickman sur le risque de torsion d'estomac lié aux gamelles surélevées) et cibler en priorité les chiens seniors arthrosiques.",
-        "tam": "TAM prouvé en France : HÔMA diffuse plusieurs dizaines de publicités actives sur la seule niche des gamelles ergonomiques pour chien, preuve d'un marché déjà conséquent à l'échelle européenne.",
-        "angle_concurrent": "En France, HÔMA domine avec un discours répété (« C'est la gamelle, pas les croquettes », « Et si sa gamelle lui faisait mal au cou sans que vous le voyiez ? », « Notre plus vieux chien a vécu 23 ans »). En Allemagne, Woofy Universe teste un angle quasi identique (« Ruiniert der Napf Ihres Hundes dessen Rücken? ») mais avec une seule publicité active, sans volume.",
-        "pain_points": [
-          {
-            "douleur": "Risque de torsion d'estomac, une urgence vétérinaire potentiellement mortelle, chez un chien qui mange trop vite",
-            "intensite": "forte",
-            "preuve": "des ballonnements, une affection grave et potentiellement mortelle où l'estomac se remplit de gaz et se tord",
-            "source_url": "https://www.croquettepourchien.fr/mon-chien-est-un-chien-glouton/"
-          },
-          {
-            "douleur": "Chien qui vomit systématiquement après le repas à cause de la vitesse à laquelle il mange",
-            "intensite": "forte",
-            "preuve": "Max, un Labrador qui engloutit sa nourriture en moins de deux minutes, vomissait fréquemment après les repas et avalait trop d'air, causant des ballonnements et des douleurs abdominales",
-            "source_url": "https://caniprof.com/comportement-du-chien/chien-mange-trop-vite"
-          },
-          {
-            "douleur": "Chien âgé arthrosique qui souffre d'une extension forcée du cou à cause d'une gamelle mal adaptée en hauteur",
-            "intensite": "moyenne",
-            "preuve": "Une gamelle trop haute sollicite davantage les cervicales des chiens âgés souffrant d'arthrose, et l'extension forcée du cou provoque des douleurs",
-            "source_url": "https://convalessence.fr/les-gamelles-surelevees-chez-chien-ce-que-dit-la-science/"
-          }
-        ],
-        "angles_non_exploites": [
-          {
-            "angle": "Montrer concrètement la posture du chien avant/après (dos voûté, cou tendu contre cou aligné) plutôt qu'un discours vague sur le confort",
-            "douleur_ciblee": "Douleur cervicale invisible causée par une mauvaise hauteur de gamelle",
-            "pourquoi_personne": "HÔMA en France reste sur un ton narratif (« Notre plus vieux chien a vécu 23 ans ») sans montrer la posture réelle en vidéo comparative."
-          },
-          {
-            "angle": "Cibler spécifiquement les chiens âgés arthrosiques en citant l'étude scientifique sur le risque de torsion d'estomac lié aux gamelles surélevées",
-            "douleur_ciblee": "Risque de santé chez le chien senior lié à une gamelle inadaptée",
-            "pourquoi_personne": "Aucun concurrent identifié (HÔMA compris) ne cite de preuve scientifique précise, ils restent sur du storytelling émotionnel."
-          }
-        ],
-        "chiffres": {},
-        "marche_fr_detail": "PRIS — HÔMA domine largement avec plusieurs dizaines de publicités actives simultanément (« C'est la gamelle, pas les croquettes », « Et si sa gamelle lui faisait mal au cou sans que vous le voyiez ? »), suivi d'Aniloa et d'un compte relais — 41 résultats au total sur « gamelle orthopédique chien ».",
-        "marches_detail": {
-          "FR": "PRIS — HÔMA domine avec plusieurs dizaines de pubs actives sur l'angle « mal au cou », 41 résultats au total sur « gamelle orthopédique chien ».",
-          "DE": "PARTIEL — 1 seul annonceur actif trouvé sur « Hundenapf Nacken Gelenke » : Woofy Universe (« Ruiniert der Napf Ihres Hundes dessen Rücken? »), aucun acteur dominant comme HÔMA.",
-          "ES": "A VERIFIER — non contrôlé.",
-          "GB": "A VERIFIER — non contrôlé."
-        },
-        "recurrent": "non",
-        "ou_lancer": "Allemagne en priorité : un seul concurrent très récent et peu visible (Woofy Universe) contre un acteur dominant et installé (HÔMA) en France sur le même angle exact.",
-        "criteres_ok": [
-          "besoin fort",
-          "effet visuel",
-          "compréhension immédiate",
-          "simple à utiliser"
-        ],
-        "criteres_ko": [
-          "introuvable en magasin",
-          "preuve sociale"
-        ],
-        "verdict": "GO TEST",
-        "verdict_pourquoi": "Douleur de santé réelle et documentée (risque de torsion d'estomac chez le chien qui mange trop vite), très forte traction publicitaire (322 pubs actives), et un marché allemand encore ouvert malgré un concurrent français dominant. Il faudra éviter toute allégation vétérinaire non prouvée.",
-        "budget_test": "CBO 100-300 € par jour, décision à 48 h : 200-600 € pour savoir.",
-        "lien_boutique": "https://comodea-home.com",
-        "lien_adlibrary": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=comodea-home"
       }
     ],
     "radar_ecartes": [
+      {
+        "produit": "Comodea™ Ciotola Ortopedica — gamelle ergonomique pour chien (annoncée par TrendTrack)",
+        "boutique": "comodea-home.com",
+        "raison": "L'enquête (vraie fiche Shopify, arrivée après le délai de 6 minutes) montre que le catalogue actuel de comodea-home.com ne comporte AUCUNE gamelle orthopédique : uniquement des produits d'hygiène dentaire pour chien (kit de nettoyage dentaire à ultrasons, spray, embout, brossettes de rechange) et une fontaine à eau filtrante. Le titre TrendTrack « Ciotola Ortopedica » ne correspond à aucun produit réellement en vente sur le site — écarté par prudence (RADAR.md : lire le vrai produit avant de juger, comme le cas « Fascial Release »)."
+      },
       {
         "produit": "Orelin — drainant lymphatique (masseur jambes)",
         "boutique": "orelin-dom.com",
