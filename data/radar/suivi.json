@@ -1733,7 +1733,8 @@
  "pestprohome.com": {
   "premiere_vue": "2026-08-29",
   "analyse_le": [
-   "2026-08-29"
+   "2026-08-29",
+   "2026-09-08"
   ],
   "derniere_vue": "2026-09-08",
   "statut": "BANGER",
@@ -6709,7 +6710,9 @@
  },
  "comodea-home.com": {
   "premiere_vue": "2026-09-07",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-08"
+  ],
   "derniere_vue": "2026-09-08",
   "statut": "BANGER",
   "produit": "Comodea™ Ciotola Ortopedica",
@@ -7230,7 +7233,9 @@
  },
  "orelin-dom.com": {
   "premiere_vue": "2026-09-07",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-08"
+  ],
   "derniere_vue": "2026-09-08",
   "statut": "SANS TRAFIC",
   "produit": "DRAINANT LYMPHATIQUE",
@@ -7261,7 +7266,9 @@
  },
  "rideminibiker.com": {
   "premiere_vue": "2026-09-07",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-08"
+  ],
   "derniere_vue": "2026-09-08",
   "statut": "SANS TRAFIC",
   "produit": "MiniBiker Bike Seat",
@@ -8176,7 +8183,9 @@
  },
  "henningbelts.no": {
   "premiere_vue": "2026-09-08",
-  "analyse_le": [],
+  "analyse_le": [
+   "2026-09-08"
+  ],
   "derniere_vue": "2026-09-08",
   "statut": "BANGER",
   "produit": "HENNING – Lærbelte",
