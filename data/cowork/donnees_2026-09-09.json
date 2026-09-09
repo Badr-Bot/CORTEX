@@ -1,27 +1,27 @@
 {
   "date": "2026-09-09",
-  "collecte_le": "2026-09-08 23:48 UTC",
+  "collecte_le": "2026-09-09 05:00 UTC",
   "crypto_dashboard": {
-    "btc_dominance": 58.3,
-    "total_volume_24h": 91045405574.20865,
-    "market_cap_change": -1.9,
-    "btc_price": 78443,
-    "btc_change_24h": -0.8,
+    "btc_dominance": 58.4,
+    "total_volume_24h": 91232731558.28473,
+    "market_cap_change": -1.3,
+    "btc_price": 79172,
+    "btc_change_24h": 0.6,
     "btc_price_source": "CoinGecko",
-    "fear_greed_score": 69,
+    "fear_greed_score": 66,
     "fear_greed_label": "Avidité",
     "fear_greed_trend": "en hausse",
     "fear_greed_avg_7d": 70,
     "open_interest_btc": 0.0,
     "long_short_ratio": 0.5,
-    "mempool_fee": 2,
+    "mempool_fee": 1,
     "liq_longs_24h_usd": 0,
     "liq_shorts_24h_usd": 0,
     "liq_dominance": "N/A",
     "funding_description": "Neutres (0.000%)",
     "exchange_flows": {
       "binance_vol_24h_usd": 0,
-      "top5_exchanges_vol_btc": 216667.8,
+      "top5_exchanges_vol_btc": 211432.4,
       "trend": "faible_volume",
       "pression": "neutre"
     },
@@ -44,19 +44,19 @@
       "raw_price": 26421.412
     },
     "gold": {
-      "price": "$4,400",
-      "change_pct": 0.7832718777912606,
-      "raw_price": 4400.5
+      "price": "$4,423",
+      "change_pct": -1.5361667074826904,
+      "raw_price": 4422.7
     },
     "oil": {
-      "price": "$94.4",
-      "change_pct": 3.7468410064828004,
-      "raw_price": 94.42
+      "price": "$94.0",
+      "change_pct": 2.9901423877327535,
+      "raw_price": 94.03
     },
     "dxy": {
       "price": "98.8",
-      "change_pct": -0.7553234230614657,
-      "raw_price": 98.808
+      "change_pct": -0.24848484848484353,
+      "raw_price": 98.754
     },
     "vix": {
       "price": "15.7",
@@ -91,6 +91,15 @@
         "date": "2026-09-03"
       },
       {
+        "insider": "Moroun Matthew T",
+        "company": "Pamt Corp",
+        "ticker": "PAMT",
+        "type": "BUY",
+        "shares": 3268000,
+        "value_usd": 31225740,
+        "date": "2026-09-03"
+      },
+      {
         "insider": "Goldentree Asset Management LP",
         "company": "Qvc Group, Inc.",
         "ticker": "QVCG",
@@ -98,15 +107,6 @@
         "shares": 720000,
         "value_usd": 11844000,
         "date": "2026-09-03"
-      },
-      {
-        "insider": "Macdonald Andrew",
-        "company": "Uber Technologies, Inc",
-        "ticker": "UBER",
-        "type": "BUY",
-        "shares": 70000,
-        "value_usd": 5308064,
-        "date": "2026-09-04"
       },
       {
         "insider": "Tether Global Investments Fund, S.I.C.A.F., S.A.",
@@ -133,6 +133,15 @@
         "type": "BUY",
         "shares": 25000,
         "value_usd": 2645399,
+        "date": "2026-09-08"
+      },
+      {
+        "insider": "Courtis Kenneth S.",
+        "company": "Alpha Metallurgical Resources, Inc.",
+        "ticker": "AMR",
+        "type": "BUY",
+        "shares": 10000,
+        "value_usd": 2258289,
         "date": "2026-09-08"
       },
       {
@@ -431,7 +440,7 @@
     "yield_curve": 0.41,
     "hy_spread": 7.2,
     "vix": 15.72,
-    "updated_at": "2026-09-08T23:47:59.723611+00:00"
+    "updated_at": "2026-09-09T05:00:12.219676+00:00"
   },
   "ecommerce_dashboard": {
     "stocks": [
@@ -516,28 +525,28 @@
   },
   "ecommerce_themes": {
     "marketplace": 30,
-    "automation": 17,
+    "automation": 18,
     "operations": 6,
-    "creatives": 19,
-    "emailing": 9
+    "creatives": 21,
+    "emailing": 8
   },
   "outils_usages": {
     "video": 14,
-    "produit_gagnant": 2,
+    "produit_gagnant": 1,
     "analyse_marche": 2,
     "scraping": 5,
     "pub": 16,
     "fiches_produit": 1,
-    "skill_claude": 11,
+    "skill_claude": 10,
     "automatisation": 6
   },
   "compte_news": {
-    "ai": 43,
+    "ai": 112,
     "trending": 45,
-    "crypto": 78,
+    "crypto": 69,
     "market": 49,
     "deeptech": 67,
-    "ecommerce": 81,
-    "outils": 57
+    "ecommerce": 83,
+    "outils": 55
   }
 }
