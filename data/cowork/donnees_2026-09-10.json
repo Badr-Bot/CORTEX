@@ -1,0 +1,553 @@
+{
+  "date": "2026-09-10",
+  "collecte_le": "2026-09-09 23:46 UTC",
+  "crypto_dashboard": {
+    "btc_dominance": 58.6,
+    "total_volume_24h": 94537390682.99483,
+    "market_cap_change": -3.5,
+    "btc_price": 78212,
+    "btc_change_24h": -0.3,
+    "btc_price_source": "CoinGecko",
+    "fear_greed_score": 66,
+    "fear_greed_label": "Avidité",
+    "fear_greed_trend": "en hausse",
+    "fear_greed_avg_7d": 70,
+    "open_interest_btc": 8410656640.0,
+    "long_short_ratio": 0.5533919878522621,
+    "mempool_fee": 1,
+    "liq_longs_24h_usd": 0,
+    "liq_shorts_24h_usd": 0,
+    "liq_dominance": "N/A",
+    "funding_description": "Neutres (0.004%)",
+    "exchange_flows": {
+      "binance_vol_24h_usd": 1114643752,
+      "top5_exchanges_vol_btc": 220058.9,
+      "trend": "indecis",
+      "pression": "neutre",
+      "btc_change_24h_pct": -0.26
+    },
+    "cycle": {
+      "phase": "Markup",
+      "emoji": "🟢",
+      "conseil": "Phase haussière active — tenir ou ajouter sur replis",
+      "cycle_score": 1
+    }
+  },
+  "market_dashboard": {
+    "sp500": {
+      "price": "7,636",
+      "change_pct": 0.0640767768201856,
+      "raw_price": 7636.36
+    },
+    "nasdaq": {
+      "price": "26,253",
+      "change_pct": 0.5883959896964598,
+      "raw_price": 26253.34
+    },
+    "gold": {
+      "price": "$4,438",
+      "change_pct": -1.2022174232473228,
+      "raw_price": 4437.7
+    },
+    "oil": {
+      "price": "$97.1",
+      "change_pct": 6.385542168674697,
+      "raw_price": 97.13
+    },
+    "dxy": {
+      "price": "98.8",
+      "change_pct": -0.21919191919191794,
+      "raw_price": 98.783
+    },
+    "vix": {
+      "price": "16.5",
+      "change_pct": 14.944134078212295,
+      "raw_price": 16.46,
+      "interpretation": "Calme"
+    },
+    "us_10y": {
+      "price": "4.84%",
+      "change_pct": 0.8548790658882293,
+      "raw_price": 4.837,
+      "change_bps": "+4bps"
+    },
+    "earnings_week": [],
+    "insider_buys": [
+      {
+        "insider": "Moroun Matthew T",
+        "company": "Pamt Corp",
+        "ticker": "PAMT",
+        "type": "BUY",
+        "shares": 3268000,
+        "value_usd": 31225740,
+        "date": "2026-09-03"
+      },
+      {
+        "insider": "Meeks Danny",
+        "company": "Greenwave Technology Solutions, Inc.",
+        "ticker": "GWAV",
+        "type": "BUY",
+        "shares": 2152853,
+        "value_usd": 8000002,
+        "date": "2026-08-27"
+      },
+      {
+        "insider": "Courtis Kenneth S.",
+        "company": "Alpha Metallurgical Resources, Inc.",
+        "ticker": "AMR",
+        "type": "BUY",
+        "shares": 10000,
+        "value_usd": 2258289,
+        "date": "2026-09-08"
+      },
+      {
+        "insider": "So Eric H. L.",
+        "company": "Cybin Inc.",
+        "ticker": "CYBN",
+        "type": "BUY",
+        "shares": 95000,
+        "value_usd": 1121475,
+        "date": "2026-09-01"
+      },
+      {
+        "insider": "Glavine Paul",
+        "company": "Cybin Inc.",
+        "ticker": "CYBN",
+        "type": "BUY",
+        "shares": 90000,
+        "value_usd": 1042677,
+        "date": "2026-08-31"
+      },
+      {
+        "insider": "Meniane David",
+        "company": "Carparts.Com, Inc.",
+        "ticker": "PRTS",
+        "type": "BUY",
+        "shares": 79539,
+        "value_usd": 749239,
+        "date": "2026-09-04"
+      },
+      {
+        "insider": "Huffaker Michael",
+        "company": "Carparts.Com, Inc.",
+        "ticker": "PRTS",
+        "type": "BUY",
+        "shares": 79458,
+        "value_usd": 748462,
+        "date": "2026-09-04"
+      },
+      {
+        "insider": "Opaleye Management Inc.",
+        "company": "Sol-Gel Technologies Ltd.",
+        "ticker": "SLGL",
+        "type": "BUY",
+        "shares": 9976,
+        "value_usd": 687160,
+        "date": "2026-09-04"
+      },
+      {
+        "insider": "Teague Aj",
+        "company": "Solaris Energy Infrastructure, Inc.",
+        "ticker": "SEI",
+        "type": "BUY",
+        "shares": 7800,
+        "value_usd": 500994,
+        "date": "2026-09-08"
+      },
+      {
+        "insider": "Ault Milton C III",
+        "company": "Hyperscale Data, Inc.",
+        "ticker": "GPUS",
+        "type": "BUY",
+        "shares": 2148691,
+        "value_usd": 406517,
+        "date": "2026-09-03"
+      },
+      {
+        "insider": "Seidman Lawrence B",
+        "company": "Bankwell Financial Group, Inc.",
+        "ticker": "BWFG",
+        "type": "BUY",
+        "shares": 5266,
+        "value_usd": 352507,
+        "date": "2026-09-08"
+      },
+      {
+        "insider": "Donegal Mutual Insurance Co",
+        "company": "Donegal Group Inc",
+        "ticker": "DGICA",
+        "type": "BUY",
+        "shares": 16368,
+        "value_usd": 314844,
+        "date": "2026-09-04"
+      },
+      {
+        "insider": "Apeiron Investment Group Ltd.",
+        "company": "Enhanced Group Inc.",
+        "ticker": "ENHA",
+        "type": "BUY",
+        "shares": 179713,
+        "value_usd": 286349,
+        "date": "2026-09-04"
+      },
+      {
+        "insider": "Peyovich Daniel S",
+        "company": "Dycom Industries Inc",
+        "ticker": "DY",
+        "type": "BUY",
+        "shares": 850,
+        "value_usd": 252246,
+        "date": "2026-09-09"
+      },
+      {
+        "insider": "Grube James",
+        "company": "Gamestop Corp.",
+        "ticker": "GME",
+        "type": "BUY",
+        "shares": 10255,
+        "value_usd": 196076,
+        "date": "2026-09-09"
+      },
+      {
+        "insider": "Shannon Thomas F.",
+        "company": "Lucky Strike Entertainment Corp",
+        "ticker": "LUCK",
+        "type": "BUY",
+        "shares": 30000,
+        "value_usd": 175800,
+        "date": "2026-09-09"
+      },
+      {
+        "insider": "Shapiro Richard A",
+        "company": "Evolv Technologies Holdings, Inc.",
+        "ticker": "EVLV",
+        "type": "BUY",
+        "shares": 32600,
+        "value_usd": 161739,
+        "date": "2026-09-04"
+      },
+      {
+        "insider": "Cheever Charlie E III",
+        "company": "Cv Sciences, Inc.",
+        "ticker": "CVSI",
+        "type": "BUY",
+        "shares": 5740816,
+        "value_usd": 114816,
+        "date": "2026-07-16"
+      },
+      {
+        "insider": "Chubb Thomas Caldecot III",
+        "company": "Oxford Industries Inc",
+        "ticker": "OXM",
+        "type": "BUY",
+        "shares": 3500,
+        "value_usd": 108268,
+        "date": "2026-09-09"
+      },
+      {
+        "insider": "Kalbermatten Adam R",
+        "company": "Koru Medical Systems, Inc.",
+        "ticker": "KRMD",
+        "type": "BUY",
+        "shares": 32000,
+        "value_usd": 101120,
+        "date": "2026-09-08"
+      }
+    ],
+    "sectors": {
+      "technologie": {
+        "symbol": "XLK",
+        "price": 187.87,
+        "change_pct": 2.3
+      },
+      "finance": {
+        "symbol": "XLF",
+        "price": 57.06,
+        "change_pct": -0.24
+      },
+      "sante": {
+        "symbol": "XLV",
+        "price": 166.58,
+        "change_pct": -2.96
+      },
+      "energie": {
+        "symbol": "XLE",
+        "price": 65.31,
+        "change_pct": 0.83
+      },
+      "industrie": {
+        "symbol": "XLI",
+        "price": 171.79,
+        "change_pct": -0.54
+      },
+      "consommation": {
+        "symbol": "XLY",
+        "price": 112.46,
+        "change_pct": -1.86
+      },
+      "staples": {
+        "symbol": "XLP",
+        "price": 83.05,
+        "change_pct": -2.58
+      },
+      "materiaux": {
+        "symbol": "XLB",
+        "price": 51.39,
+        "change_pct": -1.31
+      },
+      "immobilier": {
+        "symbol": "XLRE",
+        "price": 43.41,
+        "change_pct": -1.43
+      },
+      "services": {
+        "symbol": "XLC",
+        "price": 110.83,
+        "change_pct": -0.05
+      },
+      "utilities": {
+        "symbol": "XLU",
+        "price": 42.94,
+        "change_pct": 0.89
+      },
+      "_breadth": {
+        "pct_secteurs_hausse": 27,
+        "meilleur": {
+          "nom": "technologie",
+          "change_pct": 2.3
+        },
+        "pire": {
+          "nom": "sante",
+          "change_pct": -2.96
+        },
+        "sentiment": "bearish"
+      }
+    },
+    "fred": {
+      "yield_curve_10y2y": {
+        "value": 0.4,
+        "prev": 0.41,
+        "change": -0.01,
+        "unit": "points",
+        "date": "2026-09-09"
+      },
+      "jobless_claims": {
+        "value": 206000.0,
+        "prev": 204000.0,
+        "change": 2000.0,
+        "unit": "milliers",
+        "date": "2026-08-29"
+      },
+      "housing_starts": {
+        "value": 1239.0,
+        "prev": 1415.0,
+        "change": -176.0,
+        "unit": "milliers annualisé",
+        "date": "2026-07-01"
+      },
+      "consumer_confidence": {
+        "value": 55.2,
+        "prev": 49.5,
+        "change": 5.7,
+        "unit": "indice",
+        "date": "2026-07-01"
+      },
+      "hy_spread": {
+        "value": 7.22,
+        "prev": 7.2,
+        "change": 0.02,
+        "unit": "bps",
+        "date": "2026-09-08"
+      },
+      "median_home_price": {
+        "value": 393800.0,
+        "prev": 403100.0,
+        "change": -9300.0,
+        "unit": "USD",
+        "date": "2026-07-01"
+      }
+    },
+    "fed_watch": {
+      "fed_hold_prob": null,
+      "fed_cut_prob": null
+    }
+  },
+  "market_hot_stocks": [
+    {
+      "ticker": "NET",
+      "name": "Réseau cloud",
+      "price": 314.18,
+      "change_1d": 10.5,
+      "change_5d": 3.0,
+      "reason": ""
+    },
+    {
+      "ticker": "DDOG",
+      "name": "Observabilité",
+      "price": 225.27,
+      "change_1d": 7.2,
+      "change_5d": -5.0,
+      "reason": ""
+    },
+    {
+      "ticker": "META",
+      "name": "Big Tech / IA",
+      "price": 653.69,
+      "change_1d": 6.6,
+      "change_5d": 14.2,
+      "reason": ""
+    },
+    {
+      "ticker": "MRVL",
+      "name": "Semi-conducteurs",
+      "price": 235.01,
+      "change_1d": 4.3,
+      "change_5d": 11.0,
+      "reason": ""
+    },
+    {
+      "ticker": "MRNA",
+      "name": "Biotech ARNm",
+      "price": 135.61,
+      "change_1d": -3.4,
+      "change_5d": -3.4,
+      "reason": ""
+    }
+  ],
+  "market_crash": {
+    "crash_score": 2.5,
+    "color": "🟢",
+    "interpretation": "Risque systémique faible",
+    "factors": [
+      {
+        "indicator": "Courbe 10Y-2Y",
+        "value": "+0.40%",
+        "points": 0.0,
+        "label": "Courbe normale (+0.40%)"
+      },
+      {
+        "indicator": "Spread HY",
+        "value": "7.2%",
+        "points": 2.5,
+        "label": "Spread HY 7.2% — stress crédit élevé"
+      },
+      {
+        "indicator": "VIX",
+        "value": "16.5",
+        "points": 0.0,
+        "label": "VIX 16 — calme"
+      }
+    ],
+    "yield_curve": 0.4,
+    "hy_spread": 7.22,
+    "vix": 16.46,
+    "updated_at": "2026-09-09T23:46:22.459086+00:00"
+  },
+  "ecommerce_dashboard": {
+    "stocks": [
+      {
+        "nom": "Wayfair",
+        "ticker": "W",
+        "price": 100.12,
+        "change_pct": 6.65
+      },
+      {
+        "nom": "PayPal",
+        "ticker": "PYPL",
+        "price": 52.17,
+        "change_pct": -0.44
+      },
+      {
+        "nom": "Amazon",
+        "ticker": "AMZN",
+        "price": 252.4,
+        "change_pct": -0.99
+      },
+      {
+        "nom": "Global-e",
+        "ticker": "GLBE",
+        "price": 36.11,
+        "change_pct": -2.38
+      },
+      {
+        "nom": "Sea Limited",
+        "ticker": "SE",
+        "price": 108.71,
+        "change_pct": -3.5
+      },
+      {
+        "nom": "MercadoLibre",
+        "ticker": "MELI",
+        "price": 1876.33,
+        "change_pct": -4.44
+      },
+      {
+        "nom": "Shopify",
+        "ticker": "SHOP",
+        "price": 126.79,
+        "change_pct": -9.32
+      },
+      {
+        "nom": "Chewy",
+        "ticker": "CHWY",
+        "price": 20.75,
+        "change_pct": -12.52
+      },
+      {
+        "nom": "Etsy",
+        "ticker": "ETSY",
+        "price": 71.19,
+        "change_pct": -12.92
+      },
+      {
+        "nom": "Klaviyo",
+        "ticker": "KVYO",
+        "price": 16.27,
+        "change_pct": -21.17
+      }
+    ],
+    "secteur": {
+      "pct_hausse": 10,
+      "moyenne_pct": -6.1,
+      "meilleur": {
+        "nom": "Wayfair",
+        "ticker": "W",
+        "price": 100.12,
+        "change_pct": 6.65
+      },
+      "pire": {
+        "nom": "Klaviyo",
+        "ticker": "KVYO",
+        "price": 16.27,
+        "change_pct": -21.17
+      },
+      "sentiment": "sous pression"
+    }
+  },
+  "ecommerce_themes": {
+    "marketplace": 34,
+    "automation": 15,
+    "creatives": 26,
+    "operations": 9,
+    "emailing": 15
+  },
+  "outils_usages": {
+    "video": 13,
+    "produit_gagnant": 1,
+    "analyse_marche": 2,
+    "scraping": 5,
+    "pub": 20,
+    "fiches_produit": 1,
+    "skill_claude": 10,
+    "automatisation": 6
+  },
+  "compte_news": {
+    "ai": 68,
+    "trending": 45,
+    "crypto": 71,
+    "market": 36,
+    "deeptech": 65,
+    "ecommerce": 99,
+    "outils": 58
+  }
+}
