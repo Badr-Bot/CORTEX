@@ -1,30 +1,29 @@
 {
   "date": "2026-09-10",
-  "collecte_le": "2026-09-09 23:46 UTC",
+  "collecte_le": "2026-09-10 05:03 UTC",
   "crypto_dashboard": {
-    "btc_dominance": 58.6,
-    "total_volume_24h": 94537390682.99483,
-    "market_cap_change": -3.5,
-    "btc_price": 78212,
-    "btc_change_24h": -0.3,
+    "btc_dominance": 58.5,
+    "total_volume_24h": 95072784255.89882,
+    "market_cap_change": -3.9,
+    "btc_price": 78375,
+    "btc_change_24h": -0.9,
     "btc_price_source": "CoinGecko",
-    "fear_greed_score": 66,
+    "fear_greed_score": 69,
     "fear_greed_label": "Avidité",
-    "fear_greed_trend": "en hausse",
-    "fear_greed_avg_7d": 70,
-    "open_interest_btc": 8410656640.0,
-    "long_short_ratio": 0.5533919878522621,
+    "fear_greed_trend": "en baisse",
+    "fear_greed_avg_7d": 71,
+    "open_interest_btc": 0.0,
+    "long_short_ratio": 0.5,
     "mempool_fee": 1,
     "liq_longs_24h_usd": 0,
     "liq_shorts_24h_usd": 0,
     "liq_dominance": "N/A",
-    "funding_description": "Neutres (0.004%)",
+    "funding_description": "Neutres (0.000%)",
     "exchange_flows": {
-      "binance_vol_24h_usd": 1114643752,
-      "top5_exchanges_vol_btc": 220058.9,
-      "trend": "indecis",
-      "pression": "neutre",
-      "btc_change_24h_pct": -0.26
+      "binance_vol_24h_usd": 0,
+      "top5_exchanges_vol_btc": 223116.1,
+      "trend": "faible_volume",
+      "pression": "neutre"
     },
     "cycle": {
       "phase": "Markup",
@@ -45,19 +44,19 @@
       "raw_price": 26253.34
     },
     "gold": {
-      "price": "$4,438",
-      "change_pct": -1.2022174232473228,
-      "raw_price": 4437.7
+      "price": "$4,451",
+      "change_pct": 0.480834349180554,
+      "raw_price": 4451.1
     },
     "oil": {
-      "price": "$97.1",
-      "change_pct": 6.385542168674697,
-      "raw_price": 97.13
+      "price": "$96.2",
+      "change_pct": 5.126803672933971,
+      "raw_price": 96.17
     },
     "dxy": {
       "price": "98.8",
-      "change_pct": -0.21919191919191794,
-      "raw_price": 98.783
+      "change_pct": -0.41347317466720107,
+      "raw_price": 98.75
     },
     "vix": {
       "price": "16.5",
@@ -74,13 +73,13 @@
     "earnings_week": [],
     "insider_buys": [
       {
-        "insider": "Moroun Matthew T",
-        "company": "Pamt Corp",
-        "ticker": "PAMT",
+        "insider": "Akkaraju Srinivas",
+        "company": "Alumis Inc.",
+        "ticker": "ALMS",
         "type": "BUY",
-        "shares": 3268000,
-        "value_usd": 31225740,
-        "date": "2026-09-03"
+        "shares": 986721,
+        "value_usd": 10726255,
+        "date": "2026-09-04"
       },
       {
         "insider": "Meeks Danny",
@@ -441,7 +440,7 @@
     "yield_curve": 0.4,
     "hy_spread": 7.22,
     "vix": 16.46,
-    "updated_at": "2026-09-09T23:46:22.459086+00:00"
+    "updated_at": "2026-09-10T05:03:20.035677+00:00"
   },
   "ecommerce_dashboard": {
     "stocks": [
@@ -525,29 +524,29 @@
     }
   },
   "ecommerce_themes": {
-    "marketplace": 34,
-    "automation": 15,
+    "marketplace": 31,
+    "automation": 17,
     "creatives": 26,
-    "operations": 9,
-    "emailing": 15
+    "operations": 10,
+    "emailing": 17
   },
   "outils_usages": {
-    "video": 13,
+    "video": 14,
     "produit_gagnant": 1,
     "analyse_marche": 2,
     "scraping": 5,
-    "pub": 20,
+    "pub": 18,
     "fiches_produit": 1,
-    "skill_claude": 10,
+    "skill_claude": 9,
     "automatisation": 6
   },
   "compte_news": {
-    "ai": 68,
+    "ai": 90,
     "trending": 45,
-    "crypto": 71,
-    "market": 36,
+    "crypto": 63,
+    "market": 41,
     "deeptech": 65,
-    "ecommerce": 99,
-    "outils": 58
+    "ecommerce": 101,
+    "outils": 56
   }
 }
