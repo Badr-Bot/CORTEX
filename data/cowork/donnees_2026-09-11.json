@@ -1,0 +1,371 @@
+{
+  "date": "2026-09-11",
+  "collecte_le": "2026-09-10 23:38 UTC",
+  "crypto_dashboard": {
+    "btc_dominance": 0,
+    "total_volume_24h": 0,
+    "market_cap_change": 0,
+    "btc_price": 76736,
+    "btc_change_24h": -1.9,
+    "btc_price_source": "CoinGecko",
+    "fear_greed_score": 69,
+    "fear_greed_label": "Avidité",
+    "fear_greed_trend": "en baisse",
+    "fear_greed_avg_7d": 71,
+    "open_interest_btc": 0.0,
+    "long_short_ratio": 0.5,
+    "mempool_fee": 3,
+    "liq_longs_24h_usd": 0,
+    "liq_shorts_24h_usd": 0,
+    "liq_dominance": "N/A",
+    "funding_description": "Neutres (0.000%)",
+    "exchange_flows": {
+      "binance_vol_24h_usd": 0,
+      "top5_exchanges_vol_btc": 225202.1,
+      "trend": "faible_volume",
+      "pression": "neutre"
+    },
+    "cycle": {
+      "phase": "Markup",
+      "emoji": "🟢",
+      "conseil": "Phase haussière active — tenir ou ajouter sur replis",
+      "cycle_score": 1
+    }
+  },
+  "market_dashboard": {
+    "sp500": {
+      "price": "7,592",
+      "change_pct": -0.9769650170871123,
+      "raw_price": 7591.7
+    },
+    "nasdaq": {
+      "price": "26,082",
+      "change_pct": -0.519131446042648,
+      "raw_price": 26081.725
+    },
+    "gold": {
+      "price": "$4,359",
+      "change_pct": -1.6027811639351666,
+      "raw_price": 4358.8
+    },
+    "oil": {
+      "price": "$103.8",
+      "change_pct": 13.500218627022292,
+      "raw_price": 103.83
+    },
+    "dxy": {
+      "price": "99.1",
+      "change_pct": -0.07059298104073536,
+      "raw_price": 99.09
+    },
+    "vix": {
+      "price": "17.8",
+      "change_pct": 22.780454232622166,
+      "raw_price": 17.84,
+      "interpretation": "Calme"
+    },
+    "us_10y": {
+      "price": "4.94%",
+      "change_pct": 3.8219235615287777,
+      "raw_price": 4.944,
+      "change_bps": "+19bps"
+    },
+    "earnings_week": [],
+    "insider_buys": [],
+    "sectors": {
+      "technologie": {
+        "symbol": "XLK",
+        "price": 185.22,
+        "change_pct": 0.88
+      },
+      "finance": {
+        "symbol": "XLF",
+        "price": 56.87,
+        "change_pct": -1.37
+      },
+      "sante": {
+        "symbol": "XLV",
+        "price": 165.66,
+        "change_pct": -4.22
+      },
+      "energie": {
+        "symbol": "XLE",
+        "price": 64.93,
+        "change_pct": -0.26
+      },
+      "industrie": {
+        "symbol": "XLI",
+        "price": 170.55,
+        "change_pct": -1.29
+      },
+      "consommation": {
+        "symbol": "XLY",
+        "price": 111.96,
+        "change_pct": -2.52
+      },
+      "staples": {
+        "symbol": "XLP",
+        "price": 83.09,
+        "change_pct": -2.85
+      },
+      "materiaux": {
+        "symbol": "XLB",
+        "price": 50.76,
+        "change_pct": -4.14
+      },
+      "immobilier": {
+        "symbol": "XLRE",
+        "price": 43.05,
+        "change_pct": -1.55
+      },
+      "services": {
+        "symbol": "XLC",
+        "price": 111.5,
+        "change_pct": -0.82
+      },
+      "utilities": {
+        "symbol": "XLU",
+        "price": 42.52,
+        "change_pct": -0.35
+      },
+      "_breadth": {
+        "pct_secteurs_hausse": 9,
+        "meilleur": {
+          "nom": "technologie",
+          "change_pct": 0.88
+        },
+        "pire": {
+          "nom": "sante",
+          "change_pct": -4.22
+        },
+        "sentiment": "bearish"
+      }
+    },
+    "fred": {
+      "yield_curve_10y2y": {
+        "value": 0.39,
+        "prev": 0.4,
+        "change": -0.01,
+        "unit": "points",
+        "date": "2026-09-10"
+      },
+      "jobless_claims": {
+        "value": 206000.0,
+        "prev": 207000.0,
+        "change": -1000.0,
+        "unit": "milliers",
+        "date": "2026-09-05"
+      },
+      "housing_starts": {
+        "value": 1239.0,
+        "prev": 1415.0,
+        "change": -176.0,
+        "unit": "milliers annualisé",
+        "date": "2026-07-01"
+      },
+      "consumer_confidence": {
+        "value": 55.2,
+        "prev": 49.5,
+        "change": 5.7,
+        "unit": "indice",
+        "date": "2026-07-01"
+      },
+      "hy_spread": {
+        "value": 7.29,
+        "prev": 7.22,
+        "change": 0.07,
+        "unit": "bps",
+        "date": "2026-09-09"
+      },
+      "median_home_price": {
+        "value": 393800.0,
+        "prev": 403100.0,
+        "change": -9300.0,
+        "unit": "USD",
+        "date": "2026-07-01"
+      }
+    },
+    "fed_watch": {
+      "fed_hold_prob": null,
+      "fed_cut_prob": null
+    }
+  },
+  "market_hot_stocks": [
+    {
+      "ticker": "SOXL",
+      "name": "ETF Semi-conducteurs x3",
+      "price": 115.76,
+      "change_1d": -8.0,
+      "change_5d": 9.3,
+      "reason": ""
+    },
+    {
+      "ticker": "NVAX",
+      "name": "Biotech vaccins",
+      "price": 9.3,
+      "change_1d": -5.6,
+      "change_5d": -8.1,
+      "reason": ""
+    },
+    {
+      "ticker": "MDB",
+      "name": "Base de données",
+      "price": 373.87,
+      "change_1d": 4.3,
+      "change_5d": -13.9,
+      "reason": ""
+    },
+    {
+      "ticker": "SMCI",
+      "name": "Serveurs IA",
+      "price": 37.38,
+      "change_1d": -4.0,
+      "change_5d": 1.8,
+      "reason": ""
+    },
+    {
+      "ticker": "ARM",
+      "name": "Architecture puces IA",
+      "price": 254.18,
+      "change_1d": -3.8,
+      "change_5d": 8.2,
+      "reason": ""
+    }
+  ],
+  "market_crash": {
+    "crash_score": 2.5,
+    "color": "🟢",
+    "interpretation": "Risque systémique faible",
+    "factors": [
+      {
+        "indicator": "Courbe 10Y-2Y",
+        "value": "+0.39%",
+        "points": 0.0,
+        "label": "Courbe normale (+0.39%)"
+      },
+      {
+        "indicator": "Spread HY",
+        "value": "7.3%",
+        "points": 2.5,
+        "label": "Spread HY 7.3% — stress crédit élevé"
+      },
+      {
+        "indicator": "VIX",
+        "value": "17.8",
+        "points": 0.0,
+        "label": "VIX 18 — calme"
+      }
+    ],
+    "yield_curve": 0.39,
+    "hy_spread": 7.29,
+    "vix": 17.84,
+    "updated_at": "2026-09-10T23:38:08.339056+00:00"
+  },
+  "ecommerce_dashboard": {
+    "stocks": [
+      {
+        "nom": "Wayfair",
+        "ticker": "W",
+        "price": 97.45,
+        "change_pct": 3.08
+      },
+      {
+        "nom": "Amazon",
+        "ticker": "AMZN",
+        "price": 251.89,
+        "change_pct": -1.21
+      },
+      {
+        "nom": "PayPal",
+        "ticker": "PYPL",
+        "price": 53.31,
+        "change_pct": -2.49
+      },
+      {
+        "nom": "Sea Limited",
+        "ticker": "SE",
+        "price": 107.69,
+        "change_pct": -4.54
+      },
+      {
+        "nom": "MercadoLibre",
+        "ticker": "MELI",
+        "price": 1906.24,
+        "change_pct": -5.0
+      },
+      {
+        "nom": "Global-e",
+        "ticker": "GLBE",
+        "price": 36.5,
+        "change_pct": -5.93
+      },
+      {
+        "nom": "Shopify",
+        "ticker": "SHOP",
+        "price": 126.6,
+        "change_pct": -10.76
+      },
+      {
+        "nom": "Etsy",
+        "ticker": "ETSY",
+        "price": 71.59,
+        "change_pct": -12.4
+      },
+      {
+        "nom": "Chewy",
+        "ticker": "CHWY",
+        "price": 21.08,
+        "change_pct": -12.78
+      },
+      {
+        "nom": "Klaviyo",
+        "ticker": "KVYO",
+        "price": 16.13,
+        "change_pct": -16.47
+      }
+    ],
+    "secteur": {
+      "pct_hausse": 10,
+      "moyenne_pct": -6.85,
+      "meilleur": {
+        "nom": "Wayfair",
+        "ticker": "W",
+        "price": 97.45,
+        "change_pct": 3.08
+      },
+      "pire": {
+        "nom": "Klaviyo",
+        "ticker": "KVYO",
+        "price": 16.13,
+        "change_pct": -16.47
+      },
+      "sentiment": "sous pression"
+    }
+  },
+  "ecommerce_themes": {
+    "creatives": 26,
+    "marketplace": 27,
+    "automation": 21,
+    "operations": 7,
+    "emailing": 18
+  },
+  "outils_usages": {
+    "video": 14,
+    "produit_gagnant": 1,
+    "analyse_marche": 2,
+    "scraping": 5,
+    "pub": 23,
+    "fiches_produit": 2,
+    "skill_claude": 9,
+    "automatisation": 7
+  },
+  "compte_news": {
+    "ai": 61,
+    "trending": 45,
+    "crypto": 70,
+    "market": 45,
+    "deeptech": 64,
+    "ecommerce": 99,
+    "outils": 63
+  }
+}
